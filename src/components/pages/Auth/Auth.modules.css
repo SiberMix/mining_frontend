@@ -1,0 +1,79 @@
+/* LoginPage.css */
+
+.root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  background: #34383d;
+  color: white;
+}
+
+.error {
+  color: red;
+}
+
+.form {
+  height: 90px;
+  width: 300px;
+  border-radius: 8px;
+  position: relative;
+}
+
+.input {
+  position: relative;
+  display: block;
+  width: 280px;
+  height: 45px;
+  color: white;
+  border: 0;
+  outline: 0;
+  top: -2px;
+  padding: 0 0 0 20px;
+  font-weight: 700;
+  background-color: #232323;
+  font-family: Helvetica,serif;
+}
+
+.input:first-of-type {
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+}
+
+.input:last-of-type {
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 50px #232323 inset;
+  -webkit-text-fill-color: white;
+}
+
+.logo {
+  width: 43vh;
+  padding-bottom: 170px;
+}
+
+.button {
+  display: block;
+  position: absolute;
+  width: 52px;
+  height: 52px;
+  background-color: #232323;
+  border-radius: 50px;
+  outline: 0;
+  z-index: 2;
+  top: 19px;
+  right: -24px;
+  border: 4px solid rgb(52, 56, 61);
+  font-size: 27px;
+  text-indent: 0;
+  padding-bottom: 3px;
+  color: white;
+}
+
+.button:hover {
+  color: #6c86ff;
+  cursor: pointer;
+}

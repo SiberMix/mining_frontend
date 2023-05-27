@@ -1,0 +1,89 @@
+.nameDiv {
+  display: flex;
+  flex-grow: 1;
+}
+.row {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+  padding-bottom: 10px;
+  color: #fff;
+  font-family: Helvetica,serif;
+}
+.trash {
+  padding: 3px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+.geo {
+  padding-left: 3px;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+.edit {
+  padding: 3px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+.geoDiv {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-grow: 1;
+}
+.title {
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+}
+.culture {
+  color: #848484;
+  font-size: 14px;
+}
+.addButton {
+  padding: 0.5rem 0;
+  width: 100%;
+  background-color: #434f2f;
+  cursor: pointer;
+  border: none;
+  border-radius: 3px;
+  color: #c5ef75;
+  font-family: Helvetica, serif;
+  font-size: 0.9rem;
+}
+.root {
+  width: 400px;
+  padding: 1px;
+  background-color: #232323;
+  border-width: 0.5px;
+  max-height: 100vh;
+  overflow-y: scroll;
+  scrollbar-width: none; /* hide the scrollbar in Firefox */
+  -ms-overflow-style: none; /* hide the scrollbar in Edge and IE */
+
+  &::-webkit-scrollbar {
+    width: 0.5rem; /* set the width of the scrollbar */
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #2c2c2c; /* set the color of the track */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #1e1e1e; /* set the color of the thumb */
+  }
+}
+.equipments {
+  padding-left: 5px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 0.2px solid #858585;
+  &:hover {
+    background-color: #616161;
+  }
+}

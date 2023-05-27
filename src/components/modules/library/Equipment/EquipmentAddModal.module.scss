@@ -1,0 +1,11 @@
+.imagesList {
+  display: flex;
+  //flex-direction: row;
+  flex-wrap: wrap;
+}
+.imageField {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+  gap: 10px;
+}

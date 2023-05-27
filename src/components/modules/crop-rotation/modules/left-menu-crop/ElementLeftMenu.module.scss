@@ -1,0 +1,45 @@
+.menuItem{
+  border-bottom: #858585 1px solid;
+  color: #fff;
+  height: 100px;
+  &:hover{
+  background-color: #616161;
+  cursor: pointer;
+  }
+}
+.icon {
+  padding-top: 10px;
+  &Name {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; /* выравнивание по горизонтали */
+    align-items: center; /* выравнивание по вертикали */
+  }
+}
+.plan{
+  display: flex;
+  flex-direction: column;
+  color: #858585;
+  &Number {
+    font-weight: bold;
+    color: #fff;
+  }
+}
+.edit {
+  padding: 3px;
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+}
+.trash {
+  padding: 3px;
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+}
+.geoDiv {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-grow: 1;
+}
