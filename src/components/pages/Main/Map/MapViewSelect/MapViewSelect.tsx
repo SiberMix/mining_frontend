@@ -12,12 +12,43 @@ const layers = [
   {
     name: 'OSM',
     url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-    attribution: 'Map data &copy; OpenStreetMap contributors'
+    subdomains: ['a', 'b', 'c']
   },
   {
     name: 'Esri WorldImagery',
-    url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-    attribution: 'Map data &copy; Esri'
+    url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
+  },
+  {
+    name: 'Esri World Topographic Map',
+    url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}'
+  },
+  {
+    name: 'Wikimedia Maps',
+    url: 'https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png'
+  },
+  {
+    name: 'Stamen Terrain',
+    url: 'http://tile.stamen.com/terrain/{z}/{x}/{y}.png'
+  },
+  {
+    name: '1',
+    url: 'http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',
+    subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+  },
+  {
+    name: '2',
+    url: 'http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}',
+    subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+  },
+  {
+    name: '3',
+    url: 'http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
+    subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+  },
+  {
+    name: '4',
+    url: 'http://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',
+    subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
   }
 ]
 
@@ -35,9 +66,8 @@ const MapViewSelect = () => {
             name={layer.name}
           >
             <TileLayer
-              // attribution={layer.attribution}
               url={layer.url}
-              attribution={layer.attribution}
+              subdomains={layer.subdomains || ''}
             />
           </LayersControl.BaseLayer>
         )
