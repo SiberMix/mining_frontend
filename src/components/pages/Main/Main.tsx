@@ -293,7 +293,7 @@ const MainPage = () => {
                 onChange={(e) => setPolygonName(e.target.value)}
                 style={{ marginBottom: '16px' }}
               />
-            </Modal>
+            </Modal >
             <Map />
           </MainLayout>
         )}
