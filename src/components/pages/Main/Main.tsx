@@ -11,10 +11,8 @@ import {
 import {
   atom,
   useAtom,
-  useAtomValue,
   useSetAtom
 } from 'jotai'
-import styled from 'styled-components'
 import MainLayout from './MainLayout/MainLayout'
 import type { Polygon as PolygonType } from '../../../types'
 
@@ -26,7 +24,6 @@ import { mapService } from '../../../api/map'
 import Preloader from '../../common/preloader/Preloader'
 import SidebarContainer from './Sidebar/SidebarContainer'
 import type PolygonOptions from './MapContainer/PolygonOptions/PoligonOptions'
-import EquipmentList from './MapContainer/EquipmentList/EquipmentList'
 import Map from './Map/Map'
 
 export const polygonsAtom = atom<PolygonType[]>([])
@@ -69,10 +66,9 @@ const MainPage = () => {
   const [polygons, setPolygons] = useAtom(polygonsAtom)
   const [fieldTypes, setFieldTypes] = useAtom(fieldTypesAtom)
 
-  const isDrawing = useAtomValue(isDrawingAtom)
   const setIsFetching = useSetAtom(isFetchingAtom)
   const [polygonData, setPolygonData] = useState<PolygonType | null>(null)
-  const [sidebarState, setSidebarState] = useAtom<any>(SidebarStateAtom)
+  const [sidebarState] = useAtom<any>(SidebarStateAtom)
 
   const [polygonName, setPolygonName] = useState('')
   const [polygonOptions, setPolygonOptions] = useState<PolygonOptions[]>([])
@@ -169,17 +165,6 @@ const MainPage = () => {
     }
   }
 
-  const draw = (ref: any) => {
-    if (!isDrawing) {
-      ref.editor.stopDrawing()
-      return
-    }
-
-    ref.editor.startDrawing()
-
-    ref.editor.events.add('drawingstop', addPolygon)
-  }
-
   const highlightPolygonById = (id: string | number, highlightColor: string) => {
 
     const updatePolygonColorById = (id: string | number, newColor: string) => {
@@ -238,9 +223,6 @@ const MainPage = () => {
   ) {
 
     const polygon = polygons.find(i => i.id === polygonId)
-
-    const temp = JSON.stringify({ ...polygon,
-      sequence: coords })
 
     // Отправляем PUT-запрос с обновленными данными полигона
     await mapService.updatePolygonById(polygonId, polygon, coords)
@@ -302,7 +284,3 @@ const MainPage = () => {
 }
 
 export default MainPage
-
-const MapContainer = styled.div`
-  width: 100%;
-`

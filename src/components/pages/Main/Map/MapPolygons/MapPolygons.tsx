@@ -9,26 +9,31 @@ import 'leaflet-draw'
 import 'leaflet-draw/dist/leaflet.draw.css'
 import type { Polygon as PolygonType } from '../../../../../types/index'
 
-//цвета будем предлогать на выбор при создании поля? Или лучше чтоб они приходили с сервера?
-const greenOptions = { color: 'blue', opacity: .6 }
+const polygonDefaultStyleSettings = {
+  fillOpacity: .63,
+  color: '#fff',
+  opacity: .6,
+  weight: 1
+}
 
 const MapPolygons = () => {
   const [polygons] = useAtom(polygonsAtom)
 
+  console.log('render polygons')
   return (
     <>
       {polygons.map((polygon: PolygonType) => (
         <Polygon
           key={polygon.id}
           positions={polygon.coords as [number, number][]}
-          pathOptions={greenOptions}
+          pathOptions={{ fillColor: polygon.field.color, ...polygonDefaultStyleSettings }}
         >
           <Popup>
             <div>
               {polygon.name}
             </div>
             <div>
-              {`Культура: ${polygon.sequence}`}
+              {`Культура: ${polygon.field.name}`}
             </div>
           </Popup>
         </Polygon>
