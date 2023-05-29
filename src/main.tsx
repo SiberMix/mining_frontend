@@ -1,14 +1,18 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
+import React, { StrictMode } from 'react'
+import { render } from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
 import App from './App'
 import './index.css'
 import { Provider } from 'jotai'
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(<React.StrictMode>
-  <Provider>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </Provider>
-</React.StrictMode>)
+const rootElement = document.getElementById('root')
+render(
+  <StrictMode>
+    <Provider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Provider>
+  </StrictMode>,
+  rootElement
+)

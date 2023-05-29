@@ -9,14 +9,6 @@ import {
 } from 'antd'
 
 import {
-  Map,
-  Polygon,
-  TypeSelector,
-  YMaps,
-  ZoomControl
-} from '@pbe/react-yandex-maps'
-
-import {
   atom,
   useAtom,
   useAtomValue,
@@ -33,8 +25,9 @@ import './styles.css'
 import { mapService } from '../../../api/map'
 import Preloader from '../../common/preloader/Preloader'
 import SidebarContainer from './Sidebar/SidebarContainer'
-import PolygonOptions from './MapContainer/PolygonOptions/PoligonOptions'
+import type PolygonOptions from './MapContainer/PolygonOptions/PoligonOptions'
 import EquipmentList from './MapContainer/EquipmentList/EquipmentList'
+import Map from './Map/Map'
 
 export const polygonsAtom = atom<PolygonType[]>([])
 export const Equipments = atom<Equip[]>([])
@@ -118,8 +111,10 @@ const MainPage = () => {
     ((async () => {
       const fieldTypes = await mapService.getFieldList()
       setFieldTypes(fieldTypes.data)
+      console.log('fieldTypes', fieldTypes.data)
       const polygons = await mapService.getPolygons()
       setPolygons(polygons.data)
+      console.log('polygons', polygons.data)
     }))()
   }, [setFieldTypes, setPolygons])
 
@@ -277,93 +272,31 @@ const MainPage = () => {
 
   return (
     <div style={{ position: 'relative', height: '100vh' }}>
-      {load ? <Preloader /> : (
-        <MainLayout>
-          <SidebarContainer
-            sidebarState={sidebarState}
-            editPolygonHandler={editPolygonHandler}
-            polygonClickHandler={polygonClickHandler}
-          />
-          <Modal
-            title="Добавить поле"
-            open={visibleModal}
-            onCancel={handleCancel}
-            onOk={handleOk}
-          >
-            <Input
-              placeholder="Введите название"
-              value={polygonName}
-              onChange={(e) => setPolygonName(e.target.value)}
-              style={{ marginBottom: '16px' }}
+      {load
+        ? <Preloader />
+        : (
+          <MainLayout>
+            <SidebarContainer
+              sidebarState={sidebarState}
+              editPolygonHandler={editPolygonHandler}
+              polygonClickHandler={polygonClickHandler}
             />
-          </Modal>
-          <MapContainer>
-            <YMaps
-              query={{
-                apikey: '501b839a-c713-4555-aa78-047240c8d224',
-                lang: 'ru_RU',
-                mode: 'release'
-              }}
+            <Modal
+              title="Добавить поле"
+              open={visibleModal}
+              onCancel={handleCancel}
+              onOk={handleOk}
             >
-              <Map
-                instanceRef={ref}
-                // width={
-                //   sidebarState.isPolygonListOpen ? '70vw' :
-                //     sidebarState.isReferenceListOpen ? '83vw' :
-                //       sidebarState.isCalendarOpen ? '83vw' :
-                //         '97.8vw'
-                // }
-                width={sidebarState.isPolygonListOpen ? '70vw' : '97.8vw'}
-                //@ts-ignore
-                width={sidebarState.isReferenceListOpen ? '83vw' : '97.8vw'}
-                width={sidebarState.isCalendarOpen ? '83vw' : '97.8vw'}
-                options={{ suppressMapOpenBlock: true }}
-                height="100vh"
-                defaultState={{
-                  center: [54.925946, 82.775931],
-                  zoom: 15,
-                  type: 'yandex#satellite'
-                }}
-                modules={['geoObject.addon.editor', 'geoObject.addon.balloon', 'geoObject.addon.hint']}
-
-              >
-                <ZoomControl
-                  options={{ size: 'small', position: { top: 10, right: 10 } }}
-                />
-                <TypeSelector
-                  //@ts-ignore
-                  options={{ position: { top: 10, right: 50 } }}
-                  //@ts-ignore
-                  defaultState={{ expanded: false }}
-                />
-                <PolygonOptions polygonOptions={polygonOptions} />
-                <div>
-                  <div>
-                    <EquipmentList equipmentList={equipmentList} />
-                  </div>
-                </div>
-                <Polygon
-                  instanceRef={(ref) => ref && draw(ref)}
-                  geometry={[]}
-                  options={{
-                    cursor: 'crosshair',
-                    fillColor: '#28b6fe',
-                    fillOpacity: 0.4,
-                    // Цвет обводки.
-                    strokeColor: '#28b6fe',
-                    fillImageHref: '/src/assets/icons/lines.png',
-                    // Тип заливки фоном.
-                    fillMethod: 'tile',
-                    // Убираем видимость обводки.
-                    // Ширина обводки.
-                    strokeWidth: 1
-                  }}
-                />
-              </Map>
-            </YMaps>
-          </MapContainer>
-        </MainLayout>
-      )}
+              <Input
+                placeholder="Введите название"
+                value={polygonName}
+                onChange={(e) => setPolygonName(e.target.value)}
+                style={{ marginBottom: '16px' }}
+              />
+            </Modal>
+            <Map />
+          </MainLayout>
+        )}
     </div>
   )
 }

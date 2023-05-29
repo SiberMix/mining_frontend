@@ -1,4 +1,3 @@
-import { Placemark } from '@pbe/react-yandex-maps'
 import React, {
   useEffect,
   useState
@@ -77,23 +76,24 @@ const EquipmentList:React.FC<Props> = ({ equipmentList }) => {
         }
 
         return (
-          <Placemark
-            key={coordsData.imei}
-            geometry={[coordsData.lat, coordsData.lon]}
-            options={{
-              iconLayout: 'default#image',
-              iconImageHref: new URL(
-                `./equipment-assets/${image_status}.svg`,
-                import.meta.url
-              ).href,
-              iconColor: 'red'
-            }}
-            instanceRef={(polygon) => {
-              if (polygon) {
-                polygon.events.add('click', handleMouseEnter)
-              }
-            }}
-          />
+          // <Placemark
+          //   key={coordsData.imei}
+          //   geometry={[coordsData.lat, coordsData.lon]}
+          //   options={{
+          //     iconLayout: 'default#image',
+          //     iconImageHref: new URL(
+          //       `./equipment-assets/${image_status}.svg`,
+          //       import.meta.url
+          //     ).href,
+          //     iconColor: 'red'
+          //   }}
+          //   instanceRef={(polygon) => {
+          //     if (polygon) {
+          //       polygon.events.add('click', handleMouseEnter)
+          //     }
+          //   }}
+          // />
+          <div />
         )
       })}
     </>
