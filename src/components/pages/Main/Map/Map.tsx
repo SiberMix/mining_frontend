@@ -16,7 +16,11 @@ import { EditControl } from 'react-leaflet-draw'
 import MapViewSelect from './MapViewSelect/MapViewSelect'
 import MapPolygons from './MapPolygons/MapPolygons'
 
-const Map = () => {
+type Props = {
+  selectedPolygon: number | undefined
+}
+
+const Map: React.FC<Props> = ({ selectedPolygon }) => {
 
   return (
     <MapContainer
@@ -28,7 +32,7 @@ const Map = () => {
       <MapViewSelect />
       <FeatureGroup>
         <EditControl
-          position="topleft"
+          position="topright"
           // onEdited={this._onEditPath}
           // onCreated={this._onCreate}
           // onDeleted={this._onDeleted}
@@ -42,7 +46,7 @@ const Map = () => {
           }}
         />
       </FeatureGroup>
-      <MapPolygons />
+      <MapPolygons selectedPolygon={selectedPolygon} />
 
       <Marker position={[54.925946, 82.775931]}>
         <Popup>

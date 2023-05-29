@@ -16,11 +16,10 @@ import PolygonPreview from '../PolygonPreview/PolygonPreview'
 import { mapService } from '../../../../api/map'
 
 const PolygonList: React.FC<{
-  onPolygonClick: (id: string | number) => void,
   onEdit: (id: string | number) => void,
-  onPolygonOption?: (id: string | number) => void
-
-}> = ({ onPolygonClick, onEdit, onPolygonOption }) => {
+  onPolygonOption?: (id: string | number) => void,
+  handleItemClick: (index: number) => void
+}> = ({ onEdit, onPolygonOption, handleItemClick }) => {
 
   const [isFetching, setIsFetching] = useAtom(isFetchingAtom)
   const [polygons, setPolygons] = useAtom(polygonsAtom)
@@ -116,10 +115,10 @@ const PolygonList: React.FC<{
         return (
           <PolygonPreview
             onEditPolygon={() => onEdit(polygon.id)}
-            onPolygonClick={() => onPolygonClick(polygon.id)}
             polygon={polygon}
             onDelete={() => deleteHandler(polygon.id)}
             key={polygon.id}
+            handleItemClick={handleItemClick}
           />
         )
       })}

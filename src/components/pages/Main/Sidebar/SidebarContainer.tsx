@@ -12,27 +12,27 @@ import {
 type Props = {
   sidebarState: any,
   editPolygonHandler: any,
-  polygonClickHandler: any
+  handleItemClick: (index: number) => void
 }
 
-const SidebarContainer: React.FC<Props> = ({ sidebarState, editPolygonHandler, polygonClickHandler }) => {
+const SidebarContainer: React.FC<Props> = ({ sidebarState, editPolygonHandler, handleItemClick }) => {
   return (
     <Sidebar>
       <TransitionGroup>
         {sidebarState.isPolygonListOpen
           ? <CSSTransition
-            classNames='sidebar'
+            classNames="sidebar"
             timeout={300}
           >
             <PolygonList
               onEdit={editPolygonHandler}
-              onPolygonClick={polygonClickHandler}
+              handleItemClick={handleItemClick}
             />
           </CSSTransition>
           : null}
         {sidebarState.isEquipmentListOpen
           ? <CSSTransition
-            classNames='sidebar'
+            classNames="sidebar"
             timeout={300}
           >
             <LibraryList />
@@ -40,7 +40,7 @@ const SidebarContainer: React.FC<Props> = ({ sidebarState, editPolygonHandler, p
           : null}
         {sidebarState.isFieldListOpen
           ? <CSSTransition
-            classNames='sidebar'
+            classNames="sidebar"
             timeout={300}
           >
             <FieldList />
@@ -48,7 +48,7 @@ const SidebarContainer: React.FC<Props> = ({ sidebarState, editPolygonHandler, p
           : null}
         {sidebarState.isCalendarOpen
           ? <CSSTransition
-            classNames='sidebar'
+            classNames="sidebar"
             timeout={300}
           >
             <CropRotation active />
@@ -59,4 +59,4 @@ const SidebarContainer: React.FC<Props> = ({ sidebarState, editPolygonHandler, p
   )
 }
 
-export default React.memo(SidebarContainer);
+export default React.memo(SidebarContainer)

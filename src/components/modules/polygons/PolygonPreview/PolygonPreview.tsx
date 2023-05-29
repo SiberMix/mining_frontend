@@ -19,11 +19,11 @@ const PolygonPreview: React.FC<{
   polygon: Polygon,
   onDelete?: () => void,
   onEditPolygon?: () => void,
-  onPolygonClick?: () => void
+  handleItemClick: (index: number) => void
 }> = ({ polygon,
   onDelete,
   onEditPolygon,
-  onPolygonClick }) => {
+  handleItemClick }) => {
   const [polygons, setPolygons] = useAtom(polygonsAtom)
   const [showEditNameModal, setShowEditNameModal] = useState(false)
   const toggleEditNameModal = () => setShowEditNameModal(!showEditNameModal)
@@ -61,7 +61,7 @@ const PolygonPreview: React.FC<{
               <img
                 className={cn(s.geo)}
                 src={GeoBox}
-                onClick={onPolygonClick}
+                onClick={() => handleItemClick(+polygon.id)}
                 alt=""
                 title="Перейти к полигону на карте"
               />
@@ -116,7 +116,7 @@ const PolygonPreview: React.FC<{
         onCancel={toggleEditNameModal}
       />
       <EditPolygonTypeModal
-        initialValue={polygon.sequence}
+        initialValue={polygon.field.name}
         visible={showEditTypeModal}
         onOk={handleChangeType}
         onCancel={toggleEditTypeModal}

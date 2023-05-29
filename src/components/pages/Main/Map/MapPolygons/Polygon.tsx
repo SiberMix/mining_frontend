@@ -1,0 +1,52 @@
+import {
+  Polygon,
+  Popup,
+  useMap
+} from 'react-leaflet'
+import React, {
+  useEffect,
+  useRef
+} from 'react'
+import type { Polygon as PolygonType } from '../../../../../types'
+import type { PolygonDefaultStyleSettings } from './MapPolygons'
+import { control } from 'leaflet'
+import zoom = control.zoom
+
+type Props = {
+  polygon: PolygonType,
+  polygonDefaultStyleSettings: PolygonDefaultStyleSettings,
+  selectedPolygon: number | undefined
+}
+
+const OnePolygon: React.FC<Props> = ({ polygon, polygonDefaultStyleSettings, selectedPolygon }) => {
+  const map = useMap()
+  //из-за библиотеки react-leafet нужно указать в типизации any
+  const polygonRef = useRef<any>(null)
+
+  useEffect(() => {
+    if (selectedPolygon === polygon.id) {
+      map?.flyTo(polygon.middle_coord, 13, { animate: false })
+      polygonRef.current?.openPopup()
+    }
+  }, [selectedPolygon])
+
+  return (
+    <Polygon
+      ref={polygonRef}
+      key={polygon.id}
+      positions={polygon.coords as [number, number][]}
+      pathOptions={{ fillColor: polygon.field.color, ...polygonDefaultStyleSettings }}
+    >
+      <Popup>
+        <div>
+          {polygon.name}
+        </div>
+        <div>
+          {`Культура: ${polygon.field.name}`}
+        </div>
+      </Popup>
+    </Polygon>
+  )
+}
+
+export default OnePolygon

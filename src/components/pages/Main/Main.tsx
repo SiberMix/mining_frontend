@@ -23,7 +23,6 @@ import './styles.css'
 import { mapService } from '../../../api/map'
 import Preloader from '../../common/preloader/Preloader'
 import SidebarContainer from './Sidebar/SidebarContainer'
-import type PolygonOptions from './MapContainer/PolygonOptions/PoligonOptions'
 import Map from './Map/Map'
 
 export const polygonsAtom = atom<PolygonType[]>([])
@@ -31,19 +30,6 @@ export const Equipments = atom<Equip[]>([])
 export const isDrawingAtom = atom(false)
 export const isFetchingAtom = atom(false)
 export const fieldTypesAtom = atom([])
-
-interface PolygonOptions {
-  id: string,
-  coords: [number, number][],
-  color: string,
-  options: {
-    fillColor: string,
-    fillOpacity: number,
-    strokeColor: string,
-    strokeWidth: number,
-    opacity: number
-  }
-}
 
 function trianglesCheck<T>(arr: T[]) {
   if (arr.length < 5) {
@@ -71,35 +57,12 @@ const MainPage = () => {
   const [sidebarState] = useAtom<any>(SidebarStateAtom)
 
   const [polygonName, setPolygonName] = useState('')
-  const [polygonOptions, setPolygonOptions] = useState<PolygonOptions[]>([])
   const [equipmentList, setEquipmentList] = useState<Equip[]>([])
 
   useEffect(() => {
     // Получаем список оборудования с имей через API
     mapService.getEquips().then(data => setEquipmentList(data.data))
   }, [])
-
-  useEffect(() => {
-    const updatedOptions = polygons.map(({ coords, id, sequence }) => {
-
-      const fieldType: any = fieldTypes.find((fieldType: any) => fieldType.name === sequence)
-      const color = fieldType ? fieldType.color : '#6c86ff'
-      return {
-        id,
-        coords,
-        color,
-        options: {
-          fillColor: color,
-          fillOpacity: 0.63,
-          strokeColor: '#fff',
-          strokeWidth: 1,
-          opacity: 0.6
-        }
-      }
-    })
-    // @ts-ignore
-    Promise.all(updatedOptions).then((options) => setPolygonOptions(options))
-  }, [polygons])
 
   const [visibleModal, setVisibleModal] = useState(false)
 
@@ -165,34 +128,6 @@ const MainPage = () => {
     }
   }
 
-  const highlightPolygonById = (id: string | number, highlightColor: string) => {
-
-    const updatePolygonColorById = (id: string | number, newColor: string) => {
-      setPolygonOptions(polygonOptions.map((item: any) => {
-        if (item.id === id) {
-          return { ...item, color: newColor, options: { ...item.options, fillColor: newColor } }
-        }
-        return item
-
-      }))
-    }
-
-    updatePolygonColorById(id, highlightColor)
-    setTimeout(() => {
-      // @ts-ignore
-      updatePolygonColorById(id, polygonOptions.find((item) => item.id === id).color)
-    }, 300) // время задержки в миллисекундах
-  }
-
-  const polygonClickHandler = (id: string | number) => {
-
-    const middleCoords = polygons.find((p) => p.id === id)?.middle_coord
-
-    ref.current?.setCenter(middleCoords, 14)
-
-    highlightPolygonById(id, '#ffffff')
-  }
-
   const editPolygonHandler = (id: string | number) => {
 
     let edit = true
@@ -252,6 +187,16 @@ const MainPage = () => {
     setIsFetching(false)
   }
 
+  /*
+  * Функционал для перехода к нужному полигону
+  * вынесен на верхний уровень и прокинут к компонентам через пропсы
+  * todo внести в React
+  * */
+  const [selectedPolygon, setSelectedPolygon] = useState<number>()
+  function handleItemClick(id: number) {
+    setSelectedPolygon(id)
+  }
+
   return (
     <div style={{ position: 'relative', height: '100vh' }}>
       {load
@@ -261,7 +206,7 @@ const MainPage = () => {
             <SidebarContainer
               sidebarState={sidebarState}
               editPolygonHandler={editPolygonHandler}
-              polygonClickHandler={polygonClickHandler}
+              handleItemClick={handleItemClick}
             />
             <Modal
               title="Добавить поле"
@@ -276,7 +221,7 @@ const MainPage = () => {
                 style={{ marginBottom: '16px' }}
               />
             </Modal >
-            <Map />
+            <Map selectedPolygon={selectedPolygon} />
           </MainLayout>
         )}
     </div>

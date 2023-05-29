@@ -1,13 +1,15 @@
-import {
-  Polygon,
-  Popup
-} from 'react-leaflet'
+import React from 'react'
 import { useAtom } from 'jotai'
 import { polygonsAtom } from '../../Main'
 import 'leaflet-editable'
 import 'leaflet-draw'
 import 'leaflet-draw/dist/leaflet.draw.css'
 import type { Polygon as PolygonType } from '../../../../../types/index'
+import OnePolygon from './Polygon'
+
+type Props = {
+  selectedPolygon: number | undefined
+}
 
 const polygonDefaultStyleSettings = {
   fillOpacity: .63,
@@ -15,31 +17,23 @@ const polygonDefaultStyleSettings = {
   opacity: .6,
   weight: 1
 }
+export type PolygonDefaultStyleSettings = typeof polygonDefaultStyleSettings
 
-const MapPolygons = () => {
+const MapPolygons: React.FC<Props> = ({ selectedPolygon }) => {
   const [polygons] = useAtom(polygonsAtom)
 
   console.log('render polygons')
   return (
     <>
       {polygons.map((polygon: PolygonType) => (
-        <Polygon
-          key={polygon.id}
-          positions={polygon.coords as [number, number][]}
-          pathOptions={{ fillColor: polygon.field.color, ...polygonDefaultStyleSettings }}
-        >
-          <Popup>
-            <div>
-              {polygon.name}
-            </div>
-            <div>
-              {`Культура: ${polygon.field.name}`}
-            </div>
-          </Popup>
-        </Polygon>
+        <OnePolygon
+          polygon={polygon}
+          polygonDefaultStyleSettings={polygonDefaultStyleSettings}
+          selectedPolygon={selectedPolygon}
+        />
       ))}
     </>
   )
 }
 
-export default MapPolygons
+export default React.memo(MapPolygons)
