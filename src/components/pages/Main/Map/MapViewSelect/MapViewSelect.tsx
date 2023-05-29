@@ -18,11 +18,6 @@ const layers = [
     name: 'Esri WorldImagery',
     url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
     attribution: 'Map data &copy; Esri'
-  },
-  {
-    name: 'Yandex',
-    url: 'https://vec0{s}.maps.yandex.net/tiles?l=map&x={x}&y={y}&z={z}&lang=ru_RU',
-    attribution: 'Данные карт &copy; <a href="https://yandex.ru/maps">Яндекс.Карты</a>'
   }
 ]
 
