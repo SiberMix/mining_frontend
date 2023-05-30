@@ -18,20 +18,20 @@ import { mapService } from '../../../../api/map'
 const PolygonList: React.FC<{
   onEdit: (id: string | number) => void,
   onPolygonOption?: (id: string | number) => void,
-  handleItemClick: (index: number) => void
-}> = ({ onEdit, onPolygonOption, handleItemClick }) => {
+  handleItemClick: (index: number) => void,
+  isDrawing: boolean,
+  setIsDrawing: (isDrawing: any) => void
+}> = ({ onEdit, handleItemClick, setIsDrawing, isDrawing }) => {
 
   const [isFetching, setIsFetching] = useAtom(isFetchingAtom)
   const [polygons, setPolygons] = useAtom(polygonsAtom)
-  const [isDrawing, setIsDrawing] = useAtom(isDrawingAtom)
-  const toggleDrawing = () => setIsDrawing(prev => !prev)
+  const toggleDrawing = () => setIsDrawing((prev: boolean) => !prev)
 
   const numPolygons = polygons.reduce((count, polygon) => {
     if (polygon.coords.length) {
       return count + 1
     }
     return count
-
   }, 0)
 
   function calculateArea(coords: any) {

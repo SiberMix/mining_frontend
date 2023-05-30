@@ -12,10 +12,12 @@ import {
 type Props = {
   sidebarState: any,
   editPolygonHandler: any,
-  handleItemClick: (index: number) => void
+  handleItemClick: (index: number) => void,
+  isDrawing: boolean,
+  setIsDrawing: (isDrawing: boolean) => void
 }
 
-const SidebarContainer: React.FC<Props> = ({ sidebarState, editPolygonHandler, handleItemClick }) => {
+const SidebarContainer: React.FC<Props> = ({ sidebarState, editPolygonHandler, handleItemClick, isDrawing, setIsDrawing }) => {
   return (
     <Sidebar>
       <TransitionGroup>
@@ -27,6 +29,8 @@ const SidebarContainer: React.FC<Props> = ({ sidebarState, editPolygonHandler, h
             <PolygonList
               onEdit={editPolygonHandler}
               handleItemClick={handleItemClick}
+              isDrawing={isDrawing}
+              setIsDrawing={setIsDrawing}
             />
           </CSSTransition>
           : null}

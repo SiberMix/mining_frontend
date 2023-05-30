@@ -24,6 +24,9 @@ import { mapService } from '../../../api/map'
 import Preloader from '../../common/preloader/Preloader'
 import SidebarContainer from './Sidebar/SidebarContainer'
 import Map from './Map/Map'
+import { MapContainer } from 'react-leaflet'
+import * as cn from 'classnames'
+import s from './Map/Map.module.scss'
 
 export const polygonsAtom = atom<PolygonType[]>([])
 export const Equipments = atom<Equip[]>([])
@@ -190,12 +193,20 @@ const MainPage = () => {
   /*
   * Функционал для перехода к нужному полигону
   * вынесен на верхний уровень и прокинут к компонентам через пропсы
-  * todo внести в React
+  * todo внести в Redux
   * */
+
   const [selectedPolygon, setSelectedPolygon] = useState<number>()
   function handleItemClick(id: number) {
     setSelectedPolygon(id)
   }
+
+  /*
+  * функционал для рисования полигонов
+  * todo перенести в Redux
+  * */
+
+  const [isDrawing, setIsDrawing] = useState(false)
 
   return (
     <div style={{ position: 'relative', height: '100vh' }}>
@@ -207,6 +218,8 @@ const MainPage = () => {
               sidebarState={sidebarState}
               editPolygonHandler={editPolygonHandler}
               handleItemClick={handleItemClick}
+              isDrawing={isDrawing}
+              setIsDrawing={setIsDrawing}
             />
             <Modal
               title="Добавить поле"
@@ -221,7 +234,16 @@ const MainPage = () => {
                 style={{ marginBottom: '16px' }}
               />
             </Modal >
-            <Map selectedPolygon={selectedPolygon} />
+            <MapContainer
+              className={cn(s.map)}
+              center={[54.925946, 82.775931]}
+              zoom={13}
+            >
+              <Map
+                selectedPolygon={selectedPolygon}
+                isDrawing={isDrawing}
+              />
+            </MapContainer>
           </MainLayout>
         )}
     </div>
