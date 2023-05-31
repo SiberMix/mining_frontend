@@ -6,6 +6,7 @@ import React, {
 import {
   Marker,
   Polygon,
+  Polyline,
   Popup,
   useMap
 } from 'react-leaflet'
@@ -41,7 +42,7 @@ const DrowingPolygon: React.FC<Props> = ({ isDrawing, setVisibleModal }) => {
     const clickedElement = originalEvent.target
     // Проверяем, находится ли кликнутый элемент внутри PolygonSpotMenu
     const isClickInsidePolygonSpotMenu = clickedElement.closest('.polygon-spot-menu') !== null
-    // Если клик произошел внутри PolygonSpotMenu, игнорируем его
+    // Если клик произошел внутри PolygonSpotMenu, то игнорируем его
     if (isClickInsidePolygonSpotMenu) {
       return
     }
@@ -60,14 +61,14 @@ const DrowingPolygon: React.FC<Props> = ({ isDrawing, setVisibleModal }) => {
   const handleMapMouseMove = useCallback(
     (e: any) => {
 
-      if (futureStart) {
-        const { latlng } = e
-        const {
-          lat,
-          lng
-        } = latlng
-        setFutureEnd([lat, lng])
-      }
+      // if (futureStart) {
+      const { latlng } = e
+      const {
+        lat,
+        lng
+      } = latlng
+      setFutureEnd([lat, lng])
+      // }
     },
     [futureStart]
   )
@@ -163,18 +164,22 @@ const DrowingPolygon: React.FC<Props> = ({ isDrawing, setVisibleModal }) => {
           )
         })}
       </Polygon>
-      {/*{polygonCoords.length > 0*/}
-      {/*  ? <>*/}
-      {/*    <Polyline*/}
-      {/*      positions={[polygonCoords[0], futureEnd] as [number, number][]}*/}
-      {/*      color="red"*/}
-      {/*    />*/}
-      {/*    <Polyline*/}
-      {/*      positions={[polygonCoords[polygonCoords.length - 1], futureEnd] as [number, number][]}*/}
-      {/*      color="red"*/}
-      {/*    />*/}
-      {/*  </>*/}
-      {/*  : null}*/}
+      {polygonCoords.length > 0
+        ? <>
+          <Polyline
+            positions={[polygonCoords[0], futureEnd] as [number, number][]}
+            color="red"
+            pathOptions={polylineStyle}
+            interactive={false}
+          />
+          <Polyline
+            positions={[polygonCoords[polygonCoords.length - 1], futureEnd] as [number, number][]}
+            pathOptions={polylineStyle}
+            color="red"
+            interactive={false}
+          />
+        </>
+        : null}
     </>
   )
 }
@@ -184,6 +189,13 @@ const polygonStyle = {
   stroke: true,
   color: '#19a2d3',
   weight: 2
+}
+
+const polylineStyle = {
+  weight: 2,
+  color: 'red',
+  dashArray: '5, 10',
+  dashOffset: '5'
 }
 
 export default React.memo(DrowingPolygon)
