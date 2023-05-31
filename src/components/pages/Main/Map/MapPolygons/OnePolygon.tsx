@@ -9,8 +9,6 @@ import React, {
 } from 'react'
 import type { Polygon as PolygonType } from '../../../../../types'
 import type { PolygonDefaultStyleSettings } from './MapPolygons'
-import { control } from 'leaflet'
-import zoom = control.zoom
 
 type Props = {
   polygon: PolygonType,

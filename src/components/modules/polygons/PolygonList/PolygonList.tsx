@@ -5,7 +5,6 @@ import React from 'react'
 import { useAtom } from 'jotai'
 import * as turf from '@turf/turf'
 import {
-  isDrawingAtom,
   isFetchingAtom,
   polygonsAtom
 } from '../../../pages/Main/Main'
@@ -58,18 +57,20 @@ const PolygonList: React.FC<{
   const hectares = calculateTotalArea()
 
   const deleteHandler = async (id: string | number) => {
-    try {
-      if (isFetching) return
-      setIsFetching(true)
+    if (confirm('Вы уверены, что хотите удалить полигон?')) {
+      try {
+        if (isFetching) return
+        setIsFetching(true)
 
-      //Удаление полигона по Id
-      await mapService.removePolygonById(id)
+        //Удаление полигона по Id
+        await mapService.removePolygonById(id)
 
-      setPolygons(polygons.filter((p) => p.id !== id))
-    } catch (e) {
-      console.log(e)
-    } finally {
-      setIsFetching(false)
+        setPolygons(polygons.filter((p) => p.id !== id))
+      } catch (e) {
+        console.log(e)
+      } finally {
+        setIsFetching(false)
+      }
     }
   }
 

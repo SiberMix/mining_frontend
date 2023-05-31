@@ -57,8 +57,10 @@ const EquipmentsComponent: React.FC<Props> = ({ equipmentHandleItemClick }) => {
   }
 
   const deleteEquipmentHandler = async (id: number) => {
-    await mapService.deleteEquip(id)
-    fetchListHandler()
+    if (confirm('Вы уверены, что хотите удалить оборудование?')) {
+      await mapService.deleteEquip(id)
+      fetchListHandler()
+    }
   }
 
   const addModalHandler = () => {
