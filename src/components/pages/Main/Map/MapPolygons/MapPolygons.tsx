@@ -25,11 +25,12 @@ const MapPolygons: React.FC<Props> = ({ selectedPolygon }) => {
   console.log('render polygons')
   return (
     <>
-      {polygons.map((polygon: PolygonType) => (
+      {polygons.map((polygon: PolygonType, index: number) => (
         <OnePolygon
           polygon={polygon}
           polygonDefaultStyleSettings={polygonDefaultStyleSettings}
           selectedPolygon={selectedPolygon}
+          key={index}
         />
       ))}
     </>

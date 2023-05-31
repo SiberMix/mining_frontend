@@ -4,26 +4,19 @@ import React, {
   useState
 } from 'react'
 import {
+  Marker,
   Polygon,
-  Polyline,
+  Popup,
   useMap
 } from 'react-leaflet'
-
-// const onPolygonEdit = (event) => {
-//   const updatedCoords = event.target.getLatLngs()[0].map(({ lat, lng }) => [lat, lng])
-//   setPolygonCoords(updatedCoords)
-// }
-// eventHandlers={{
-//   edit: (event) => onPolygonEdit(event)
-// }}
-// editable={true}
+import PolygonSpotMenu from './PolygonSpotMenu'
 
 type Props = {
   isDrawing: boolean
 };
 
 const DrowingPolygon: React.FC<Props> = ({ isDrawing }) => {
-  const [polygonCoords, setPolygonCoords] = useState([])
+  const [polygonCoords, setPolygonCoords] = useState<[number, number][]>([])
   const [futureStart, setFutureStart] = useState<null | [number, number][]>(null)
   const [futureEnd, setFutureEnd] = useState<null | [number, number][]>(null)
 
@@ -32,27 +25,45 @@ const DrowingPolygon: React.FC<Props> = ({ isDrawing }) => {
   /*
   * добавление новой точки полигона по клику
   * */
-
   const handleMapClick = useCallback((e: any) => {
-    const { latlng } = e
-    const { lat, lng } = latlng
+    const {
+      latlng,
+      originalEvent
+    } = e
+    const {
+      lat,
+      lng
+    } = latlng
+
+    // Получаем элемент, на который был произведен клик
+    const clickedElement = originalEvent.target
+    // Проверяем, находится ли кликнутый элемент внутри PolygonSpotMenu
+    const isClickInsidePolygonSpotMenu = clickedElement.closest('.polygon-spot-menu') !== null
+    // Если клик произошел внутри PolygonSpotMenu, игнорируем его
+    if (isClickInsidePolygonSpotMenu) {
+      return
+    }
+
     // добавляем координату для мнимых линий
     if (futureStart === null) {
       setFutureStart([lat, lng])
     }
     setPolygonCoords((prevCoords) => [...prevCoords, [lat, lng]] as any)
-  }, [futureStart])
+  }, [futureStart]) //fixme проверить на обновление
 
   /*
   * определение положения курсора для
   * вспомогательных линий
   * */
-
   const handleMapMouseMove = useCallback(
     (e: any) => {
+
       if (futureStart) {
         const { latlng } = e
-        const { lat, lng } = latlng
+        const {
+          lat,
+          lng
+        } = latlng
         setFutureEnd([lat, lng])
       }
     },
@@ -64,7 +75,6 @@ const DrowingPolygon: React.FC<Props> = ({ isDrawing }) => {
   * click - добавление новой точки полигона
   * mousemove - отрисовка вспомогательных линий
   * */
-
   useEffect(() => {
     if (isDrawing) {
       map.on('click', handleMapClick)
@@ -83,39 +93,64 @@ const DrowingPolygon: React.FC<Props> = ({ isDrawing }) => {
   }, [isDrawing, map, futureStart])
 
   /*
-  * Редактирование полигона (вообще не е*у как она работает)
+  * Редактирование полигона
   * */
-
-  const onPolygonEdit = useCallback((event: any) => {
-    const updatedCoords = event.target.getLatLngs()[0].map(({ lat, lng }: any) => [lat, lng])
-    setPolygonCoords(updatedCoords)
-  }, [polygonCoords])
+  const [editMode, setEditMode] = useState(false)
+  const editEventHandlers = (id: number) => ({
+    dragend(e: any) {
+      const newCoords: [number, number][] = polygonCoords.map((coord, index) => {
+        if (index === id) {
+          return e.target.getLatLng()
+        }
+        return coord
+      })
+      setPolygonCoords(newCoords)
+    }
+  })
 
   return (
     <>
-      {polygonCoords.length > 0 && (
-        <>
-          <Polygon
-            positions={polygonCoords}
-            eventHandlers={{
-              edit: (event) => onPolygonEdit(event)
-            }}
-            editable={true}
-          />
-          {futureStart && futureEnd
-            ? <>
-              <Polyline
-                positions={[polygonCoords[0], futureEnd]}
-                color="red"
+      <Polygon positions={polygonCoords}>
+        {polygonCoords.map((coord, index) => {
+          return (
+            editMode
+              ? <Marker
+                eventHandlers={editEventHandlers(index)}
+                key={index}
+                draggable={true}
+                autoPan={true}
+                position={coord}
+              >
+                <Popup>
+                  <button onClick={(e) => {
+                    e.stopPropagation()
+                    setEditMode(false)
+                  }}
+                  >
+                    Завершить редактирование
+                  </button>
+                </Popup>
+              </Marker>
+              : <PolygonSpotMenu
+                key={index}
+                position={coord}
+                setEditMode={setEditMode}
               />
-              <Polyline
-                positions={[polygonCoords[polygonCoords.length - 1], futureEnd]}
-                color="red"
-              />
-            </>
-            : null}
-        </>
-      )}
+          )
+        })}
+      </Polygon>
+      {/*{polygonCoords.length > 0*/}
+      {/*  ? <>*/}
+      {/*    <Polyline*/}
+      {/*      positions={[polygonCoords[0], futureEnd] as [number, number][]}*/}
+      {/*      color="red"*/}
+      {/*    />*/}
+      {/*    <Polyline*/}
+      {/*      positions={[polygonCoords[polygonCoords.length - 1], futureEnd] as [number, number][]}*/}
+      {/*      color="red"*/}
+      {/*    />*/}
+      {/*  </>*/}
+      {/*  : null}*/}
     </>
   )
 }
