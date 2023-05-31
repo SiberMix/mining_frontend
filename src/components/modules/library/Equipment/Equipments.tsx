@@ -19,6 +19,10 @@ import GeoBox from '/src/assets/icons/GPS-navigate.svg'
 import { mapService } from '../../../../api/map'
 import AddEquipmentModal from './EquipmentAddModal'
 
+type Props = {
+  equipmentHandleItemClick: (imei: number) => void
+}
+
 interface Equipment {
   equip_type: string,
   equip_model: string,
@@ -35,7 +39,7 @@ export const addModalAtom = atom({
   equip: null as Equip | null
 })
 
-const EquipmentsComponent = () => {
+const EquipmentsComponent: React.FC<Props> = ({ equipmentHandleItemClick }) => {
   const setAddModal = useSetAtom(addModalAtom)
   const [equips, setEquip] = useAtom(equipmen)
 
@@ -90,7 +94,7 @@ const EquipmentsComponent = () => {
               <img
                 className={cn(s.geo)}
                 src={GeoBox}
-                onClick={() => console.log('переход к оборудованию на карте')}
+                onClick={() => equipmentHandleItemClick(+equip.imei)}
                 alt=""
                 title="Перейти к оборудованию на карте"
               />

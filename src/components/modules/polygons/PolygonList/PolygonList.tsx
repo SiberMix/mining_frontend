@@ -18,10 +18,10 @@ import { mapService } from '../../../../api/map'
 const PolygonList: React.FC<{
   onEdit: (id: string | number) => void,
   onPolygonOption?: (id: string | number) => void,
-  handleItemClick: (index: number) => void,
+  polygonHandleItemClick: (index: number) => void,
   isDrawing: boolean,
   setIsDrawing: (isDrawing: any) => void
-}> = ({ onEdit, handleItemClick, setIsDrawing, isDrawing }) => {
+}> = ({ onEdit, polygonHandleItemClick, setIsDrawing, isDrawing }) => {
 
   const [isFetching, setIsFetching] = useAtom(isFetchingAtom)
   const [polygons, setPolygons] = useAtom(polygonsAtom)
@@ -118,7 +118,7 @@ const PolygonList: React.FC<{
             polygon={polygon}
             onDelete={() => deleteHandler(polygon.id)}
             key={polygon.id}
-            handleItemClick={handleItemClick}
+            polygonHandleItemClick={polygonHandleItemClick}
           />
         )
       })}

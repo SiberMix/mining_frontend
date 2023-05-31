@@ -60,12 +60,6 @@ const MainPage = () => {
   const [sidebarState] = useAtom<any>(SidebarStateAtom)
 
   const [polygonName, setPolygonName] = useState('')
-  const [equipmentList, setEquipmentList] = useState<Equip[]>([])
-
-  useEffect(() => {
-    // Получаем список оборудования с имей через API
-    mapService.getEquips().then(data => setEquipmentList(data.data))
-  }, [])
 
   const [visibleModal, setVisibleModal] = useState(false)
 
@@ -73,10 +67,8 @@ const MainPage = () => {
     ((async () => {
       const fieldTypes = await mapService.getFieldList()
       setFieldTypes(fieldTypes.data)
-      console.log('fieldTypes', fieldTypes.data)
       const polygons = await mapService.getPolygons()
       setPolygons(polygons.data)
-      console.log('polygons', polygons.data)
     }))()
   }, [setFieldTypes, setPolygons])
 
@@ -98,7 +90,6 @@ const MainPage = () => {
       const end_polygon = coords[0][coords_len - 1]
 
       if (start_polygon !== end_polygon) {
-        console.log(`Коортинаты полигона: ${coords}`)
         alert('Что-то пошло не так, этого не могло произойти')
         return
       }
@@ -197,8 +188,18 @@ const MainPage = () => {
   * */
 
   const [selectedPolygon, setSelectedPolygon] = useState<number>()
-  function handleItemClick(id: number) {
+  function polygonHandleItemClick(id: number) {
     setSelectedPolygon(id)
+  }
+
+  /*
+  * Функцияонал для перехода к оборудованию на карте
+  * todo вынести в Redux
+  * */
+
+  const [selectedEquipment, setSelectedEquipment] = useState<number>()
+  function equipmentHandleItemClick(id: number) {
+    setSelectedEquipment(id)
   }
 
   /*
@@ -217,9 +218,10 @@ const MainPage = () => {
             <SidebarContainer
               sidebarState={sidebarState}
               editPolygonHandler={editPolygonHandler}
-              handleItemClick={handleItemClick}
+              polygonHandleItemClick={polygonHandleItemClick}
               isDrawing={isDrawing}
               setIsDrawing={setIsDrawing}
+              equipmentHandleItemClick={equipmentHandleItemClick}
             />
             <Modal
               title="Добавить поле"
@@ -242,6 +244,8 @@ const MainPage = () => {
               <Map
                 selectedPolygon={selectedPolygon}
                 isDrawing={isDrawing}
+                setVisibleModal={setVisibleModal}
+                selectedEquipment={selectedEquipment}
               />
             </MapContainer>
           </MainLayout>

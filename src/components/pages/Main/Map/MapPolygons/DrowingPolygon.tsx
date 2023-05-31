@@ -9,13 +9,15 @@ import {
   Popup,
   useMap
 } from 'react-leaflet'
-import PolygonSpotMenu from './PolygonSpotMenu'
+import PolygonSpotMenu from './PolygonSpotMenu/PolygonSpotMenu'
 
 type Props = {
-  isDrawing: boolean
+  isDrawing: boolean,
+  setVisibleModal: (showModal: boolean) => void
 };
 
-const DrowingPolygon: React.FC<Props> = ({ isDrawing }) => {
+const DrowingPolygon: React.FC<Props> = ({ isDrawing, setVisibleModal }) => {
+
   const [polygonCoords, setPolygonCoords] = useState<[number, number][]>([])
   const [futureStart, setFutureStart] = useState<null | [number, number][]>(null)
   const [futureEnd, setFutureEnd] = useState<null | [number, number][]>(null)
@@ -49,7 +51,7 @@ const DrowingPolygon: React.FC<Props> = ({ isDrawing }) => {
       setFutureStart([lat, lng])
     }
     setPolygonCoords((prevCoords) => [...prevCoords, [lat, lng]] as any)
-  }, [futureStart]) //fixme проверить на обновление
+  }, [futureStart])
 
   /*
   * определение положения курсора для
@@ -108,9 +110,28 @@ const DrowingPolygon: React.FC<Props> = ({ isDrawing }) => {
     }
   })
 
+  /*
+  * удаление точки
+  * */
+  const deletePolygonSpot = (n: number) => {
+    const newPolygonCoords = polygonCoords.filter((coord, index) => n !== index)
+    setPolygonCoords(newPolygonCoords)
+  }
+
+  /*
+  * Добавление полигона
+  * todo изменить на отправку на сервер
+  * */
+  const addNewPolygon = () => {
+    setVisibleModal(true)
+  }
+
   return (
     <>
-      <Polygon positions={polygonCoords}>
+      <Polygon
+        positions={polygonCoords}
+        pathOptions={polygonStyle}
+      >
         {polygonCoords.map((coord, index) => {
           return (
             editMode
@@ -133,8 +154,11 @@ const DrowingPolygon: React.FC<Props> = ({ isDrawing }) => {
               </Marker>
               : <PolygonSpotMenu
                 key={index}
+                index={index}
                 position={coord}
                 setEditMode={setEditMode}
+                deletePolygonSpot={deletePolygonSpot}
+                addNewPolygon={addNewPolygon}
               />
           )
         })}
@@ -153,6 +177,13 @@ const DrowingPolygon: React.FC<Props> = ({ isDrawing }) => {
       {/*  : null}*/}
     </>
   )
+}
+
+const polygonStyle = {
+  fillOpacity: 0.7,
+  stroke: true,
+  color: '#19a2d3',
+  weight: 2
 }
 
 export default React.memo(DrowingPolygon)

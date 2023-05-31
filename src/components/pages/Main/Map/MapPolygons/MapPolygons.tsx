@@ -22,7 +22,6 @@ export type PolygonDefaultStyleSettings = typeof polygonDefaultStyleSettings
 const MapPolygons: React.FC<Props> = ({ selectedPolygon }) => {
   const [polygons] = useAtom(polygonsAtom)
 
-  console.log('render polygons')
   return (
     <>
       {polygons.map((polygon: PolygonType, index: number) => (

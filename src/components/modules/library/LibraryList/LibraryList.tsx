@@ -12,6 +12,10 @@ import Models from '../Models/Models'
 import EquipmentTypesComponent from '../Types/Types'
 import Trailer from '../Trailer/Trailer'
 
+type Props = {
+  equipmentHandleItemClick: (imei: number) => void
+}
+
 export const LibraryListStateAtom = atom({
   isEquipmentListOpen: true,
   isEquipmentTypeListOpen: false,
@@ -19,7 +23,7 @@ export const LibraryListStateAtom = atom({
   isTrailerModelListOpen: false
 })
 
-const LibraryList: React.FC = () => {
+const LibraryList: React.FC<Props> = ({ equipmentHandleItemClick }) => {
   const [libraryListState, setLibraryListState] = useAtom(LibraryListStateAtom)
 
   const changeState = (key: keyof typeof libraryListState) => () => {
@@ -76,7 +80,7 @@ const LibraryList: React.FC = () => {
           </div>
         </div>
       </div>
-      {libraryListState.isEquipmentListOpen ? <Equipments /> : null}
+      {libraryListState.isEquipmentListOpen ? <Equipments equipmentHandleItemClick={equipmentHandleItemClick} /> : null}
       {libraryListState.isEquipmentTypeListOpen ? <EquipmentTypesComponent /> : null}
       {libraryListState.isEquipmentModelListOpen ? <Models /> : null}
       {libraryListState.isTrailerModelListOpen ? <Trailer /> : null}

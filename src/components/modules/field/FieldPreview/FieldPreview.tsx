@@ -24,7 +24,6 @@ const EquipmentPreviewsComponent = () => {
   const fetchListHandler = async () => {
     const { data } = await mapService.getFieldList()
     setFieldTypes(data)
-    console.log(data)
     return data
   }
 
