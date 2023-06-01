@@ -9,7 +9,8 @@ import type { Equip } from '../../../../../types/equip'
 import EquipCastomMarker from './EquipCastomMarker'
 
 type Props = {
-  selectedEquipment: number | undefined
+  selectedEquipment: number | undefined,
+  setSelectedEquipment: (id: number | undefined) => void
 }
 
 export type EquipmentSocketData = {
@@ -18,7 +19,7 @@ export type EquipmentSocketData = {
   lon: string,
   datetime: string
 }
-const MapEquipments: React.FC<Props> = ({ selectedEquipment }) => {
+const MapEquipments: React.FC<Props> = ({ selectedEquipment, setSelectedEquipment }) => {
   const [equipmentList, setEquipmentList] = useState<Equip[]>([])
   //todo перенести в Redux
   const isDrawing = useAtomValue(isDrawingAtom)
@@ -36,6 +37,7 @@ const MapEquipments: React.FC<Props> = ({ selectedEquipment }) => {
     void (async () => {
       const response = await mapService.getLocation()
       setEquipmentCoordinates([response.data.lat, response.data.lon])
+      // todo Проверить на наличие изначальноего imei
     })()
   }, [])
 
@@ -45,7 +47,7 @@ const MapEquipments: React.FC<Props> = ({ selectedEquipment }) => {
     ws.onmessage = (message) => {
       const data = JSON.parse(message.data)
       if (!data) return
-      console.log('Координаты тракотра:', data)
+      // console.log('Координаты тракотра:', data)
 
       // закрывает канал, пока идет отрисовка полигона?
       if (isDrawing) return ws.close()
@@ -55,6 +57,7 @@ const MapEquipments: React.FC<Props> = ({ selectedEquipment }) => {
       })
       setSpeed(data.speed)
       setFuel(data.fuel)
+      // todo почему все координаты льются
     }
 
     return () => {
@@ -64,31 +67,29 @@ const MapEquipments: React.FC<Props> = ({ selectedEquipment }) => {
 
   return (
     <>
-      {
-        equipmentList.map((equipment: any) => {
-          const {
-            equip_name,
-            gosnomer,
-            image_status,
-            imei
-          } = equipment
-          const coordsData = equipmentCoordinates.find(equip => equip.imei === imei)
-          if (!coordsData) return
-          console.log('проверка', coordsData, imei)
-          return (
-            <EquipCastomMarker
-              coordsData={coordsData}
-              equip_name={equip_name}
-              gosnomer={gosnomer}
-              image_status={image_status}
-              imei={imei}
-              speed={speed}
-              fuel={fuel}
-              selectedEquipment={selectedEquipment}
-            />
-          )
-        })
-      }
+      {equipmentList.map((equipment: any) => {
+        const {
+          equip_name,
+          gosnomer,
+          image_status,
+          imei
+        } = equipment
+        const coordsData = equipmentCoordinates.find(equip => equip.imei === imei)
+        if (!coordsData) return
+        return (
+          <EquipCastomMarker
+            coordsData={coordsData}
+            equip_name={equip_name}
+            gosnomer={gosnomer}
+            image_status={image_status}
+            imei={imei}
+            speed={speed}
+            fuel={fuel}
+            selectedEquipment={selectedEquipment}
+            setSelectedEquipment={setSelectedEquipment}
+          />
+        )
+      })}
     </>
   )
 }

@@ -18,7 +18,8 @@ type Props = {
   gosnomer: number,
   speed: number,
   fuel: number,
-  selectedEquipment: number | undefined
+  selectedEquipment: number | undefined,
+  setSelectedEquipment: (id: number | undefined) => void
 }
 
 const EquipCastomMarker: React.FC<Props> = ({
@@ -29,16 +30,20 @@ const EquipCastomMarker: React.FC<Props> = ({
   gosnomer,
   speed,
   fuel,
-  selectedEquipment
+  selectedEquipment,
+  setSelectedEquipment
 }) => {
+
   const map = useMap()
+
   //из-за библиотеки react-leafet нужно указать в типизации any
   const equipRef = useRef<any>(null)
-
   useEffect(() => {
-    if (selectedEquipment === imei) {
+    if (selectedEquipment === +coordsData.imei) {
       map?.flyTo([+coordsData.lat, +coordsData.lon], 13, { animate: false })
       equipRef.current?.openPopup()
+      //обнуление id после того как перенесли карту
+      setSelectedEquipment(undefined)
     }
   }, [selectedEquipment])
 
@@ -53,25 +58,25 @@ const EquipCastomMarker: React.FC<Props> = ({
     >
       <Popup>
         <div>
-          Название: $
+          Название:
           {equip_name}
         </div>
         <div>
-          IMEI: $
+          IMEI:
           {imei}
         </div>
         <div>
-          Гос.номер: $
+          Гос.номер:
           {gosnomer}
         </div>
         <div>
-          Скорость: $
+          Скорость:
           {speed}
           {' '}
           км/ч
         </div>
         <div>
-          Уровень топлива: $
+          Уровень топлива:
           {fuel}
           {' '}
           л

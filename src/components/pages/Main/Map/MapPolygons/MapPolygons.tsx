@@ -8,7 +8,8 @@ import type { Polygon as PolygonType } from '../../../../../types/index'
 import OnePolygon from './OnePolygon'
 
 type Props = {
-  selectedPolygon: number | undefined
+  selectedPolygon: number | undefined,
+  setSelectedPolygon: (id: number | undefined) => void
 }
 
 const polygonDefaultStyleSettings = {
@@ -19,7 +20,7 @@ const polygonDefaultStyleSettings = {
 }
 export type PolygonDefaultStyleSettings = typeof polygonDefaultStyleSettings
 
-const MapPolygons: React.FC<Props> = ({ selectedPolygon }) => {
+const MapPolygons: React.FC<Props> = ({ selectedPolygon, setSelectedPolygon }) => {
   const [polygons] = useAtom(polygonsAtom)
 
   return (
@@ -30,6 +31,7 @@ const MapPolygons: React.FC<Props> = ({ selectedPolygon }) => {
           polygonDefaultStyleSettings={polygonDefaultStyleSettings}
           selectedPolygon={selectedPolygon}
           key={index}
+          setSelectedPolygon={setSelectedPolygon}
         />
       ))}
     </>

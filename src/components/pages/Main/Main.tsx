@@ -199,6 +199,7 @@ const MainPage = () => {
 
   const [selectedEquipment, setSelectedEquipment] = useState<number>()
   function equipmentHandleItemClick(id: number) {
+    console.log(id)
     setSelectedEquipment(id)
   }
 
@@ -243,9 +244,11 @@ const MainPage = () => {
             >
               <Map
                 selectedPolygon={selectedPolygon}
+                setSelectedPolygon={setSelectedPolygon}
                 isDrawing={isDrawing}
                 setVisibleModal={setVisibleModal}
                 selectedEquipment={selectedEquipment}
+                setSelectedEquipment={setSelectedEquipment}
               />
             </MapContainer>
           </MainLayout>

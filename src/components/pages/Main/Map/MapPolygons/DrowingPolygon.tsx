@@ -60,15 +60,12 @@ const DrowingPolygon: React.FC<Props> = ({ isDrawing, setVisibleModal }) => {
   * */
   const handleMapMouseMove = useCallback(
     (e: any) => {
-
-      // if (futureStart) {
       const { latlng } = e
       const {
         lat,
         lng
       } = latlng
       setFutureEnd([lat, lng])
-      // }
     },
     [futureStart]
   )
@@ -121,7 +118,7 @@ const DrowingPolygon: React.FC<Props> = ({ isDrawing, setVisibleModal }) => {
 
   /*
   * Добавление полигона
-  * todo изменить на отправку на сервер
+  * todo изменить на отправку на сервер (Redux)
   * */
   const addNewPolygon = () => {
     setVisibleModal(true)

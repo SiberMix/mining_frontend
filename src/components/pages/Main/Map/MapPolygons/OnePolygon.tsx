@@ -13,10 +13,11 @@ import type { PolygonDefaultStyleSettings } from './MapPolygons'
 type Props = {
   polygon: PolygonType,
   polygonDefaultStyleSettings: PolygonDefaultStyleSettings,
-  selectedPolygon: number | undefined
+  selectedPolygon: number | undefined,
+  setSelectedPolygon: (id: number | undefined) => void
 }
 
-const OnePolygon: React.FC<Props> = ({ polygon, polygonDefaultStyleSettings, selectedPolygon }) => {
+const OnePolygon: React.FC<Props> = ({ polygon, polygonDefaultStyleSettings, selectedPolygon, setSelectedPolygon }) => {
   const map = useMap()
   //из-за библиотеки react-leafet нужно указать в типизации any
   const polygonRef = useRef<any>(null)
@@ -25,6 +26,8 @@ const OnePolygon: React.FC<Props> = ({ polygon, polygonDefaultStyleSettings, sel
     if (selectedPolygon === polygon.id) {
       map?.flyTo(polygon.middle_coord, 13, { animate: false })
       polygonRef.current?.openPopup()
+      //обнуление id после того как перенесли карту
+      setSelectedPolygon(undefined)
     }
   }, [selectedPolygon])
 
