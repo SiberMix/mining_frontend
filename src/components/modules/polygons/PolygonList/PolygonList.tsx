@@ -4,15 +4,15 @@ import * as cn from 'classnames'
 import React from 'react'
 import { useAtom } from 'jotai'
 import * as turf from '@turf/turf'
-import {
-  isFetchingAtom,
-  polygonsAtom
-} from '../../../pages/Main/Main'
+import { isFetchingAtom } from '../../../pages/Main/Main'
 import settingMap from '/src/assets/icons/equalizersoutline_114523.svg'
 import DownloadMap from '/src/assets/icons/download2.svg'
 import PolygonPreview from '../PolygonPreview/PolygonPreview'
 
 import { mapService } from '../../../../api/map'
+import { useSelector } from 'react-redux'
+import { getAllPolygonsSelector } from '../../../../redux/selectors/mapSelectors'
+import { setPolygons } from '../../../../redux/slices/mapSlice'
 
 const PolygonList: React.FC<{
   onEdit: (id: string | number) => void,
@@ -23,7 +23,8 @@ const PolygonList: React.FC<{
 }> = ({ onEdit, polygonHandleItemClick, setIsDrawing, isDrawing }) => {
 
   const [isFetching, setIsFetching] = useAtom(isFetchingAtom)
-  const [polygons, setPolygons] = useAtom(polygonsAtom)
+  const polygons = useSelector(getAllPolygonsSelector)
+
   const toggleDrawing = () => setIsDrawing((prev: boolean) => !prev)
 
   const numPolygons = polygons.reduce((count, polygon) => {

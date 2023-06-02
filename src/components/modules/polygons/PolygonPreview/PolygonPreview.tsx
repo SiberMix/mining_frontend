@@ -5,15 +5,16 @@ import TrashBox from '/src/assets/icons/delete.svg'
 import GeoBox from '/src/assets/icons/GPS-navigate.svg'
 import EditBox from '/src/assets/icons/edit.svg'
 import { Dropdown } from 'antd'
-import { useAtom } from 'jotai'
 import type { Polygon } from '../../../../types'
-import { polygonsAtom } from '../../../pages/Main/Main'
 import PolygonCanvas from '../PolygonCanvas/PolygonCanvas'
 import { mapService } from '../../../../api/map'
 import {
   EditPolygonNameModal,
   EditPolygonTypeModal
 } from './PolygonEditModal'
+import { useSelector } from 'react-redux'
+import { getAllPolygonsSelector } from '../../../../redux/selectors/mapSelectors'
+import { setPolygons } from '../../../../redux/slices/mapSlice'
 
 const PolygonPreview: React.FC<{
   polygon: Polygon,
@@ -24,7 +25,9 @@ const PolygonPreview: React.FC<{
   onDelete,
   onEditPolygon,
   polygonHandleItemClick }) => {
-  const [polygons, setPolygons] = useAtom(polygonsAtom)
+
+  const polygons = useSelector(getAllPolygonsSelector)
+
   const [showEditNameModal, setShowEditNameModal] = useState(false)
   const toggleEditNameModal = () => setShowEditNameModal(!showEditNameModal)
   const [showEditTypeModal, setShowEditTypeModal] = useState(false)

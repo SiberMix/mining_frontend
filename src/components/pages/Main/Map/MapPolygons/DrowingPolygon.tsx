@@ -56,8 +56,7 @@ const DrowingPolygon: React.FC<Props> = ({ isDrawing, setVisibleModal }) => {
   }, [futureStart])
 
   /*
-  * определение положения курсора для
-  * вспомогательных линий
+  * определение положения курсора для вспомогательных линий
   * */
   const handleMapMouseMove = useCallback(
     (e: any) => {
@@ -97,12 +96,13 @@ const DrowingPolygon: React.FC<Props> = ({ isDrawing, setVisibleModal }) => {
   * Редактирование полигона
   * */
   const editEventHandlers = (id: number) => ({
+    //HACK: dragend используется библиотекой! не удалять! это особенность библиотеки
     dragend(e: any) {
-      const newCoords: [number, number][] = polygonCoords.map((coord, index) => {
+      const newCoords: [number, number][] = polygonCoords.map((coords, index) => {
         if (index === id) {
           return e.target.getLatLng()
         }
-        return coord
+        return coords
       })
       setPolygonCoords(newCoords)
     }

@@ -4,11 +4,9 @@ import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import {
   atom,
-  useAtom,
   useSetAtom
 } from 'jotai'
 import '/src/style/equipments.css'
-import { Equipments as equipmen } from '../../../pages/Main/Main'
 import TrashBox from '/src/assets/icons/delete.svg'
 import EditBox from '/src/assets/icons/edit.svg'
 
@@ -18,6 +16,10 @@ import SVG from 'react-inlinesvg'
 import GeoBox from '/src/assets/icons/GPS-navigate.svg'
 import { mapService } from '../../../../api/map'
 import AddEquipmentModal from './EquipmentAddModal'
+import { getAllEquipment } from '../../../../redux/slices/mapSlice'
+import { useAppDispatch } from '../../../../redux/store'
+import { useSelector } from 'react-redux'
+import { getAllEquipmentSelector } from '../../../../redux/selectors/mapSelectors'
 
 type Props = {
   equipmentHandleItemClick: (imei: number) => void
@@ -40,17 +42,15 @@ export const addModalAtom = atom({
 })
 
 const EquipmentsComponent: React.FC<Props> = ({ equipmentHandleItemClick }) => {
+
+  const dispatch = useAppDispatch()
+  const equips = useSelector(getAllEquipmentSelector)
+
   const setAddModal = useSetAtom(addModalAtom)
-  const [equips, setEquip] = useAtom(equipmen)
 
   useEffect(() => {
-    fetchListHandler()
+    dispatch(getAllEquipment())
   }, [])
-
-  const fetchListHandler = async () => {
-    const equips = await mapService.getEquips()
-    setEquip(equips.data)
-  }
 
   const editItemHandler = async (equip: Equipment) => {
     setAddModal({ visible: true, editMode: true, equip })
@@ -59,7 +59,7 @@ const EquipmentsComponent: React.FC<Props> = ({ equipmentHandleItemClick }) => {
   const deleteEquipmentHandler = async (id: number) => {
     if (confirm('Вы уверены, что хотите удалить оборудование?')) {
       await mapService.deleteEquip(id)
-      fetchListHandler()
+      dispatch(getAllEquipment())
     }
   }
 
@@ -128,7 +128,7 @@ const EquipmentsComponent: React.FC<Props> = ({ equipmentHandleItemClick }) => {
       ))}
       <AddEquipmentModal
         equips={equips}
-        fetchList={fetchListHandler}
+        fetchList={() => dispatch(getAllEquipment())}
       />
     </div>
   )

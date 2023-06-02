@@ -17,7 +17,6 @@ import MainLayout from './MainLayout/MainLayout'
 import type { Polygon as PolygonType } from '../../../types'
 
 import { SidebarStateAtom } from './Sidebar/Sidebar'
-import type { Equip } from '../../../types/equip'
 
 import './styles.css'
 import { mapService } from '../../../api/map'
@@ -27,9 +26,14 @@ import Map from './Map/Map'
 import { MapContainer } from 'react-leaflet'
 import * as cn from 'classnames'
 import s from './Map/Map.module.scss'
+import {
+  getAllPolygons,
+  setPolygons
+} from '../../../redux/slices/mapSlice'
+import { useAppDispatch } from '../../../redux/store'
+import { useSelector } from 'react-redux'
+import { getAllPolygonsSelector } from '../../../redux/selectors/mapSelectors'
 
-export const polygonsAtom = atom<PolygonType[]>([])
-export const Equipments = atom<Equip[]>([])
 export const isDrawingAtom = atom(false)
 export const isFetchingAtom = atom(false)
 export const fieldTypesAtom = atom([])
@@ -45,14 +49,16 @@ function trianglesCheck<T>(arr: T[]) {
 
 const MainPage = () => {
   const [load, setLoad] = useState(true)
+  const polygons = useSelector(getAllPolygonsSelector)
 
   useEffect(() => {
     // Имитация загрузки данных
     setTimeout(() => setLoad(false), 2500)
   }, [])
 
+  const dispatch = useAppDispatch()
+
   const ref = useRef<any>(null)
-  const [polygons, setPolygons] = useAtom(polygonsAtom)
   const [fieldTypes, setFieldTypes] = useAtom(fieldTypesAtom)
 
   const setIsFetching = useSetAtom(isFetchingAtom)
@@ -67,10 +73,9 @@ const MainPage = () => {
     ((async () => {
       const fieldTypes = await mapService.getFieldList()
       setFieldTypes(fieldTypes.data)
-      const polygons = await mapService.getPolygons()
-      setPolygons(polygons.data)
+      dispatch(getAllPolygons())
     }))()
-  }, [setFieldTypes, setPolygons])
+  }, [setFieldTypes])
 
   const handleCancel = () => {
     setVisibleModal(false)
@@ -183,7 +188,6 @@ const MainPage = () => {
 
   /*
   * Функционал для перехода к нужному полигону
-  * вынесен на верхний уровень и прокинут к компонентам через пропсы
   * todo внести в Redux
   * */
 

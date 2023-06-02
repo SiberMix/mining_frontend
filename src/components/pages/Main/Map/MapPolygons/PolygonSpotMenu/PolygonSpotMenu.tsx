@@ -1,8 +1,5 @@
 import s from './PolygonSpotMenu.module.scss'
-import {
-  CircleMarker,
-  Popup
-} from 'react-leaflet'
+import { Popup } from 'react-leaflet'
 import React from 'react'
 import { Button } from 'antd'
 
@@ -39,14 +36,6 @@ const PolygonSpotMenu: React.FC<Props> = ({
       </div>
     </Popup>
   )
-}
-
-const spotMenuStyle = {
-  radius: 6,
-  fillColor: '#ffffff',
-  fillOpacity: 0.7,
-  color: '#ffffff',
-  weight: 1
 }
 
 export default PolygonSpotMenu
