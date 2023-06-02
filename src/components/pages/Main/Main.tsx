@@ -199,7 +199,6 @@ const MainPage = () => {
 
   const [selectedEquipment, setSelectedEquipment] = useState<number>()
   function equipmentHandleItemClick(id: number) {
-    console.log(id)
     setSelectedEquipment(id)
   }
 
@@ -241,6 +240,7 @@ const MainPage = () => {
               className={cn(s.map)}
               center={[54.925946, 82.775931]}
               zoom={13}
+              minZoom={3}
             >
               <Map
                 selectedPolygon={selectedPolygon}

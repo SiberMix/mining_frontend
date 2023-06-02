@@ -37,7 +37,7 @@ const MapEquipments: React.FC<Props> = ({ selectedEquipment, setSelectedEquipmen
     void (async () => {
       const response = await mapService.getLocation()
       setEquipmentCoordinates([response.data.lat, response.data.lon])
-      // todo Проверить на наличие изначальноего imei
+      // todo Проверить на наличие изначальноего imei \ запрос вообще не прохоит
     })()
   }, [])
 
@@ -47,7 +47,7 @@ const MapEquipments: React.FC<Props> = ({ selectedEquipment, setSelectedEquipmen
     ws.onmessage = (message) => {
       const data = JSON.parse(message.data)
       if (!data) return
-      // console.log('Координаты тракотра:', data)
+      console.log('Координаты тракотра:', data)
 
       // закрывает канал, пока идет отрисовка полигона?
       if (isDrawing) return ws.close()
@@ -57,7 +57,6 @@ const MapEquipments: React.FC<Props> = ({ selectedEquipment, setSelectedEquipmen
       })
       setSpeed(data.speed)
       setFuel(data.fuel)
-      // todo почему все координаты льются
     }
 
     return () => {
@@ -78,6 +77,7 @@ const MapEquipments: React.FC<Props> = ({ selectedEquipment, setSelectedEquipmen
         if (!coordsData) return
         return (
           <EquipCastomMarker
+            key={imei}
             coordsData={coordsData}
             equip_name={equip_name}
             gosnomer={gosnomer}

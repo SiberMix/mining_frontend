@@ -1,3 +1,4 @@
+import s from './PolygonSpotMenu/PolygonSpotMenu.module.scss'
 import React, {
   useCallback,
   useEffect,
@@ -7,10 +8,10 @@ import {
   Marker,
   Polygon,
   Polyline,
-  Popup,
   useMap
 } from 'react-leaflet'
 import PolygonSpotMenu from './PolygonSpotMenu/PolygonSpotMenu'
+import L from 'leaflet'
 
 type Props = {
   isDrawing: boolean,
@@ -95,7 +96,6 @@ const DrowingPolygon: React.FC<Props> = ({ isDrawing, setVisibleModal }) => {
   /*
   * Редактирование полигона
   * */
-  const [editMode, setEditMode] = useState(false)
   const editEventHandlers = (id: number) => ({
     dragend(e: any) {
       const newCoords: [number, number][] = polygonCoords.map((coord, index) => {
@@ -132,32 +132,21 @@ const DrowingPolygon: React.FC<Props> = ({ isDrawing, setVisibleModal }) => {
       >
         {polygonCoords.map((coord, index) => {
           return (
-            editMode
-              ? <Marker
-                eventHandlers={editEventHandlers(index)}
-                key={index}
-                draggable={true}
-                autoPan={true}
-                position={coord}
-              >
-                <Popup>
-                  <button onClick={(e) => {
-                    e.stopPropagation()
-                    setEditMode(false)
-                  }}
-                  >
-                    Завершить редактирование
-                  </button>
-                </Popup>
-              </Marker>
-              : <PolygonSpotMenu
+            <Marker
+              icon={customIcon}
+              eventHandlers={editEventHandlers(index)}
+              key={index}
+              draggable={true}
+              autoPan={true}
+              position={coord}
+            >
+              <PolygonSpotMenu
                 key={index}
                 index={index}
-                position={coord}
-                setEditMode={setEditMode}
                 deletePolygonSpot={deletePolygonSpot}
                 addNewPolygon={addNewPolygon}
               />
+            </Marker>
           )
         })}
       </Polygon>
@@ -180,6 +169,13 @@ const DrowingPolygon: React.FC<Props> = ({ isDrawing, setVisibleModal }) => {
     </>
   )
 }
+
+// Создаем кастомную иконку маркера
+const customIcon = L.divIcon({
+  className: s.polygonSpotMenu, // CSS класс для стилизации иконки
+  html: '<div class="' + s.iconContent + '"></div>',
+  iconSize: [12, 12] // размер иконки в пикселях
+})
 
 const polygonStyle = {
   fillOpacity: 0.7,

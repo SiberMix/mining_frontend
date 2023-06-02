@@ -40,7 +40,7 @@ const EquipCastomMarker: React.FC<Props> = ({
   const equipRef = useRef<any>(null)
   useEffect(() => {
     if (selectedEquipment === +coordsData.imei) {
-      map?.flyTo([+coordsData.lat, +coordsData.lon], 13, { animate: false })
+      map?.flyTo([+coordsData.lat, +coordsData.lon], 15, { animate: false })
       equipRef.current?.openPopup()
       //обнуление id после того как перенесли карту
       setSelectedEquipment(undefined)
