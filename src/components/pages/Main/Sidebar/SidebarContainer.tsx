@@ -11,14 +11,10 @@ import {
 
 type Props = {
   sidebarState: any,
-  editPolygonHandler: any,
-  polygonHandleItemClick: (index: number) => void,
-  isDrawing: boolean,
-  setIsDrawing: (isDrawing: boolean) => void,
-  equipmentHandleItemClick: (imei: number) => void
+  editPolygonHandler: any
 }
 
-const SidebarContainer: React.FC<Props> = ({ sidebarState, editPolygonHandler, polygonHandleItemClick, isDrawing, setIsDrawing, equipmentHandleItemClick }) => {
+const SidebarContainer: React.FC<Props> = ({ sidebarState, editPolygonHandler }) => {
   return (
     <Sidebar>
       <TransitionGroup>
@@ -29,9 +25,6 @@ const SidebarContainer: React.FC<Props> = ({ sidebarState, editPolygonHandler, p
           >
             <PolygonList
               onEdit={editPolygonHandler}
-              polygonHandleItemClick={polygonHandleItemClick}
-              isDrawing={isDrawing}
-              setIsDrawing={setIsDrawing}
             />
           </CSSTransition>
           : null}
@@ -40,7 +33,7 @@ const SidebarContainer: React.FC<Props> = ({ sidebarState, editPolygonHandler, p
             classNames="sidebar"
             timeout={300}
           >
-            <LibraryList equipmentHandleItemClick={equipmentHandleItemClick} />
+            <LibraryList />
           </CSSTransition>
           : null}
         {sidebarState.isFieldListOpen

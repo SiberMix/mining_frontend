@@ -14,19 +14,23 @@ import {
 } from './PolygonEditModal'
 import { useSelector } from 'react-redux'
 import { getAllPolygonsSelector } from '../../../../redux/selectors/mapSelectors'
-import { setPolygons } from '../../../../redux/slices/mapSlice'
+import {
+  setPolygonFlyTo,
+  setPolygons
+} from '../../../../redux/slices/mapSlice'
+import { useAppDispatch } from '../../../../redux/store'
 
 const PolygonPreview: React.FC<{
   polygon: Polygon,
   onDelete?: () => void,
-  onEditPolygon?: () => void,
-  polygonHandleItemClick: (index: number) => void
+  onEditPolygon?: () => void
 }> = ({ polygon,
   onDelete,
-  onEditPolygon,
-  polygonHandleItemClick }) => {
+  onEditPolygon }) => {
 
   const polygons = useSelector(getAllPolygonsSelector)
+
+  const dispatch = useAppDispatch()
 
   const [showEditNameModal, setShowEditNameModal] = useState(false)
   const toggleEditNameModal = () => setShowEditNameModal(!showEditNameModal)
@@ -64,7 +68,7 @@ const PolygonPreview: React.FC<{
               <img
                 className={cn(s.geo)}
                 src={GeoBox}
-                onClick={() => polygonHandleItemClick(+polygon.id)}
+                onClick={() => dispatch(setPolygonFlyTo(+polygon.id))}
                 alt=""
                 title="Перейти к полигону на карте"
               />

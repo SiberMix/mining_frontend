@@ -8,10 +8,7 @@ import { mapService } from '../../../../../api/map'
 import type { Equip } from '../../../../../types/equip'
 import EquipCastomMarker from './EquipCastomMarker'
 
-type Props = {
-  selectedEquipment: number | undefined,
-  setSelectedEquipment: (id: number | undefined) => void
-}
+type Props = {}
 
 export type EquipmentSocketData = {
   imei: string,
@@ -19,7 +16,7 @@ export type EquipmentSocketData = {
   lon: string,
   datetime: string
 }
-const MapEquipments: React.FC<Props> = ({ selectedEquipment, setSelectedEquipment }) => {
+const MapEquipments: React.FC<Props> = () => {
   const [equipmentList, setEquipmentList] = useState<Equip[]>([])
   //todo перенести в Redux
   const isDrawing = useAtomValue(isDrawingAtom)
@@ -85,8 +82,6 @@ const MapEquipments: React.FC<Props> = ({ selectedEquipment, setSelectedEquipmen
             imei={imei}
             speed={speed}
             fuel={fuel}
-            selectedEquipment={selectedEquipment}
-            setSelectedEquipment={setSelectedEquipment}
           />
         )
       })}

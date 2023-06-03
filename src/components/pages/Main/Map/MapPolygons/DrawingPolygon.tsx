@@ -12,13 +12,13 @@ import {
 } from 'react-leaflet'
 import PolygonSpotMenu from './PolygonSpotMenu/PolygonSpotMenu'
 import L from 'leaflet'
+import { useSelector } from 'react-redux'
+import { getDrawingPolygonModeSelector } from '../../../../../redux/selectors/mapSelectors'
 
-type Props = {
-  isDrawing: boolean,
-  setVisibleModal: (showModal: boolean) => void
-};
+type Props = {};
 
-const DrowingPolygon: React.FC<Props> = ({ isDrawing, setVisibleModal }) => {
+const DrawingPolygon: React.FC<Props> = () => {
+  const drawingPolygonMode = useSelector(getDrawingPolygonModeSelector)
 
   const [polygonCoords, setPolygonCoords] = useState<[number, number][]>([])
   const [futureStart, setFutureStart] = useState<null | [number, number][]>(null)
@@ -76,7 +76,7 @@ const DrowingPolygon: React.FC<Props> = ({ isDrawing, setVisibleModal }) => {
   * mousemove - отрисовка вспомогательных линий
   * */
   useEffect(() => {
-    if (isDrawing) {
+    if (drawingPolygonMode) {
       map.on('click', handleMapClick)
       map.on('mousemove', handleMapMouseMove)
     } else {
@@ -90,7 +90,7 @@ const DrowingPolygon: React.FC<Props> = ({ isDrawing, setVisibleModal }) => {
       map.off('click', handleMapClick)
       map.off('mousemove', handleMapMouseMove)
     }
-  }, [isDrawing, map, futureStart])
+  }, [drawingPolygonMode, map, futureStart])
 
   /*
   * Редактирование полигона
@@ -116,14 +116,6 @@ const DrowingPolygon: React.FC<Props> = ({ isDrawing, setVisibleModal }) => {
     setPolygonCoords(newPolygonCoords)
   }
 
-  /*
-  * Добавление полигона
-  * todo изменить на отправку на сервер (Redux)
-  * */
-  const addNewPolygon = () => {
-    setVisibleModal(true)
-  }
-
   return (
     <>
       <Polygon
@@ -144,7 +136,6 @@ const DrowingPolygon: React.FC<Props> = ({ isDrawing, setVisibleModal }) => {
                 key={index}
                 index={index}
                 deletePolygonSpot={deletePolygonSpot}
-                addNewPolygon={addNewPolygon}
               />
             </Marker>
           )
@@ -191,4 +182,4 @@ const polylineStyle = {
   dashOffset: '5'
 }
 
-export default React.memo(DrowingPolygon)
+export default React.memo(DrawingPolygon)

@@ -6,42 +6,19 @@ import 'leaflet-draw/dist/leaflet.draw-src.css'
 import React from 'react'
 import MapViewSelect from './MapViewSelect/MapViewSelect'
 import MapPolygons from './MapPolygons/MapPolygons'
-import DrowingPolygon from './MapPolygons/DrowingPolygon'
+import DrawingPolygon from './MapPolygons/DrawingPolygon'
 import MapEquipments from './MapEquipments/MapEquipments'
 
-type Props = {
-  selectedPolygon: number | undefined,
-  isDrawing: boolean,
-  setVisibleModal: (showModal: boolean) => void,
-  selectedEquipment: number | undefined,
-  setSelectedEquipment: (id: number | undefined) => void,
-  setSelectedPolygon: (id: number | undefined) => void
-}
+type Props = {}
 
-const Map: React.FC<Props> = ({
-  selectedPolygon,
-  isDrawing,
-  setVisibleModal,
-  selectedEquipment,
-  setSelectedEquipment,
-  setSelectedPolygon
-}) => {
+const Map: React.FC<Props> = () => {
 
   return (
     <>
       <MapViewSelect />
-      <MapPolygons
-        selectedPolygon={selectedPolygon}
-        setSelectedPolygon={setSelectedPolygon}
-      />
-      <DrowingPolygon
-        isDrawing={isDrawing}
-        setVisibleModal={setVisibleModal}
-      />
-      <MapEquipments
-        selectedEquipment={selectedEquipment}
-        setSelectedEquipment={setSelectedEquipment}
-      />
+      <MapPolygons />
+      <DrawingPolygon />
+      <MapEquipments />
     </>
   )
 }

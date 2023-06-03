@@ -8,26 +8,30 @@ import React, {
   useRef
 } from 'react'
 import type { Polygon as PolygonType } from '../../../../../types'
+import { useAppDispatch } from '../../../../../redux/store'
+import { useSelector } from 'react-redux'
+import { getPolygonFlyToSelector } from '../../../../../redux/selectors/mapSelectors'
+import { setPolygonFlyTo } from '../../../../../redux/slices/mapSlice'
 
 type Props = {
-  polygon: PolygonType,
-  selectedPolygon: number | undefined,
-  setSelectedPolygon: (id: number | undefined) => void
+  polygon: PolygonType
 }
 
-const OnePolygon: React.FC<Props> = ({ polygon, selectedPolygon, setSelectedPolygon }) => {
+const OnePolygon: React.FC<Props> = ({ polygon }) => {
+  const dispatch = useAppDispatch()
+  const polygonFlyTo = useSelector(getPolygonFlyToSelector)
+
   const map = useMap()
-  //из-за библиотеки react-leafet нужно указать в типизации any
   const polygonRef = useRef<any>(null)
 
   useEffect(() => {
-    if (selectedPolygon === polygon.id) {
+    if (polygonFlyTo === polygon.id) {
       map?.flyTo(polygon.middle_coord, 13, { animate: false })
       polygonRef.current?.openPopup()
       //обнуление id после того как перенесли карту
-      setSelectedPolygon(undefined)
+      dispatch(setPolygonFlyTo(undefined))
     }
-  }, [selectedPolygon])
+  }, [polygonFlyTo])
 
   return (
     <Polygon

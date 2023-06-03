@@ -16,14 +16,15 @@ import SVG from 'react-inlinesvg'
 import GeoBox from '/src/assets/icons/GPS-navigate.svg'
 import { mapService } from '../../../../api/map'
 import AddEquipmentModal from './EquipmentAddModal'
-import { getAllEquipment } from '../../../../redux/slices/mapSlice'
+import {
+  getAllEquipment,
+  setEquipmentFlyTo
+} from '../../../../redux/slices/mapSlice'
 import { useAppDispatch } from '../../../../redux/store'
 import { useSelector } from 'react-redux'
 import { getAllEquipmentSelector } from '../../../../redux/selectors/mapSelectors'
 
-type Props = {
-  equipmentHandleItemClick: (imei: number) => void
-}
+type Props = {}
 
 interface Equipment {
   equip_type: string,
@@ -41,7 +42,7 @@ export const addModalAtom = atom({
   equip: null as Equip | null
 })
 
-const EquipmentsComponent: React.FC<Props> = ({ equipmentHandleItemClick }) => {
+const EquipmentsComponent: React.FC<Props> = () => {
 
   const dispatch = useAppDispatch()
   const equips = useSelector(getAllEquipmentSelector)
@@ -96,7 +97,7 @@ const EquipmentsComponent: React.FC<Props> = ({ equipmentHandleItemClick }) => {
               <img
                 className={cn(s.geo)}
                 src={GeoBox}
-                onClick={() => equipmentHandleItemClick(+equip.imei)}
+                onClick={() => dispatch(setEquipmentFlyTo(+equip.imei))}
                 alt=""
                 title="Перейти к оборудованию на карте"
               />

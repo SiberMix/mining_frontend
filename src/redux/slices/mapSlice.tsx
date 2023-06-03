@@ -5,13 +5,15 @@ import {
 import { mapService } from '../../api/map'
 import type { Polygon } from '../../types'
 import type { Equip } from '../../types/equip'
+import { sassTrue } from 'sass'
 
 type MapInitialState = {
   polygonsList: Polygon[],
   equipmentList: Equip[],
   polygonFlyTo: number | undefined,
   equipmentFlyTo: number | undefined,
-  isDrawingMode: boolean
+  drawingPolygonMode: boolean,
+  showAddNewPolygonModal: boolean
 }
 
 const mapInitialState: MapInitialState = {
@@ -19,7 +21,8 @@ const mapInitialState: MapInitialState = {
   equipmentList: [],
   polygonFlyTo: undefined,
   equipmentFlyTo: undefined,
-  isDrawingMode: false
+  drawingPolygonMode: false,
+  showAddNewPolygonModal: false
 }
 
 const mapSlice = createSlice({
@@ -28,7 +31,19 @@ const mapSlice = createSlice({
   reducers: {
     setPolygons: (state: MapInitialState, action) => {
       state.polygonsList = action.payload
-    }
+    },
+    setPolygonFlyTo: ((state: MapInitialState, action) => {
+      state.polygonFlyTo = action.payload
+    }),
+    setEquipmentFlyTo: ((state: MapInitialState, action) => {
+      state.equipmentFlyTo = action.payload
+    }),
+    setDrawingPolygonMode: ((state: MapInitialState, action) => {
+      state.drawingPolygonMode = action.payload
+    }),
+    setShowAddNewPolygonModal: ((state: MapInitialState, action) => {
+      state.showAddNewPolygonModal = action.payload
+    })
   },
   extraReducers: (builder) => {
     builder
@@ -62,7 +77,11 @@ const {
 } = mapSlice
 
 export const {
-  setPolygons
+  setPolygons,
+  setPolygonFlyTo,
+  setEquipmentFlyTo,
+  setDrawingPolygonMode,
+  setShowAddNewPolygonModal
 } = actions
 
 export default reducer

@@ -2,24 +2,25 @@ import s from './PolygonSpotMenu.module.scss'
 import { Popup } from 'react-leaflet'
 import React from 'react'
 import { Button } from 'antd'
+import { setShowAddNewPolygonModal } from '../../../../../../redux/slices/mapSlice'
+import { useAppDispatch } from '../../../../../../redux/store'
 
 type Props = {
   index: number,
-  deletePolygonSpot: (n: number) => void,
-  addNewPolygon: () => void
+  deletePolygonSpot: (n: number) => void
 }
 
 const PolygonSpotMenu: React.FC<Props> = ({
   index,
-  deletePolygonSpot,
-  addNewPolygon
+  deletePolygonSpot
 }) => {
+  const dispatch = useAppDispatch()
 
   return (
     <Popup>
       <div className={s.polygonSpotMenuWrapper}>
         <Button
-          onClick={() => addNewPolygon()}
+          onClick={() => dispatch(setShowAddNewPolygonModal(true))}
           className={s.polygonSpotMenuBTN}
         >
             Сохранить

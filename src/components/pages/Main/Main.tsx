@@ -28,11 +28,15 @@ import * as cn from 'classnames'
 import s from './Map/Map.module.scss'
 import {
   getAllPolygons,
-  setPolygons
+  setPolygons,
+  setShowAddNewPolygonModal
 } from '../../../redux/slices/mapSlice'
 import { useAppDispatch } from '../../../redux/store'
 import { useSelector } from 'react-redux'
-import { getAllPolygonsSelector } from '../../../redux/selectors/mapSelectors'
+import {
+  getAllPolygonsSelector,
+  getShowAddNewPolygonModalSelector
+} from '../../../redux/selectors/mapSelectors'
 
 export const isDrawingAtom = atom(false)
 export const isFetchingAtom = atom(false)
@@ -50,13 +54,13 @@ function trianglesCheck<T>(arr: T[]) {
 const MainPage = () => {
   const [load, setLoad] = useState(true)
   const polygons = useSelector(getAllPolygonsSelector)
+  const showAddNewPolygonModal = useSelector(getShowAddNewPolygonModalSelector)
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     // Имитация загрузки данных
     setTimeout(() => setLoad(false), 2500)
   }, [])
-
-  const dispatch = useAppDispatch()
 
   const ref = useRef<any>(null)
   const [fieldTypes, setFieldTypes] = useAtom(fieldTypesAtom)
@@ -67,8 +71,6 @@ const MainPage = () => {
 
   const [polygonName, setPolygonName] = useState('')
 
-  const [visibleModal, setVisibleModal] = useState(false)
-
   useEffect(() => {
     ((async () => {
       const fieldTypes = await mapService.getFieldList()
@@ -78,7 +80,7 @@ const MainPage = () => {
   }, [setFieldTypes])
 
   const handleCancel = () => {
-    setVisibleModal(false)
+    dispatch(setShowAddNewPolygonModal(false))
     setPolygonName('')
   }
 
@@ -119,7 +121,7 @@ const MainPage = () => {
       }
 
       setPolygonData(polygon)
-      setVisibleModal(true)
+      dispatch(setShowAddNewPolygonModal(true))
     } catch {
       console.log('error')
     } finally {
@@ -182,36 +184,9 @@ const MainPage = () => {
 
     setPolygons(newPolygons)
 
-    setVisibleModal(false)
+    dispatch(setShowAddNewPolygonModal(false))
     setIsFetching(false)
   }
-
-  /*
-  * Функционал для перехода к нужному полигону
-  * todo внести в Redux
-  * */
-
-  const [selectedPolygon, setSelectedPolygon] = useState<number>()
-  function polygonHandleItemClick(id: number) {
-    setSelectedPolygon(id)
-  }
-
-  /*
-  * Функцияонал для перехода к оборудованию на карте
-  * todo вынести в Redux
-  * */
-
-  const [selectedEquipment, setSelectedEquipment] = useState<number>()
-  function equipmentHandleItemClick(id: number) {
-    setSelectedEquipment(id)
-  }
-
-  /*
-  * функционал для рисования полигонов
-  * todo перенести в Redux
-  * */
-
-  const [isDrawing, setIsDrawing] = useState(false)
 
   return (
     <div style={{ position: 'relative', height: '100vh' }}>
@@ -222,14 +197,10 @@ const MainPage = () => {
             <SidebarContainer
               sidebarState={sidebarState}
               editPolygonHandler={editPolygonHandler}
-              polygonHandleItemClick={polygonHandleItemClick}
-              isDrawing={isDrawing}
-              setIsDrawing={setIsDrawing}
-              equipmentHandleItemClick={equipmentHandleItemClick}
             />
             <Modal
               title="Добавить поле"
-              open={visibleModal}
+              open={showAddNewPolygonModal}
               onCancel={handleCancel}
               onOk={handleOk}
             >
@@ -246,14 +217,7 @@ const MainPage = () => {
               zoom={13}
               minZoom={3}
             >
-              <Map
-                selectedPolygon={selectedPolygon}
-                setSelectedPolygon={setSelectedPolygon}
-                isDrawing={isDrawing}
-                setVisibleModal={setVisibleModal}
-                selectedEquipment={selectedEquipment}
-                setSelectedEquipment={setSelectedEquipment}
-              />
+              <Map />
             </MapContainer>
           </MainLayout>
         )}

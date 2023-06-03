@@ -30,10 +30,10 @@
   border-bottom: 0.2px solid #858585;
   padding-bottom: 0.3rem;
 
-  p {
+  &Count {
     color: #fff;
     font-family: Helvetica, serif;
-
+    text-align: center;
     font-size: 0.78rem;
   }
 }

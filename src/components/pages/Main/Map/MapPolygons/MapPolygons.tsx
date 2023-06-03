@@ -7,12 +7,9 @@ import OnePolygon from './OnePolygon'
 import { useSelector } from 'react-redux'
 import { getAllPolygonsSelector } from '../../../../../redux/selectors/mapSelectors'
 
-type Props = {
-  selectedPolygon: number | undefined,
-  setSelectedPolygon: (id: number | undefined) => void
-}
+type Props = {}
 
-const MapPolygons: React.FC<Props> = ({ selectedPolygon, setSelectedPolygon }) => {
+const MapPolygons: React.FC<Props> = () => {
 
   const polygons = useSelector(getAllPolygonsSelector)
 
@@ -21,9 +18,7 @@ const MapPolygons: React.FC<Props> = ({ selectedPolygon, setSelectedPolygon }) =
       {polygons.map((polygon: PolygonType, index: number) => (
         <OnePolygon
           polygon={polygon}
-          selectedPolygon={selectedPolygon}
           key={index}
-          setSelectedPolygon={setSelectedPolygon}
         />
       ))}
     </>

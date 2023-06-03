@@ -11,21 +11,27 @@ import PolygonPreview from '../PolygonPreview/PolygonPreview'
 
 import { mapService } from '../../../../api/map'
 import { useSelector } from 'react-redux'
-import { getAllPolygonsSelector } from '../../../../redux/selectors/mapSelectors'
-import { setPolygons } from '../../../../redux/slices/mapSlice'
+import {
+  getAllPolygonsSelector,
+  getDrawingPolygonModeSelector
+} from '../../../../redux/selectors/mapSelectors'
+import {
+  setDrawingPolygonMode,
+  setPolygons
+} from '../../../../redux/slices/mapSlice'
+import { useAppDispatch } from '../../../../redux/store'
 
 const PolygonList: React.FC<{
   onEdit: (id: string | number) => void,
-  onPolygonOption?: (id: string | number) => void,
-  polygonHandleItemClick: (index: number) => void,
-  isDrawing: boolean,
-  setIsDrawing: (isDrawing: any) => void
-}> = ({ onEdit, polygonHandleItemClick, setIsDrawing, isDrawing }) => {
+  onPolygonOption?: (id: string | number) => void
+}> = ({ onEdit }) => {
+  const dispatch = useAppDispatch()
 
   const [isFetching, setIsFetching] = useAtom(isFetchingAtom)
   const polygons = useSelector(getAllPolygonsSelector)
+  const drawingPolygonMode = useSelector(getDrawingPolygonModeSelector)
 
-  const toggleDrawing = () => setIsDrawing((prev: boolean) => !prev)
+  const toggleDrawing = () => dispatch(setDrawingPolygonMode(!drawingPolygonMode))
 
   const numPolygons = polygons.reduce((count, polygon) => {
     if (polygon.coords.length) {
@@ -83,14 +89,14 @@ const PolygonList: React.FC<{
           src={settingMap}
           alt=""
         />
-        <p style={{ textAlign: 'center' }}>
+        <div className={s.headerCount}>
           <div>
             Список полей
           </div>
           <div>
             {`Всего ${numPolygons} | ${hectares} Га`}
           </div>
-        </p>
+        </div>
         <img
           className={cn(s.image)}
           src={DownloadMap}
@@ -101,7 +107,7 @@ const PolygonList: React.FC<{
         className={cn(s.addButton)}
         onClick={toggleDrawing}
       >
-        {isDrawing
+        {drawingPolygonMode
           ? <div>
             Выключить режим редактирования
           </div>
@@ -120,7 +126,6 @@ const PolygonList: React.FC<{
             polygon={polygon}
             onDelete={() => deleteHandler(polygon.id)}
             key={polygon.id}
-            polygonHandleItemClick={polygonHandleItemClick}
           />
         )
       })}
