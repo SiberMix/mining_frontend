@@ -38,12 +38,9 @@ const EquipCastomMarker: React.FC<Props> = ({
   const dispatch = useAppDispatch()
   const equipmentFlyTo = useSelector(getEquipmentFlyToSelector)
 
-  //из-за библиотеки react-leafet нужно указать в типизации any
-  const equipRef = useRef<any>(null)
   useEffect(() => {
     if (equipmentFlyTo === +coordsData.imei) {
       map?.flyTo([+coordsData.lat, +coordsData.lon], 15, { animate: false })
-      equipRef.current?.openPopup()
       //обнуление id после того как перенесли карту, и даже если не перенесли
       dispatch(setEquipmentFlyTo(undefined))
     }
@@ -51,7 +48,6 @@ const EquipCastomMarker: React.FC<Props> = ({
 
   return (
     <Marker
-      ref={equipRef}
       position={[+coordsData.lat, +coordsData.lon]}
       icon={L.icon({
         iconUrl: `src/assets/icons_enum/${image_status}.svg`,

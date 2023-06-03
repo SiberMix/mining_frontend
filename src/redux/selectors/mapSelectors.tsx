@@ -29,11 +29,12 @@ export const getPolygonFlyToSelector = createSelector(
   }
 )
 const getEquipmentFlyTo = (state: RootState) => {
-  return state.mapReducer.polygonFlyTo
+  return state.mapReducer.equipmentFlyTo
 }
 export const getEquipmentFlyToSelector = createSelector(
   getEquipmentFlyTo,
   (equipmentFlyTo) => {
+    console.log(equipmentFlyTo)
     return equipmentFlyTo
   }
 )

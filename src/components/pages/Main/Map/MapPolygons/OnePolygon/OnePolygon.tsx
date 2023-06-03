@@ -23,8 +23,8 @@ const OnePolygon: React.FC<Props> = ({ polygon }) => {
   const polygonFlyTo = useSelector(getPolygonFlyToSelector)
 
   const map = useMap()
-  const polygonRef = useRef<any>(null)
 
+  const polygonRef = useRef<any>(null)
   useEffect(() => {
     if (polygonFlyTo === polygon.id) {
       map?.flyTo(polygon.middle_coord, 13, { animate: false })
