@@ -8,16 +8,14 @@ import { isFetchingAtom } from '../../../pages/Main/Main'
 import settingMap from '/src/assets/icons/equalizersoutline_114523.svg'
 import DownloadMap from '/src/assets/icons/download2.svg'
 import PolygonPreview from '../PolygonPreview/PolygonPreview'
-
-import { mapService } from '../../../../api/map'
 import { useSelector } from 'react-redux'
 import {
   getAllPolygonsSelector,
   getDrawingPolygonModeSelector
 } from '../../../../redux/selectors/mapSelectors'
 import {
-  setDrawingPolygonMode,
-  setPolygons
+  deletePolygon,
+  setDrawingPolygonMode
 } from '../../../../redux/slices/mapSlice'
 import { useAppDispatch } from '../../../../redux/store'
 
@@ -68,10 +66,7 @@ const PolygonList: React.FC<{
         if (isFetching) return
         setIsFetching(true)
 
-        //Удаление полигона по Id
-        await mapService.removePolygonById(id)
-
-        setPolygons(polygons.filter((p) => p.id !== id))
+        dispatch(deletePolygon(+id))
       } catch (e) {
         console.log(e)
       } finally {

@@ -76,11 +76,7 @@ const MainPage = () => {
 
     // Отправляем POST-запрос с обновленными данными полигона
     dispatch(postNewPolygon({ name: polygonName, coords: [...newPolygonCoords, newPolygonCoords[0]] }))
-
-    // Обновляем список полигонов с сервера
-    // dispatch(getAllPolygons())
-    //
-    // dispatch(setShowAddNewPolygonModal(false))
+    setPolygonName('')
     setIsFetching(false)
   }
 

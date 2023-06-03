@@ -12,7 +12,6 @@ import { useAppDispatch } from '../../../../../../redux/store'
 import { useSelector } from 'react-redux'
 import { getPolygonFlyToSelector } from '../../../../../../redux/selectors/mapSelectors'
 import { setPolygonFlyTo } from '../../../../../../redux/slices/mapSlice'
-import OnePolygonText from './OnePolygonText'
 // import OnePolygonText from './OnePolygonText'
 
 type Props = {
@@ -30,7 +29,7 @@ const OnePolygon: React.FC<Props> = ({ polygon }) => {
     if (polygonFlyTo === polygon.id) {
       map?.flyTo(polygon.middle_coord, 13, { animate: false })
       polygonRef.current?.openPopup()
-      //обнуление id после того как перенесли карту
+      //обнуление id после того как перенесли карту или даже если не перенесли
       dispatch(setPolygonFlyTo(undefined))
     }
   }, [polygonFlyTo])

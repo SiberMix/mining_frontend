@@ -71,14 +71,16 @@ const mapSlice = createSlice({
       .addCase(getAllEquipment.fulfilled, (state: MapInitialState, action) => {
         state.equipmentList = action.payload.data
       })
-      .addCase(postNewPolygon.fulfilled, (state: MapInitialState, action) => {
+      .addCase(postNewPolygon.fulfilled, (state: MapInitialState) => {
         state.showAddNewPolygonModal = false
         state.drawingPolygonMode = false
-        getAllPolygons()
       })
       .addCase(putEditPolygon.fulfilled, (state: MapInitialState) => {
         state.drawingPolygonMode = false
-        getAllPolygons()
+        state.editedPolygon = undefined
+      })
+      .addCase(deletePolygon.fulfilled, (state: MapInitialState, action) => {
+        state.polygonsList = state.polygonsList.filter((p) => p.id !== action.payload.id)
       })
       .addDefaultCase(() => {
       })
@@ -99,14 +101,27 @@ export const getAllEquipment = createAsyncThunk(
 )
 export const postNewPolygon = createAsyncThunk(
   'map/postNewPolygonThunk',
-  async ({ coords, name, activeStatus = 1 }: PostNewPolygonData) => {
-    return await mapService.addNewPolygon({ coords, name, activeStatus })
+  async ({ coords, name, activeStatus = 1 }: PostNewPolygonData, thunkAPI) => {
+    const { dispatch } = thunkAPI
+    const response = await mapService.addNewPolygon({ coords, name, activeStatus })
+    dispatch(getAllPolygons())
+    return response
   }
 )
 export const putEditPolygon = createAsyncThunk(
   'map/editPolygonThunk',
-  async ({ polygonId, name, coords, activeStatus = 1 }: EditPolygonData) => {
-    return await mapService.updatePolygonById({ polygonId, name, coords, activeStatus })
+  async ({ polygonId, name, coords, activeStatus = 1 }: EditPolygonData, thunkAPI) => {
+    const { dispatch } = thunkAPI
+    const response = await mapService.updatePolygonById({ polygonId, name, coords, activeStatus })
+    dispatch(getAllPolygons())
+    return response
+  }
+)
+export const deletePolygon = createAsyncThunk(
+  'map/deletePolygonThunk',
+  async (id: number) => {
+    const response = await mapService.removePolygonById(id)
+    return { id, response }
   }
 )
 
