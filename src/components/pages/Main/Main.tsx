@@ -4,7 +4,8 @@ import React, {
 } from 'react'
 import {
   Input,
-  Modal
+  Modal,
+  Select
 } from 'antd'
 
 import {
@@ -57,6 +58,8 @@ const MainPage = () => {
   const [sidebarState] = useAtom<any>(SidebarStateAtom)
 
   const [polygonName, setPolygonName] = useState('')
+  const { Option } = Select
+  const [polygonCulture, setPolygonCulture] = useState<string>('Пшеница')
 
   useEffect(() => {
     ((async () => {
@@ -75,13 +78,20 @@ const MainPage = () => {
     if (!newPolygonCoords) return
 
     // Отправляем POST-запрос с обновленными данными полигона
-    dispatch(postNewPolygon({ name: polygonName, coords: [...newPolygonCoords, newPolygonCoords[0]] }))
+    dispatch(postNewPolygon({
+      name: polygonName,
+      coords: [...newPolygonCoords, newPolygonCoords[0]]
+    }))
     setPolygonName('')
     setIsFetching(false)
   }
 
   return (
-    <div style={{ position: 'relative', height: '100vh' }}>
+    <div style={{
+      position: 'relative',
+      height: '100vh'
+    }}
+    >
       {load
         ? <Preloader />
         : (
@@ -101,7 +111,34 @@ const MainPage = () => {
                 onChange={(e) => setPolygonName(e.target.value)}
                 style={{ marginBottom: '16px' }}
               />
-            </Modal >
+              <Input.Group compact>
+                <Select
+                  style={{ width: '30%' }}
+                  defaultValue="Пшеница"
+                  onChange={(value) => setPolygonCulture(value)}
+                  value={polygonCulture}
+                >
+                  <Option value="Пшеница">
+                    Пшеница
+                  </Option>
+                  <Option value="Ячмень">
+                    Ячмень
+                  </Option>
+                  <Option value="Подсолнечник">
+                    Подсолнечник
+                  </Option>
+                  <Option value="Рапс">
+                    Рапс
+                  </Option>
+                  <Option value="Кукуруза">
+                    Кукуруза
+                  </Option>
+                  <Option value="Овес">
+                    Овес
+                  </Option>
+                </Select>
+              </Input.Group>
+            </Modal>
             <MapContainer
               className={cn(s.map)}
               center={[54.925946, 82.775931]}

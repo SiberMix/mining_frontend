@@ -3,7 +3,7 @@ import 'leaflet-editable'
 import 'leaflet-draw'
 import 'leaflet-draw/dist/leaflet.draw.css'
 import type { Polygon as PolygonType } from '../../../../../types/index'
-import OnePolygon from './OnePolygon/OnePolygon'
+import OnePolygon from './OnePolygon'
 import { useSelector } from 'react-redux'
 import { getAllPolygonsSelector } from '../../../../../redux/selectors/mapSelectors'
 

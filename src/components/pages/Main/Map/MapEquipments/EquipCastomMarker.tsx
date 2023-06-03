@@ -4,10 +4,7 @@ import {
   Popup,
   useMap
 } from 'react-leaflet'
-import React, {
-  useEffect,
-  useRef
-} from 'react'
+import React, { useEffect } from 'react'
 import type { EquipmentSocketData } from './MapEquipments'
 import { useAppDispatch } from '../../../../../redux/store'
 import { useSelector } from 'react-redux'

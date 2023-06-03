@@ -7,12 +7,11 @@ import React, {
   useEffect,
   useRef
 } from 'react'
-import type { Polygon as PolygonType } from '../../../../../../types'
-import { useAppDispatch } from '../../../../../../redux/store'
+import type { Polygon as PolygonType } from '../../../../../types'
+import { useAppDispatch } from '../../../../../redux/store'
 import { useSelector } from 'react-redux'
-import { getPolygonFlyToSelector } from '../../../../../../redux/selectors/mapSelectors'
-import { setPolygonFlyTo } from '../../../../../../redux/slices/mapSlice'
-// import OnePolygonText from './OnePolygonText'
+import { getPolygonFlyToSelector } from '../../../../../redux/selectors/mapSelectors'
+import { setPolygonFlyTo } from '../../../../../redux/slices/mapSlice'
 
 type Props = {
   polygon: PolygonType
@@ -43,10 +42,6 @@ const OnePolygon: React.FC<Props> = ({ polygon }) => {
       positions={polygon.coords as [number, number][]}
       pathOptions={{ fillColor: polygonColor, ...polygonDefaultStyleSettings }}
     >
-      {/*<OnePolygonText*/}
-      {/*  text="что то рандомное"*/}
-      {/*  position={polygon.middle_coord}*/}
-      {/*/>*/}
       <Popup>
         <div>
           {polygon.name}
