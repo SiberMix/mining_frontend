@@ -10,11 +10,10 @@ import {
 } from 'react-transition-group'
 
 type Props = {
-  sidebarState: any,
-  editPolygonHandler: any
+  sidebarState: any
 }
 
-const SidebarContainer: React.FC<Props> = ({ sidebarState, editPolygonHandler }) => {
+const SidebarContainer: React.FC<Props> = ({ sidebarState }) => {
   return (
     <Sidebar>
       <TransitionGroup>
@@ -23,9 +22,7 @@ const SidebarContainer: React.FC<Props> = ({ sidebarState, editPolygonHandler })
             classNames="sidebar"
             timeout={300}
           >
-            <PolygonList
-              onEdit={editPolygonHandler}
-            />
+            <PolygonList />
           </CSSTransition>
           : null}
         {sidebarState.isEquipmentListOpen

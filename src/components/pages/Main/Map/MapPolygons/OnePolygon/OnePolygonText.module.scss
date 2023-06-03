@@ -1,0 +1,13 @@
+.leaflet-polygon-text-pane {
+  position: absolute;
+  z-index: 1000;
+  pointer-events: none;
+
+  div {
+    /* Стилизуйте текст, как вам нужно */
+    /* Например: */
+    background-color: white;
+    padding: 5px;
+    border: 1px solid black;
+  }
+}

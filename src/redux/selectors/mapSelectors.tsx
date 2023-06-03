@@ -55,3 +55,21 @@ export const getShowAddNewPolygonModalSelector = createSelector(
     return showAddNewPolygonModal
   }
 )
+const getEditedPolygon = (state: RootState) => {
+  return state.mapReducer.editedPolygon
+}
+export const getEditedPolygonSelector = createSelector(
+  getEditedPolygon,
+  (editedPolygon) => {
+    return editedPolygon
+  }
+)
+const getNewPolygonCoords = (state: RootState) => {
+  return state.mapReducer.newPolygonCoords
+}
+export const getNewPolygonCoordsSelector = createSelector(
+  getNewPolygonCoords,
+  (newPolygonCoords) => {
+    return newPolygonCoords
+  }
+)

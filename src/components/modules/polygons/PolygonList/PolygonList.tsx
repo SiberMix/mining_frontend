@@ -22,9 +22,8 @@ import {
 import { useAppDispatch } from '../../../../redux/store'
 
 const PolygonList: React.FC<{
-  onEdit: (id: string | number) => void,
   onPolygonOption?: (id: string | number) => void
-}> = ({ onEdit }) => {
+}> = () => {
   const dispatch = useAppDispatch()
 
   const [isFetching, setIsFetching] = useAtom(isFetchingAtom)
@@ -122,7 +121,6 @@ const PolygonList: React.FC<{
         if (!polygon.coords.length) return null
         return (
           <PolygonPreview
-            onEditPolygon={() => onEdit(polygon.id)}
             polygon={polygon}
             onDelete={() => deleteHandler(polygon.id)}
             key={polygon.id}

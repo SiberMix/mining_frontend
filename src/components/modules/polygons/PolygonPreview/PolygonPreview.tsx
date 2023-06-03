@@ -15,6 +15,7 @@ import {
 import { useSelector } from 'react-redux'
 import { getAllPolygonsSelector } from '../../../../redux/selectors/mapSelectors'
 import {
+  setEditedPolygon,
   setPolygonFlyTo,
   setPolygons
 } from '../../../../redux/slices/mapSlice'
@@ -22,11 +23,9 @@ import { useAppDispatch } from '../../../../redux/store'
 
 const PolygonPreview: React.FC<{
   polygon: Polygon,
-  onDelete?: () => void,
-  onEditPolygon?: () => void
+  onDelete?: () => void
 }> = ({ polygon,
-  onDelete,
-  onEditPolygon }) => {
+  onDelete }) => {
 
   const polygons = useSelector(getAllPolygonsSelector)
 
@@ -74,7 +73,7 @@ const PolygonPreview: React.FC<{
               />
             </div>
             <p className={cn(s.culture)}>
-              {polygon.sequence}
+              {polygon.sequence === null ? 'культура не выбрана' : polygon.sequence.name}
             </p>
           </div>
         </div>
@@ -85,7 +84,7 @@ const PolygonPreview: React.FC<{
                 {
                   key: '1',
                   label: 'Редактировать полигон',
-                  onClick: onEditPolygon
+                  onClick: () => dispatch(setEditedPolygon(+polygon.id))
                 },
                 {
                   key: '2',
@@ -123,7 +122,7 @@ const PolygonPreview: React.FC<{
         onCancel={toggleEditNameModal}
       />
       <EditPolygonTypeModal
-        initialValue={polygon.field.name}
+        initialValue={polygon.sequence === null ? '' : polygon.sequence.name}
         visible={showEditTypeModal}
         onOk={handleChangeType}
         onCancel={toggleEditTypeModal}

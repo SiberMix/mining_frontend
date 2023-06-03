@@ -27,11 +27,6 @@ const layers = [
     name: '2gis Map',
     url: 'http://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',
     subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
-  },
-  {
-    name: 'OSM',
-    url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-    subdomains: ['a', 'b', 'c']
   }
 ]
 

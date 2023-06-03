@@ -13,18 +13,31 @@ import {
 import PolygonSpotMenu from './PolygonSpotMenu/PolygonSpotMenu'
 import L from 'leaflet'
 import { useSelector } from 'react-redux'
-import { getDrawingPolygonModeSelector } from '../../../../../redux/selectors/mapSelectors'
+import {
+  getDrawingPolygonModeSelector,
+  getEditedPolygonSelector
+} from '../../../../../redux/selectors/mapSelectors'
 
 type Props = {};
 
 const DrawingPolygon: React.FC<Props> = () => {
   const drawingPolygonMode = useSelector(getDrawingPolygonModeSelector)
+  const editedPolygon = useSelector(getEditedPolygonSelector)
 
   const [polygonCoords, setPolygonCoords] = useState<[number, number][]>([])
   const [futureStart, setFutureStart] = useState<null | [number, number][]>(null)
   const [futureEnd, setFutureEnd] = useState<null | [number, number][]>(null)
 
   const map = useMap()
+  /*
+  * проверка на режим редактирования у полигона
+  * */
+  useEffect(() => {
+    if (editedPolygon) {
+      map?.flyTo(editedPolygon.middle_coord, 14, { animate: false })
+      setPolygonCoords(editedPolygon.coords)
+    }
+  }, [editedPolygon])
 
   /*
   * добавление новой точки полигона по клику
@@ -76,7 +89,7 @@ const DrawingPolygon: React.FC<Props> = () => {
   * mousemove - отрисовка вспомогательных линий
   * */
   useEffect(() => {
-    if (drawingPolygonMode) {
+    if (drawingPolygonMode || editedPolygon) {
       map.on('click', handleMapClick)
       map.on('mousemove', handleMapMouseMove)
     } else {
@@ -90,7 +103,7 @@ const DrawingPolygon: React.FC<Props> = () => {
       map.off('click', handleMapClick)
       map.off('mousemove', handleMapMouseMove)
     }
-  }, [drawingPolygonMode, map, futureStart])
+  }, [drawingPolygonMode, map, futureStart, editedPolygon])
 
   /*
   * Редактирование полигона
@@ -100,7 +113,11 @@ const DrawingPolygon: React.FC<Props> = () => {
     dragend(e: any) {
       const newCoords: [number, number][] = polygonCoords.map((coords, index) => {
         if (index === id) {
-          return e.target.getLatLng()
+          const {
+            lat,
+            lng
+          } = e.target.getLatLng()
+          return [lat, lng]
         }
         return coords
       })
@@ -135,13 +152,15 @@ const DrawingPolygon: React.FC<Props> = () => {
               <PolygonSpotMenu
                 key={index}
                 index={index}
+                polygonCoords={polygonCoords}
                 deletePolygonSpot={deletePolygonSpot}
+                editedPolygon={editedPolygon}
               />
             </Marker>
           )
         })}
       </Polygon>
-      {polygonCoords.length > 0
+      {polygonCoords.length > 0 && !editedPolygon
         ? <>
           <Polyline
             positions={[polygonCoords[0], futureEnd] as [number, number][]}
