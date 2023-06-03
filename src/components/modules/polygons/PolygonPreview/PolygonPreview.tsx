@@ -15,6 +15,7 @@ import {
 import { useSelector } from 'react-redux'
 import { getAllPolygonsSelector } from '../../../../redux/selectors/mapSelectors'
 import {
+  putEditPolygon,
   setEditedPolygon,
   setPolygonFlyTo,
   setPolygons
@@ -37,11 +38,20 @@ const PolygonPreview: React.FC<{
   const toggleEditTypeModal = () => setShowEditTypeModal(!showEditTypeModal)
 
   const handleChangeName = async (name: string) => {
-    const params: any = { ...polygon, name }
     const id = polygon.id
-    await mapService.editField({ id, params })
 
-    setPolygons(polygons.map((p) => (p.id === id ? { ...p, name } : p)))
+    await dispatch(putEditPolygon({
+      polygonId: +id,
+      name,
+      coords: polygon.coords
+    }))
+    const newPolygons = polygons.map(polygon => {
+      if (polygon.id === id) {
+        return { ...polygon, name }
+      }
+      return polygon
+    })
+    dispatch(setPolygons(newPolygons))
     toggleEditNameModal()
   }
 
