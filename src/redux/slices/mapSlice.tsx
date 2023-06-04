@@ -71,20 +71,23 @@ const mapSlice = createSlice({
       .addCase(getAllEquipment.fulfilled, (state: MapInitialState, action) => {
         state.equipmentList = action.payload.data
       })
-      .addCase(postNewPolygon.fulfilled, (state: MapInitialState) => {
+      .addCase(postNewPolygon.fulfilled, (state: MapInitialState, action) => {
+        state.polygonsList = [...state.polygonsList, action.payload.data]
         state.showAddNewPolygonModal = false
         state.drawingPolygonMode = false
       })
       .addCase(putEditPolygon.fulfilled, (state: MapInitialState, action) => {
-        state.drawingPolygonMode = false
-        if (state.editedPolygon) {
-          state.polygonsList = [...state.polygonsList, state.editedPolygon]
+        if (state.drawingPolygonMode) {
+          state.polygonsList = [...state.polygonsList, action.payload.response.data]
         } else {
           state.polygonsList = state.polygonsList.map(polygon => {
-            if (polygon.id === action.payload.polygonId) return { ...polygon, name: action.payload.name }
+            if (polygon.id === action.payload.polygonId) {
+              return action.payload.response.data
+            }
             return polygon
           })
         }
+        state.drawingPolygonMode = false
         state.editedPolygon = undefined
       })
       .addCase(deletePolygon.fulfilled, (state: MapInitialState, action) => {
@@ -110,17 +113,14 @@ export const getAllEquipment = createAsyncThunk(
 export const postNewPolygon = createAsyncThunk(
   'map/postNewPolygonThunk',
   async ({ coords, name, activeStatus = 1, sequence }: PostNewPolygonData, thunkAPI) => {
-    const { dispatch } = thunkAPI
-    const response = await mapService.addNewPolygon({ coords, name, activeStatus, sequence })
-    dispatch(getAllPolygons())
-    return response
+    return await mapService.addNewPolygon({ coords, name, activeStatus, sequence })
   }
 )
 export const putEditPolygon = createAsyncThunk(
   'map/editPolygonThunk',
-  async ({ polygonId, name, coords, activeStatus = 1 }: EditPolygonData) => {
-    const response = await mapService.updatePolygonById({ polygonId, name, coords, activeStatus })
-    return { polygonId, name, response }
+  async ({ polygonId, newOption }: EditPolygonData) => {
+    const response = await mapService.updatePolygonById({ polygonId, newOption })
+    return { polygonId, response }
   }
 )
 export const deletePolygon = createAsyncThunk(
@@ -156,7 +156,5 @@ export type PostNewPolygonData = {
 }
 export type EditPolygonData = {
   polygonId: number,
-  name: string,
-  coords: [number, number][],
-  activeStatus?: number
+  newOption: { name: string } | { coords: [number, number][] } | { sequence: string }
 }

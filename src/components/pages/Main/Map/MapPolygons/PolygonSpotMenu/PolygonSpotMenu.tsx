@@ -44,8 +44,7 @@ const PolygonSpotMenu: React.FC<Props> = ({
       } else {
         dispatch(putEditPolygon({
           polygonId: +editedPolygon.id,
-          name: editedPolygon.name,
-          coords: currentCoords
+          newOption: { coords: currentCoords }
         }))
       }
     } else {

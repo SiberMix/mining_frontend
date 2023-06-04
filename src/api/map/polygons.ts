@@ -17,21 +17,14 @@ export const polygonsService = {
   /*
   * Редактируем данные о полигоне по айди
   * */
-  updatePolygonById: ({ polygonId, name, coords, activeStatus }: EditPolygonData) => {
-    return axiosInstance.put(`/polygons/${polygonId}/`, {
-      coords,
-      name,
-      activeStatus
-    })
+  updatePolygonById: ({ polygonId, newOption }: EditPolygonData) => {
+    return axiosInstance.put(`/polygons/${polygonId}/`, newOption)
   },
   /*
   * добавление нового полигона
   * */
-  // addNewPolygon: (updatedPolygonData: any) => {
-  //   return axiosInstance.post('/polygons/', updatedPolygonData)
-  // },
   addNewPolygon: (updatedPolygonData: any) => {
-    return axiosInstance.post('/polygons_add/', updatedPolygonData)
+    return axiosInstance.post('/polygons/', updatedPolygonData)
   },
   /*
   * Удаление полигона по Id

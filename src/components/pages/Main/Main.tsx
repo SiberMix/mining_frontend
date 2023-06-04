@@ -15,8 +15,6 @@ import {
 } from 'jotai'
 import MainLayout from './MainLayout/MainLayout'
 
-import { SidebarStateAtom } from './Sidebar/Sidebar'
-
 import './styles.css'
 import { mapService } from '../../../api/map'
 import Preloader from '../../common/preloader/Preloader'
@@ -36,6 +34,7 @@ import {
   getNewPolygonCoordsSelector,
   getShowAddNewPolygonModalSelector
 } from '../../../redux/selectors/mapSelectors'
+import miniLogo from '/src/assets/hectareLogoOnly.png'
 
 export const isDrawingAtom = atom(false)
 export const isFetchingAtom = atom(false)
@@ -55,7 +54,6 @@ const MainPage = () => {
   const [fieldTypes, setFieldTypes] = useAtom(fieldTypesAtom)
 
   const setIsFetching = useSetAtom(isFetchingAtom)
-  const [sidebarState] = useAtom<any>(SidebarStateAtom)
 
   const [polygonName, setPolygonName] = useState('')
   const { Option } = Select
@@ -76,7 +74,11 @@ const MainPage = () => {
 
   async function handleOk() {
     if (!newPolygonCoords) return
-
+    console.log({
+      name: polygonName,
+      coords: [...newPolygonCoords, newPolygonCoords[0]],
+      sequence: polygonCulture
+    })
     // Отправляем POST-запрос с обновленными данными полигона
     dispatch(postNewPolygon({
       name: polygonName,
@@ -84,6 +86,7 @@ const MainPage = () => {
       sequence: polygonCulture
     }))
     setPolygonName('')
+    setPolygonCulture('Пшеница')
     setIsFetching(false)
   }
 
@@ -97,9 +100,7 @@ const MainPage = () => {
         ? <Preloader />
         : (
           <MainLayout>
-            <SidebarContainer
-              sidebarState={sidebarState}
-            />
+            <SidebarContainer />
             <Modal
               title="Добавить поле"
               open={showAddNewPolygonModal}
@@ -115,7 +116,7 @@ const MainPage = () => {
               <Input.Group compact>
                 <Select
                   style={{ width: '30%' }}
-                  defaultValue="Пшеница"
+                  defaultValue={polygonCulture}
                   onChange={(value) => setPolygonCulture(value)}
                   value={polygonCulture}
                 >
@@ -134,7 +135,7 @@ const MainPage = () => {
                   <Option value="Кукуруза">
                     Кукуруза
                   </Option>
-                  <Option value="Овес">
+                  <Option value="Овёс">
                     Овес
                   </Option>
                 </Select>

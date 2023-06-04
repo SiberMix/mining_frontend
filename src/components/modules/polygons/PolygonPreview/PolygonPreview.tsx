@@ -39,28 +39,18 @@ const PolygonPreview: React.FC<{
 
   const handleChangeName = async (name: string) => {
     const id = polygon.id
-
     await dispatch(putEditPolygon({
       polygonId: +id,
-      name,
-      coords: polygon.coords
+      newOption: { name }
     }))
-    const newPolygons = polygons.map(polygon => {
-      if (polygon.id === id) {
-        return { ...polygon, name }
-      }
-      return polygon
-    })
-    dispatch(setPolygons(newPolygons))
     toggleEditNameModal()
   }
 
   const handleChangeType = async (type: string) => {
-    const params = { ...polygon, sequence: type }
-    const id = polygon.id
-
-    await mapService.editField({ id, params })
-    setPolygons(polygons.map((p) => (p.id === polygon.id ? { ...p, sequence: type } : p)))
+    dispatch(putEditPolygon({
+      polygonId: +polygon.id,
+      newOption: { sequence: type }
+    }))
     toggleEditTypeModal()
   }
 

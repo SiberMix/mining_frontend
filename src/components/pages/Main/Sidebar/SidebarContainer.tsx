@@ -1,4 +1,5 @@
-import React, { useRef } from 'react'
+import './SidebarCSSTransition.css'
+import React from 'react'
 import PolygonList from '../../../modules/polygons/PolygonList/PolygonList'
 import LibraryList from '../../../modules/library/LibraryList/LibraryList'
 import FieldList from '../../../modules/field/FieldList/FieldList'
@@ -12,29 +13,24 @@ import {
 import { useSelector } from 'react-redux'
 import { getSidebarOpenWindowSelector } from '../../../../redux/selectors/sidebarSelectors'
 
-type Props = {
-  sidebarState: any
-}
+type Props = {}
 
-const SidebarContainer: React.FC<Props> = ({ sidebarState }) => {
+const SidebarContainer: React.FC<Props> = () => {
   const sidebarOpenWindow = useSelector(getSidebarOpenWindowSelector)
-
+  // todo проверить на открываниае и закрывание одного и тогоже контента
   return (
     <>
       <Sidebar />
       <TransitionGroup>
         {/*<SwitchTransition mode="out-in" >*/}
         {/*  <CSSTransition*/}
-        {/*    key={state}*/}
-        {/*    addEndListener={(done) => {*/}
-        {/*      nodeRef.current.addEventListener('transitionend', done, false)*/}
-        {/*    }}*/}
+        {/*    key={sidebarOpenWindow}*/}
         {/*    classNames="fade"*/}
         {/*  >*/}
         {/*    <div />*/}
         {/*  </CSSTransition>*/}
         {/*</SwitchTransition>*/}
-        {sidebarState.isPolygonListOpen
+        {sidebarOpenWindow === 'PolygonList'
           ? <CSSTransition
             classNames="sidebar"
             timeout={300}
@@ -42,7 +38,7 @@ const SidebarContainer: React.FC<Props> = ({ sidebarState }) => {
             <PolygonList />
           </CSSTransition>
           : null}
-        {sidebarState.isEquipmentListOpen
+        {sidebarOpenWindow === 'EquipmentList'
           ? <CSSTransition
             classNames="sidebar"
             timeout={300}
@@ -50,7 +46,7 @@ const SidebarContainer: React.FC<Props> = ({ sidebarState }) => {
             <LibraryList />
           </CSSTransition>
           : null}
-        {sidebarState.isFieldListOpen
+        {sidebarOpenWindow === 'FieldList'
           ? <CSSTransition
             classNames="sidebar"
             timeout={300}
@@ -58,7 +54,7 @@ const SidebarContainer: React.FC<Props> = ({ sidebarState }) => {
             <FieldList />
           </CSSTransition>
           : null}
-        {sidebarState.isCalendarOpen
+        {sidebarOpenWindow === 'Calendar'
           ? <CSSTransition
             classNames="sidebar"
             timeout={300}

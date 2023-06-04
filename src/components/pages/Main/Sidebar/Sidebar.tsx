@@ -11,32 +11,22 @@ import LogoutBtn from '/src/assets/icons/logout.svg'
 import Trava from '/src/assets/icons/corn-seeds-svgrepo-com.svg'
 import miniLogo from '/src/assets/hectareLogoOnly.png'
 import styled from 'styled-components'
-import {
-  atom,
-  useAtom,
-  useSetAtom
-} from 'jotai'
+import { useSetAtom } from 'jotai'
 import SVG from 'react-inlinesvg'
 import { tokenAtom } from '../../../../App'
 import { useAppDispatch } from '../../../../redux/store'
 import type { SidebarOpenWindow } from '../../../../redux/slices/sidebarSlice'
 import { setOpenSidebarWindow } from '../../../../redux/slices/sidebarSlice'
-
-export const SidebarStateAtom = atom({
-  isPolygonListOpen: true,
-  isEquipmentListOpen: false,
-  isFieldListOpen: false,
-  isCalendarOpen: false
-})
+import { useSelector } from 'react-redux'
+import { getSidebarOpenWindowSelector } from '../../../../redux/selectors/sidebarSelectors'
 
 const Sidebar: React.FC<PropsWithChildren> = ({ children }) => {
   const dispatch = useAppDispatch()
-
+  const sidebarOpenWindow = useSelector(getSidebarOpenWindowSelector)
   /*
   * Функционал для выхода из акаунта
   * */
   const setToken = useSetAtom(tokenAtom)
-  const [state, setState] = useAtom(SidebarStateAtom)
   const logout = () => {
     setToken('')
     localStorage.removeItem('token')
@@ -47,17 +37,6 @@ const Sidebar: React.FC<PropsWithChildren> = ({ children }) => {
   * */
   const handleChangeSidebarContent = (openSidebarContent: SidebarOpenWindow) => {
     dispatch(setOpenSidebarWindow(openSidebarContent))
-  }
-  const changeState = (key: keyof typeof state) => () => {
-    setState((prevState) => {
-      const newState = Object.keys(prevState).reduce<any>((acc, keys) => {
-        acc[keys] = false
-        return acc
-      }, {} as typeof state)
-
-      newState[key] = !prevState[key]
-      return newState
-    })
   }
   function alertMsg() {
     alert('Данный функционал недоступен в демонстрационном режиме')
@@ -74,8 +53,8 @@ const Sidebar: React.FC<PropsWithChildren> = ({ children }) => {
           />
           <Svg
             title="Список полей"
-            active={+state.isPolygonListOpen}
-            onClick={changeState('isPolygonListOpen')}
+            active={(sidebarOpenWindow === 'PolygonList')}
+            onClick={() => handleChangeSidebarContent('PolygonList')}
             src={Field}
           />
           <Svg
@@ -86,20 +65,20 @@ const Sidebar: React.FC<PropsWithChildren> = ({ children }) => {
           <Svg
             src={Equip}
             title="Оборудование"
-            active={+state.isEquipmentListOpen}
-            onClick={changeState('isEquipmentListOpen')}
+            active={(sidebarOpenWindow === 'EquipmentList')}
+            onClick={() => handleChangeSidebarContent('EquipmentList')}
           />
           <Svg
             src={Trava}
             title="Культура"
-            active={+state.isFieldListOpen}
-            onClick={changeState('isFieldListOpen')}
+            active={(sidebarOpenWindow === 'FieldList')}
+            onClick={() => handleChangeSidebarContent('FieldList')}
           />
           <Svg
             src={Calendar}
             title="Планирование"
-            active={+state.isCalendarOpen}
-            onClick={changeState('isCalendarOpen')}
+            active={(sidebarOpenWindow === 'Calendar')}
+            onClick={() => handleChangeSidebarContent('Calendar')}
           />
         </div>
         <div>
@@ -117,7 +96,7 @@ const Sidebar: React.FC<PropsWithChildren> = ({ children }) => {
 
 export default Sidebar
 
-const Svg = styled(SVG)<{ active?: number }>`
+const Svg = styled(SVG)<{ active?: boolean }>`
   height: 20px;
   width: 20px;
   margin-bottom: 25px;
