@@ -75,8 +75,16 @@ const mapSlice = createSlice({
         state.showAddNewPolygonModal = false
         state.drawingPolygonMode = false
       })
-      .addCase(putEditPolygon.fulfilled, (state: MapInitialState) => {
+      .addCase(putEditPolygon.fulfilled, (state: MapInitialState, action) => {
         state.drawingPolygonMode = false
+        if (state.editedPolygon) {
+          state.polygonsList = [...state.polygonsList, state.editedPolygon]
+        } else {
+          state.polygonsList = state.polygonsList.map(polygon => {
+            if (polygon.id === action.payload.polygonId) return { ...polygon, name: action.payload.name }
+            return polygon
+          })
+        }
         state.editedPolygon = undefined
       })
       .addCase(deletePolygon.fulfilled, (state: MapInitialState, action) => {
@@ -110,11 +118,9 @@ export const postNewPolygon = createAsyncThunk(
 )
 export const putEditPolygon = createAsyncThunk(
   'map/editPolygonThunk',
-  async ({ polygonId, name, coords, activeStatus = 1 }: EditPolygonData, thunkAPI) => {
-    const { dispatch } = thunkAPI
+  async ({ polygonId, name, coords, activeStatus = 1 }: EditPolygonData) => {
     const response = await mapService.updatePolygonById({ polygonId, name, coords, activeStatus })
-    dispatch(getAllPolygons())
-    return response
+    return { polygonId, name, response }
   }
 )
 export const deletePolygon = createAsyncThunk(
