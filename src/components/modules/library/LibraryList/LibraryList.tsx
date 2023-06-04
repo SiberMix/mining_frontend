@@ -12,6 +12,8 @@ import Models from '../Models/Models'
 import EquipmentTypesComponent from '../Types/Types'
 import Trailer from '../Trailer/Trailer'
 
+type Props = {}
+
 export const LibraryListStateAtom = atom({
   isEquipmentListOpen: true,
   isEquipmentTypeListOpen: false,
@@ -19,7 +21,7 @@ export const LibraryListStateAtom = atom({
   isTrailerModelListOpen: false
 })
 
-const LibraryList: React.FC = () => {
+const LibraryList: React.FC<Props> = () => {
   const [libraryListState, setLibraryListState] = useAtom(LibraryListStateAtom)
 
   const changeState = (key: keyof typeof libraryListState) => () => {

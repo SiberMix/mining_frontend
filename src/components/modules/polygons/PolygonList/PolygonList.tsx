@@ -4,35 +4,37 @@ import * as cn from 'classnames'
 import React from 'react'
 import { useAtom } from 'jotai'
 import * as turf from '@turf/turf'
-import {
-  isDrawingAtom,
-  isFetchingAtom,
-  polygonsAtom
-} from '../../../pages/Main/Main'
+import { isFetchingAtom } from '../../../pages/Main/Main'
 import settingMap from '/src/assets/icons/equalizersoutline_114523.svg'
 import DownloadMap from '/src/assets/icons/download2.svg'
 import PolygonPreview from '../PolygonPreview/PolygonPreview'
-
-import { mapService } from '../../../../api/map'
+import { useSelector } from 'react-redux'
+import {
+  getAllPolygonsSelector,
+  getDrawingPolygonModeSelector
+} from '../../../../redux/selectors/mapSelectors'
+import {
+  deletePolygon,
+  setDrawingPolygonMode
+} from '../../../../redux/slices/mapSlice'
+import { useAppDispatch } from '../../../../redux/store'
 
 const PolygonList: React.FC<{
-  onPolygonClick: (id: string | number) => void,
-  onEdit: (id: string | number) => void,
   onPolygonOption?: (id: string | number) => void
-
-}> = ({ onPolygonClick, onEdit, onPolygonOption }) => {
+}> = () => {
+  const dispatch = useAppDispatch()
 
   const [isFetching, setIsFetching] = useAtom(isFetchingAtom)
-  const [polygons, setPolygons] = useAtom(polygonsAtom)
-  const [isDrawing, setIsDrawing] = useAtom(isDrawingAtom)
-  const toggleDrawing = () => setIsDrawing(prev => !prev)
+  const polygons = useSelector(getAllPolygonsSelector)
+  const drawingPolygonMode = useSelector(getDrawingPolygonModeSelector)
+
+  const toggleDrawing = () => dispatch(setDrawingPolygonMode(!drawingPolygonMode))
 
   const numPolygons = polygons.reduce((count, polygon) => {
     if (polygon.coords.length) {
       return count + 1
     }
     return count
-
   }, 0)
 
   function calculateArea(coords: any) {
@@ -59,18 +61,17 @@ const PolygonList: React.FC<{
   const hectares = calculateTotalArea()
 
   const deleteHandler = async (id: string | number) => {
-    try {
-      if (isFetching) return
-      setIsFetching(true)
+    if (confirm('Вы уверены, что хотите удалить полигон?')) {
+      try {
+        if (isFetching) return
+        setIsFetching(true)
 
-      //Удаление полигона по Id
-      await mapService.removePolygonById(id)
-
-      setPolygons(polygons.filter((p) => p.id !== id))
-    } catch (e) {
-      console.log(e)
-    } finally {
-      setIsFetching(false)
+        dispatch(deletePolygon(+id))
+      } catch (e) {
+        console.log(e)
+      } finally {
+        setIsFetching(false)
+      }
     }
   }
 
@@ -82,14 +83,14 @@ const PolygonList: React.FC<{
           src={settingMap}
           alt=""
         />
-        <p style={{ textAlign: 'center' }}>
+        <div className={s.headerCount}>
           <div>
             Список полей
           </div>
           <div>
             {`Всего ${numPolygons} | ${hectares} Га`}
           </div>
-        </p>
+        </div>
         <img
           className={cn(s.image)}
           src={DownloadMap}
@@ -100,7 +101,7 @@ const PolygonList: React.FC<{
         className={cn(s.addButton)}
         onClick={toggleDrawing}
       >
-        {isDrawing
+        {drawingPolygonMode
           ? <div>
             Выключить режим редактирования
           </div>
@@ -115,8 +116,6 @@ const PolygonList: React.FC<{
         if (!polygon.coords.length) return null
         return (
           <PolygonPreview
-            onEditPolygon={() => onEdit(polygon.id)}
-            onPolygonClick={() => onPolygonClick(polygon.id)}
             polygon={polygon}
             onDelete={() => deleteHandler(polygon.id)}
             key={polygon.id}

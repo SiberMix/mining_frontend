@@ -5,37 +5,53 @@ import TrashBox from '/src/assets/icons/delete.svg'
 import GeoBox from '/src/assets/icons/GPS-navigate.svg'
 import EditBox from '/src/assets/icons/edit.svg'
 import { Dropdown } from 'antd'
-import { useAtom } from 'jotai'
 import type { Polygon } from '../../../../types'
-import { polygonsAtom } from '../../../pages/Main/Main'
 import PolygonCanvas from '../PolygonCanvas/PolygonCanvas'
 import { mapService } from '../../../../api/map'
 import {
   EditPolygonNameModal,
   EditPolygonTypeModal
 } from './PolygonEditModal'
+import { useSelector } from 'react-redux'
+import { getAllPolygonsSelector } from '../../../../redux/selectors/mapSelectors'
+import {
+  putEditPolygon,
+  setEditedPolygon,
+  setPolygonFlyTo,
+  setPolygons
+} from '../../../../redux/slices/mapSlice'
+import { useAppDispatch } from '../../../../redux/store'
 
 const PolygonPreview: React.FC<{
   polygon: Polygon,
-  onDelete?: () => void,
-  onEditPolygon?: () => void,
-  onPolygonClick?: () => void
+  onDelete?: () => void
 }> = ({ polygon,
-  onDelete,
-  onEditPolygon,
-  onPolygonClick }) => {
-  const [polygons, setPolygons] = useAtom(polygonsAtom)
+  onDelete }) => {
+
+  const polygons = useSelector(getAllPolygonsSelector)
+
+  const dispatch = useAppDispatch()
+
   const [showEditNameModal, setShowEditNameModal] = useState(false)
   const toggleEditNameModal = () => setShowEditNameModal(!showEditNameModal)
   const [showEditTypeModal, setShowEditTypeModal] = useState(false)
   const toggleEditTypeModal = () => setShowEditTypeModal(!showEditTypeModal)
 
   const handleChangeName = async (name: string) => {
-    const params: any = { ...polygon, name }
     const id = polygon.id
-    await mapService.editField({ id, params })
 
-    setPolygons(polygons.map((p) => (p.id === id ? { ...p, name } : p)))
+    await dispatch(putEditPolygon({
+      polygonId: +id,
+      name,
+      coords: polygon.coords
+    }))
+    const newPolygons = polygons.map(polygon => {
+      if (polygon.id === id) {
+        return { ...polygon, name }
+      }
+      return polygon
+    })
+    dispatch(setPolygons(newPolygons))
     toggleEditNameModal()
   }
 
@@ -61,13 +77,13 @@ const PolygonPreview: React.FC<{
               <img
                 className={cn(s.geo)}
                 src={GeoBox}
-                onClick={onPolygonClick}
+                onClick={() => dispatch(setPolygonFlyTo(+polygon.id))}
                 alt=""
                 title="Перейти к полигону на карте"
               />
             </div>
             <p className={cn(s.culture)}>
-              {polygon.sequence}
+              {polygon.sequence === null ? 'культура не выбрана' : polygon.sequence.name}
             </p>
           </div>
         </div>
@@ -78,7 +94,7 @@ const PolygonPreview: React.FC<{
                 {
                   key: '1',
                   label: 'Редактировать полигон',
-                  onClick: onEditPolygon
+                  onClick: () => dispatch(setEditedPolygon(+polygon.id))
                 },
                 {
                   key: '2',
@@ -116,7 +132,7 @@ const PolygonPreview: React.FC<{
         onCancel={toggleEditNameModal}
       />
       <EditPolygonTypeModal
-        initialValue={polygon.sequence}
+        initialValue={polygon.sequence === null ? '' : polygon.sequence.name}
         visible={showEditTypeModal}
         onOk={handleChangeType}
         onCancel={toggleEditTypeModal}

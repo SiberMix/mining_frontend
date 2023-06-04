@@ -4,11 +4,9 @@ import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import {
   atom,
-  useAtom,
   useSetAtom
 } from 'jotai'
 import '/src/style/equipments.css'
-import { Equipments as equipmen } from '../../../pages/Main/Main'
 import TrashBox from '/src/assets/icons/delete.svg'
 import EditBox from '/src/assets/icons/edit.svg'
 
@@ -18,6 +16,15 @@ import SVG from 'react-inlinesvg'
 import GeoBox from '/src/assets/icons/GPS-navigate.svg'
 import { mapService } from '../../../../api/map'
 import AddEquipmentModal from './EquipmentAddModal'
+import {
+  getAllEquipment,
+  setEquipmentFlyTo
+} from '../../../../redux/slices/mapSlice'
+import { useAppDispatch } from '../../../../redux/store'
+import { useSelector } from 'react-redux'
+import { getAllEquipmentSelector } from '../../../../redux/selectors/mapSelectors'
+
+type Props = {}
 
 interface Equipment {
   equip_type: string,
@@ -35,26 +42,26 @@ export const addModalAtom = atom({
   equip: null as Equip | null
 })
 
-const EquipmentsComponent = () => {
+const EquipmentsComponent: React.FC<Props> = () => {
+
+  const dispatch = useAppDispatch()
+  const equips = useSelector(getAllEquipmentSelector)
+
   const setAddModal = useSetAtom(addModalAtom)
-  const [equips, setEquip] = useAtom(equipmen)
 
   useEffect(() => {
-    fetchListHandler()
+    dispatch(getAllEquipment())
   }, [])
-
-  const fetchListHandler = async () => {
-    const equips = await mapService.getEquips()
-    setEquip(equips.data)
-  }
 
   const editItemHandler = async (equip: Equipment) => {
     setAddModal({ visible: true, editMode: true, equip })
   }
 
   const deleteEquipmentHandler = async (id: number) => {
-    await mapService.deleteEquip(id)
-    fetchListHandler()
+    if (confirm('Вы уверены, что хотите удалить оборудование?')) {
+      await mapService.deleteEquip(id)
+      dispatch(getAllEquipment())
+    }
   }
 
   const addModalHandler = () => {
@@ -90,7 +97,7 @@ const EquipmentsComponent = () => {
               <img
                 className={cn(s.geo)}
                 src={GeoBox}
-                onClick={() => console.log('переход к оборудованию на карте')}
+                onClick={() => dispatch(setEquipmentFlyTo(+equip.imei))}
                 alt=""
                 title="Перейти к оборудованию на карте"
               />
@@ -122,7 +129,7 @@ const EquipmentsComponent = () => {
       ))}
       <AddEquipmentModal
         equips={equips}
-        fetchList={fetchListHandler}
+        fetchList={() => dispatch(getAllEquipment())}
       />
     </div>
   )

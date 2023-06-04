@@ -3,7 +3,6 @@
   box-shadow: 0 0 13px 0 rgba(0, 0, 0, 0.36);
   z-index: 1;
   display: flex;
-  width: 100%;
 
   &Wrapper {
     display: flex;
@@ -22,7 +21,8 @@
 
   &Content {
     display: flex;
-    width: 100%;
+    //todo исправить жесткую ширину после форматирования сайд меню
+    width: 400px;
     height: 100%;
   }
 

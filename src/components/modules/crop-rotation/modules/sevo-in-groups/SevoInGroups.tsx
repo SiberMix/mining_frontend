@@ -6,12 +6,11 @@ import React, {
 import { useAtom } from 'jotai'
 import { Chart } from 'react-google-charts'
 import s from './SevoInGroups.module.scss'
-import {
-  polygonsAtom,
-  fieldTypesAtom
-} from '../../../../pages/Main/Main'
+import { fieldTypesAtom } from '../../../../pages/Main/Main'
 import PolygonCanvas from '../../../polygons/PolygonCanvas/PolygonCanvas'
 import { getBoundingRect } from '../../../../../utils/getBoundingRect'
+import { useSelector } from 'react-redux'
+import { getAllPolygonsSelector } from '../../../../../redux/selectors/mapSelectors'
 
 interface SevoInGroupsProps {
   name?: any,
@@ -24,8 +23,10 @@ interface SevoInGroupsProps {
 
 export const SevoInGroups: React.FC<SevoInGroupsProps> = ({ name, id, sowing4YearsAgo, sowing3YearsAgo, sowing2YearsAgo, actualSowing }) => {
   const previewCanvas = useRef<HTMLCanvasElement>(null)
+
+  const polygons = useSelector(getAllPolygonsSelector)
+
   const [filterValue, setFilterValue] = useState('')
-  const [polygons, setPolygons] = useAtom(polygonsAtom)
 
   const [fieldTypes, setFieldTypes] = useAtom(fieldTypesAtom)
 

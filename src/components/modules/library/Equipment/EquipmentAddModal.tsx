@@ -121,8 +121,6 @@ const AddEquipmentModal: React.FC<Props> = ({ fetchList, equips }) => {
     images.push(url.pathname)
   })
 
-  console.log(equipmentTypes)
-
   return (
     <Modal
       title="Добавить оборудование"
