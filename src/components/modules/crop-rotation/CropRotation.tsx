@@ -100,7 +100,6 @@ const CropList: React.FC<MainProps> = ({ active }) => {
   }
 
   return (
-
     <div className={s.wrapper}>
       <div className={s.left}>
         <p style={{ textAlign: 'center' }}>

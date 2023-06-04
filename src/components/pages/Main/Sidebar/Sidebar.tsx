@@ -18,15 +18,23 @@ import {
 } from 'jotai'
 import SVG from 'react-inlinesvg'
 import { tokenAtom } from '../../../../App'
+import { useAppDispatch } from '../../../../redux/store'
+import type { SidebarOpenWindow } from '../../../../redux/slices/sidebarSlice'
+import { setOpenSidebarWindow } from '../../../../redux/slices/sidebarSlice'
 
 export const SidebarStateAtom = atom({
-  isPolygonListOpen: false,
+  isPolygonListOpen: true,
   isEquipmentListOpen: false,
   isFieldListOpen: false,
-  isCalendarOpen: true
+  isCalendarOpen: false
 })
 
 const Sidebar: React.FC<PropsWithChildren> = ({ children }) => {
+  const dispatch = useAppDispatch()
+
+  /*
+  * Функционал для выхода из акаунта
+  * */
   const setToken = useSetAtom(tokenAtom)
   const [state, setState] = useAtom(SidebarStateAtom)
   const logout = () => {
@@ -34,6 +42,12 @@ const Sidebar: React.FC<PropsWithChildren> = ({ children }) => {
     localStorage.removeItem('token')
   }
 
+  /*
+  * Выбор бокового меню
+  * */
+  const handleChangeSidebarContent = (openSidebarContent: SidebarOpenWindow) => {
+    dispatch(setOpenSidebarWindow(openSidebarContent))
+  }
   const changeState = (key: keyof typeof state) => () => {
     setState((prevState) => {
       const newState = Object.keys(prevState).reduce<any>((acc, keys) => {
@@ -96,9 +110,6 @@ const Sidebar: React.FC<PropsWithChildren> = ({ children }) => {
             onClick={logout}
           />
         </div>
-      </div>
-      <div className={cn(s.navContent)}>
-        {children}
       </div>
     </div>
   )

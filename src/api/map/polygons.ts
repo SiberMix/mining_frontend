@@ -27,8 +27,11 @@ export const polygonsService = {
   /*
   * добавление нового полигона
   * */
+  // addNewPolygon: (updatedPolygonData: any) => {
+  //   return axiosInstance.post('/polygons/', updatedPolygonData)
+  // },
   addNewPolygon: (updatedPolygonData: any) => {
-    return axiosInstance.post('/polygons/', updatedPolygonData)
+    return axiosInstance.post('/polygons_add/', updatedPolygonData)
   },
   /*
   * Удаление полигона по Id

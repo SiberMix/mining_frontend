@@ -34,7 +34,6 @@ const getEquipmentFlyTo = (state: RootState) => {
 export const getEquipmentFlyToSelector = createSelector(
   getEquipmentFlyTo,
   (equipmentFlyTo) => {
-    console.log(equipmentFlyTo)
     return equipmentFlyTo
   }
 )

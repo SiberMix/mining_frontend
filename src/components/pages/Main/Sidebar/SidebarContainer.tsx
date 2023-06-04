@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import PolygonList from '../../../modules/polygons/PolygonList/PolygonList'
 import LibraryList from '../../../modules/library/LibraryList/LibraryList'
 import FieldList from '../../../modules/field/FieldList/FieldList'
@@ -6,17 +6,34 @@ import CropRotation from '../../../modules/crop-rotation/CropRotation'
 import Sidebar from './Sidebar'
 import {
   CSSTransition,
+  SwitchTransition,
   TransitionGroup
 } from 'react-transition-group'
+import { useSelector } from 'react-redux'
+import { getSidebarOpenWindowSelector } from '../../../../redux/selectors/sidebarSelectors'
 
 type Props = {
   sidebarState: any
 }
 
 const SidebarContainer: React.FC<Props> = ({ sidebarState }) => {
+  const sidebarOpenWindow = useSelector(getSidebarOpenWindowSelector)
+
   return (
-    <Sidebar>
+    <>
+      <Sidebar />
       <TransitionGroup>
+        {/*<SwitchTransition mode="out-in" >*/}
+        {/*  <CSSTransition*/}
+        {/*    key={state}*/}
+        {/*    addEndListener={(done) => {*/}
+        {/*      nodeRef.current.addEventListener('transitionend', done, false)*/}
+        {/*    }}*/}
+        {/*    classNames="fade"*/}
+        {/*  >*/}
+        {/*    <div />*/}
+        {/*  </CSSTransition>*/}
+        {/*</SwitchTransition>*/}
         {sidebarState.isPolygonListOpen
           ? <CSSTransition
             classNames="sidebar"
@@ -50,7 +67,7 @@ const SidebarContainer: React.FC<Props> = ({ sidebarState }) => {
           </CSSTransition>
           : null}
       </TransitionGroup>
-    </Sidebar>
+    </>
   )
 }
 

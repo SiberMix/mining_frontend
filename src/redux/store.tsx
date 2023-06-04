@@ -3,10 +3,12 @@ import {
   configureStore
 } from '@reduxjs/toolkit'
 import mapReducer from './slices/mapSlice'
+import sidebarReducer from './slices/sidebarSlice'
 import { useDispatch } from 'react-redux'
 
 const rootReducer = combineReducers({
-  mapReducer
+  mapReducer,
+  sidebarReducer
 })
 export type RootReducer = ReturnType<typeof rootReducer>
 

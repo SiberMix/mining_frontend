@@ -76,11 +76,7 @@ const MainPage = () => {
 
   async function handleOk() {
     if (!newPolygonCoords) return
-    console.log({
-      name: polygonName,
-      coords: [...newPolygonCoords, newPolygonCoords[0]],
-      sequence: polygonCulture
-    })
+
     // Отправляем POST-запрос с обновленными данными полигона
     dispatch(postNewPolygon({
       name: polygonName,

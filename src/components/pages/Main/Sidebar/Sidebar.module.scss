@@ -6,6 +6,7 @@
 
   &Wrapper {
     display: flex;
+    width: 50px;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
@@ -22,7 +23,7 @@
   &Content {
     display: flex;
     //todo исправить жесткую ширину после форматирования сайд меню
-    width: 400px;
+    //width: 400px;
     height: 100%;
   }
 
