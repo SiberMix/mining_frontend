@@ -109,9 +109,9 @@ export const getAllEquipment = createAsyncThunk(
 )
 export const postNewPolygon = createAsyncThunk(
   'map/postNewPolygonThunk',
-  async ({ coords, name, activeStatus = 1 }: PostNewPolygonData, thunkAPI) => {
+  async ({ coords, name, activeStatus = 1, sequence }: PostNewPolygonData, thunkAPI) => {
     const { dispatch } = thunkAPI
-    const response = await mapService.addNewPolygon({ coords, name, activeStatus })
+    const response = await mapService.addNewPolygon({ coords, name, activeStatus, sequence })
     dispatch(getAllPolygons())
     return response
   }
@@ -151,6 +151,7 @@ export default reducer
 export type PostNewPolygonData = {
   coords: [number, number][],
   name: string,
+  sequence: string,
   activeStatus?: number
 }
 export type EditPolygonData = {
