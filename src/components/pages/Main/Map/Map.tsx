@@ -10,7 +10,10 @@ import DrawingPolygon from './MapPolygons/DrawingPolygon'
 import MapEquipments from './MapEquipments/MapEquipments'
 import * as cn from 'classnames'
 import s from './Map.module.scss'
-import { MapContainer } from 'react-leaflet'
+import {
+  MapContainer,
+  ZoomControl
+} from 'react-leaflet'
 
 type Props = {}
 
@@ -20,9 +23,11 @@ const Map: React.FC<Props> = () => {
     <MapContainer
       className={cn(s.map)}
       center={[54.925946, 82.775931]}
+      zoomControl={false}
       zoom={13}
       minZoom={3}
     >
+      <ZoomControl position="topright" />
       <MapViewSelect />
       <MapPolygons />
       <DrawingPolygon />
