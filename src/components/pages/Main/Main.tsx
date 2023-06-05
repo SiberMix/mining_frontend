@@ -34,7 +34,6 @@ import {
   getNewPolygonCoordsSelector,
   getShowAddNewPolygonModalSelector
 } from '../../../redux/selectors/mapSelectors'
-import miniLogo from '/src/assets/hectareLogoOnly.png'
 
 export const isDrawingAtom = atom(false)
 export const isFetchingAtom = atom(false)
