@@ -24,7 +24,7 @@ const SidebarContainer: React.FC<Props> = () => {
         <CSSTransition
           key={sidebarOpenWindow}
           classNames="fade"
-          timeout={320}
+          timeout={280}
         >
           {sidebarOpenWindow === 'PolygonList'
             ? <PolygonList />
