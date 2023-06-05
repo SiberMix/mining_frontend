@@ -1,14 +1,7 @@
 import React from 'react'
-import {
-  Route,
-  Routes
-} from 'react-router-dom'
 import { Main } from './components/pages/Main'
 import { Auth } from './components/pages/Auth'
-import {
-  atom,
-  useAtomValue
-} from 'jotai'
+import { atom, useAtomValue } from 'jotai'
 
 export const debugMode = false
 
@@ -26,12 +19,7 @@ const App: React.FC = () => {
           <Auth />
         )
         : (
-          <Routes>
-            <Route
-              path="/"
-              element={<Main />}
-            />
-          </Routes>
+          <Main />
         )}
     </div>
   )

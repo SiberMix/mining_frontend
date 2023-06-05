@@ -1,6 +1,5 @@
 import React, { StrictMode } from 'react'
 import { render } from 'react-dom'
-import { BrowserRouter } from 'react-router-dom'
 import App from './App'
 import './index.css'
 import { Provider as ReduxProvider } from 'react-redux'
@@ -12,11 +11,8 @@ render(
   <StrictMode>
     <ReduxProvider store={store}>
       <JotaiProvider>
-        {' '}
         {/*FIXME удалить после переноса атома в редакс*/}
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <App />
       </JotaiProvider>
     </ReduxProvider>
   </StrictMode>,

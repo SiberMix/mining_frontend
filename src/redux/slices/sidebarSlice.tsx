@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 type SidebarInitialState = {
-  sidebarOpenWindow: SidebarOpenWindow
+  sidebarOpenWindow: SidebarOpenWindow | undefined
 }
 
 const sidebarInitialState: SidebarInitialState = {
-  sidebarOpenWindow: 'PolygonList'
+  sidebarOpenWindow: undefined//'PolygonList'
 }
 
 const mapSlice = createSlice({
@@ -13,7 +13,11 @@ const mapSlice = createSlice({
   initialState: sidebarInitialState,
   reducers: {
     setOpenSidebarWindow: (state: SidebarInitialState, action: {type: any, payload: 'PolygonList' | 'EquipmentList' | 'FieldList' | 'Calendar'}) => {
-      state.sidebarOpenWindow = action.payload
+      if (state.sidebarOpenWindow === action.payload) {
+        state.sidebarOpenWindow = undefined
+      } else {
+        state.sidebarOpenWindow = action.payload
+      }
     }
   }
 })

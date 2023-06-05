@@ -20,9 +20,6 @@ import { mapService } from '../../../api/map'
 import Preloader from '../../common/preloader/Preloader'
 import SidebarContainer from './Sidebar/SidebarContainer'
 import Map from './Map/Map'
-import { MapContainer } from 'react-leaflet'
-import * as cn from 'classnames'
-import s from './Map/Map.module.scss'
 import {
   getAllPolygons,
   postNewPolygon,
@@ -140,14 +137,7 @@ const MainPage = () => {
                 </Select>
               </Input.Group>
             </Modal>
-            <MapContainer
-              className={cn(s.map)}
-              center={[54.925946, 82.775931]}
-              zoom={13}
-              minZoom={3}
-            >
-              <Map />
-            </MapContainer>
+            <Map />
           </MainLayout>
         )}
     </div>

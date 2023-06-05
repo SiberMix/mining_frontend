@@ -1,10 +1,9 @@
 .root {
-  width: 400px;
+  width: 410px;
   padding: 1px;
   background-color: #232323;
   border-width: 0.5px;
   max-height: 100vh;
-  overflow-y: scroll;
   scrollbar-width: none; /* hide the scrollbar in Firefox */
   -ms-overflow-style: none; /* hide the scrollbar in Edge and IE */
 
@@ -37,6 +36,7 @@
   position: absolute;
   top: 0;
   bottom: 0;
+  left: 50px;
   overflow-y: scroll;
   z-index: 2;
 }

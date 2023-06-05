@@ -20,7 +20,7 @@ import { setOpenSidebarWindow } from '../../../../redux/slices/sidebarSlice'
 import { useSelector } from 'react-redux'
 import { getSidebarOpenWindowSelector } from '../../../../redux/selectors/sidebarSelectors'
 
-const Sidebar: React.FC<PropsWithChildren> = ({ children }) => {
+const Sidebar: React.FC<PropsWithChildren> = () => {
   const dispatch = useAppDispatch()
   const sidebarOpenWindow = useSelector(getSidebarOpenWindowSelector)
   /*

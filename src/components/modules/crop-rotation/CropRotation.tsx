@@ -1,3 +1,6 @@
+import s from './CropRotation.module.scss'
+import style from '../field/FieldList/FieldList.module.scss'
+import * as cn from 'classnames'
 import React, {
   useEffect,
   useState
@@ -6,11 +9,8 @@ import axios from 'axios'
 import AddTableModal from './modules/add-table/AddTableCrop'
 import ElementLeftMenu from './modules/left-menu-crop/ElementLetfMenu'
 import { SevoInGroups } from './modules/sevo-in-groups/SevoInGroups'
-import s from './CropRotation.module.scss'
 
-interface MainProps {
-  active: boolean
-}
+interface MainProps {}
 interface ClickedElement {
 
   sowing4YearsAgo: any | null,
@@ -19,7 +19,7 @@ interface ClickedElement {
   actualSowing: any | null
 }
 
-const CropList: React.FC<MainProps> = ({ active }) => {
+const CropList: React.FC<MainProps> = () => {
 
   const [data, setData] = useState<any>([])
 
@@ -100,7 +100,7 @@ const CropList: React.FC<MainProps> = ({ active }) => {
   }
 
   return (
-    <div className={s.wrapper}>
+    <div className={cn(s.wrapper, style.noScrollBar)}>
       <div className={s.left}>
         <p style={{ textAlign: 'center' }}>
           <b>
