@@ -1,7 +1,10 @@
 import React from 'react'
 import { Main } from './components/pages/Main'
 import { Auth } from './components/pages/Auth'
-import { atom, useAtomValue } from 'jotai'
+import {
+  atom,
+  useAtomValue
+} from 'jotai'
 
 export const debugMode = false
 
@@ -10,7 +13,6 @@ export const tokenAtom = atom(localStorage.getItem('token') || '')
 
 const App: React.FC = () => {
   const token = useAtomValue(tokenAtom)
-  console.log(token)
 
   return (
     <div className="app">

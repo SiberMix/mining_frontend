@@ -8,13 +8,11 @@ import { store } from './redux/store'
 
 const rootElement = document.getElementById('root')
 render(
-  <StrictMode>
-    <ReduxProvider store={store}>
-      <JotaiProvider>
-        {/*FIXME удалить после переноса атома в редакс*/}
-        <App />
-      </JotaiProvider>
-    </ReduxProvider>
-  </StrictMode>,
+  <ReduxProvider store={store}>
+    <JotaiProvider>
+      {/*FIXME удалить после переноса атома в редакс*/}
+      <App />
+    </JotaiProvider>
+  </ReduxProvider>,
   rootElement
 )

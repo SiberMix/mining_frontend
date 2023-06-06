@@ -2,63 +2,62 @@ import React, {
   useEffect,
   useState
 } from 'react'
-import { useAtom } from 'jotai/index'
-import { mapService } from '../../../../api/map'
 import {
   Input,
   Modal
 } from 'antd'
-import { addModalAtom } from './FieldPreview'
 // @ts-ignore
 import { CompactPicker } from 'react-color'
+import { setShowAddNewPolygonModal } from '../../../../redux/slices/mapSlice'
+import { useAppDispatch } from '../../../../redux/store'
+import {
+  addField,
+  changeField,
+  setVisibleAddFieldModal
+} from '../../../../redux/slices/fieldSlice'
+import { useSelector } from 'react-redux'
+import {
+  getEditedFieldSelector,
+  getShowAddFieldModalSelector
+} from '../../../../redux/selectors/fieldsSelectors'
 
-const postEquipmentPreview = async (params: {
-  name: string,
-  color: string
-}) => {
-  return await mapService.addField(params)
-}
-
-const AddPreviewModal: React.FC<{ fetchList: () => void }> = ({
-  fetchList
-}) => {
-  const [addModal, setAddModal] = useAtom(addModalAtom)
-
+const AddPreviewModal = () => {
+  const dispatch = useAppDispatch()
+  const EditedField = useSelector(getEditedFieldSelector)
+  const showAddFieldModal = useSelector(getShowAddFieldModalSelector)
+  const [color, setColor] = useState('#000000') // значение цвета по умолчанию
   const [name, setName] = useState('')
 
+  /*
+  * Проверка на режим редактирвоания
+  * */
   useEffect(() => {
-    if (addModal.type) {
-      setName(addModal.type.name)
-      setColor(addModal.type.color)
+    if (EditedField) {
+      setName(EditedField.name)
+      setColor(EditedField.color)
     }
-  }, [addModal])
-  const [color, setColor] = useState('#000000') // значение цвета по умолчанию
+  }, [EditedField])
 
   const handleColorChange = (newColor: any) => {
     setColor(newColor.hex) // сохраняем код цвета в состоянии
   }
 
-  const setAddModalVisible = (visible: boolean) => {
-    setAddModal({ ...addModal, type: null, visible })
-  }
   const handleAdd = async () => {
     if (name && color) {
-      if (addModal.editMode && addModal.type) {
-        await mapService.editField({
-          ...addModal.type,
+      if (EditedField) {
+        const id = EditedField.id
+        dispatch(changeField({
+          id,
           name,
           color
-        })
+        }))
       } else {
-        await postEquipmentPreview({
+        dispatch(addField({
           name,
           color
-        })
+        }))
       }
-
-      await fetchList()
-      setAddModalVisible(false)
-
+      dispatch(setShowAddNewPolygonModal(false))
       setName('')
     }
   }
@@ -66,10 +65,10 @@ const AddPreviewModal: React.FC<{ fetchList: () => void }> = ({
   return (
     <Modal
       title={
-        !addModal.editMode ? 'Добавить культуру' : 'Редактировать культуру'
+        EditedField ? 'Редактировать культуру' : 'Добавить культуру'
       }
-      visible={addModal.visible}
-      onCancel={() => setAddModalVisible(false)}
+      visible={showAddFieldModal}
+      onCancel={() => dispatch(setVisibleAddFieldModal(false))}
       onOk={handleAdd}
     >
       <Input

@@ -100,20 +100,20 @@ const mapSlice = createSlice({
 
 export const getAllPolygons = createAsyncThunk(
   'map/getAllPolygonsThunk',
-  async () => {
-    return await mapService.getPolygons()
+  () => {
+    return mapService.getPolygons()
   }
 )
 export const getAllEquipment = createAsyncThunk(
   'map/getAllEquipmentThunk',
-  async () => {
-    return await mapService.getEquips()
+  () => {
+    return mapService.getEquips()
   }
 )
 export const postNewPolygon = createAsyncThunk(
   'map/postNewPolygonThunk',
-  async ({ coords, name, activeStatus = 1, sequence }: PostNewPolygonData, thunkAPI) => {
-    return await mapService.addNewPolygon({ coords, name, activeStatus, sequence })
+  ({ coords, name, activeStatus = 1, sequence }: PostNewPolygonData, thunkAPI) => {
+    return mapService.addNewPolygon({ coords, name, activeStatus, sequence })
   }
 )
 export const putEditPolygon = createAsyncThunk(

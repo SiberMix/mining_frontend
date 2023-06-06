@@ -31,6 +31,9 @@ import {
   getNewPolygonCoordsSelector,
   getShowAddNewPolygonModalSelector
 } from '../../../redux/selectors/mapSelectors'
+import type { FieldType } from '../../../redux/slices/fieldSlice'
+import { getAllFields } from '../../../redux/slices/fieldSlice'
+import { getAllFieldsSelector } from '../../../redux/selectors/fieldsSelectors'
 
 export const isDrawingAtom = atom(false)
 export const isFetchingAtom = atom(false)
@@ -40,14 +43,13 @@ const MainPage = () => {
   const [load, setLoad] = useState(true)
   const showAddNewPolygonModal = useSelector(getShowAddNewPolygonModalSelector)
   const newPolygonCoords = useSelector(getNewPolygonCoordsSelector)
+  const fieldsList = useSelector(getAllFieldsSelector)
   const dispatch = useAppDispatch()
 
   useEffect(() => {
     // Имитация загрузки данных
     setTimeout(() => setLoad(false), 2500)
   }, [])
-
-  const [fieldTypes, setFieldTypes] = useAtom(fieldTypesAtom)
 
   const setIsFetching = useSetAtom(isFetchingAtom)
 
@@ -57,11 +59,10 @@ const MainPage = () => {
 
   useEffect(() => {
     ((async () => {
-      const fieldTypes = await mapService.getFieldList()
-      setFieldTypes(fieldTypes.data)
+      dispatch(getAllFields())
       dispatch(getAllPolygons())
     }))()
-  }, [setFieldTypes])
+  }, [])
 
   const handleCancel = () => {
     dispatch(setShowAddNewPolygonModal(false))
@@ -70,11 +71,6 @@ const MainPage = () => {
 
   async function handleOk() {
     if (!newPolygonCoords) return
-    console.log({
-      name: polygonName,
-      coords: [...newPolygonCoords, newPolygonCoords[0]],
-      sequence: polygonCulture
-    })
     // Отправляем POST-запрос с обновленными данными полигона
     dispatch(postNewPolygon({
       name: polygonName,
@@ -116,24 +112,9 @@ const MainPage = () => {
                   onChange={(value) => setPolygonCulture(value)}
                   value={polygonCulture}
                 >
-                  <Option value="Пшеница">
-                    Пшеница
-                  </Option>
-                  <Option value="Ячмень">
-                    Ячмень
-                  </Option>
-                  <Option value="Подсолнечник">
-                    Подсолнечник
-                  </Option>
-                  <Option value="Рапс">
-                    Рапс
-                  </Option>
-                  <Option value="Кукуруза">
-                    Кукуруза
-                  </Option>
-                  <Option value="Овёс">
-                    Овес
-                  </Option>
+                  {fieldsList.map((field: FieldType) => (<Option value={field.name}>
+                    {field.name}
+                  </Option>))}
                 </Select>
               </Input.Group>
             </Modal>
