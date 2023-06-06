@@ -67,7 +67,7 @@ const AddPreviewModal = () => {
       title={
         EditedField ? 'Редактировать культуру' : 'Добавить культуру'
       }
-      visible={showAddFieldModal}
+      open={showAddFieldModal}
       onCancel={() => dispatch(setVisibleAddFieldModal(false))}
       onOk={handleAdd}
     >

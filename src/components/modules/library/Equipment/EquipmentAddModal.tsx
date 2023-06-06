@@ -124,7 +124,7 @@ const AddEquipmentModal: React.FC<Props> = ({ fetchList, equips }) => {
   return (
     <Modal
       title="Добавить оборудование"
-      visible={addModal.visible}
+      open={addModal.visible}
       onCancel={() => setAddModalVisible(false)}
       onOk={handleAdd}
       className="modalStyle"

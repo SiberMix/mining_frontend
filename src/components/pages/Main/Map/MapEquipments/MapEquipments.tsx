@@ -7,6 +7,9 @@ import React, {
 import { mapService } from '../../../../../api/map'
 import type { Equip } from '../../../../../types/equip'
 import EquipCastomMarker from './EquipCastomMarker'
+// импорты для кластеров
+import 'react-leaflet-markercluster/dist/styles.min.css'
+import MarkerClusterGroup from 'react-leaflet-markercluster'
 
 type Props = {}
 
@@ -63,28 +66,35 @@ const MapEquipments: React.FC<Props> = () => {
 
   return (
     <>
-      {equipmentList.map((equipment: any) => {
-        const {
-          equip_name,
-          gosnomer,
-          image_status,
-          imei
-        } = equipment
-        const coordsData = equipmentCoordinates.find(equip => equip.imei === imei)
-        if (!coordsData) return
-        return (
-          <EquipCastomMarker
-            key={imei}
-            coordsData={coordsData}
-            equip_name={equip_name}
-            gosnomer={gosnomer}
-            image_status={image_status}
-            imei={imei}
-            speed={speed}
-            fuel={fuel}
-          />
-        )
-      })}
+      {/*@ts-ignore немного устаревшая технология кластеров, задача с решением типов займет очень много времени*/}
+      <MarkerClusterGroup
+        spiderfyDistanceMultiplier={1}
+        zoomToBoundsOnClick={true}
+        spiderfyOnMaxZoom={false}
+      >
+        {equipmentList.map((equipment: any) => {
+          const {
+            equip_name,
+            gosnomer,
+            image_status,
+            imei
+          } = equipment
+          const coordsData = equipmentCoordinates.find(equip => equip.imei === imei)
+          if (!coordsData) return
+          return (
+            <EquipCastomMarker
+              key={imei}
+              coordsData={coordsData}
+              equip_name={equip_name}
+              gosnomer={gosnomer}
+              image_status={image_status}
+              imei={imei}
+              speed={speed}
+              fuel={fuel}
+            />
+          )
+        })}
+      </MarkerClusterGroup>
     </>
   )
 }
