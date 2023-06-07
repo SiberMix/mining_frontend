@@ -8,11 +8,11 @@ const sidebarInitialState: SidebarInitialState = {
   sidebarOpenWindow: undefined//'PolygonList'
 }
 
-const mapSlice = createSlice({
+const sidebarSlice = createSlice({
   name: 'sidebar',
   initialState: sidebarInitialState,
   reducers: {
-    setOpenSidebarWindow: (state: SidebarInitialState, action: {type: any, payload: 'PolygonList' | 'EquipmentList' | 'FieldList' | 'Calendar'}) => {
+    setOpenSidebarWindow: (state: SidebarInitialState, action: {type: any, payload: 'PolygonList' | 'EquipmentList' | 'FieldList' | 'Calendar' | undefined}) => {
       if (state.sidebarOpenWindow === action.payload) {
         state.sidebarOpenWindow = undefined
       } else {
@@ -25,7 +25,7 @@ const mapSlice = createSlice({
 const {
   reducer,
   actions
-} = mapSlice
+} = sidebarSlice
 
 export const {
   setOpenSidebarWindow

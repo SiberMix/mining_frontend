@@ -5,12 +5,14 @@ import {
 import mapReducer from './slices/mapSlice'
 import sidebarReducer from './slices/sidebarSlice'
 import fieldsReducer from './slices/fieldSlice'
+import settingsSlice from './slices/settingsSlice'
 import { useDispatch } from 'react-redux'
 
 const rootReducer = combineReducers({
   mapReducer,
   sidebarReducer,
-  fieldsReducer
+  fieldsReducer,
+  settingsSlice
 })
 export type RootReducer = ReturnType<typeof rootReducer>
 

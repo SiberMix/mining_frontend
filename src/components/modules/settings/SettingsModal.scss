@@ -1,0 +1,73 @@
+.customModal {
+  .ant-modal {
+    &-content {
+      background-color: #565656;
+      border-radius: 0;
+      border: 1px solid #AACE67;
+      padding: 5px;
+      color: #ffffff;
+    }
+
+    &-close {
+      top: 5px;
+      right: 0;
+      color: #7c7c7c;
+
+      &:hover {
+        color: #ffffff;
+      }
+    }
+
+    &-header {
+      border-radius: 0;
+    }
+
+    &-title {
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 400;
+      font-size: 14px;
+      background-color: #565656;
+      color: #BABABA;
+    }
+
+    &-body {
+      height: 60vh;
+    }
+
+    &-footer {
+      padding: 5px;
+    }
+  }
+}
+
+.settingsButton {
+  height: 20px;
+  width: 70px;
+  padding: 0;
+  border-radius: 0;
+  background-color: #7c7c7c;
+  border: 1px solid #848484;
+  color: #ffffff;
+  line-height: 0;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background-color .3s;
+  &Ok {
+    margin-right: 5px;
+  }
+
+  &Cancel {
+    margin: 0 5px;
+  }
+  &Apply {
+    margin-left: 5px;
+  }
+
+  &:hover {
+    border: #303030;
+    background-color: #303030;
+  }
+}

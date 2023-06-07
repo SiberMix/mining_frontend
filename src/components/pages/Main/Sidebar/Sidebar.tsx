@@ -19,6 +19,7 @@ import type { SidebarOpenWindow } from '../../../../redux/slices/sidebarSlice'
 import { setOpenSidebarWindow } from '../../../../redux/slices/sidebarSlice'
 import { useSelector } from 'react-redux'
 import { getSidebarOpenWindowSelector } from '../../../../redux/selectors/sidebarSelectors'
+import { setShowSettingsModal } from '../../../../redux/slices/settingsSlice'
 
 const Sidebar: React.FC<PropsWithChildren> = () => {
   const dispatch = useAppDispatch()
@@ -82,7 +83,13 @@ const Sidebar: React.FC<PropsWithChildren> = () => {
           />
         </div>
         <div>
-          <Svg src={Setting} />
+          <Svg
+            src={Setting}
+            onClick={() => {
+              dispatch(setOpenSidebarWindow(undefined))
+              dispatch(setShowSettingsModal(true))
+            }}
+          />
           <Svg
             color="#b53f42"
             src={LogoutBtn}

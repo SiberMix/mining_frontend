@@ -11,6 +11,7 @@ import {
 } from 'react-transition-group'
 import { useSelector } from 'react-redux'
 import { getSidebarOpenWindowSelector } from '../../../../redux/selectors/sidebarSelectors'
+import SettingsModal from '../../../modules/settings/SettingsModal'
 
 type Props = {}
 
@@ -37,6 +38,7 @@ const SidebarContainer: React.FC<Props> = () => {
                   : <></>}
         </CSSTransition>
       </SwitchTransition>
+      <SettingsModal />
     </>
   )
 }
