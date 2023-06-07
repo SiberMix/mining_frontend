@@ -5,7 +5,7 @@ type SidebarInitialState = {
 }
 
 const sidebarInitialState: SidebarInitialState = {
-  sidebarOpenWindow: undefined//'PolygonList'
+  sidebarOpenWindow: undefined
 }
 
 const sidebarSlice = createSlice({

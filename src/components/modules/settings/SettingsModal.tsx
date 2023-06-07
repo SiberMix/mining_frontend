@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux'
 import { getShowSettingsModalSelector } from '../../../redux/selectors/settingsSelector'
 import { setShowSettingsModal } from '../../../redux/slices/settingsSlice'
 import { useAppDispatch } from '../../../redux/store'
+import SettingsContent from './SettingsContent/SettingsContent'
 
 const SettingsModal = () => {
   const dispatch = useAppDispatch()
@@ -50,6 +51,7 @@ const SettingsModal = () => {
       ]}
     >
       <SettingsMenu />
+      <SettingsContent />
     </Modal>
   )
 }

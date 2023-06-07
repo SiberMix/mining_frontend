@@ -10,3 +10,12 @@ export const getShowSettingsModalSelector = createSelector(
     return showSettingsModal
   }
 )
+const getSelectedSettingsWindow = (state: RootState) => {
+  return state.settingsSlice.selectedSettingsWindow
+}
+export const getSelectedSettingsWindowSelector = createSelector(
+  getSelectedSettingsWindow,
+  (selectedSettingsWindow) => {
+    return selectedSettingsWindow
+  }
+)

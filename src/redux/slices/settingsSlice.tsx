@@ -1,11 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 type SettingsInitialState = {
-  showSettingsModal: boolean
+  showSettingsModal: boolean,
+  selectedSettingsWindow: number
 }
 
 const settingsInitialState: SettingsInitialState = {
-  showSettingsModal: false
+  showSettingsModal: true,
+  selectedSettingsWindow: 1
 }
 
 const settingsSlice = createSlice({
@@ -14,6 +16,9 @@ const settingsSlice = createSlice({
   reducers: {
     setShowSettingsModal: (state: SettingsInitialState, action) => {
       state.showSettingsModal = action.payload
+    },
+    setSelectedSettingsWindow: (state: SettingsInitialState, action) => {
+      state.selectedSettingsWindow = action.payload
     }
   }
 })
@@ -24,7 +29,8 @@ const {
 } = settingsSlice
 
 export const {
-  setShowSettingsModal
+  setShowSettingsModal,
+  setSelectedSettingsWindow
 } = actions
 
 export default reducer
