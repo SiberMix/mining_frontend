@@ -35,15 +35,22 @@ const fieldSlice = createSlice({
         state.fieldList = action.payload.data
       })
       .addCase(addField.fulfilled, (state: FieldsInitialState, action) => {
-        state.fieldList = action.payload.data
-        //fixme возможен неправильный путь к получаемому полигону на ответ
+        state.fieldList = [...state.fieldList, action.payload.data]
       })
       .addCase(changeField.fulfilled, (state: FieldsInitialState, action) => {
-
-        //todo логика обработки после редактирования
+        state.fieldList = state.fieldList.map((field: FieldType) => {
+          if (field.id === action.payload.id) {
+            return {
+              id: action.payload.id,
+              name: action.payload.name,
+              color: action.payload.color
+            }
+          }
+          return field
+        })
       })
       .addCase(deleteField.fulfilled, (state: FieldsInitialState, action) => {
-        // state.fieldList = state.fieldList.filter(field => {field.id !== action.payload.id})
+        state.fieldList = state.fieldList.filter((field: FieldType) => field.id !== action.payload.id)
       })
       .addDefaultCase(() => {})
   }
@@ -72,7 +79,7 @@ export const changeField = createAsyncThunk(
       name,
       color
     })
-    return { id, response }
+    return { id, name, color, response }
   }
 )
 export const deleteField = createAsyncThunk(
@@ -96,7 +103,7 @@ export const {
 export default reducer
 
 export type FieldType = {
-  id: string,
+  id: number,
   name: string,
   color: string
 }

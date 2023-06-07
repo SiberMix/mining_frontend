@@ -1,6 +1,9 @@
 import s from './FieldPreview.module.scss'
 import * as cn from 'classnames'
-import React from 'react'
+import React, {
+  useEffect,
+  useState
+} from 'react'
 import { useListing } from '../../../../hooks/use-listing'
 import AddPreviewModal from './PreviewAddModal'
 import { useAppDispatch } from '../../../../redux/store'
@@ -26,7 +29,7 @@ const EquipmentPreviewsComponent = () => {
     }
   }
 
-  const { tableBlock } = useListing({
+  const { tableBlock, refreshData } = useListing({
     columnNames: ['Название поля', 'Цвет поля'],
     mapTableData: (fieldsList: any) => {
       return fieldsList.map((item: any) => {
@@ -49,6 +52,10 @@ const EquipmentPreviewsComponent = () => {
     editItemHandler,
     deleteItemHandler
   })
+
+  useEffect(() => {
+    refreshData()
+  }, [fieldsList])
 
   return (
     <div className={cn(s.root)}>

@@ -10,16 +10,16 @@ import {
 import { CompactPicker } from 'react-color'
 import { setShowAddNewPolygonModal } from '../../../../redux/slices/mapSlice'
 import { useAppDispatch } from '../../../../redux/store'
-import {
-  addField,
-  changeField,
-  setVisibleAddFieldModal
-} from '../../../../redux/slices/fieldSlice'
 import { useSelector } from 'react-redux'
 import {
   getEditedFieldSelector,
   getShowAddFieldModalSelector
 } from '../../../../redux/selectors/fieldsSelectors'
+import {
+  addField,
+  changeField,
+  setVisibleAddFieldModal
+} from '../../../../redux/slices/fieldSlice'
 
 const AddPreviewModal = () => {
   const dispatch = useAppDispatch()
@@ -57,7 +57,7 @@ const AddPreviewModal = () => {
           color
         }))
       }
-      dispatch(setShowAddNewPolygonModal(false))
+      dispatch(setVisibleAddFieldModal(false))
       setName('')
     }
   }

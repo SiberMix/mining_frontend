@@ -49,6 +49,10 @@ export const useListing = <Type extends { id: number }>({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  const refreshData = async () => {
+    await fetchList()
+  }
+
   /**
    * Получение списка элементов
    */
@@ -188,6 +192,7 @@ export const useListing = <Type extends { id: number }>({
     rowOrderData: hasDragAndDrop ? rowOrderData : [],
     showLimitSelector,
     fetchList,
+    refreshData,
 
     // components
     contentHeaderBlock,

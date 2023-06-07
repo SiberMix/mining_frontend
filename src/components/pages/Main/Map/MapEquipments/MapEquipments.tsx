@@ -70,7 +70,7 @@ const MapEquipments: React.FC<Props> = () => {
       <MarkerClusterGroup
         spiderfyDistanceMultiplier={1}
         showCoverageOnHover={true}
-        maxClusterRadius={40}
+        maxClusterRadius={45}
       >
         {equipmentList.map((equipment: any) => {
           const {

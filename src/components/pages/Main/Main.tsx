@@ -109,7 +109,10 @@ const MainPage = () => {
                   onChange={(value) => setPolygonCulture(value)}
                   value={polygonCulture}
                 >
-                  {fieldsList.map((field: FieldType) => (<Option value={field.name}>
+                  {fieldsList.map((field: FieldType) => (<Option
+                    key={field.id}
+                    value={field.name}
+                                                         >
                     {field.name}
                   </Option>))}
                 </Select>
