@@ -10,13 +10,11 @@ import {
 
 import {
   atom,
-  useAtom,
   useSetAtom
 } from 'jotai'
 import MainLayout from './MainLayout/MainLayout'
 
 import './styles.css'
-import { mapService } from '../../../api/map'
 import Preloader from '../../common/preloader/Preloader'
 import SidebarContainer from './Sidebar/SidebarContainer'
 import Map from './Map/Map'
@@ -37,7 +35,6 @@ import { getAllFieldsSelector } from '../../../redux/selectors/fieldsSelectors'
 
 export const isDrawingAtom = atom(false)
 export const isFetchingAtom = atom(false)
-export const fieldTypesAtom = atom([])
 
 const MainPage = () => {
   const [load, setLoad] = useState(true)

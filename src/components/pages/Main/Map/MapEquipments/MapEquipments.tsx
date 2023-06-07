@@ -69,8 +69,7 @@ const MapEquipments: React.FC<Props> = () => {
       {/*@ts-ignore немного устаревшая технология кластеров, задача с решением типов займет очень много времени*/}
       <MarkerClusterGroup
         spiderfyDistanceMultiplier={1}
-        zoomToBoundsOnClick={true}
-        spiderfyOnMaxZoom={false}
+        showCoverageOnHover={true}
       >
         {equipmentList.map((equipment: any) => {
           const {

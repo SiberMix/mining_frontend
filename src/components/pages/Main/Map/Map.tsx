@@ -27,11 +27,11 @@ const Map: React.FC<Props> = () => {
       zoom={13}
       minZoom={3}
     >
-      <ZoomControl position="topright" />
       <MapViewSelect />
       <MapPolygons />
       <DrawingPolygon />
       <MapEquipments />
+      <ZoomControl position="topright" />
     </MapContainer>
   )
 }

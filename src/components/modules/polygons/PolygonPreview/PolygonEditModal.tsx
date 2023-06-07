@@ -1,11 +1,11 @@
 import s from './PolygonEditModal.module.scss'
 import React, { useState } from 'react'
-import { useAtomValue } from 'jotai/index'
-import { fieldTypesAtom } from '../../../pages/Main/Main'
 import {
   Modal,
   Select
 } from 'antd'
+import { useSelector } from 'react-redux'
+import { getAllFieldsSelector } from '../../../../redux/selectors/fieldsSelectors'
 
 export const EditPolygonTypeModal: React.FC<{
   visible: boolean,
@@ -14,7 +14,7 @@ export const EditPolygonTypeModal: React.FC<{
   initialValue: string
 }> = ({ visible, onOk, onCancel, initialValue }) => {
   const [value, setValue] = useState(initialValue)
-  const fieldTypes = useAtomValue(fieldTypesAtom)
+  const fieldTypes = useSelector(getAllFieldsSelector)
 
   return (
     <Modal

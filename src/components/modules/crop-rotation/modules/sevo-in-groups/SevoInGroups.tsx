@@ -3,14 +3,13 @@ import React, {
   useRef,
   useState
 } from 'react'
-import { useAtom } from 'jotai'
 import { Chart } from 'react-google-charts'
 import s from './SevoInGroups.module.scss'
-import { fieldTypesAtom } from '../../../../pages/Main/Main'
 import PolygonCanvas from '../../../polygons/PolygonCanvas/PolygonCanvas'
 import { getBoundingRect } from '../../../../../utils/getBoundingRect'
 import { useSelector } from 'react-redux'
 import { getAllPolygonsSelector } from '../../../../../redux/selectors/mapSelectors'
+import { getAllFieldsSelector } from '../../../../../redux/selectors/fieldsSelectors'
 
 interface SevoInGroupsProps {
   name?: any,
@@ -28,7 +27,7 @@ export const SevoInGroups: React.FC<SevoInGroupsProps> = ({ name, id, sowing4Yea
 
   const [filterValue, setFilterValue] = useState('')
 
-  const [fieldTypes, setFieldTypes] = useAtom(fieldTypesAtom)
+  const fieldTypes = useSelector(getAllFieldsSelector)
 
   const [filteredPolygons, setFilteredPolygons] = useState(polygons)
 
