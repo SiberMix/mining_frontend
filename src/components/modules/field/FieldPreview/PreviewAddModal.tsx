@@ -8,7 +8,6 @@ import {
 } from 'antd'
 // @ts-ignore
 import { CompactPicker } from 'react-color'
-import { setShowAddNewPolygonModal } from '../../../../redux/slices/mapSlice'
 import { useAppDispatch } from '../../../../redux/store'
 import { useSelector } from 'react-redux'
 import {

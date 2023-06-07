@@ -73,3 +73,12 @@ export const getNewPolygonCoordsSelector = createSelector(
     return newPolygonCoords
   }
 )
+const getSelectedPolygonId = (state: RootState) => {
+  return state.mapReducer.selectedPolygonId
+}
+export const getSelectedPolygonIdSelector = createSelector(
+  getSelectedPolygonId,
+  (selectedPolygonId) => {
+    return selectedPolygonId
+  }
+)

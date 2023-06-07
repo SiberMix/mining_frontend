@@ -14,7 +14,8 @@ type MapInitialState = {
   drawingPolygonMode: boolean,
   showAddNewPolygonModal: boolean,
   newPolygonCoords: [number, number][],
-  editedPolygon: Polygon | undefined
+  editedPolygon: Polygon | undefined,
+  selectedPolygonId: number | undefined
 }
 
 const mapInitialState: MapInitialState = {
@@ -25,7 +26,8 @@ const mapInitialState: MapInitialState = {
   drawingPolygonMode: false,
   showAddNewPolygonModal: false,
   newPolygonCoords: [],
-  editedPolygon: undefined
+  editedPolygon: undefined,
+  selectedPolygonId: undefined
 }
 
 const mapSlice = createSlice({
@@ -34,6 +36,12 @@ const mapSlice = createSlice({
   reducers: {
     setPolygons: (state: MapInitialState, action) => {
       state.polygonsList = action.payload
+    },
+    setSelectedPolygon: (state: MapInitialState, action) => {
+      state.selectedPolygonId = action.payload
+    },
+    removeSelectedPolygon: (state) => {
+      state.selectedPolygonId = undefined
     },
     setPolygonFlyTo: (state: MapInitialState, action) => {
       state.polygonFlyTo = action.payload
@@ -143,7 +151,9 @@ export const {
   setDrawingPolygonMode,
   setShowAddNewPolygonModal,
   setEditedPolygon,
-  setNewPolygonCoords
+  setNewPolygonCoords,
+  setSelectedPolygon,
+  removeSelectedPolygon
 } = actions
 
 export default reducer

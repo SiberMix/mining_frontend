@@ -13,7 +13,10 @@ import {
   EditPolygonTypeModal
 } from './PolygonEditModal'
 import { useSelector } from 'react-redux'
-import { getAllPolygonsSelector } from '../../../../redux/selectors/mapSelectors'
+import {
+  getAllPolygonsSelector,
+  getSelectedPolygonIdSelector
+} from '../../../../redux/selectors/mapSelectors'
 import {
   putEditPolygon,
   setEditedPolygon,
@@ -28,7 +31,7 @@ const PolygonPreview: React.FC<{
 }> = ({ polygon,
   onDelete }) => {
 
-  const polygons = useSelector(getAllPolygonsSelector)
+  const selectedPolygonId = useSelector(getSelectedPolygonIdSelector)
 
   const dispatch = useAppDispatch()
 
@@ -56,7 +59,10 @@ const PolygonPreview: React.FC<{
 
   return (
     <div className={cn(s.root)}>
-      <div className={cn(s.content)}>
+      <div
+        className={cn(s.content)}
+        style={{ backgroundColor: polygon.id === selectedPolygonId ? 'rgb(167,194,82)' : '' }}
+      >
         <div className={cn(s.canvasRef)}>
           <PolygonCanvas polygon={polygon} />
           <div className={cn(s.row)}>

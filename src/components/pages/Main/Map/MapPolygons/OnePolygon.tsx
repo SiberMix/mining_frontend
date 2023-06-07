@@ -11,7 +11,11 @@ import type { Polygon as PolygonType } from '../../../../../types'
 import { useAppDispatch } from '../../../../../redux/store'
 import { useSelector } from 'react-redux'
 import { getPolygonFlyToSelector } from '../../../../../redux/selectors/mapSelectors'
-import { setPolygonFlyTo } from '../../../../../redux/slices/mapSlice'
+import {
+  removeSelectedPolygon,
+  setPolygonFlyTo,
+  setSelectedPolygon
+} from '../../../../../redux/slices/mapSlice'
 
 type Props = {
   polygon: PolygonType
@@ -33,6 +37,27 @@ const OnePolygon: React.FC<Props> = ({ polygon }) => {
     }
   }, [polygonFlyTo])
 
+  useEffect(() => {
+    map.on('popupopen', (e) => {
+      // Приведение типов для доступа к _source
+      const source = (e.popup as any)._source
+      if (source === polygonRef.current) {
+        dispatch(setSelectedPolygon(polygon.id))
+      }
+    })
+    map.on('popupclose', (e) => {
+      const source = (e.popup as any)._source
+      if (source === polygonRef.current) {
+        dispatch(removeSelectedPolygon())
+      }
+    })
+
+    return () => {
+      map.off('popupopen')
+      map.off('popupclose')
+    }
+  }, [])
+
   const polygonColor = polygon.sequence === null ? '#FCD9D0' : polygon.sequence.color
 
   return (
@@ -42,7 +67,7 @@ const OnePolygon: React.FC<Props> = ({ polygon }) => {
       positions={polygon.coords as [number, number][]}
       pathOptions={{ fillColor: polygonColor, ...polygonDefaultStyleSettings }}
     >
-      <Popup>
+      <Popup >
         <div>
           {polygon.name}
         </div>
