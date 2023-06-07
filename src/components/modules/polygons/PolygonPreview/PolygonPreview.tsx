@@ -60,8 +60,7 @@ const PolygonPreview: React.FC<{
   return (
     <div className={cn(s.root)}>
       <div
-        className={cn(s.content)}
-        style={{ backgroundColor: polygon.id === selectedPolygonId ? 'rgb(167,194,82)' : '' }}
+        className={cn(s.content, { [s.contentActive]: polygon.id === selectedPolygonId })}
       >
         <div className={cn(s.canvasRef)}>
           <PolygonCanvas polygon={polygon} />

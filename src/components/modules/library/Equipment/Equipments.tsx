@@ -54,7 +54,11 @@ const EquipmentsComponent: React.FC<Props> = () => {
   }, [])
 
   const editItemHandler = async (equip: Equipment) => {
-    setAddModal({ visible: true, editMode: true, equip })
+    setAddModal({
+      visible: true,
+      editMode: true,
+      equip
+    })
   }
 
   const deleteEquipmentHandler = async (id: number) => {
@@ -65,7 +69,11 @@ const EquipmentsComponent: React.FC<Props> = () => {
   }
 
   const addModalHandler = () => {
-    setAddModal({ visible: true, editMode: false, equip: null })
+    setAddModal({
+      visible: true,
+      editMode: false,
+      equip: null
+    })
   }
 
   return (
@@ -74,56 +82,58 @@ const EquipmentsComponent: React.FC<Props> = () => {
         className={cn(s.addButton)}
         onClick={addModalHandler}
       >
-+ Добавить оборудование
+        + Добавить оборудование
       </button>
       {equips.map((equip) => (
         <div
           className={cn(s.equipments)}
           key={equip.id}
         >
-          <Icon
-            src={
-              new URL(
-                `../../../../assets/icons_enum/${equip.image_status}.svg`,
-                import.meta.url
-              ).href
-            }
-          />
-          <div className={cn(s.row)}>
-            <div className={cn(s.nameDiv)}>
-              <p className={cn(s.title)}>
-                {equip.equip_name}
+          <div className={cn(s.equipmentsContent)}>
+            <Icon
+              src={
+                new URL(
+                  `../../../../assets/icons_enum/${equip.image_status}.svg`,
+                  import.meta.url
+                ).href
+              }
+            />
+            <div className={cn(s.row)}>
+              <div className={cn(s.nameDiv)}>
+                <p className={cn(s.title)}>
+                  {equip.equip_name}
+                </p>
+                <img
+                  className={cn(s.geo)}
+                  src={GeoBox}
+                  onClick={() => dispatch(setEquipmentFlyTo(+equip.imei))}
+                  alt=""
+                  title="Перейти к оборудованию на карте"
+                />
+              </div>
+              <p className={cn(s.culture)}>
+                {equip.equip_model}
               </p>
+              <p className={cn(s.culture)}>
+                {equip.equip_type}
+              </p>
+            </div>
+            <div className={cn(s.geoDiv)}>
               <img
-                className={cn(s.geo)}
-                src={GeoBox}
-                onClick={() => dispatch(setEquipmentFlyTo(+equip.imei))}
+                className={cn(s.edit)}
+                onClick={() => editItemHandler(equip)}
+                src={EditBox}
                 alt=""
-                title="Перейти к оборудованию на карте"
+                title="Редактировать оборудование"
+              />
+              <img
+                className={cn(s.trash)}
+                onClick={() => deleteEquipmentHandler(equip.id)}
+                src={TrashBox}
+                alt=""
+                title="Удалить оборудование"
               />
             </div>
-            <p className={cn(s.culture)}>
-              {equip.equip_model}
-            </p>
-            <p className={cn(s.culture)}>
-              {equip.equip_type}
-            </p>
-          </div>
-          <div className={cn(s.geoDiv)}>
-            <img
-              className={cn(s.edit)}
-              onClick={() => editItemHandler(equip)}
-              src={EditBox}
-              alt=""
-              title="Редактировать оборудование"
-            />
-            <img
-              className={cn(s.trash)}
-              onClick={() => deleteEquipmentHandler(equip.id)}
-              src={TrashBox}
-              alt=""
-              title="Удалить оборудование"
-            />
           </div>
         </div>
       ))}
