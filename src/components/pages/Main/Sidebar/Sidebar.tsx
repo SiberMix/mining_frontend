@@ -84,6 +84,7 @@ const Sidebar: React.FC<PropsWithChildren> = () => {
         </div>
         <div>
           <Svg
+            title="Настройки"
             src={Setting}
             onClick={() => {
               dispatch(setOpenSidebarWindow(undefined))
@@ -91,6 +92,7 @@ const Sidebar: React.FC<PropsWithChildren> = () => {
             }}
           />
           <Svg
+            title="Выход"
             color="#b53f42"
             src={LogoutBtn}
             onClick={logout}
