@@ -6,7 +6,7 @@ type SettingsInitialState = {
 }
 
 const settingsInitialState: SettingsInitialState = {
-  showSettingsModal: true,
+  showSettingsModal: false,
   selectedSettingsWindow: 1
 }
 
