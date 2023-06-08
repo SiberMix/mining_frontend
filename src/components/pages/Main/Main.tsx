@@ -15,7 +15,7 @@ import {
 import MainLayout from './MainLayout/MainLayout'
 
 import './styles.css'
-import Preloader from '../../common/preloader/Preloader'
+import Preloader from '../../common/Preloader/Preloader'
 import SidebarContainer from './Sidebar/SidebarContainer'
 import Map from './Map/Map'
 import {

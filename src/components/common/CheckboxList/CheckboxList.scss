@@ -1,0 +1,51 @@
+.checkbox-list {
+  .checkbox-label {
+    display: block;
+    position: relative;
+    padding-left: 30px; // уменьшите это значение, чтобы подогнать под новый размер
+    margin-bottom: 12px;
+    cursor: pointer;
+    user-select: none;
+
+    .checkbox-input {
+      position: absolute;
+      opacity: 0;
+      height: 0;
+      width: 0;
+
+      &:checked + .checkbox-custom {
+        background-color: #B7DE6E;
+      }
+    }
+
+    .checkbox-custom {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 18px;
+      width: 18px;
+      background-color: #252525;
+      border-radius: 3px;
+
+      &:after {
+        content: "";
+        position: absolute;
+        display: none;
+      }
+    }
+
+    .checkbox-input:checked + .checkbox-custom:after {
+      display: block;
+    }
+
+    .checkbox-custom:after {
+      left: 6px;
+      top: 3px;
+      width: 4px;
+      height: 8px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+  }
+}

@@ -31,18 +31,21 @@ const SettingsModal = () => {
       onCancel={handleCansel}
       footer={[
         <button
+          key={1}
           className="settingsButton settingsButtonOk"
           onClick={handleOk}
         >
           OK
         </button>,
         <button
+          key={2}
           className="settingsButton settingsButtonCancel"
           onClick={handleCansel}
         >
           Cansel
         </button>,
         <button
+          key={3}
           className="settingsButton settingsButtonApply"
           onClick={handleApply}
         >

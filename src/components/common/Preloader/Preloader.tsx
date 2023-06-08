@@ -1,4 +1,4 @@
-import './preloader.scss'
+import './Preloader.scss'
 import React, { useEffect } from 'react'
 
 const Preloader = () => {

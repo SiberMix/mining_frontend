@@ -3,6 +3,7 @@ import {
   createSlice
 } from '@reduxjs/toolkit'
 import { mapService } from '../../api/map'
+import { getAllPolygons } from './mapSlice'
 
 type FieldsInitialState = {
   fieldList: FieldType[],
@@ -73,12 +74,13 @@ export const addField = createAsyncThunk(
 )
 export const changeField = createAsyncThunk(
   'fields/changeFieldThunk',
-  async ({ id, name, color } : FieldType) => {
+  async ({ id, name, color } : FieldType, thunkAPI) => {
     const response = await mapService.editField({
       id,
       name,
       color
     })
+    thunkAPI.dispatch(getAllPolygons())
     return { id, name, color, response }
   }
 )

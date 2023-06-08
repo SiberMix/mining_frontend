@@ -34,7 +34,7 @@ const EquipmentPreviewsComponent = () => {
     mapTableData: (fieldsList: any) => {
       return fieldsList.map((item: any) => {
         return {
-          id: item.id,
+          key: item.id,
           'Название поля': item.name,
           'Цвет поля': (
             <div

@@ -54,7 +54,7 @@ const Sidebar: React.FC<PropsWithChildren> = () => {
           />
           <Svg
             title="Список полей"
-            active={(sidebarOpenWindow === 'PolygonList')}
+            active={(sidebarOpenWindow === 'PolygonList') ? 'open' : ''}
             onClick={() => handleChangeSidebarContent('PolygonList')}
             src={Field}
           />
@@ -66,19 +66,19 @@ const Sidebar: React.FC<PropsWithChildren> = () => {
           <Svg
             src={Equip}
             title="Оборудование"
-            active={(sidebarOpenWindow === 'EquipmentList')}
+            active={(sidebarOpenWindow === 'EquipmentList') ? 'open' : ''}
             onClick={() => handleChangeSidebarContent('EquipmentList')}
           />
           <Svg
             src={Trava}
             title="Культура"
-            active={(sidebarOpenWindow === 'FieldList')}
+            active={(sidebarOpenWindow === 'FieldList') ? 'open' : ''}
             onClick={() => handleChangeSidebarContent('FieldList')}
           />
           <Svg
             src={Calendar}
             title="Планирование"
-            active={(sidebarOpenWindow === 'Calendar')}
+            active={(sidebarOpenWindow === 'Calendar') ? 'open' : ''}
             onClick={() => handleChangeSidebarContent('Calendar')}
           />
         </div>
@@ -103,7 +103,7 @@ const Sidebar: React.FC<PropsWithChildren> = () => {
 
 export default Sidebar
 
-const Svg = styled(SVG)<{ active?: boolean }>`
+const Svg = styled(SVG)<{ active?: string }>`
   height: 20px;
   width: 20px;
   margin-bottom: 25px;
