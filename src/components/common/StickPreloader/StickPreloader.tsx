@@ -1,7 +1,7 @@
-import './Preloader.scss'
+import './StickPreloader.scss'
 import React, { useEffect } from 'react'
 
-const Preloader = () => {
+const StickPreloader = () => {
   useEffect(() => {
     const points: any = []
     const velocity2 = 5
@@ -127,4 +127,4 @@ const Preloader = () => {
   )
 }
 
-export default Preloader
+export default StickPreloader

@@ -15,7 +15,6 @@ import {
 import MainLayout from './MainLayout/MainLayout'
 
 import './styles.css'
-import Preloader from '../../common/Preloader/Preloader'
 import SidebarContainer from './Sidebar/SidebarContainer'
 import Map from './Map/Map'
 import {
@@ -32,6 +31,7 @@ import {
 import type { FieldType } from '../../../redux/slices/fieldSlice'
 import { getAllFields } from '../../../redux/slices/fieldSlice'
 import { getAllFieldsSelector } from '../../../redux/selectors/fieldsSelectors'
+import BasePreloader from '../../common/BasePreloader/BasePreloader'
 
 export const isDrawingAtom = atom(false)
 export const isFetchingAtom = atom(false)
@@ -45,7 +45,7 @@ const MainPage = () => {
 
   useEffect(() => {
     // Имитация загрузки данных
-    setTimeout(() => setLoad(false), 2500)
+    setTimeout(() => setLoad(false), 3000)
   }, [])
 
   const setIsFetching = useSetAtom(isFetchingAtom)
@@ -86,7 +86,7 @@ const MainPage = () => {
     }}
     >
       {load
-        ? <Preloader />
+        ? <BasePreloader />
         : (
           <MainLayout>
             <SidebarContainer />
@@ -112,7 +112,7 @@ const MainPage = () => {
                   {fieldsList.map((field: FieldType) => (<Option
                     key={field.id}
                     value={field.name}
-                                                         >
+                  >
                     {field.name}
                   </Option>))}
                 </Select>

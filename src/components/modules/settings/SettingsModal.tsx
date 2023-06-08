@@ -42,14 +42,14 @@ const SettingsModal = () => {
           className="settingsButton settingsButtonCancel"
           onClick={handleCansel}
         >
-          Cansel
+          Отмена
         </button>,
         <button
           key={3}
           className="settingsButton settingsButtonApply"
           onClick={handleApply}
         >
-          Apply
+          Применить
         </button>
       ]}
     >
