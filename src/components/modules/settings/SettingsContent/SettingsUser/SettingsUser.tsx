@@ -1,18 +1,30 @@
-import React from 'react'
-import SimpleSelect from '../../../../common/SimpleSelect/SimpleSelect'
+import './SettingsUser.scss'
+import React, { useState } from 'react'
+import { Upload } from 'antd'
 
 const SettingsUser = () => {
   return (
-    <div className="settingsMapWrapper">
-      <div className="settingsMap">
-        <div className="settingsMapSidebar">
-          <div className="settingsMapZoomLevel">
-            Аватарка:
-          </div>
-          <div className="settingsMapBaseMap">
-            <span>
-            Изначальная точка координат
+    <div className="settingsUserWrapper">
+      <div className="settingsUser">
+        <div className="settingsUserSidebar">
+          <div className="settingsUserPickAvatarWrapper">
+            <span className="settingsUserPickAvatarWrapperSpan">
+              Пользователь:
             </span>
+            <Upload
+              name="avatar"
+              listType="picture-card"
+              className="settingsUserPickAvatar"
+              showUploadList={false}
+              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+              style={{ width: 'auto' }}
+            >
+              <div>
+                <div>
+                  Аватарка
+                </div>
+              </div>
+            </Upload>
           </div>
         </div>
       </div>

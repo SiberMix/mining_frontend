@@ -12,19 +12,29 @@ import * as cn from 'classnames'
 import s from './Map.module.scss'
 import {
   MapContainer,
+  useMapEvents,
   ZoomControl
 } from 'react-leaflet'
+import { useSelector } from 'react-redux'
+import type { RootState } from '../../../../redux/store'
+import {
+  setBaseCoord,
+  setMapClickForNewBaseCoord
+} from '../../../../redux/slices/settingsSlice'
+import { useAppDispatch } from '../../../../redux/store'
 
 type Props = {}
 
 const Map: React.FC<Props> = () => {
+  const baseCoord = useSelector((state: RootState) => state.settingsSlice.usingSettings.baseCoord)
+  const stateZoomLevelOptions = useSelector((state: RootState) => state.settingsSlice.usingSettings.zoomLevelOptions)
 
   return (
     <MapContainer
       className={cn(s.map)}
-      center={[54.925946, 82.775931]}
+      center={baseCoord}
       zoomControl={false}
-      zoom={13}
+      zoom={+stateZoomLevelOptions}
       minZoom={3}
     >
       <MapViewSelect />

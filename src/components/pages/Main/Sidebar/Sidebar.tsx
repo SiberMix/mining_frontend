@@ -1,7 +1,7 @@
 import s from './Sidebar.module.scss'
 import * as cn from 'classnames'
 import type { PropsWithChildren } from 'react'
-import React from 'react'
+import React, { useEffect } from 'react'
 import Field from '/src/assets/icons/field.svg'
 import Job from '/src/assets/icons/job.svg'
 import Equip from '/src/assets/icons/harvester2.svg'
@@ -14,6 +14,7 @@ import styled from 'styled-components'
 import { useSetAtom } from 'jotai'
 import SVG from 'react-inlinesvg'
 import { tokenAtom } from '../../../../App'
+import type { RootState } from '../../../../redux/store'
 import { useAppDispatch } from '../../../../redux/store'
 import type { SidebarOpenWindow } from '../../../../redux/slices/sidebarSlice'
 import { setOpenSidebarWindow } from '../../../../redux/slices/sidebarSlice'
@@ -24,6 +25,15 @@ import { setShowSettingsModal } from '../../../../redux/slices/settingsSlice'
 const Sidebar: React.FC<PropsWithChildren> = () => {
   const dispatch = useAppDispatch()
   const sidebarOpenWindow = useSelector(getSidebarOpenWindowSelector)
+  const startMenuOptions = useSelector((state: RootState) => state.settingsSlice.usingSettings.startMenuOptions)
+  /*
+  * изначально выбранное меню в настройках
+  * */
+  useEffect(() => {
+    const menu = startMenuOptions === 'undefined' ? undefined : startMenuOptions as SidebarOpenWindow
+    dispatch(setOpenSidebarWindow(menu))
+  }, [])
+
   /*
   * Функционал для выхода из акаунта
   * */

@@ -1,8 +1,17 @@
 import {
   LayersControl,
-  TileLayer
+  TileLayer,
+  useMapEvents
 } from 'react-leaflet'
-import React from 'react'
+import React, { useCallback } from 'react'
+import { useSelector } from 'react-redux'
+import type { RootState } from '../../../../../redux/store'
+import {
+  setBaseCoord,
+  setMapClickForNewBaseCoord,
+  setShowSettingsModal
+} from '../../../../../redux/slices/settingsSlice'
+import { useAppDispatch } from '../../../../../redux/store'
 
 /*
 * Объкт содержащий карты
@@ -31,21 +40,43 @@ const layers = [
 ]
 
 const MapViewSelect = () => {
+  const dispatch = useAppDispatch()
+  const usingStateBaseMapOptions = useSelector((state: RootState) => state.settingsSlice.usingSettings.baseMapOptions)
+  const firstLayer = layers.find(layer => layer.name === usingStateBaseMapOptions)
+  const mapLayersWithSettings = [firstLayer, ...layers.filter(layer => layer.name !== usingStateBaseMapOptions)]
+  const mapClickForNewBaseCoord = useSelector((state: RootState) => state.settingsSlice.mapClickForNewBaseCoord)
+
+  /*
+  * функционал для настройки базовой точки координаты
+  * */
+  const handleClick = useCallback((e: any) => {
+    if (mapClickForNewBaseCoord) {
+      const { lat, lng } = e.latlng
+      dispatch(setBaseCoord([lat, lng]))
+      dispatch(setMapClickForNewBaseCoord(false))
+      dispatch(setShowSettingsModal(true))
+    }
+  }, [mapClickForNewBaseCoord])
+
+  useMapEvents({
+    click: handleClick
+  })
+
   return (
     <LayersControl
       position="topright"
       collapsed={true}
     >
-      {layers.map((layer, index) => {
+      {mapLayersWithSettings.map((layer, index) => {
         return (
           <LayersControl.BaseLayer
             key={index}
             checked={index === 0}
-            name={layer.name}
+            name={layer ? layer.name : layers[index].name}
           >
             <TileLayer
-              url={layer.url}
-              subdomains={layer.subdomains || ''}
+              url={layer ? layer.url : layers[index].url}
+              subdomains={layer ? layer.subdomains : layers[index].subdomains || ''}
             />
           </LayersControl.BaseLayer>
         )

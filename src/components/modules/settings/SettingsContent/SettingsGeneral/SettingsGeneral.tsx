@@ -1,36 +1,42 @@
 import './SettingsGeneral.scss'
 import React from 'react'
 import SimpleSelect from '../../../../common/SimpleSelect/SimpleSelect'
+import type { RootState } from '../../../../../redux/store'
+import { useAppDispatch } from '../../../../../redux/store'
+import { setStartMenuOptions } from '../../../../../redux/slices/settingsSlice'
+import { useSelector } from 'react-redux'
+
+const startSidebarOptions: Array<{value: string, label: string}> = [
+  {
+    value: 'undefined',
+    label: 'Не выбрано'
+  },
+  {
+    value: 'PolygonList',
+    label: 'Список полигонов'
+  },
+  // {
+  //   value: 'Заметки',
+  //   label: 'Заметки'
+  // },
+  {
+    value: 'EquipmentList',
+    label: 'Техника'
+  },
+  {
+    value: 'FieldList',
+    label: 'Культура'
+  },
+  {
+    value: 'Calendar',
+    label: 'Севооборот'
+  }
+]
 
 const SettingsGeneral = () => {
-  // const defaultValue = useSelector(getSidebarOpenWindowSelector)
-
-  const options: Array<{value: string, label: string}> = [
-    {
-      value: 'undefined',
-      label: 'Не выбрано'
-    },
-    {
-      value: 'PolygonList',
-      label: 'Список полигонов'
-    },
-    {
-      value: 'optionЗаметки',
-      label: 'Заметки'
-    },
-    {
-      value: 'EquipmentList',
-      label: 'Техника'
-    },
-    {
-      value: 'FieldList',
-      label: 'Культура'
-    },
-    {
-      value: 'Calendar',
-      label: 'Севооборот'
-    }
-  ]
+  const dispatch = useAppDispatch()
+  const stateStartSidebarOptions = useSelector((state: RootState) => state.settingsSlice.settings.startMenuOptions)
+  const initialStartSidebarOptions = startSidebarOptions.find(option => option.value === stateStartSidebarOptions)
 
   return (
     <div className="settingsGeneralWrapper">
@@ -40,9 +46,9 @@ const SettingsGeneral = () => {
           Стартовая страница меню
           </span>
           <SimpleSelect
-            options={options}
-            initialValue={options[0].label}
-            handleOnChange={(value: string) => console.log(value)}
+            options={startSidebarOptions}
+            initialValue={initialStartSidebarOptions ? initialStartSidebarOptions.label : 'произошла ошибка'}
+            handleOnChange={(value: string) => dispatch(setStartMenuOptions(value))}
           />
         </div>
       </div>

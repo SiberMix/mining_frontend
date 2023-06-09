@@ -4,7 +4,11 @@ import React from 'react'
 import SettingsMenu from './SettingsMenu/SettingsMenu'
 import { useSelector } from 'react-redux'
 import { getShowSettingsModalSelector } from '../../../redux/selectors/settingsSelector'
-import { setShowSettingsModal } from '../../../redux/slices/settingsSlice'
+import {
+  resetSettings,
+  setSettings,
+  setShowSettingsModal
+} from '../../../redux/slices/settingsSlice'
 import { useAppDispatch } from '../../../redux/store'
 import SettingsContent from './SettingsContent/SettingsContent'
 
@@ -13,21 +17,23 @@ const SettingsModal = () => {
   const showSettingsModal = useSelector(getShowSettingsModalSelector)
 
   const handleOk = () => {
+    dispatch(setSettings())
     dispatch(setShowSettingsModal(false))
   }
   const handleCansel = () => {
+    dispatch(resetSettings())
     dispatch(setShowSettingsModal(false))
   }
   const handleApply = () => {
-    dispatch(setShowSettingsModal(false))
+    dispatch(setSettings())
   }
 
   return (
     <Modal
       open={showSettingsModal}
       className="customModal"
-      width="55%"
-      title="Program Settings"
+      width="50%"
+      title="Настройки"
       onCancel={handleCansel}
       footer={[
         <button

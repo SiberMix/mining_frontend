@@ -6,6 +6,7 @@ import {
 } from 'react-leaflet'
 import React, { useEffect } from 'react'
 import type { EquipmentSocketData } from './MapEquipments'
+import type { RootState } from '../../../../../redux/store'
 import { useAppDispatch } from '../../../../../redux/store'
 import { useSelector } from 'react-redux'
 import { getEquipmentFlyToSelector } from '../../../../../redux/selectors/mapSelectors'
@@ -34,6 +35,7 @@ const EquipCastomMarker: React.FC<Props> = ({
   const map = useMap()
   const dispatch = useAppDispatch()
   const equipmentFlyTo = useSelector(getEquipmentFlyToSelector)
+  const stateEquipmentOptions = useSelector((state: RootState) => state.settingsSlice.usingSettings.equipmentOptions)
 
   useEffect(() => {
     if (equipmentFlyTo === +coordsData.imei) {
@@ -44,6 +46,7 @@ const EquipCastomMarker: React.FC<Props> = ({
   }, [equipmentFlyTo])
 
   return (
+
     <Marker
       position={[+coordsData.lat, +coordsData.lon]}
       icon={L.icon({
@@ -53,28 +56,19 @@ const EquipCastomMarker: React.FC<Props> = ({
     >
       <Popup>
         <div>
-          Название:
-          {equip_name}
+          {stateEquipmentOptions['Название'] ? `Название: ${equip_name}` : null}
         </div>
         <div>
-          IMEI:
-          {imei}
+          {stateEquipmentOptions['IMEI'] ? `IMEI: ${imei}` : null}
         </div>
         <div>
-          Гос.номер:
-          {gosnomer}
+          {stateEquipmentOptions['Гос.номер'] ? `Гос.номер: ${gosnomer}` : null}
         </div>
         <div>
-          Скорость:
-          {speed}
-          {' '}
-          км/ч
+          {stateEquipmentOptions['Скорость'] ? `Название: ${speed} км/ч` : null}
         </div>
         <div>
-          Уровень топлива:
-          {fuel}
-          {' '}
-          л
+          {stateEquipmentOptions['Уровень топлива'] ? `Уровень топлива: ${fuel} л` : null}
         </div>
       </Popup>
     </Marker>

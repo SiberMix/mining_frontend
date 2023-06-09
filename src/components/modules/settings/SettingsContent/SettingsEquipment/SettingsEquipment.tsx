@@ -1,19 +1,16 @@
 import './SettingsEquipment.scss'
 import React from 'react'
 import CheckboxList from '../../../../common/CheckboxList/CheckboxList'
-
-const options = {
-  'Название': true,
-  'IMEI': true,
-  'Гос.номер': true,
-  'Скорость': true,
-  'Уровень топлива': true
-}
+import type { RootState } from '../../../../../redux/store'
+import { useAppDispatch } from '../../../../../redux/store'
+import { setEquipmentOptions } from '../../../../../redux/slices/settingsSlice'
+import { useSelector } from 'react-redux'
 
 const SettingsEquipment = () => {
-
+  const dispatch = useAppDispatch()
+  const stateEquipmentOptions = useSelector((state: RootState) => state.settingsSlice.settings.equipmentOptions)
   const handleCheckedItemsChange = (checkedItems: Record<string, boolean>) => {
-    console.log(checkedItems)
+    dispatch(setEquipmentOptions(checkedItems))
   }
 
   return (
@@ -27,7 +24,7 @@ const SettingsEquipment = () => {
               </span>
               <div className="showEquipmentsCheckbox">
                 <CheckboxList
-                  options={options}
+                  options={stateEquipmentOptions}
                   onCheckedItemsChange={handleCheckedItemsChange}
                 />
               </div>

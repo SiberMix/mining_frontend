@@ -1,13 +1,13 @@
 .customModal {
   .ant-modal {
     &-content {
-      background-color: #565656;
+      background-color: #2c2c2c;
       border-radius: 0;
-      border: 1px solid #AACE67;
+      border: 1px solid #858585;
       padding: 0;
       color: #ffffff;
     }
-
+    //565656
     &-close {
       top: 5px;
       right: 0;
@@ -29,12 +29,12 @@
       justify-content: center;
       font-weight: 400;
       font-size: 14px;
-      background-color: #565656;
+      background-color: #2C2C2C;
       color: #BABABA;
     }
 
     &-body {
-      height: 60vh;
+      height: 50vh;
       display: flex;
     }
 
@@ -50,8 +50,8 @@
   width: 70px;
   padding: 0;
   border-radius: 0;
-  background-color: #7c7c7c;
-  border: 1px solid #848484;
+  background-color: #565656;
+  border: 1px solid #565656;
   color: #ffffff;
   line-height: 0;
   font-size: 13px;
@@ -66,11 +66,11 @@
   }
   &Apply {
     width: 80px;
-    margin-left: 5px;
+    margin: 0 5px;
   }
 
   &:hover {
-    border: #303030;
-    background-color: #303030;
+    border: #858585;
+    background-color: #858585;
   }
 }
