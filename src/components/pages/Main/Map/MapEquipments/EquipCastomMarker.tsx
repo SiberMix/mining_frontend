@@ -6,11 +6,11 @@ import {
 } from 'react-leaflet'
 import React, { useEffect } from 'react'
 import type { EquipmentSocketData } from './MapEquipments'
-import type { RootState } from '../../../../../redux/store'
 import { useAppDispatch } from '../../../../../redux/store'
 import { useSelector } from 'react-redux'
 import { getEquipmentFlyToSelector } from '../../../../../redux/selectors/mapSelectors'
 import { setEquipmentFlyTo } from '../../../../../redux/slices/mapSlice'
+import { getUsingEquipmentOptionsSelector } from '../../../../../redux/selectors/settingsSelector'
 
 type Props = {
   coordsData: EquipmentSocketData,
@@ -35,7 +35,7 @@ const EquipCastomMarker: React.FC<Props> = ({
   const map = useMap()
   const dispatch = useAppDispatch()
   const equipmentFlyTo = useSelector(getEquipmentFlyToSelector)
-  const stateEquipmentOptions = useSelector((state: RootState) => state.settingsSlice.usingSettings.equipmentOptions)
+  const stateEquipmentOptions = useSelector(getUsingEquipmentOptionsSelector)
 
   useEffect(() => {
     if (equipmentFlyTo === +coordsData.imei) {

@@ -2,7 +2,6 @@ import './SettingsMap.scss'
 import React from 'react'
 import SimpleSelect from '../../../../common/SimpleSelect/SimpleSelect'
 import { useSelector } from 'react-redux'
-import type { RootState } from '../../../../../redux/store'
 import { useAppDispatch } from '../../../../../redux/store'
 import {
   setBaseMapOptions,
@@ -11,6 +10,11 @@ import {
   setZoomLevelOptions
 } from '../../../../../redux/slices/settingsSlice'
 import { setDrawingPolygonMode } from '../../../../../redux/slices/mapSlice'
+import {
+  getBaseCoordSelector,
+  getBaseMapOptionsSelector,
+  getZoomLevelOptionsSelector
+} from '../../../../../redux/selectors/settingsSelector'
 
 const baseMapOptions: Array<{value: string, label: string}> = [
   {
@@ -51,9 +55,9 @@ const zoomLevelOptions: Array<{value: string, label: string}> = [
 
 const SettingsMap = () => {
   const dispatch = useAppDispatch()
-  const stateZoomInitialValue = useSelector((state: RootState) => state.settingsSlice.settings.zoomLevelOptions)
-  const stateBaseMapOptions = useSelector((state: RootState) => state.settingsSlice.settings.baseMapOptions)
-  const baseCoord = useSelector((state: RootState) => state.settingsSlice.settings.baseCoord)
+  const stateZoomInitialValue = useSelector(getZoomLevelOptionsSelector)
+  const stateBaseMapOptions = useSelector(getBaseMapOptionsSelector)
+  const baseCoord = useSelector(getBaseCoordSelector)
 
   const zoomInitialValue = zoomLevelOptions.find(zoom => zoom.value === stateZoomInitialValue)
 

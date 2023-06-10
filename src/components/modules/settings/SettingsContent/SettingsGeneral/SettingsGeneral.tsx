@@ -1,10 +1,10 @@
 import './SettingsGeneral.scss'
 import React from 'react'
 import SimpleSelect from '../../../../common/SimpleSelect/SimpleSelect'
-import type { RootState } from '../../../../../redux/store'
 import { useAppDispatch } from '../../../../../redux/store'
 import { setStartMenuOptions } from '../../../../../redux/slices/settingsSlice'
 import { useSelector } from 'react-redux'
+import { getStartMenuOptionsSelector } from '../../../../../redux/selectors/settingsSelector'
 
 const startSidebarOptions: Array<{value: string, label: string}> = [
   {
@@ -35,7 +35,7 @@ const startSidebarOptions: Array<{value: string, label: string}> = [
 
 const SettingsGeneral = () => {
   const dispatch = useAppDispatch()
-  const stateStartSidebarOptions = useSelector((state: RootState) => state.settingsSlice.settings.startMenuOptions)
+  const stateStartSidebarOptions = useSelector(getStartMenuOptionsSelector)
   const initialStartSidebarOptions = startSidebarOptions.find(option => option.value === stateStartSidebarOptions)
 
   return (

@@ -1,14 +1,14 @@
 import './SettingsEquipment.scss'
 import React from 'react'
 import CheckboxList from '../../../../common/CheckboxList/CheckboxList'
-import type { RootState } from '../../../../../redux/store'
 import { useAppDispatch } from '../../../../../redux/store'
 import { setEquipmentOptions } from '../../../../../redux/slices/settingsSlice'
 import { useSelector } from 'react-redux'
+import { getEquipmentOptionsSelector } from '../../../../../redux/selectors/settingsSelector'
 
 const SettingsEquipment = () => {
   const dispatch = useAppDispatch()
-  const stateEquipmentOptions = useSelector((state: RootState) => state.settingsSlice.settings.equipmentOptions)
+  const stateEquipmentOptions = useSelector(getEquipmentOptionsSelector)
   const handleCheckedItemsChange = (checkedItems: Record<string, boolean>) => {
     dispatch(setEquipmentOptions(checkedItems))
   }

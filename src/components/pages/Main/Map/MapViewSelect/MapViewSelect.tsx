@@ -5,13 +5,16 @@ import {
 } from 'react-leaflet'
 import React, { useCallback } from 'react'
 import { useSelector } from 'react-redux'
-import type { RootState } from '../../../../../redux/store'
+import { useAppDispatch } from '../../../../../redux/store'
 import {
   setBaseCoord,
   setMapClickForNewBaseCoord,
   setShowSettingsModal
 } from '../../../../../redux/slices/settingsSlice'
-import { useAppDispatch } from '../../../../../redux/store'
+import {
+  getMapClickForNewBaseCoordSelector,
+  getUsingBaseMapOptionsSelector
+} from '../../../../../redux/selectors/settingsSelector'
 
 /*
 * Объкт содержащий карты
@@ -41,10 +44,10 @@ const layers = [
 
 const MapViewSelect = () => {
   const dispatch = useAppDispatch()
-  const usingStateBaseMapOptions = useSelector((state: RootState) => state.settingsSlice.usingSettings.baseMapOptions)
+  const usingStateBaseMapOptions = useSelector(getUsingBaseMapOptionsSelector)
   const firstLayer = layers.find(layer => layer.name === usingStateBaseMapOptions)
   const mapLayersWithSettings = [firstLayer, ...layers.filter(layer => layer.name !== usingStateBaseMapOptions)]
-  const mapClickForNewBaseCoord = useSelector((state: RootState) => state.settingsSlice.mapClickForNewBaseCoord)
+  const mapClickForNewBaseCoord = useSelector(getMapClickForNewBaseCoordSelector)
 
   /*
   * функционал для настройки базовой точки координаты

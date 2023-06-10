@@ -14,18 +14,18 @@ import styled from 'styled-components'
 import { useSetAtom } from 'jotai'
 import SVG from 'react-inlinesvg'
 import { tokenAtom } from '../../../../App'
-import type { RootState } from '../../../../redux/store'
 import { useAppDispatch } from '../../../../redux/store'
 import type { SidebarOpenWindow } from '../../../../redux/slices/sidebarSlice'
 import { setOpenSidebarWindow } from '../../../../redux/slices/sidebarSlice'
 import { useSelector } from 'react-redux'
 import { getSidebarOpenWindowSelector } from '../../../../redux/selectors/sidebarSelectors'
 import { setShowSettingsModal } from '../../../../redux/slices/settingsSlice'
+import { getUsingStartMenuOptionsSelector } from '../../../../redux/selectors/settingsSelector'
 
 const Sidebar: React.FC<PropsWithChildren> = () => {
   const dispatch = useAppDispatch()
   const sidebarOpenWindow = useSelector(getSidebarOpenWindowSelector)
-  const startMenuOptions = useSelector((state: RootState) => state.settingsSlice.usingSettings.startMenuOptions)
+  const startMenuOptions = useSelector(getUsingStartMenuOptionsSelector)
   /*
   * изначально выбранное меню в настройках
   * */
