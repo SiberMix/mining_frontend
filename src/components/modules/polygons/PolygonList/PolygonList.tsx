@@ -2,9 +2,7 @@ import s from './PolygonList.module.scss'
 import style from '../../field/FieldList/FieldList.module.scss'
 import * as cn from 'classnames'
 import React from 'react'
-import { useAtom } from 'jotai'
 import * as turf from '@turf/turf'
-import { isFetchingAtom } from '../../../pages/Main/Main'
 import settingMap from '/src/assets/icons/equalizersoutline_114523.svg'
 import DownloadMap from '/src/assets/icons/download2.svg'
 import PolygonPreview from '../PolygonPreview/PolygonPreview'
@@ -24,7 +22,6 @@ const PolygonList: React.FC<{
 }> = () => {
   const dispatch = useAppDispatch()
 
-  const [isFetching, setIsFetching] = useAtom(isFetchingAtom)
   const polygons = useSelector(getAllPolygonsSelector)
   const drawingPolygonMode = useSelector(getDrawingPolygonModeSelector)
 
@@ -63,14 +60,9 @@ const PolygonList: React.FC<{
   const deleteHandler = async (id: string | number) => {
     if (confirm('Вы уверены, что хотите удалить полигон?')) {
       try {
-        if (isFetching) return
-        setIsFetching(true)
-
         dispatch(deletePolygon(+id))
       } catch (e) {
         console.log(e)
-      } finally {
-        setIsFetching(false)
       }
     }
   }

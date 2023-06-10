@@ -1,5 +1,3 @@
-import { useAtomValue } from 'jotai'
-import { isDrawingAtom } from '../../Main'
 import React, {
   useEffect,
   useState
@@ -10,6 +8,8 @@ import EquipCastomMarker from './EquipCastomMarker'
 // импорты для кластеров
 import 'react-leaflet-markercluster/dist/styles.min.css'
 import MarkerClusterGroup from 'react-leaflet-markercluster'
+import { useSelector } from 'react-redux'
+import { getDrawingPolygonModeSelector } from '../../../../../redux/selectors/mapSelectors'
 
 type Props = {}
 
@@ -20,9 +20,9 @@ export type EquipmentSocketData = {
   datetime: string
 }
 const MapEquipments: React.FC<Props> = () => {
+  const drawingPolygonMode = useSelector(getDrawingPolygonModeSelector)
+
   const [equipmentList, setEquipmentList] = useState<Equip[]>([])
-  //todo перенести в Redux
-  const isDrawing = useAtomValue(isDrawingAtom)
   const [equipmentCoordinates, setEquipmentCoordinates] = useState<EquipmentSocketData[]>([])
   const [speed, setSpeed] = useState(0)
   const [fuel, setFuel] = useState(0)
@@ -49,8 +49,7 @@ const MapEquipments: React.FC<Props> = () => {
       if (!data) return
       console.log('Координаты тракотра:', data)
 
-      // закрывает канал, пока идет отрисовка полигона?
-      if (isDrawing) return ws.close()
+      if (drawingPolygonMode) return ws.close()
 
       setEquipmentCoordinates(prevState => {
         return [...prevState.filter((item) => item.imei !== data.imei), data]
@@ -62,7 +61,7 @@ const MapEquipments: React.FC<Props> = () => {
     return () => {
       ws.close()
     }
-  }, [isDrawing])
+  }, [drawingPolygonMode])
 
   return (
     <>

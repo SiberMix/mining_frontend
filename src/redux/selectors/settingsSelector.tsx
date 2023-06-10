@@ -2,7 +2,7 @@ import type { RootState } from '../store'
 import { createSelector } from '@reduxjs/toolkit'
 
 const getShowSettingsModal = (state: RootState) => {
-  return state.settingsSlice.showSettingsModal
+  return state.settingsReducer.showSettingsModal
 }
 export const getShowSettingsModalSelector = createSelector(
   getShowSettingsModal,
@@ -11,7 +11,7 @@ export const getShowSettingsModalSelector = createSelector(
   }
 )
 const getSelectedSettingsWindow = (state: RootState) => {
-  return state.settingsSlice.selectedSettingsWindow
+  return state.settingsReducer.selectedSettingsWindow
 }
 export const getSelectedSettingsWindowSelector = createSelector(
   getSelectedSettingsWindow,
@@ -20,7 +20,7 @@ export const getSelectedSettingsWindowSelector = createSelector(
   }
 )
 const getEquipmentOptions = (state: RootState) => {
-  return state.settingsSlice.settings.equipmentOptions
+  return state.settingsReducer.settings.equipmentOptions
 }
 
 export const getEquipmentOptionsSelector = createSelector(
@@ -30,7 +30,7 @@ export const getEquipmentOptionsSelector = createSelector(
   }
 )
 const getStartMenuOptions = (state: RootState) => {
-  return state.settingsSlice.settings.startMenuOptions
+  return state.settingsReducer.settings.startMenuOptions
 }
 
 export const getStartMenuOptionsSelector = createSelector(
@@ -40,7 +40,7 @@ export const getStartMenuOptionsSelector = createSelector(
   }
 )
 const getZoomLevelOptions = (state: RootState) => {
-  return state.settingsSlice.settings.zoomLevelOptions
+  return state.settingsReducer.settings.zoomLevelOptions
 }
 
 export const getZoomLevelOptionsSelector = createSelector(
@@ -50,7 +50,7 @@ export const getZoomLevelOptionsSelector = createSelector(
   }
 )
 const getBaseMapOptions = (state: RootState) => {
-  return state.settingsSlice.settings.baseMapOptions
+  return state.settingsReducer.settings.baseMapOptions
 }
 
 export const getBaseMapOptionsSelector = createSelector(
@@ -60,7 +60,7 @@ export const getBaseMapOptionsSelector = createSelector(
   }
 )
 const getBaseCoord = (state: RootState) => {
-  return state.settingsSlice.settings.baseCoord
+  return state.settingsReducer.settings.baseCoord
 }
 
 export const getBaseCoordSelector = createSelector(
@@ -70,7 +70,7 @@ export const getBaseCoordSelector = createSelector(
   }
 )
 const getUsingBaseCoord = (state: RootState) => {
-  return state.settingsSlice.usingSettings.baseCoord
+  return state.settingsReducer.usingSettings.baseCoord
 }
 
 export const getUsingBaseCoordSelector = createSelector(
@@ -80,7 +80,7 @@ export const getUsingBaseCoordSelector = createSelector(
   }
 )
 const getUsingZoomLevelOptions = (state: RootState) => {
-  return state.settingsSlice.usingSettings.zoomLevelOptions
+  return state.settingsReducer.usingSettings.zoomLevelOptions
 }
 
 export const getUsingZoomLevelOptionsSelector = createSelector(
@@ -90,7 +90,7 @@ export const getUsingZoomLevelOptionsSelector = createSelector(
   }
 )
 const getUsingStartMenuOptions = (state: RootState) => {
-  return state.settingsSlice.usingSettings.startMenuOptions
+  return state.settingsReducer.usingSettings.startMenuOptions
 }
 
 export const getUsingStartMenuOptionsSelector = createSelector(
@@ -100,7 +100,7 @@ export const getUsingStartMenuOptionsSelector = createSelector(
   }
 )
 const getMapClickForNewBaseCoord = (state: RootState) => {
-  return state.settingsSlice.mapClickForNewBaseCoord
+  return state.settingsReducer.mapClickForNewBaseCoord
 }
 
 export const getMapClickForNewBaseCoordSelector = createSelector(
@@ -110,7 +110,7 @@ export const getMapClickForNewBaseCoordSelector = createSelector(
   }
 )
 const getUsingBaseMapOptions = (state: RootState) => {
-  return state.settingsSlice.usingSettings.baseMapOptions
+  return state.settingsReducer.usingSettings.baseMapOptions
 }
 
 export const getUsingBaseMapOptionsSelector = createSelector(
@@ -120,7 +120,7 @@ export const getUsingBaseMapOptionsSelector = createSelector(
   }
 )
 const getUsingEquipmentOptions = (state: RootState) => {
-  return state.settingsSlice.usingSettings.equipmentOptions
+  return state.settingsReducer.usingSettings.equipmentOptions
 }
 
 export const getUsingEquipmentOptionsSelector = createSelector(

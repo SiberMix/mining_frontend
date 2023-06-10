@@ -7,11 +7,6 @@ import {
   Modal,
   Select
 } from 'antd'
-
-import {
-  atom,
-  useSetAtom
-} from 'jotai'
 import MainLayout from './MainLayout/MainLayout'
 
 import './styles.css'
@@ -33,9 +28,6 @@ import { getAllFields } from '../../../redux/slices/fieldSlice'
 import { getAllFieldsSelector } from '../../../redux/selectors/fieldsSelectors'
 import BasePreloader from '../../common/BasePreloader/BasePreloader'
 
-export const isDrawingAtom = atom(false)
-export const isFetchingAtom = atom(false)
-
 const MainPage = () => {
   const [load, setLoad] = useState(true)
   const showAddNewPolygonModal = useSelector(getShowAddNewPolygonModalSelector)
@@ -47,8 +39,6 @@ const MainPage = () => {
     // Имитация загрузки данных
     setTimeout(() => setLoad(false), 3000)
   }, [])
-
-  const setIsFetching = useSetAtom(isFetchingAtom)
 
   const [polygonName, setPolygonName] = useState('')
   const { Option } = Select
@@ -76,7 +66,6 @@ const MainPage = () => {
     }))
     setPolygonName('')
     setPolygonCulture('Пшеница')
-    setIsFetching(false)
   }
 
   return (
