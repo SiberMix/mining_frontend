@@ -139,26 +139,27 @@ const DrawingPolygon: React.FC<Props> = () => {
         positions={polygonCoords}
         pathOptions={polygonStyle}
       >
-        {polygonCoords.map((coord, index) => {
-          return (
-            <Marker
-              icon={customIcon}
-              eventHandlers={editEventHandlers(index)}
-              key={index}
-              draggable={true}
-              autoPan={true}
-              position={coord}
-            >
-              <PolygonSpotMenu
+        {//todo добавить forEach для метода мап, после добаления внутренних контуров
+          polygonCoords.map((coord, index) => {
+            return (
+              <Marker
+                icon={customIcon}
+                eventHandlers={editEventHandlers(index)}
                 key={index}
-                index={index}
-                polygonCoords={polygonCoords}
-                deletePolygonSpot={deletePolygonSpot}
-                editedPolygon={editedPolygon}
-              />
-            </Marker>
-          )
-        })}
+                draggable={true}
+                autoPan={true}
+                position={coord}
+              >
+                <PolygonSpotMenu
+                  key={index}
+                  index={index}
+                  polygonCoords={polygonCoords}
+                  deletePolygonSpot={deletePolygonSpot}
+                  editedPolygon={editedPolygon}
+                />
+              </Marker>
+            )
+          })}
       </Polygon>
       {polygonCoords.length > 0 && !editedPolygon
         ? <>
@@ -180,7 +181,9 @@ const DrawingPolygon: React.FC<Props> = () => {
   )
 }
 
-// Создаем кастомную иконку маркера
+/*
+* Создаем кастомную иконку маркера
+* */
 const customIcon = L.divIcon({
   className: s.polygonSpotMenu, // CSS класс для стилизации иконки
   html: '<div class="' + s.iconContent + '"></div>',

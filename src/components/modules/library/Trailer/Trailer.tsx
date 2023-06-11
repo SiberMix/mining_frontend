@@ -1,60 +1,57 @@
 import s from './Trailer.module.scss'
 import * as cn from 'classnames'
-import React from 'react'
-import {
-  atom,
-  useSetAtom
-} from 'jotai'
+import React, { useEffect } from 'react'
 import { useListing } from '../../../../hooks/use-listing'
 import type { EquipTrailer } from '../../../../types/equip'
-import { mapService } from '../../../../api/map'
 import AddTrailerModal from './TrailerAddModal'
-
-const fetchListHandler = async () => {
-  const response = await mapService.getTrailerList()
-  return response.data
-}
-
-export const addModalAtom = atom({
-  visible: false,
-  editMode: false,
-  trailer: null as EquipTrailer | null
-})
+import { useSelector } from 'react-redux'
+import {
+  getOptionalEquipmentTrailerListSelector
+} from '../../../../redux/selectors/optionalEquipmentSelectors'
+import { useAppDispatch } from '../../../../redux/store'
+import {
+  deleteTrailer,
+  setAddModalVisible,
+  setEditedTrailer
+} from '../../../../redux/slices/optionalEquipmentSlice'
 
 const EquipmentTrailersComponent = () => {
-  const setAddModal = useSetAtom(addModalAtom)
+  const dispatch = useAppDispatch()
+  const trailerList = useSelector(getOptionalEquipmentTrailerListSelector)
 
   const editItemHandler = async (id: number) => {
-    const trailer = listData.find((item) => item.id === id)
-    if (trailer) {
-      setAddModal({ visible: true, editMode: true, trailer })
-    }
+    dispatch(setEditedTrailer(id))
+    dispatch(setAddModalVisible(true))
   }
 
   const deleteItemHandler = async (id: number) => {
-    await mapService.deleteTrailer(id)
-    await fetchList()
+    dispatch(deleteTrailer(id))
   }
 
   const addModalHandler = () => {
-    setAddModal({ visible: true, editMode: false, trailer: null })
+    dispatch(setAddModalVisible(true))
   }
 
-  const { tableBlock, fetchList, listData } = useListing<EquipTrailer>({
-    fetchListHandler,
+  const { tableBlock, refreshData } = useListing<EquipTrailer>({
     columnNames: ['Название прицепа', 'Госномер'],
-    mapTableData: (data: any) => {
-      return data.map((item: any) => {
+    mapTableData: (trailerList: any) => {
+      return trailerList.map((item: any) => {
         return {
           id: item.id,
+          key: item.id,
           'Название прицепа': item.trailer_name,
           Госномер: item.gosnomer
         }
       })
     },
+    fetchListHandler: () => trailerList,
     deleteItemHandler,
     editItemHandler
   })
+
+  useEffect(() => {
+    refreshData()
+  }, [trailerList])
 
   return (
     <div className={cn(s.EquipmentTrailersComponent)}>
@@ -65,9 +62,9 @@ const EquipmentTrailersComponent = () => {
         + Добавить прицеп
       </button>
       {tableBlock()}
-      <AddTrailerModal fetchList={fetchList} />
+      <AddTrailerModal />
     </div>
   )
 }
 
-export default EquipmentTrailersComponent
+export default React.memo(EquipmentTrailersComponent)

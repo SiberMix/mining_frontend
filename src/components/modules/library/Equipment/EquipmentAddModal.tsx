@@ -15,6 +15,7 @@ import {
 import styled from 'styled-components'
 import { addModalAtom } from './Equipments'
 import SVG from 'react-inlinesvg'
+import { useAppDispatch } from '../../../../redux/store'
 
 type EquipmentType = {
   description: string,
@@ -33,6 +34,8 @@ type Props = {
 }
 
 const AddEquipmentModal: React.FC<Props> = ({ fetchList, equips }) => {
+
+  const dispatch = useAppDispatch()
 
   const [equipmentTypes, setEquipmentTypes] = useState<EquipmentType[]>([])
   const [equipmentModels, setEquipmentModels] = useState<EquipmentModel[]>([])
@@ -59,15 +62,6 @@ const AddEquipmentModal: React.FC<Props> = ({ fetchList, equips }) => {
       setModel(model?.id)
     }
   }, [addModal, equipmentTypes, equipmentModels])
-
-  useEffect(() => {
-    (async () => {
-      const types = await mapService.getEquipTypes()
-      const models = await mapService.getEquipsModelsList()
-      setEquipmentTypes(types.data)
-      setEquipmentModels(models.data)
-    })()
-  }, [])
 
   const handleAdd = async () => {
     if (name && gosnomer && type && model) {

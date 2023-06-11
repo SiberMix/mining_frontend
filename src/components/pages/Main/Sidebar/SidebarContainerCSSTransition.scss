@@ -1,20 +1,19 @@
-.fade-enter {
+.sidebar-fade-enter {
     /*opacity: 0;*/
     transform: translateX(-100%);
 }
-.fade-enter-active {
+.sidebar-fade-enter-active {
     /*opacity: 1;*/
     transform: translateX(0%);
 }
-.fade-exit {
+.sidebar-fade-exit {
     /*opacity: 1;*/
     transform: translateX(0%);
 }
-.fade-exit-active {
+.sidebar-fade-exit-active {
     /*opacity: 0;*/
     transform: translateX(-100%);
 }
-.fade-enter-active,
-.fade-exit-active {
+.sidebar-fade-enter-active, .sidebar-fade-exit-active {
     transition: opacity 300ms, transform 300ms;
 }

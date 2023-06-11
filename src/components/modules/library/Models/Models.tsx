@@ -1,61 +1,60 @@
 import s from './Models.module.scss'
 import * as cn from 'classnames'
-import React from 'react'
-import {
-  atom,
-  useSetAtom
-} from 'jotai'
+import React, { useEffect } from 'react'
 import { useListing } from '../../../../hooks/use-listing'
 import type { EquipModal } from '../../../../types/equip'
-import { mapService } from '../../../../api/map'
 import AddModelModal from './ModelAddModal'
-
-const fetchListHandler = async () => {
-  const response = await mapService.getEquipsModelsList()
-  return response.data
-}
-
-export const addModalAtom = atom({
-  visible: false,
-  editMode: false,
-  model: null as EquipModal | null
-})
+import { useSelector } from 'react-redux'
+import {
+  getOptionalEquipmentModelsListSelector
+} from '../../../../redux/selectors/optionalEquipmentSelectors'
+import { useAppDispatch } from '../../../../redux/store'
+import {
+  deleteModel,
+  getEquipsModelsList,
+  setAddModalVisible,
+  setEditedModel
+} from '../../../../redux/slices/optionalEquipmentSlice'
 
 const EquipmentModelsComponent = () => {
-  const setAddModal = useSetAtom(addModalAtom)
+  const dispatch = useAppDispatch()
+  const modelsList = useSelector(getOptionalEquipmentModelsListSelector)
 
   const editItemHandler = async (id: number) => {
-    const model = listData.find((item) => item.id === id)
-    if (model) {
-      setAddModal({ visible: true, editMode: true, model })
-    }
+    dispatch(setEditedModel(id))
+    dispatch(setAddModalVisible(true))
   }
 
   const deleteItemHandler = async (id: number) => {
-    await mapService.deleteEquipsModel(id)
-    await fetchList()
+    dispatch(deleteModel(id))
+    dispatch(getEquipsModelsList())
   }
 
   const addModalHandler = () => {
-    setAddModal({ visible: true, editMode: false, model: null })
+    dispatch(setAddModalVisible(true))
   }
 
-  const { tableBlock, fetchList, listData } = useListing<EquipModal>({
-    fetchListHandler,
+  const { tableBlock, refreshData } = useListing<EquipModal>({
     columnNames: ['Название', 'Длина', 'Ширина'],
     mapTableData: (data: any) => {
       return data.map((item: any) => {
         return {
           id: item.id,
+          key: item.id,
           Название: item.description,
           Длина: item.length,
           Ширина: item.width
         }
       })
     },
+    fetchListHandler: () => modelsList,
     deleteItemHandler,
     editItemHandler
   })
+
+  useEffect(() => {
+    refreshData()
+  }, [modelsList])
 
   return (
     <div className={cn(s.root)}>
@@ -66,9 +65,9 @@ const EquipmentModelsComponent = () => {
         + Добавить модель
       </button>
       {tableBlock()}
-      <AddModelModal fetchList={fetchList} />
+      <AddModelModal />
     </div>
   )
 }
 
-export default EquipmentModelsComponent
+export default React.memo(EquipmentModelsComponent)

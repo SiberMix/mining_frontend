@@ -1,40 +1,30 @@
+import './LibraryListCSSTransition.scss'
 import s from './LibraryList.module.scss'
 import style from '../../field/FieldList/FieldList.module.scss'
 import * as cn from 'classnames'
 import React from 'react'
-import {
-  atom,
-  useAtom
-} from 'jotai'
 
 import Equipments from '../Equipment/Equipments'
 import Models from '../Models/Models'
 import EquipmentTypesComponent from '../Types/Types'
 import Trailer from '../Trailer/Trailer'
+import {
+  optionalEquipmentOpenWindowSelector
+} from '../../../../redux/selectors/optionalEquipmentSelectors'
+import { useSelector } from 'react-redux'
+import {
+  CSSTransition,
+  SwitchTransition
+} from 'react-transition-group'
+import { useAppDispatch } from '../../../../redux/store'
+import { setOpenOptionalEquipmentWindow } from '../../../../redux/slices/optionalEquipmentSlice'
 
 type Props = {}
 
-export const LibraryListStateAtom = atom({
-  isEquipmentListOpen: true,
-  isEquipmentTypeListOpen: false,
-  isEquipmentModelListOpen: false,
-  isTrailerModelListOpen: false
-})
-
 const LibraryList: React.FC<Props> = () => {
-  const [libraryListState, setLibraryListState] = useAtom(LibraryListStateAtom)
+  const dispatch = useAppDispatch()
 
-  const changeState = (key: keyof typeof libraryListState) => () => {
-    setLibraryListState((prevState) => {
-      const newState = Object.keys(prevState).reduce<any>((acc, keys) => {
-        acc[keys] = false
-        return acc
-      }, {} as typeof libraryListState)
-
-      newState[key] = true
-      return newState
-    })
-  }
+  const optionalEquipmentOpenWindow = useSelector(optionalEquipmentOpenWindowSelector)
 
   return (
     <div className={cn(style.noScrollBar, s.root)}>
@@ -43,45 +33,58 @@ const LibraryList: React.FC<Props> = () => {
           <div
             className={cn(
               s.library,
-              { [s.libraryActive]: libraryListState.isEquipmentListOpen }
+              { [s.libraryActive]: optionalEquipmentOpenWindow === 'EquipmentList' }
             )}
-            onClick={changeState('isEquipmentListOpen')}
+            onClick={() => dispatch(setOpenOptionalEquipmentWindow('EquipmentList'))}
           >
             Оборудование
           </div>
           <div
             className={cn(
               s.library,
-              { [s.libraryActive]: libraryListState.isEquipmentTypeListOpen }
+              { [s.libraryActive]: optionalEquipmentOpenWindow === 'EquipmentTypeList' }
             )}
-            onClick={changeState('isEquipmentTypeListOpen')}
+            onClick={() => dispatch(setOpenOptionalEquipmentWindow('EquipmentTypeList'))}
           >
             Тип
           </div>
           <div
             className={cn(
               s.library,
-              { [s.libraryActive]: libraryListState.isEquipmentModelListOpen }
+              { [s.libraryActive]: optionalEquipmentOpenWindow === 'EquipmentModelList' }
             )}
-            onClick={changeState('isEquipmentModelListOpen')}
+            onClick={() => dispatch(setOpenOptionalEquipmentWindow('EquipmentModelList'))}
           >
             Модель
           </div>
           <div
             className={cn(
               s.library,
-              { [s.libraryActive]: libraryListState.isTrailerModelListOpen }
+              { [s.libraryActive]: optionalEquipmentOpenWindow === 'TrailerModelList' }
             )}
-            onClick={changeState('isTrailerModelListOpen')}
+            onClick={() => dispatch(setOpenOptionalEquipmentWindow('TrailerModelList'))}
           >
             Навесное
           </div>
         </div>
       </div>
-      {libraryListState.isEquipmentListOpen ? <Equipments /> : null}
-      {libraryListState.isEquipmentTypeListOpen ? <EquipmentTypesComponent /> : null}
-      {libraryListState.isEquipmentModelListOpen ? <Models /> : null}
-      {libraryListState.isTrailerModelListOpen ? <Trailer /> : null}
+      <SwitchTransition mode="out-in">
+        <CSSTransition
+          key={optionalEquipmentOpenWindow}
+          classNames="library-list-fade"
+          timeout={280}
+        >
+          {optionalEquipmentOpenWindow === 'EquipmentList'
+            ? <Equipments />
+            : optionalEquipmentOpenWindow === 'EquipmentTypeList'
+              ? <EquipmentTypesComponent />
+              : optionalEquipmentOpenWindow === 'EquipmentModelList'
+                ? <Models />
+                : optionalEquipmentOpenWindow === 'TrailerModelList'
+                  ? <Trailer />
+                  : <></>}
+        </CSSTransition>
+      </SwitchTransition>
     </div>
   )
 }

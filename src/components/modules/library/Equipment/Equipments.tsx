@@ -49,10 +49,6 @@ const EquipmentsComponent: React.FC<Props> = () => {
 
   const setAddModal = useSetAtom(addModalAtom)
 
-  useEffect(() => {
-    dispatch(getAllEquipment())
-  }, [])
-
   const editItemHandler = async (equip: Equipment) => {
     setAddModal({
       visible: true,
@@ -145,7 +141,7 @@ const EquipmentsComponent: React.FC<Props> = () => {
   )
 }
 
-export default EquipmentsComponent
+export default React.memo(EquipmentsComponent)
 
 const Icon = styled(SVG)`
   height: 70px;

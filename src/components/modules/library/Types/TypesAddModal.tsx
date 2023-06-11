@@ -2,69 +2,63 @@ import React, {
   useEffect,
   useState
 } from 'react'
-import { useAtom } from 'jotai'
 import {
   Checkbox,
   Input,
   Modal
 } from 'antd'
-import { mapService } from '../../../../api/map'
-import type { EquipType } from '../../../../types/equip'
-import { addModalAtom } from './Types'
+import { useAppDispatch } from '../../../../redux/store'
+import { useSelector } from 'react-redux'
+import {
+  getAddModalVisibleSelector,
+  getEditedTypeSelector
+} from '../../../../redux/selectors/optionalEquipmentSelectors'
+import {
+  addType,
+  editType,
+  setAddModalVisible
+} from '../../../../redux/slices/optionalEquipmentSlice'
 
-const postEquipmentType = async ({ description, status }: {description: string, status: boolean}) => {
-  const newEquipType: any = { description, status }
-  const res = await mapService.addNewEquipType(newEquipType)
-  return res.data
-}
+const AddTypeModal = () => {
+  const dispatch = useAppDispatch()
+  const addModalVisible = useSelector(getAddModalVisibleSelector)
+  const editedType = useSelector(getEditedTypeSelector)
 
-const putEquipmentType = async ({ status, id, description }: EquipType) => {
-  const newData: any = { description, status }
-  return mapService.editEquipType(id, newData)
-}
-
-const AddTypeModal: React.FC<{ fetchList: () => void }> = ({ fetchList }) => {
-  const [addModal, setAddModal] = useAtom(addModalAtom)
   const [description, setDescription] = useState('')
   const [status, setStatus] = useState(false)
 
   useEffect(() => {
-    if (addModal.type) {
-      setDescription(addModal.type.description)
-      setStatus(addModal.type.status)
+    if (editedType) {
+      setDescription(editedType.description)
+      setStatus(editedType.status)
+    } else {
+      setDescription('')
+      setStatus(false)
     }
-  }, [addModal])
+  }, [addModalVisible])
 
   const handleAdd = async () => {
     if (description) {
-      if (addModal.editMode && addModal.type) {
-        putEquipmentType({
-          id: addModal.type.id,
+      if (editedType) {
+        dispatch(editType({
+          id: editedType.id,
           description,
           status
-        })
+        }))
       } else {
-        await postEquipmentType({
+        dispatch(addType({
           description,
           status
-        })
+        }))
       }
-
-      await fetchList()
-      setAddModalVisible(false)
-      setDescription('')
     }
-  }
-
-  const setAddModalVisible = (visible: boolean) => {
-    setAddModal({ ...addModal, type: null, visible })
   }
 
   return (
     <Modal
-      title={!addModal.editMode ? 'Добавить тип' : 'Редактировать тип'}
-      open={addModal.visible}
-      onCancel={() => setAddModalVisible(false)}
+      title={editedType ? 'Редактировать тип' : 'Добавить тип'}
+      open={addModalVisible}
+      onCancel={() => dispatch(setAddModalVisible(false))}
       onOk={handleAdd}
     >
       <Input
@@ -83,4 +77,4 @@ const AddTypeModal: React.FC<{ fetchList: () => void }> = ({ fetchList }) => {
   )
 }
 
-export default React.memo(AddTypeModal)
+export default AddTypeModal

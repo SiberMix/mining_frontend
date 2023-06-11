@@ -1,0 +1,19 @@
+.library-list-fade-enter {
+  //opacity: 0;
+  transform: translateX(-100%);
+}
+.library-list-fade-enter-active {
+  //opacity: 1;
+  transform: translateX(0%);
+}
+.library-list-fade-exit {
+  //opacity: 1;
+  transform: translateX(0%);
+}
+.library-list-fade-exit-active {
+  //opacity: 0;
+  transform: translateX(-100%);
+}
+.library-list-fade-enter-active, .library-list-fade-exit-active {
+  transition: opacity 300ms, transform 300ms;
+}

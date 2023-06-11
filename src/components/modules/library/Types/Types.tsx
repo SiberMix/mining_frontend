@@ -1,58 +1,55 @@
 import s from './Types.module.scss'
 import * as cn from 'classnames'
-import React from 'react'
-import {
-  atom,
-  useSetAtom
-} from 'jotai'
+import React, { useEffect } from 'react'
 import { useListing } from '../../../../hooks/use-listing'
 import type { EquipType } from '../../../../types/equip'
-import { mapService } from '../../../../api/map'
 import AddTypeModal from './TypesAddModal'
-
-const fetchListHandler = async () => {
-  const response = await mapService.getEquipTypes()
-  return response.data
-}
-
-export const addModalAtom = atom({
-  visible: false,
-  editMode: false,
-  type: null as EquipType | null
-})
+import {
+  getOptionalEquipmentTypesListSelector
+} from '../../../../redux/selectors/optionalEquipmentSelectors'
+import { useSelector } from 'react-redux'
+import { useAppDispatch } from '../../../../redux/store'
+import {
+  deleteType,
+  setAddModalVisible,
+  setEditedType
+} from '../../../../redux/slices/optionalEquipmentSlice'
 
 const EquipmentTypesComponent = () => {
-  const setAddModal = useSetAtom(addModalAtom)
+  const dispatch = useAppDispatch()
+  const typesList = useSelector(getOptionalEquipmentTypesListSelector)
 
   const editItemHandler = async (id: number) => {
-    const type = listData.find((item) => item.id === id)
-    if (type) {
-      setAddModal({ visible: true, editMode: true, type })
-    }
+    dispatch(setEditedType(id))
+    dispatch(setAddModalVisible(true))
   }
 
   const deleteItemHandler = async (id: number) => {
-    await mapService.deleteEquipType(id)
-    await fetchList()
+    dispatch(deleteType(id))
   }
 
   const addModalHandler = () => {
-    setAddModal({ visible: true, editMode: false, type: null })
+    dispatch(setAddModalVisible(true))
   }
 
-  const { tableBlock, fetchList, listData } = useListing<EquipType>({
-    fetchListHandler,
+  const { tableBlock, refreshData } = useListing<EquipType>({
     columnNames: ['Название', 'Статус'],
-    mapTableData: (data) => {
-      return data.map((item) => ({
+    mapTableData: (typesList) => {
+      return typesList.map((item) => ({
         id: item.id,
+        key: item.id,
         Название: item.description,
         Статус: item.status ? 'Активен' : 'Неактивен'
       }))
     },
+    fetchListHandler: () => typesList,
     editItemHandler,
     deleteItemHandler
   })
+
+  useEffect(() => {
+    refreshData()
+  }, [typesList])
 
   return (
     <div className={cn(s.root)}>
@@ -63,9 +60,9 @@ const EquipmentTypesComponent = () => {
         + Добавить тип
       </button>
       {tableBlock()}
-      <AddTypeModal fetchList={fetchList} />
+      <AddTypeModal />
     </div>
   )
 }
 
-export default EquipmentTypesComponent
+export default React.memo(EquipmentTypesComponent)

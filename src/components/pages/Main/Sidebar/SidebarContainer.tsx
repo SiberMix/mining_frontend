@@ -1,4 +1,4 @@
-import './SidebarContainerCSSTransition.css'
+import './SidebarContainerCSSTransition.scss'
 import React from 'react'
 import PolygonList from '../../../modules/polygons/PolygonList/PolygonList'
 import LibraryList from '../../../modules/library/LibraryList/LibraryList'
@@ -24,7 +24,7 @@ const SidebarContainer: React.FC<Props> = () => {
       <SwitchTransition mode="out-in">
         <CSSTransition
           key={sidebarOpenWindow}
-          classNames="fade"
+          classNames="sidebar-fade"
           timeout={280}
         >
           {sidebarOpenWindow === 'PolygonList'

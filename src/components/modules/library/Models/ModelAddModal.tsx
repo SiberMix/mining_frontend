@@ -2,61 +2,67 @@ import React, {
   useEffect,
   useState
 } from 'react'
-import { useAtom } from 'jotai'
-import { mapService } from '../../../../api/map'
 import {
   Input,
   Modal
 } from 'antd'
-import { addModalAtom } from './Models'
+import { useSelector } from 'react-redux'
+import {
+  getAddModalVisibleSelector,
+  getEditedModelSelector
+} from '../../../../redux/selectors/optionalEquipmentSelectors'
+import { useAppDispatch } from '../../../../redux/store'
+import {
+  addModel,
+  editModel,
+  setAddModalVisible
+} from '../../../../redux/slices/optionalEquipmentSlice'
 
-const AddModelModal: React.FC<{ fetchList: () => void }> = ({ fetchList }) => {
-  const [addModal, setAddModal] = useAtom(addModalAtom)
+const AddModelModal = () => {
+  const dispatch = useAppDispatch()
+  const addModalVisible = useSelector(getAddModalVisibleSelector)
+  const editedModel = useSelector(getEditedModelSelector)
 
   const [description, setDescription] = useState('')
   const [length, setLength] = useState('')
   const [width, setWidth] = useState('')
 
   useEffect(() => {
-    if (addModal.model) {
-      setDescription(addModal.model.description)
-      setLength(addModal.model.length)
-      setWidth(addModal.model.width)
+    if (editedModel) {
+      setDescription(editedModel.description)
+      setLength(editedModel.length)
+      setWidth(editedModel.width)
+    } else {
+      setDescription('')
+      setLength('')
+      setWidth('')
     }
-  }, [addModal])
+  }, [editedModel])
 
   const handleAdd = async () => {
     if (description && length && width) {
-      if (addModal.editMode && addModal.model) {
-        await mapService.editEquipsModel({
-          id: addModal.model.id,
+      if (editedModel) {
+        dispatch(editModel({
+          id: editedModel.id,
           description,
           length,
           width
-        })
+        }))
       } else {
-        await mapService.addNewEquipsModel({
+        dispatch(addModel({
           description,
           width,
           length
-        })
+        }))
       }
-
-      await fetchList()
-      setAddModalVisible(false)
-      setDescription('')
     }
-  }
-
-  const setAddModalVisible = (visible: boolean) => {
-    setAddModal({ ...addModal, model: null, visible })
   }
 
   return (
     <Modal
-      title="Добавить модель"
-      open={addModal.visible}
-      onCancel={() => setAddModalVisible(false)}
+      title={editedModel ? 'Редактировать модель' : 'Добавить модель'}
+      open={addModalVisible}
+      onCancel={() => dispatch(setAddModalVisible(false))}
       onOk={handleAdd}
     >
       <Input
@@ -81,4 +87,4 @@ const AddModelModal: React.FC<{ fetchList: () => void }> = ({ fetchList }) => {
   )
 }
 
-export default React.memo(AddModelModal)
+export default AddModelModal

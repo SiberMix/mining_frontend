@@ -159,6 +159,7 @@ export const {
 export default reducer
 
 export type PostNewPolygonData = {
+  //todo оберунть в доп массив для
   coords: [number, number][],
   name: string,
   sequence: string,

@@ -13,6 +13,7 @@ import './styles.css'
 import SidebarContainer from './Sidebar/SidebarContainer'
 import Map from './Map/Map'
 import {
+  getAllEquipment,
   getAllPolygons,
   postNewPolygon,
   setShowAddNewPolygonModal
@@ -27,6 +28,11 @@ import type { FieldType } from '../../../redux/slices/fieldSlice'
 import { getAllFields } from '../../../redux/slices/fieldSlice'
 import { getAllFieldsSelector } from '../../../redux/selectors/fieldsSelectors'
 import BasePreloader from '../../common/BasePreloader/BasePreloader'
+import {
+  getEquipsModelsList,
+  getTrailerList,
+  getTypesList
+} from '../../../redux/slices/optionalEquipmentSlice'
 
 const MainPage = () => {
   const [load, setLoad] = useState(true)
@@ -48,6 +54,11 @@ const MainPage = () => {
     ((async () => {
       dispatch(getAllFields())
       dispatch(getAllPolygons())
+      dispatch(getAllEquipment())
+      dispatch(getTypesList())
+      dispatch(getEquipsModelsList())
+      dispatch(getEquipsModelsList())
+      dispatch(getTrailerList())
     }))()
   }, [])
 
@@ -61,6 +72,7 @@ const MainPage = () => {
     // Отправляем POST-запрос с обновленными данными полигона
     dispatch(postNewPolygon({
       name: polygonName,
+      //todo обернуть в дополнительный массив, для внутреннего контура
       coords: [...newPolygonCoords, newPolygonCoords[0]],
       sequence: polygonCulture
     }))

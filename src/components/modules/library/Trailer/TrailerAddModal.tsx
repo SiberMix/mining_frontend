@@ -2,60 +2,62 @@ import React, {
   useEffect,
   useState
 } from 'react'
-import { useAtom } from 'jotai'
-import { mapService } from '../../../../api/map'
 import {
   Input,
   Modal
 } from 'antd'
-import { addModalAtom } from './Trailer'
+import { useAppDispatch } from '../../../../redux/store'
+import { useSelector } from 'react-redux'
+import {
+  getAddModalVisibleSelector,
+  getEditedTrailerSelector
+} from '../../../../redux/selectors/optionalEquipmentSelectors'
+import {
+  addTrailer,
+  editTrailer,
+  setAddModalVisible
+} from '../../../../redux/slices/optionalEquipmentSlice'
 
-const AddTrailerModal: React.FC<{ fetchList: () => void }> = ({
-  fetchList
-}) => {
-  const [addModal, setAddModal] = useAtom(addModalAtom)
+const AddTrailerModal = () => {
+  const dispatch = useAppDispatch()
+  const addModalVisible = useSelector(getAddModalVisibleSelector)
+  const editedTrailer = useSelector(getEditedTrailerSelector)
 
   const [trailer_name, setName] = useState('')
   const [gosnomer, setGosnomer] = useState('')
 
   useEffect(() => {
-    if (addModal.trailer) {
-      setName(addModal.trailer.trailer_name)
-      setGosnomer(addModal.trailer.gosnomer)
+    if (editedTrailer) {
+      setName(editedTrailer.trailer_name)
+      setGosnomer(editedTrailer.gosnomer)
+    } else {
+      setName('')
+      setGosnomer('')
     }
-  }, [addModal])
+  }, [editedTrailer])
 
   const handleAdd = async () => {
     if (trailer_name && gosnomer) {
-      if (addModal.editMode && addModal.trailer) {
-        await mapService.editTrailer({
-          ...addModal.trailer,
+      if (editedTrailer) {
+        dispatch(editTrailer({
+          ...editedTrailer,
           trailer_name,
           gosnomer
-        })
+        }))
       } else {
-        await mapService.addTrailer({
+        dispatch(addTrailer({
           trailer_name,
           gosnomer
-        })
+        }))
       }
-
-      await fetchList()
-      setAddModalVisible(false)
-
-      setName('')
     }
-  }
-
-  const setAddModalVisible = (visible: boolean) => {
-    setAddModal({ ...addModal, trailer: null, visible })
   }
 
   return (
     <Modal
       title="Добавить прицеп"
-      open={addModal.visible}
-      onCancel={() => setAddModalVisible(false)}
+      open={addModalVisible}
+      onCancel={() => dispatch(setAddModalVisible(false))}
       onOk={handleAdd}
     >
       <Input
@@ -74,4 +76,4 @@ const AddTrailerModal: React.FC<{ fetchList: () => void }> = ({
   )
 }
 
-export default React.memo(AddTrailerModal)
+export default AddTrailerModal
