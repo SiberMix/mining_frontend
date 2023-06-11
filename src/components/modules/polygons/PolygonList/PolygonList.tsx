@@ -1,3 +1,4 @@
+import './PolygonsListCSSTransition.scss'
 import s from './PolygonList.module.scss'
 import style from '../../field/FieldList/FieldList.module.scss'
 import * as cn from 'classnames'
@@ -16,6 +17,10 @@ import {
   setDrawingPolygonMode
 } from '../../../../redux/slices/mapSlice'
 import { useAppDispatch } from '../../../../redux/store'
+import {
+  TransitionGroup,
+  CSSTransition
+} from 'react-transition-group'
 
 const PolygonList: React.FC<{
   onPolygonOption?: (id: string | number) => void
@@ -104,16 +109,34 @@ const PolygonList: React.FC<{
             Добавить поле
           </>}
       </button>
-      {polygons.map((polygon) => {
-        if (!polygon.coords.length) return null
-        return (
-          <PolygonPreview
-            polygon={polygon}
-            onDelete={() => deleteHandler(polygon.id)}
-            key={polygon.id}
-          />
-        )
-      })}
+      <TransitionGroup className="polygons">
+        {polygons.map(polygon => {
+          if (!polygon.coords.length) return null
+          return (
+            <CSSTransition
+              key={polygon.id}
+              timeout={500}
+              classNames="item"
+            >
+              <PolygonPreview
+                polygon={polygon}
+                onDelete={() => deleteHandler(polygon.id)}
+                key={polygon.id}
+              />
+            </CSSTransition>
+          )
+        })}
+      </TransitionGroup>
+      {/*{polygons.map((polygon) => {*/}
+      {/*  if (!polygon.coords.length) return null*/}
+      {/*  return (*/}
+      {/*    <PolygonPreview*/}
+      {/*      polygon={polygon}*/}
+      {/*      onDelete={() => deleteHandler(polygon.id)}*/}
+      {/*      key={polygon.id}*/}
+      {/*    />*/}
+      {/*  )*/}
+      {/*})}*/}
     </div>
   )
 }
