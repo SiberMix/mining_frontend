@@ -36,7 +36,7 @@ const MapPolygons: React.FC<Props> = () => {
 
   return (
     <>
-      <Polygon positions={test} />
+      {/*<Polygon positions={test} />*/}
       {polygons.map((polygon: PolygonType, index: number) => (
         <OnePolygon
           polygon={polygon}
