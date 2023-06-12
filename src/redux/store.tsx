@@ -7,6 +7,7 @@ import sidebarReducer from './slices/sidebarSlice'
 import fieldsReducer from './slices/fieldSlice'
 import settingsReducer from './slices/settingsSlice'
 import optionalEquipmentReducer from './slices/optionalEquipmentSlice'
+import authReducer from './slices/authSlice'
 import { useDispatch } from 'react-redux'
 
 const rootReducer = combineReducers({
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
   sidebarReducer,
   fieldsReducer,
   settingsReducer,
-  optionalEquipmentReducer
+  optionalEquipmentReducer,
+  authReducer
 })
 export type RootReducer = ReturnType<typeof rootReducer>
 

@@ -1,13 +1,13 @@
 import type { FormEvent } from 'react'
 import React, { useState } from 'react'
 import CompanyLogo from '/src/assets/logo.png'
-import { useSetAtom } from 'jotai'
-import { tokenAtom } from '../../../App'
 import './Auth.modules.css'
 import { authService } from '../../../api/auth'
+import { useAppDispatch } from '../../../redux/store'
+import { setToken } from '../../../redux/slices/authSlice'
 
 const LoginPage = () => {
-  const setToken = useSetAtom(tokenAtom)
+  const dispatch = useAppDispatch()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -19,7 +19,7 @@ const LoginPage = () => {
       const { data } = await authService.login(username, password)
       if (data.auth_token) {
         localStorage.setItem('token', data.auth_token)
-        setToken(data.auth_token)
+        dispatch(setToken(data.auth_token))
       } else {
         setError('Неверное имя пользователя или пароль. Попробуйте еще раз.')
       }
