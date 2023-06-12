@@ -1,3 +1,4 @@
+import './PreviewAddModal.scss'
 import React, {
   useEffect,
   useState
@@ -63,6 +64,7 @@ const AddPreviewModal = () => {
 
   return (
     <Modal
+      className="fieldPreviewModal"
       title={
         EditedField ? 'Редактировать культуру' : 'Добавить культуру'
       }

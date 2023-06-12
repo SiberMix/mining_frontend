@@ -1,3 +1,4 @@
+import './TrailerAddModal.scss'
 import React, {
   useEffect,
   useState
@@ -55,6 +56,7 @@ const AddTrailerModal = () => {
 
   return (
     <Modal
+      className="trailerAddModal"
       title="Добавить прицеп"
       open={addModalVisible}
       onCancel={() => dispatch(setAddModalVisible(false))}

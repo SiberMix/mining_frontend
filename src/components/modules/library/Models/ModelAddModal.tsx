@@ -1,3 +1,4 @@
+import './ModelAddModal.scss'
 import React, {
   useEffect,
   useState
@@ -60,6 +61,7 @@ const AddModelModal = () => {
 
   return (
     <Modal
+      className="modelAddModal"
       title={editedModel ? 'Редактировать модель' : 'Добавить модель'}
       open={addModalVisible}
       onCancel={() => dispatch(setAddModalVisible(false))}

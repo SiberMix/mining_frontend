@@ -1,3 +1,4 @@
+import './TypesAddModal.scss'
 import React, {
   useEffect,
   useState
@@ -5,7 +6,8 @@ import React, {
 import {
   Checkbox,
   Input,
-  Modal
+  Modal,
+  Switch
 } from 'antd'
 import { useAppDispatch } from '../../../../redux/store'
 import { useSelector } from 'react-redux'
@@ -18,6 +20,7 @@ import {
   editType,
   setAddModalVisible
 } from '../../../../redux/slices/optionalEquipmentSlice'
+import miniLogo from '/src/assets/hectareLogoOnly.png'
 
 const AddTypeModal = () => {
   const dispatch = useAppDispatch()
@@ -56,6 +59,7 @@ const AddTypeModal = () => {
 
   return (
     <Modal
+      className="typesAddModal"
       title={editedType ? 'Редактировать тип' : 'Добавить тип'}
       open={addModalVisible}
       onCancel={() => dispatch(setAddModalVisible(false))}
@@ -67,12 +71,12 @@ const AddTypeModal = () => {
         onChange={(e) => setDescription(e.target.value)}
         style={{ marginBottom: '16px' }}
       />
-      <Checkbox
+      <Switch
+        checkedChildren="Активен"
+        unCheckedChildren="Неактивен"
         checked={status}
-        onChange={(e) => setStatus(e.target.checked)}
-      >
-        Активен
-      </Checkbox>
+        onChange={(e) => setStatus(e.valueOf())}
+      />
     </Modal>
   )
 }
