@@ -38,7 +38,6 @@ const MainPage = () => {
       dispatch(getAllEquipment())
       dispatch(getTypesList())
       dispatch(getEquipsModelsList())
-      dispatch(getEquipsModelsList())
       dispatch(getTrailerList())
     }))()
   }, [])

@@ -1,75 +1,46 @@
 import s from './Equipments.module.scss'
 import * as cn from 'classnames'
-import React, { useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components'
-import {
-  atom,
-  useSetAtom
-} from 'jotai'
 import '/src/style/equipments.css'
 import TrashBox from '/src/assets/icons/delete.svg'
 import EditBox from '/src/assets/icons/edit.svg'
 
-import type { Equip } from '../../../../types/equip'
-
 import SVG from 'react-inlinesvg'
 import GeoBox from '/src/assets/icons/GPS-navigate.svg'
-import { mapService } from '../../../../api/map'
 import AddEquipmentModal from './EquipmentAddModal'
 import {
+  deleteEquipment,
   getAllEquipment,
+  setEditedEquipment,
   setEquipmentFlyTo
 } from '../../../../redux/slices/mapSlice'
 import { useAppDispatch } from '../../../../redux/store'
 import { useSelector } from 'react-redux'
 import { getAllEquipmentSelector } from '../../../../redux/selectors/mapSelectors'
+import { setAddModalVisible } from '../../../../redux/slices/optionalEquipmentSlice'
 
 type Props = {}
-
-interface Equipment {
-  equip_type: string,
-  equip_model: string,
-  equip_name: string,
-  gosnomer: string,
-  id: number,
-  image_status: string,
-  imei: string
-}
-
-export const addModalAtom = atom({
-  visible: false,
-  editMode: false,
-  equip: null as Equip | null
-})
 
 const EquipmentsComponent: React.FC<Props> = () => {
 
   const dispatch = useAppDispatch()
   const equips = useSelector(getAllEquipmentSelector)
 
-  const setAddModal = useSetAtom(addModalAtom)
-
-  const editItemHandler = async (equip: Equipment) => {
-    setAddModal({
-      visible: true,
-      editMode: true,
-      equip
-    })
+  const editItemHandler = async (id: number) => {
+    dispatch(setEditedEquipment(id))
+    dispatch(setAddModalVisible(true))
   }
 
   const deleteEquipmentHandler = async (id: number) => {
     if (confirm('Вы уверены, что хотите удалить оборудование?')) {
-      await mapService.deleteEquip(id)
+      dispatch(deleteEquipment(id))
       dispatch(getAllEquipment())
     }
   }
 
   const addModalHandler = () => {
-    setAddModal({
-      visible: true,
-      editMode: false,
-      equip: null
-    })
+    dispatch(setAddModalVisible(true))
   }
 
   return (
@@ -117,7 +88,7 @@ const EquipmentsComponent: React.FC<Props> = () => {
             <div className={cn(s.geoDiv)}>
               <img
                 className={cn(s.edit)}
-                onClick={() => editItemHandler(equip)}
+                onClick={() => editItemHandler(equip.id)}
                 src={EditBox}
                 alt=""
                 title="Редактировать оборудование"
@@ -135,7 +106,6 @@ const EquipmentsComponent: React.FC<Props> = () => {
       ))}
       <AddEquipmentModal
         equips={equips}
-        fetchList={() => dispatch(getAllEquipment())}
       />
     </div>
   )

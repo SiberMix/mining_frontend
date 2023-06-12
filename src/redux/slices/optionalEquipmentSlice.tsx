@@ -131,7 +131,7 @@ const optionalEquipmentSlice = createSlice({
 })
 
 export const getTypesList = createAsyncThunk(
-  'map/getTypesListThunk',
+  'optionalEquipment/getTypesListThunk',
   () => {
     return mapService.getEquipTypes()
   }
@@ -144,7 +144,7 @@ export const addType = createAsyncThunk(
   }
 )
 export const editType = createAsyncThunk(
-  'map/editTypeThunk',
+  'optionalEquipment/editTypeThunk',
   ({ status, id, description }: EquipType) => {
     const newData: any = { description, status }
     const response = mapService.editEquipType(id, newData)
@@ -152,61 +152,61 @@ export const editType = createAsyncThunk(
   }
 )
 export const deleteType = createAsyncThunk(
-  'map/deleteTypeThunk',
+  'optionalEquipment/deleteTypeThunk',
   (id: number) => {
     const response = mapService.deleteEquipType(id)
     return { id, response }
   }
 )
 export const getEquipsModelsList = createAsyncThunk(
-  'map/getEquipsModelsListThunk',
+  'optionalEquipment/getEquipsModelsListThunk',
   () => {
     return mapService.getEquipsModelsList()
   }
 )
 //todo получать айдишник назад, для оптимизации, и чтоб не обновлять каждый раз при обновлении
 export const addModel = createAsyncThunk(
-  'map/addModelThunk',
+  'optionalEquipment/addModelThunk',
   (data: any) => {
     return mapService.addNewEquipsModel(data)
   }
 )
 export const editModel = createAsyncThunk(
-  'map/editModelThunk',
+  'optionalEquipment/editModelThunk',
   ({ id, description, length, width }: EquipModal) => {
     const response = mapService.editEquipsModel({ id, description, length, width })
     return { id, description, length, width, response }
   }
 )
 export const deleteModel = createAsyncThunk(
-  'map/deleteModelThunk',
+  'optionalEquipment/deleteModelThunk',
   (id: number) => {
     const response = mapService.deleteEquipsModel(id)
     return { id, response }
   }
 )
 export const getTrailerList = createAsyncThunk(
-  'map/getTrailerListThunk',
+  'optionalEquipment/getTrailerListThunk',
   () => {
     return mapService.getTrailerList()
   }
 )
 //todo получать айдишник назад, для оптимизации, и чтоб не обновлять каждый раз при обновлении
 export const addTrailer = createAsyncThunk(
-  'map/addTrailerThunk',
+  'optionalEquipment/addTrailerThunk',
   (data: any) => {
     return mapService.addTrailer(data)
   }
 )
 export const editTrailer = createAsyncThunk(
-  'map/editTrailerThunk',
+  'optionalEquipment/editTrailerThunk',
   ({ id, ...params }: EquipTrailer) => {
     const response = mapService.editTrailer({ id, ...params })
     return { id, ...params, response }
   }
 )
 export const deleteTrailer = createAsyncThunk(
-  'map/deleteTrailerThunk',
+  'optionalEquipment/deleteTrailerThunk',
   (id: number) => {
     const response = mapService.deleteTrailer(id)
     return { id, response }

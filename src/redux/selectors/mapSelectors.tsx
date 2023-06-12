@@ -82,3 +82,12 @@ export const getSelectedPolygonIdSelector = createSelector(
     return selectedPolygonId
   }
 )
+const getEditeEquipment = (state: RootState) => {
+  return state.mapReducer.editedEquipment
+}
+export const getEditeEquipmentSelector = createSelector(
+  getEditeEquipment,
+  (editedEquipment) => {
+    return editedEquipment
+  }
+)

@@ -4,8 +4,6 @@ import React, {
   useEffect,
   useState
 } from 'react'
-import { useAtom } from 'jotai'
-import { mapService } from '../../../../api/map'
 import {
   Checkbox,
   Input,
@@ -13,33 +11,34 @@ import {
   Select
 } from 'antd'
 import styled from 'styled-components'
-import { addModalAtom } from './Equipments'
 import SVG from 'react-inlinesvg'
 import { useAppDispatch } from '../../../../redux/store'
-
-type EquipmentType = {
-  description: string,
-  id: number,
-  status: boolean
-};
-
-type EquipmentModel = {
-  description: string,
-  id: number
-};
+import { useSelector } from 'react-redux'
+import {
+  getAddModalVisibleSelector,
+  getOptionalEquipmentModelsListSelector,
+  getOptionalEquipmentTypesListSelector
+} from '../../../../redux/selectors/optionalEquipmentSelectors'
+import { getEditeEquipmentSelector } from '../../../../redux/selectors/mapSelectors'
+import type { Equip } from '../../../../types/equip'
+import { setAddModalVisible } from '../../../../redux/slices/optionalEquipmentSlice'
+import {
+  getAllEquipment,
+  postNewEquipment,
+  putEditEquipment
+} from '../../../../redux/slices/mapSlice'
 
 type Props = {
-  fetchList: () => void,
   equips: any
 }
 
-const AddEquipmentModal: React.FC<Props> = ({ fetchList, equips }) => {
+const AddEquipmentModal: React.FC<Props> = ({ equips }) => {
 
   const dispatch = useAppDispatch()
-
-  const [equipmentTypes, setEquipmentTypes] = useState<EquipmentType[]>([])
-  const [equipmentModels, setEquipmentModels] = useState<EquipmentModel[]>([])
-  const [addModal, setAddModal] = useAtom(addModalAtom)
+  const addVisibleModal = useSelector(getAddModalVisibleSelector)
+  const editedEquipment: Equip | null = useSelector(getEditeEquipmentSelector)
+  const equipmentTypes = useSelector(getOptionalEquipmentTypesListSelector)
+  const equipmentModels = useSelector(getOptionalEquipmentModelsListSelector)
 
   const [name, setName] = useState('')
   const [gosnomer, setGosnomer] = useState('')
@@ -49,63 +48,55 @@ const AddEquipmentModal: React.FC<Props> = ({ fetchList, equips }) => {
   const [imageStatus, setImageStatus] = useState(0)
 
   useEffect(() => {
-    if (addModal.equip) {
-      setName(addModal.equip.equip_name)
-      setGosnomer(addModal.equip.gosnomer)
-      setImei(addModal.equip.imei)
-      setImageStatus(Number(addModal.equip.image_status))
+    if (editedEquipment) {
+      setName(editedEquipment.equip_name)
+      setGosnomer(editedEquipment.gosnomer)
+      setImei(editedEquipment.imei)
+      setImageStatus(Number(editedEquipment.image_status))
 
-      const type = equipmentTypes.find((t) => t.description === addModal.equip?.equip_type)
+      const type = equipmentTypes.find((t) => t.description === editedEquipment.equip_type)
       setType(type?.id)
-      const model = equipmentModels.find((m) => m.description === addModal.equip?.equip_model)
-
+      const model = equipmentModels.find((m) => m.description === editedEquipment.equip_model)
       setModel(model?.id)
+    } else {
+      setName('')
+      setGosnomer('')
+      setImei('')
+      setType(undefined)
+      setModel(undefined)
+      setImageStatus(0)
     }
-  }, [addModal, equipmentTypes, equipmentModels])
+  }, [editedEquipment, equipmentTypes, equipmentModels])
 
   const handleAdd = async () => {
     if (name && gosnomer && type && model) {
-      if (addModal.editMode && addModal.equip) {
-        await mapService.editEquip({
-          id: addModal.equip?.id,
+      if (editedEquipment) {
+        dispatch(putEditEquipment({
+          id: editedEquipment.id,
           equip_name: name,
           gosnomer,
           equip_type: type.toString(),
           equip_model: model.toString(),
           image_status: imageStatus.toString(),
           imei: imei_number.toString()
-        })
+        }))
       } else {
         // Проверка на совпадения imei
         if (equips.some((equip: any) => equip.imei === imei_number.toString())) {
           alert('Данный номер уже зарезервирован, пожалуйста проверьте введенные данные')
-          return
+        } else {
+          dispatch(postNewEquipment({
+            equip_name: name,
+            gosnomer,
+            equip_type: type.toString(),
+            equip_model: model.toString(),
+            image_status: imageStatus.toString(),
+            imei: imei_number.toString()
+          }))
         }
-        await mapService.addNewEquip({
-          equip_name: name,
-          gosnomer,
-          equip_type: type.toString(),
-          equip_model: model.toString(),
-          image_status: imageStatus.toString(),
-          imei: imei_number.toString()
-        })
       }
-      await fetchList()
-      setAddModalVisible(false)
-      resetForm()
+      dispatch(getAllEquipment())
     }
-  }
-
-  const setAddModalVisible = (visible: boolean) => {
-    setAddModal({ editMode: false, equip: null, visible })
-    resetForm()
-  }
-
-  const resetForm = () => {
-    setName('')
-    setGosnomer('')
-    setType(undefined)
-    setModel(undefined)
   }
 
   const images: string[] = []
@@ -118,8 +109,8 @@ const AddEquipmentModal: React.FC<Props> = ({ fetchList, equips }) => {
   return (
     <Modal
       title="Добавить оборудование"
-      open={addModal.visible}
-      onCancel={() => setAddModalVisible(false)}
+      open={addVisibleModal}
+      onCancel={() => dispatch(setAddModalVisible(false))}
       onOk={handleAdd}
       className="modalStyle"
     >
@@ -172,7 +163,6 @@ const AddEquipmentModal: React.FC<Props> = ({ fetchList, equips }) => {
         className="modalStyle"
 
       />
-      {/* для 3 картинок в строке*/}
       <div className={cn(s.imagesList)}>
         {images.map((item, index) => (
           <div

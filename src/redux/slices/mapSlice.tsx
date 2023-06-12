@@ -5,10 +5,12 @@ import {
 import { mapService } from '../../api/map'
 import type { Polygon } from '../../types'
 import type { Equip } from '../../types/equip'
+import { setAddModalVisible } from './optionalEquipmentSlice'
 
 type MapInitialState = {
   polygonsList: Polygon[],
   equipmentList: Equip[],
+  editedEquipment: Equip | null,
   polygonFlyTo: number | undefined,
   equipmentFlyTo: number | undefined,
   drawingPolygonMode: boolean,
@@ -27,6 +29,7 @@ const mapInitialState: MapInitialState = {
   showAddNewPolygonModal: false,
   newPolygonCoords: [],
   editedPolygon: undefined,
+  editedEquipment: null,
   selectedPolygonId: undefined
 }
 
@@ -68,6 +71,9 @@ const mapSlice = createSlice({
     },
     setNewPolygonCoords: (state: MapInitialState, action) => {
       state.newPolygonCoords = action.payload
+    },
+    setEditedEquipment: (state, action) => {
+      state.editedEquipment = state.equipmentList.find(type => type.id === action.payload) || null
     }
   },
   extraReducers: (builder) => {
@@ -97,8 +103,26 @@ const mapSlice = createSlice({
         state.drawingPolygonMode = false
         state.editedPolygon = undefined
       })
-      .addCase(deletePolygon.fulfilled, (state: MapInitialState, action) => {
-        state.polygonsList = state.polygonsList.filter((p) => p.id !== action.payload.id)
+      .addCase(postNewEquipment.fulfilled, (state: MapInitialState, action) => {
+        //todo мне нужно чтоб сервер возвращал equipment с id
+        // state.equipmentList = [...state.equipmentList, action.payload.data]
+      })
+      .addCase(putEditEquipment.fulfilled, (state: MapInitialState, action) => {
+        const { id, gosnomer, image_status, equip_type, imei, equip_name, equip_model } = action.payload
+        state.equipmentList.map(equip => equip.id === action.payload.id
+          ? {
+            id,
+            gosnomer,
+            image_status,
+            equip_type,
+            imei,
+            equip_name,
+            equip_model
+          }
+          : equip)
+      })
+      .addCase(deleteEquipment.fulfilled, (state: MapInitialState, action) => {
+        state.equipmentList = state.equipmentList.filter(equip => equip.id !== action.payload.id)
       })
       .addDefaultCase(() => {
       })
@@ -117,9 +141,33 @@ export const getAllEquipment = createAsyncThunk(
     return mapService.getEquips()
   }
 )
+export const postNewEquipment = createAsyncThunk(
+  'map/postNewEquipmentThunk',
+  async (data: Omit<Equip, 'id'>, thunkAPI) => {
+    const response = await mapService.addNewEquip(data)
+    thunkAPI.dispatch(setAddModalVisible(false))
+    return response
+  }
+)
+export const putEditEquipment = createAsyncThunk(
+  'map/editEquipmentThunk',
+  async ({ id, ...data }: Equip, thunkAPI) => {
+    const response = await mapService.editEquip({ id, ...data })
+    thunkAPI.dispatch(setAddModalVisible(false))
+    return { id, ...data, response }
+  }
+)
+export const deleteEquipment = createAsyncThunk(
+  'map/deleteEquipmentThunk',
+  async (id: number, thunkAPI) => {
+    const response = await mapService.deleteEquip(id)
+    thunkAPI.dispatch(setAddModalVisible(false))
+    return { id, response }
+  }
+)
 export const postNewPolygon = createAsyncThunk(
   'map/postNewPolygonThunk',
-  ({ coords, name, activeStatus = 1, sequence }: PostNewPolygonData, thunkAPI) => {
+  ({ coords, name, activeStatus = 1, sequence }: PostNewPolygonData) => {
     return mapService.addNewPolygon({ coords, name, activeStatus, sequence })
   }
 )
@@ -152,7 +200,8 @@ export const {
   setEditedPolygon,
   setNewPolygonCoords,
   setSelectedPolygon,
-  removeSelectedPolygon
+  removeSelectedPolygon,
+  setEditedEquipment
 } = actions
 
 export default reducer
