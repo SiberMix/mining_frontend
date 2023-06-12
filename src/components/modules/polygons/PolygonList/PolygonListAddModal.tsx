@@ -76,8 +76,9 @@ const PolygonListAddModal = () => {
               key={field.id}
               value={field.name}
             >
-              <div>
+              <div className="polygonListAddModalSelect-textDiv">
                 {field.name}
+                <div className="mini-line" />
               </div>
             </Option>
           ))}

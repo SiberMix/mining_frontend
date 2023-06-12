@@ -51,7 +51,7 @@ const mapSlice = createSlice({
     },
     setDrawingPolygonMode: (state: MapInitialState, action) => {
       if (action.payload === false && state.editedPolygon) {
-        state.polygonsList = [...state.polygonsList, state.editedPolygon]
+        state.polygonsList = state.polygonsList.map(polygon => (polygon.id === state.editedPolygon?.id) ? state.editedPolygon : polygon)
         state.editedPolygon = undefined
       }
       state.drawingPolygonMode = action.payload
@@ -85,7 +85,7 @@ const mapSlice = createSlice({
       })
       .addCase(putEditPolygon.fulfilled, (state: MapInitialState, action) => {
         if (state.drawingPolygonMode) {
-          state.polygonsList = [...state.polygonsList, action.payload.response.data]
+          state.polygonsList = state.polygonsList.map(polygon => (polygon.id === state.editedPolygon?.id) ? action.payload.response.data : polygon)
         } else {
           state.polygonsList = state.polygonsList.map(polygon => {
             if (polygon.id === action.payload.polygonId) {

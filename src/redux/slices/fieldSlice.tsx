@@ -12,11 +12,7 @@ type FieldsInitialState = {
 }
 
 const fieldsInitialState: FieldsInitialState = {
-  fieldList: [{
-    id: 1,
-    name: 'string',
-    color: 'red'
-  }],
+  fieldList: [],
   showAddFieldModal: false,
   editedField: undefined
 }

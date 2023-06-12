@@ -36,6 +36,7 @@ const EquipCastomMarker: React.FC<Props> = ({
   const dispatch = useAppDispatch()
   const equipmentFlyTo = useSelector(getEquipmentFlyToSelector)
   const stateEquipmentOptions = useSelector(getUsingEquipmentOptionsSelector)
+  console.log(stateEquipmentOptions)
 
   useEffect(() => {
     if (equipmentFlyTo === +coordsData.imei) {
@@ -65,7 +66,7 @@ const EquipCastomMarker: React.FC<Props> = ({
           {stateEquipmentOptions['Гос.номер'] ? `Гос.номер: ${gosnomer}` : null}
         </div>
         <div>
-          {stateEquipmentOptions['Скорость'] ? `Название: ${speed} км/ч` : null}
+          {stateEquipmentOptions['Скорость'] ? `Скорость: ${speed} км/ч` : null}
         </div>
         <div>
           {stateEquipmentOptions['Уровень топлива'] ? `Уровень топлива: ${fuel} л` : null}
@@ -75,4 +76,4 @@ const EquipCastomMarker: React.FC<Props> = ({
   )
 }
 
-export default EquipCastomMarker
+export default React.memo(EquipCastomMarker)
