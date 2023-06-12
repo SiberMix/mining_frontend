@@ -16,33 +16,34 @@ import {
   getUsingBaseMapOptionsSelector
 } from '../../../../../redux/selectors/settingsSelector'
 
-/*
-* Объкт содержащий карты
-* доп карты можно взять https://leaflet-extras.github.io/leaflet-providers/preview/
-* */
-const layers = [
-  {
-    name: 'Google Map',
-    url: 'http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
-    subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
-  },
-  {
-    name: 'Esri WorldImagery',
-    url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
-  },
-  {
-    name: 'Google Map (with titles)',
-    url: 'http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}',
-    subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
-  },
-  {
-    name: '2gis Map',
-    url: 'http://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',
-    subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
-  }
-]
-
 const MapViewSelect = () => {
+  /*
+  * Объкт содержащий карты
+  * доп карты можно взять https://leaflet-extras.github.io/leaflet-providers/preview/
+  * */
+  const layers = [
+    {
+      name: 'Google Map',
+      url: 'http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
+      subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+    },
+    {
+      name: 'Esri WorldImagery',
+      url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+      subdomains: ['server', 'services']
+    },
+    {
+      name: 'Google Map (with titles)',
+      url: 'http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}',
+      subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+    },
+    {
+      name: '2gis Map',
+      url: 'http://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',
+      subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+    }
+  ]
+
   const dispatch = useAppDispatch()
   const usingStateBaseMapOptions = useSelector(getUsingBaseMapOptionsSelector)
   const firstLayer = layers.find(layer => layer.name === usingStateBaseMapOptions)
