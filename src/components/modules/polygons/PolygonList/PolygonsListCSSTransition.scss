@@ -1,6 +1,6 @@
 .item-enter {
   //opacity: 0;
-  transform: translateX(-100%);
+  transform: translateX(100%);
 }
 .item-enter-active {
   transform: translateX(0);
@@ -13,7 +13,7 @@
   //opacity: 1;
 }
 .item-exit-active {
-  transform: translateX(-100%);
+  transform: translateX(100%);
   //opacity: 0;
   //transition: opacity 500ms ease-in;
   transition: transform 500ms ease-in;

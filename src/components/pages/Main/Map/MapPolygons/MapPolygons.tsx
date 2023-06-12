@@ -5,15 +5,16 @@ import 'leaflet-draw/dist/leaflet.draw.css'
 import type { Polygon as PolygonType } from '../../../../../types/index'
 import OnePolygon from './OnePolygon'
 import { useSelector } from 'react-redux'
-import { getAllPolygonsSelector } from '../../../../../redux/selectors/mapSelectors'
-import { Polygon } from 'react-leaflet'
+import {
+  getAllPolygonsSelector,
+  getEditedPolygonSelector
+} from '../../../../../redux/selectors/mapSelectors'
 
 type Props = {}
 
 const MapPolygons: React.FC<Props> = () => {
-
   const polygons = useSelector(getAllPolygonsSelector)
-
+  const editedPolygon = useSelector(getEditedPolygonSelector)
   const test: Array<[number, number][]> = [
     [
       [54.847905636034305, 82.71584987640382],
@@ -37,12 +38,16 @@ const MapPolygons: React.FC<Props> = () => {
   return (
     <>
       {/*<Polygon positions={test} />*/}
-      {polygons.map((polygon: PolygonType, index: number) => (
-        <OnePolygon
-          polygon={polygon}
-          key={index}
-        />
-      ))}
+      {polygons.map((polygon: PolygonType, index: number) => {
+        //фильтр для редактируемого полигона
+        if (polygon.id === editedPolygon?.id) return null
+        return (
+          <OnePolygon
+            polygon={polygon}
+            key={index}
+          />
+        )
+      })}
     </>
   )
 }

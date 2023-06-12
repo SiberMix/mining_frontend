@@ -65,7 +65,6 @@ const mapSlice = createSlice({
       }
       state.drawingPolygonMode = true
       state.editedPolygon = state.polygonsList.find(polygon => polygon.id === action.payload)
-      state.polygonsList = state.polygonsList.filter(polygon => polygon.id !== action.payload)
     },
     setNewPolygonCoords: (state: MapInitialState, action) => {
       state.newPolygonCoords = action.payload
