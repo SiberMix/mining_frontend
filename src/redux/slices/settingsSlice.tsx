@@ -104,7 +104,7 @@ export const getSettings = createAsyncThunk(
 )
 export const postSettings = createAsyncThunk(
   'settings/postSettingsThunk',
-  ({}, thunkAPI) => {
+  (_, thunkAPI) => {
     const state = thunkAPI.getState() as RootState
     const data = state.settingsReducer.settings
     const token = state.authReducer.token

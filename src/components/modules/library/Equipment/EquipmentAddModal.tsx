@@ -1,5 +1,4 @@
-import s from './EquipmentAddModal.module.scss'
-import * as cn from 'classnames'
+import './EquipmentAddModal.scss'
 import React, {
   useEffect,
   useState
@@ -33,6 +32,7 @@ type Props = {
 }
 
 const AddEquipmentModal: React.FC<Props> = ({ equips }) => {
+  const { Option } = Select
 
   const dispatch = useAppDispatch()
   const addVisibleModal = useSelector(getAddModalVisibleSelector)
@@ -110,71 +110,85 @@ const AddEquipmentModal: React.FC<Props> = ({ equips }) => {
     <Modal
       title="Добавить оборудование"
       open={addVisibleModal}
-      onCancel={() => dispatch(setAddModalVisible(false))}
       onOk={handleAdd}
-      className="modalStyle"
+      onCancel={() => dispatch(setAddModalVisible(false))}
+      className="equipmentAddModal"
     >
       <Input
         placeholder="Название оборудования"
         value={name}
         onChange={(e) => setName(e.target.value)}
-        style={{ marginBottom: '16px' }}
         className="modalStyle"
       />
       <Input
         placeholder="Госномер оборудования"
         value={gosnomer}
         onChange={(e) => setGosnomer(e.target.value)}
-        style={{ marginBottom: '16px' }}
         className="modalStyle"
       />
       <Input
         placeholder="IMEI (Не обязательно)"
         value={imei_number}
         onChange={(e) => setImei(e.target.value)}
-        style={{ marginBottom: '16px' }}
         className="modalStyle"
       />
       <Select
         value={type}
         onChange={setType}
         placeholder="Тип оборудования"
-        options={equipmentTypes
+        popupClassName="equipmentAddModalSelect"
+      >
+        {equipmentTypes
           .filter((item) => item.status)
-          .map((item) => ({
-            label: item.description,
-            value: item.id,
-            key: item.id
-          }))}
-        style={{ marginBottom: '16px', width: '100%', backgroundColor: '#232323' }}
-        className="modalStyle"
-
-      />
+          .map((item) => (
+            <Option
+            //antd не дает стилизовать по другому выпадающее меню
+              style={{ backgroundColor: '#565656' }}
+              key={item.id}
+              value={item.id}
+            >
+              <div className="equipmentAddModalSelect-textDiv">
+                {item.description}
+                <div className="mini-line" />
+              </div>
+            </Option>
+          ))}
+      </Select>
       <Select
         value={model}
         onChange={setModel}
         placeholder="Модель оборудования"
-        options={equipmentModels.map((item) => ({
-          label: item.description,
-          value: item.id,
-          key: item.id
-        }))}
-        style={{ marginBottom: '16px', width: '100%', backgroundColor: '#232323' }}
-        className="modalStyle"
-
-      />
-      <div className={cn(s.imagesList)}>
+        popupClassName="equipmentAddModalSelect"
+      >
+        {equipmentModels.map((item) => (
+          <Option
+            //antd не дает стилизовать по другому выпадающее меню
+            style={{ backgroundColor: '#565656' }}
+            key={item.id}
+            value={item.id}
+          >
+            <div className="equipmentAddModalSelect-textDiv">
+              {item.description}
+              <div className="mini-line" />
+            </div>
+          </Option>
+        ))}
+      </Select>
+      <div className="imagesList">
         {images.map((item, index) => (
-          <div
+          <label
             key={index}
-            className={cn(s.imageField)}
+            className="imageField"
           >
             <Checkbox
               onChange={() => setImageStatus(index + 1)}
               checked={imageStatus === index + 1}
+              style={{ display: 'none' }}
             />
-            <Icon src={item} />
-          </div>
+            <div className={`equipmentImageSVG ${imageStatus === index + 1 ? 'active' : ''}`}>
+              <Icon src={item} />
+            </div>
+          </label>
         ))}
       </div>
     </Modal>
@@ -184,11 +198,8 @@ const AddEquipmentModal: React.FC<Props> = ({ equips }) => {
 export default AddEquipmentModal
 
 const Icon = styled(SVG)`
-  height: 70px;
-  width: 70px;
-  margin-right: 20px;
-  cursor: pointer;
-
+  height: 60px;
+  width: 60px;
   path {
     fill: #c5ef75;
   }

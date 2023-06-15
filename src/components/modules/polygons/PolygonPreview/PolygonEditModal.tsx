@@ -1,11 +1,13 @@
-import s from './PolygonEditModal.module.scss'
+import './PolygonEditModal.scss'
 import React, { useState } from 'react'
 import {
+  Input,
   Modal,
   Select
 } from 'antd'
 import { useSelector } from 'react-redux'
 import { getAllFieldsSelector } from '../../../../redux/selectors/fieldsSelectors'
+import type { FieldType } from '../../../../redux/slices/fieldSlice'
 
 export const EditPolygonTypeModal: React.FC<{
   visible: boolean,
@@ -15,27 +17,36 @@ export const EditPolygonTypeModal: React.FC<{
 }> = ({ visible, onOk, onCancel, initialValue }) => {
   const [value, setValue] = useState(initialValue)
   const fieldTypes = useSelector(getAllFieldsSelector)
+  const { Option } = Select
 
   return (
     <Modal
+      className="polygonEditModal"
+      title="Редактировать культуру"
       open={visible}
       onOk={() => onOk(value)}
       onCancel={onCancel}
     >
-      <div>
-        Добавление полигона
-      </div>
       <Select
         defaultValue={value}
         onChange={setValue}
         placeholder="Модель оборудования"
-        options={fieldTypes.map((item: { name: any, id: any }) => ({
-          label: item.name,
-          value: item.name,
-          key: item.id
-        }))}
-        style={{ marginBottom: '16px', width: '100%' }}
-      />
+        popupClassName="polygonEditModalSelect"
+      >
+        {fieldTypes.map((field: FieldType) => (
+          <Option
+            //antd не дает стилизовать по другому выпадающее меню
+            style={{ backgroundColor: '#565656' }}
+            key={field.id}
+            value={field.name}
+          >
+            <div className="polygonEditModalSelect-textDiv">
+              {field.name}
+              <div className="mini-line" />
+            </div>
+          </Option>
+        ))}
+      </Select>
     </Modal>
   )
 }
@@ -50,17 +61,17 @@ export const EditPolygonNameModal: React.FC<{
 
   return (
     <Modal
+      className="polygonEditModal"
+      title="Редактировать название"
       open={visible}
       onOk={() => onOk(value)}
       onCancel={onCancel}
     >
-      <div>
-        Добавление полигона
-      </div>
-      <input
-        className={s.modalInput}
+      <Input
+        placeholder="Редактировать название"
         value={value}
         onChange={(e) => setValue(e.target.value)}
+        style={{ marginBottom: '16px' }}
       />
     </Modal>
   )
