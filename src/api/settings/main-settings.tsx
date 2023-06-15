@@ -3,9 +3,12 @@ import { axiosInstance } from '../abstract'
 
 export const mainSettings = {
   getSettings: (token: string) => {
-    return axiosInstance.get(`/user-settings/${token}`)
+    return axiosInstance.get(`/find_setting_by_id/${token}/`)
   },
   postSettings: ({ token, data }: {token: string, data: SettingsData}) => {
-    return axiosInstance.post(`/user-settings/${token}`, data)
+    return axiosInstance.post('/user-settings/', {
+      user_id: token,
+      value: data
+    })
   }
 }

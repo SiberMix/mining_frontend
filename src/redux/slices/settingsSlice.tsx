@@ -83,8 +83,9 @@ const settingsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getSettings.fulfilled, (state: SettingsInitialState, action) => {
-        state.settings = action.payload?.data
-        state.usingSettings = action.payload?.data
+        console.log()
+        state.settings = action.payload?.data.value
+        state.usingSettings = action.payload?.data.value
       })
       .addCase(postSettings.fulfilled, (state: SettingsInitialState) => {
         state.usingSettings = state.settings

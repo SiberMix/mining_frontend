@@ -46,14 +46,45 @@ const EquipCastomMarker: React.FC<Props> = ({
     }
   }, [equipmentFlyTo])
 
-  return (
+  /*
+  * меняет изображение техники при минимальном зуме
+  * */
+  // const [zoomLevel, setZoomLevel] = useState(1)
+  //
+  // // webstorm просто не видит использование события zoom, поэтому ловим предупредение
+  // // НЕ ТРОГАТЬ!!!
+  // useMapEvents({
+  //   zoom: () => {
+  //     const newZoomLevel = map.getZoom()
+  //     setZoomLevel(newZoomLevel)
+  //   }
+  // })
+  // const imagePath = useMemo(() => {
+  //   /**
+  //   * todo если нужно отключить то меняем с 17 на 18. Больше 18 он быть не может
+  //   * todo по дефолту 17
+  //   * */
+  //   return zoomLevel > 18 ? 'src/assets/icons_enum/hoveraster-mini.png' : `src/assets/icons_enum/${image_status}.svg`
+  // }, [zoomLevel])
+  //
+  // const markerIcon = useMemo(() => {
+  //   return L.divIcon({
+  //     className: 'custom-marker-icon',
+  //     iconSize: [60, 60],
+  //     html: `<img style='transform: rotate(${0}deg); width: 60px; height: 60px;' alt='${equip_name}' src=${imagePath} />`
+  //   })
+  // }, [imagePath])
 
+  const markerIcon = L.divIcon({
+    className: 'custom-marker-icon',
+    iconSize: [60, 60],
+    html: `<img style='transform: rotate(${0}deg); width: 60px; height: 60px;' alt='${equip_name}' src='src/assets/icons_enum/${image_status}.svg' />`
+  })
+
+  return (
     <Marker
       position={[+coordsData.lat, +coordsData.lon]}
-      icon={L.icon({
-        iconUrl: `src/assets/icons_enum/${image_status}.svg`,
-        iconSize: [60, 60]
-      })}
+      icon={markerIcon}
     >
       <Popup>
         <div>

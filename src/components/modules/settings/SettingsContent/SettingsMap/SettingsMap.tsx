@@ -36,10 +36,6 @@ const baseMapOptions: Array<{value: string, label: string}> = [
 ]
 const zoomLevelOptions: Array<{value: string, label: string}> = [
   {
-    value: '13',
-    label: 'стандарт'
-  },
-  {
     value: '15',
     label: 'маленький'
   },
@@ -50,6 +46,14 @@ const zoomLevelOptions: Array<{value: string, label: string}> = [
   {
     value: '12',
     label: 'большой'
+  },
+  {
+    value: '11',
+    label: 'очень большой'
+  },
+  {
+    value: '13',
+    label: 'стандарт'
   }
 ]
 
