@@ -5,8 +5,8 @@ import SettingsMenu from './SettingsMenu/SettingsMenu'
 import { useSelector } from 'react-redux'
 import { getShowSettingsModalSelector } from '../../../redux/selectors/settingsSelector'
 import {
+  postSettings,
   resetSettings,
-  setSettings,
   setShowSettingsModal
 } from '../../../redux/slices/settingsSlice'
 import { useAppDispatch } from '../../../redux/store'
@@ -17,7 +17,7 @@ const SettingsModal = () => {
   const showSettingsModal = useSelector(getShowSettingsModalSelector)
 
   const handleOk = () => {
-    dispatch(setSettings())
+    dispatch(postSettings())
     dispatch(setShowSettingsModal(false))
   }
   const handleCansel = () => {
@@ -25,7 +25,7 @@ const SettingsModal = () => {
     dispatch(setShowSettingsModal(false))
   }
   const handleApply = () => {
-    dispatch(setSettings())
+    dispatch(postSettings())
   }
 
   return (

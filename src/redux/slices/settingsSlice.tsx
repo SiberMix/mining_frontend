@@ -1,35 +1,16 @@
-import { createSlice } from '@reduxjs/toolkit'
+import {
+  createAsyncThunk,
+  createSlice
+} from '@reduxjs/toolkit'
+import { settingsService } from '../../api/settings'
+import type { RootState } from '../store'
 
 type SettingsInitialState = {
   showSettingsModal: boolean,
   selectedSettingsWindow: number,
   mapClickForNewBaseCoord: boolean,
-  settings: {
-    startMenuOptions: string,
-    baseMapOptions: string,
-    zoomLevelOptions: string,
-    baseCoord: [number, number],
-    equipmentOptions: {
-      'Название': boolean,
-      'IMEI': boolean,
-      'Гос.номер': boolean,
-      'Скорость': boolean,
-      'Уровень топлива': boolean
-    }
-  },
-  usingSettings: {
-    startMenuOptions: string,
-    baseMapOptions: string,
-    zoomLevelOptions: string,
-    baseCoord: [number, number],
-    equipmentOptions: {
-      'Название': boolean,
-      'IMEI': boolean,
-      'Гос.номер': boolean,
-      'Скорость': boolean,
-      'Уровень топлива': boolean
-    }
-  }
+  settings: SettingsData,
+  usingSettings: SettingsData
 }
 
 const settingsInitialState: SettingsInitialState = {
@@ -75,12 +56,6 @@ const settingsSlice = createSlice({
       state.selectedSettingsWindow = action.payload
     },
     /*
-    * обновляет настройки todo перенести в санку по отправке на сервер
-    * */
-    setSettings: (state: SettingsInitialState) => {
-      state.usingSettings = state.settings
-    },
-    /*
     * обнуляет настройки на старые (например если закрыли модалку)
     * */
     resetSettings: (state: SettingsInitialState) => {
@@ -104,8 +79,38 @@ const settingsSlice = createSlice({
     setMapClickForNewBaseCoord: (state: SettingsInitialState, action) => {
       state.mapClickForNewBaseCoord = action.payload
     }
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(getSettings.fulfilled, (state: SettingsInitialState, action) => {
+        state.settings = action.payload?.data
+        state.usingSettings = action.payload?.data
+      })
+      .addCase(postSettings.fulfilled, (state: SettingsInitialState) => {
+        state.usingSettings = state.settings
+      })
+      .addDefaultCase(() => {
+      })
   }
 })
+
+export const getSettings = createAsyncThunk(
+  'settings/getSettingsThunk',
+  (token: string) => {
+    if (token) {
+      return settingsService.getSettings(token)
+    }
+  }
+)
+export const postSettings = createAsyncThunk(
+  'settings/postSettingsThunk',
+  ({}, thunkAPI) => {
+    const state = thunkAPI.getState() as RootState
+    const data = state.settingsReducer.settings
+    const token = state.authReducer.token
+    return settingsService.postSettings({ token, data })
+  }
+)
 
 const {
   reducer,
@@ -115,7 +120,6 @@ const {
 export const {
   setShowSettingsModal,
   setSelectedSettingsWindow,
-  setSettings,
   resetSettings,
   setStartMenuOptions,
   setBaseMapOptions,
@@ -127,3 +131,17 @@ export const {
 } = actions
 
 export default reducer
+
+export type SettingsData = {
+  startMenuOptions: string,
+  baseMapOptions: string,
+  zoomLevelOptions: string,
+  baseCoord: [number, number],
+  equipmentOptions: {
+    'Название': boolean,
+    'IMEI': boolean,
+    'Гос.номер': boolean,
+    'Скорость': boolean,
+    'Уровень топлива': boolean
+  }
+}

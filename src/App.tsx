@@ -5,12 +5,14 @@ import { useAppDispatch } from './redux/store'
 import { setToken } from './redux/slices/authSlice'
 import { useSelector } from 'react-redux'
 import { getTokenSelector } from './redux/selectors/authSelectors'
+import { getSettings } from './redux/slices/settingsSlice'
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch()
   const token = useSelector(getTokenSelector)
   useEffect(() => {
     dispatch(setToken(localStorage.getItem('token') || ''))
+    dispatch(getSettings(localStorage.getItem('token') || ''))
   }, [])
 
   return (
