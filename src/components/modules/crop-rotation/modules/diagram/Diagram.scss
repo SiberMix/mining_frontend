@@ -1,0 +1,25 @@
+.apexcharts-donut-labels-g div {
+  stroke: none !important;
+}
+.diagram {
+  background-color: inherit;
+  border: none;
+  &-markers-wrapper {
+    max-width: 60%;
+    margin: 1rem auto 0;
+  }
+  &-marker {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    &-name {
+      color: #ffffff;
+      margin-left: 10px;
+    }
+    &-value {
+      font-weight: bold;
+      color: #ffffff;
+    }
+  }
+}

@@ -3,13 +3,13 @@ import React, {
   useRef,
   useState
 } from 'react'
-import { Chart } from 'react-google-charts'
 import s from './SevoInGroups.module.scss'
 import PolygonCanvas from '../../../polygons/PolygonCanvas/PolygonCanvas'
 import { getBoundingRect } from '../../../../../utils/getBoundingRect'
 import { useSelector } from 'react-redux'
 import { getAllPolygonsSelector } from '../../../../../redux/selectors/mapSelectors'
 import { getAllFieldsSelector } from '../../../../../redux/selectors/fieldsSelectors'
+import Diagram from '../diagram/Diagram'
 
 interface SevoInGroupsProps {
   name?: any,
@@ -163,33 +163,7 @@ export const SevoInGroups: React.FC<SevoInGroupsProps> = ({ name, id, sowing4Yea
             style={{ transform: 'rotate(-90deg)' }}
           />
         </div>
-        <Chart
-          chartType="PieChart"
-          data={[
-            ['Task', 'Hours per Day'],
-            ['Пшеница', 3],
-            ['Ячмень', 10],
-            ['Кукуруза', 20]
-
-          ]}
-          options={{
-            backgroundColor: 'transparent',
-            chartArea: {
-              width: '80%',
-              height: '80%',
-              top: '10%',
-              left: '10%'
-            },
-            legend: {
-              textStyle: {
-                color: 'white'
-              },
-              alignment: 'center',
-              position: 'right'
-            }
-          }}
-          width="100%"
-        />
+        <Diagram />
       </div>
     </div>
   )
