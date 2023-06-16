@@ -7744,20 +7744,10 @@ react-draggable@^4.4.5:
     clsx "^1.1.1"
     prop-types "^15.8.1"
 
-react-easy-map@^1.0.8:
-  version "1.0.8"
-  resolved "https://registry.npmjs.org/react-easy-map/-/react-easy-map-1.0.8.tgz"
-  integrity sha512-eJ3W5fvbk0DKATG1vzcaSJR8uPGr7wb2OXj8hLHMIhJ5VRnmDf8oyo+vQSbZkbs+6eqU3eHIvPTgD3DL6Gf5Gg==
-
 react-from-dom@^0.6.2:
   version "0.6.2"
   resolved "https://registry.npmjs.org/react-from-dom/-/react-from-dom-0.6.2.tgz"
   integrity sha512-qvWWTL/4xw4k/Dywd41RBpLQUSq97csuv15qrxN+izNeLYlD9wn5W8LspbfYe5CWbaSdkZ72BsaYBPQf2x4VbQ==
-
-react-google-charts@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.npmjs.org/react-google-charts/-/react-google-charts-4.0.0.tgz"
-  integrity sha512-9OG0EkBb9JerKEPQYdhmAXnhGLzOdOHOPS9j7l+P1a3z1kcmq9mGDa7PUoX/VQUY4IjZl2/81nsO4o+1cuYsuw==
 
 react-inlinesvg@^3.0.2:
   version "3.0.2"
@@ -7776,14 +7766,6 @@ react-is@^18.0.0, react-is@^18.2.0:
   version "18.2.0"
   resolved "https://registry.npmjs.org/react-is/-/react-is-18.2.0.tgz"
   integrity sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==
-
-react-leaflet-draw@^0.20.4:
-  version "0.20.4"
-  resolved "https://registry.yarnpkg.com/react-leaflet-draw/-/react-leaflet-draw-0.20.4.tgz#e3f68dc783cbe00d24ff3f2e02d5208c49f7c971"
-  integrity sha512-u5JHdow2Z9G2AveyUEOTWHXhdhzXdEVQifkNfSaVbEn0gvD+2xW03TQN444zVqovDBvIrBcVWo1VajL4zgl6yg==
-  dependencies:
-    fast-deep-equal "^3.1.3"
-    lodash-es "^4.17.15"
 
 react-leaflet-markercluster@^3.0.0-rc1:
   version "3.0.0-rc1"
