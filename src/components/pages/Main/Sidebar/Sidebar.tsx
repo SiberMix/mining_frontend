@@ -17,7 +17,10 @@ import type { SidebarOpenWindow } from '../../../../redux/slices/sidebarSlice'
 import { setOpenSidebarWindow } from '../../../../redux/slices/sidebarSlice'
 import { useSelector } from 'react-redux'
 import { getSidebarOpenWindowSelector } from '../../../../redux/selectors/sidebarSelectors'
-import { setShowSettingsModal } from '../../../../redux/slices/settingsSlice'
+import {
+  setMapClickForNewBaseCoord,
+  setShowSettingsModal
+} from '../../../../redux/slices/settingsSlice'
 import { getUsingStartMenuOptionsSelector } from '../../../../redux/selectors/settingsSelector'
 import { setToken } from '../../../../redux/slices/authSlice'
 
@@ -37,7 +40,6 @@ const Sidebar: React.FC<PropsWithChildren> = () => {
   * Функционал для выхода из акаунта
   * */
   const logout = () => {
-
     dispatch(setToken(''))
     localStorage.removeItem('token')
   }
@@ -97,6 +99,7 @@ const Sidebar: React.FC<PropsWithChildren> = () => {
             src={Setting}
             onClick={() => {
               dispatch(setOpenSidebarWindow(undefined))
+              dispatch(setMapClickForNewBaseCoord(false))
               dispatch(setShowSettingsModal(true))
             }}
           />

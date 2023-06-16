@@ -44,27 +44,9 @@ const MapViewSelect = () => {
     }
   ]
 
-  const dispatch = useAppDispatch()
   const usingStateBaseMapOptions = useSelector(getUsingBaseMapOptionsSelector)
   const firstLayer = layers.find(layer => layer.name === usingStateBaseMapOptions)
   const mapLayersWithSettings = [firstLayer, ...layers.filter(layer => layer.name !== usingStateBaseMapOptions)]
-  const mapClickForNewBaseCoord = useSelector(getMapClickForNewBaseCoordSelector)
-
-  /*
-  * функционал для настройки базовой точки координаты
-  * */
-  const handleClick = useCallback((e: any) => {
-    if (mapClickForNewBaseCoord) {
-      const { lat, lng } = e.latlng
-      dispatch(setBaseCoord([lat, lng]))
-      dispatch(setMapClickForNewBaseCoord(false))
-      dispatch(setShowSettingsModal(true))
-    }
-  }, [mapClickForNewBaseCoord])
-
-  useMapEvents({
-    click: handleClick
-  })
 
   return (
     <LayersControl

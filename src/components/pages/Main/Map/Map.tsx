@@ -19,7 +19,7 @@ import {
   getUsingBaseCoordSelector,
   getUsingZoomLevelOptionsSelector
 } from '../../../../redux/selectors/settingsSelector'
-import EquipCastomMarker from './MapEquipments/EquipCastomMarker'
+import PickBaseCoord from './PickBaseCoord/PickBaseCoord'
 
 type Props = {}
 
@@ -56,6 +56,7 @@ const Map: React.FC<Props> = () => {
       <DrawingPolygon />
       <MapEquipments />
       <ZoomControl position="topright" />
+      <PickBaseCoord />
     </MapContainer>
   )
 }
