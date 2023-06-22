@@ -9,6 +9,9 @@ import { getEquipmentOptionsSelector } from '../../../../../../../redux/selector
 const SettingsEquipment = () => {
   const dispatch = useAppDispatch()
   const stateEquipmentOptions = useSelector(getEquipmentOptionsSelector)
+
+  console.log(stateEquipmentOptions)
+
   const handleCheckedItemsChange = (checkedItems: Record<string, boolean>) => {
     dispatch(setEquipmentOptions(checkedItems))
   }

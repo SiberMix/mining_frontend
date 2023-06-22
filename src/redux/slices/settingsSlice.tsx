@@ -27,7 +27,8 @@ const settingsInitialState: SettingsInitialState = {
       'IMEI': true,
       'Гос.номер': true,
       'Скорость': true,
-      'Уровень топлива': true
+      'Уровень топлива': true,
+      'Последнее время активности': true
     }
   },
   usingSettings: {
@@ -40,7 +41,8 @@ const settingsInitialState: SettingsInitialState = {
       'IMEI': true,
       'Гос.номер': true,
       'Скорость': true,
-      'Уровень топлива': true
+      'Уровень топлива': true,
+      'Последнее время активности': true
     }
   }
 }
@@ -143,6 +145,7 @@ export type SettingsData = {
     'IMEI': boolean,
     'Гос.номер': boolean,
     'Скорость': boolean,
-    'Уровень топлива': boolean
+    'Уровень топлива': boolean,
+    'Последнее время активности': boolean
   }
 }

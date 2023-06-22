@@ -5,7 +5,13 @@ export type Equip = {
   equip_name: string,
   gosnomer: string,
   image_status: string,
-  imei: string
+  imei: string,
+  last_coord: {
+    lat: string,
+    lon: string,
+    direction: number,
+    last_upd_ts: string
+  } | null
 };
 
 export type EquipType = {

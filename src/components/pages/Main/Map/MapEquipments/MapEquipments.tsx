@@ -9,7 +9,10 @@ import EquipCastomMarker from './EquipCastomMarker'
 import 'react-leaflet-markercluster/dist/styles.min.css'
 import MarkerClusterGroup from 'react-leaflet-markercluster'
 import { useSelector } from 'react-redux'
-import { getDrawingPolygonModeSelector } from '../../../../../redux/selectors/mapSelectors'
+import {
+  getAllEquipmentSelector,
+  getDrawingPolygonModeSelector
+} from '../../../../../redux/selectors/mapSelectors'
 import { getTokenSelector } from '../../../../../redux/selectors/authSelectors'
 
 type Props = {}
@@ -24,17 +27,11 @@ export type EquipmentSocketData = {
 const MapEquipments: React.FC<Props> = () => {
   const token = useSelector(getTokenSelector)
   const drawingPolygonMode = useSelector(getDrawingPolygonModeSelector)
+  const equipList = useSelector(getAllEquipmentSelector)
 
-  const [equipmentList, setEquipmentList] = useState<Equip[]>([])
   const [equipmentCoordinates, setEquipmentCoordinates] = useState<EquipmentSocketData[]>([])
   const [speed, setSpeed] = useState(0)
   const [fuel, setFuel] = useState(0)
-
-  useEffect(() => {
-    // Получаем список оборудования с имей через API
-    mapService.getEquips()
-      .then(data => setEquipmentList(data.data))
-  }, [])
 
   useEffect(() => {
     void (async () => {
@@ -74,25 +71,37 @@ const MapEquipments: React.FC<Props> = () => {
         showCoverageOnHover={true}
         maxClusterRadius={45}
       >
-        {equipmentList.map((equipment: any) => {
+        {equipList.map((equipment: Equip) => {
           const {
             equip_name,
             gosnomer,
             image_status,
-            imei
+            imei,
+            last_coord
           } = equipment
-          const coordsData = equipmentCoordinates.find(equip => equip.imei === imei)
-          if (!coordsData) return
+          //костыльно подтягиваем данные бека под нужные нам
+          const lastCoords = last_coord
+            ? {
+              lat: last_coord.lat,
+              lon: last_coord.lon
+            }
+            : undefined
+          const coordsData: any = equipmentCoordinates.find(equip => equip.imei === imei)
+
+          if (!lastCoords && !coordsData) return
+          console.log(last_coord)
           return (
             <EquipCastomMarker
               key={imei}
-              coordsData={coordsData}
+              coordsData={coordsData || lastCoords}
               equip_name={equip_name}
               gosnomer={gosnomer}
               image_status={image_status}
               imei={imei}
               speed={speed}
               fuel={fuel}
+              direction={coordsData?.direction || last_coord?.direction}
+              lastUpdDtt={last_coord?.last_upd_ts || ''}
             />
           )
         })}
