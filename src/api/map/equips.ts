@@ -32,28 +32,24 @@ export const equipsService = {
   },
   /*
   * Получение всех типов техники
-  * todo узнать, что за тип техники
   * */
   getEquipTypes: () => {
     return axiosInstance.get<EquipType[]>('/equipstype/')
   },
   /*
   * Удаление типа техники
-  * todo узнать, что за тип техники
   * */
   deleteEquipType: (id: number) => {
     return axiosInstance.delete(`/equipstype/${id}/`)
   },
   /*
   * Добавление нового типа техники
-  * todo узнать, что за тип техники
   * */
   addNewEquipType: (newEquipType: any) => {
     return axiosInstance.post('/equipstype/', newEquipType)
   },
   /*
   * Удаление типа техники
-  * todo узнать, что за тип техники
   * */
   editEquipType: async (id: number, newData: any) => {
 
@@ -61,7 +57,6 @@ export const equipsService = {
   },
   /*
   * Получает полный список моделей техники
-  * todo узнать, что за модель техники
   * */
   getEquipsModelsList: () => {
     return axiosInstance.get('/equipsmodel/')
@@ -79,7 +74,6 @@ export const equipsService = {
   },
   /*
   * Удаление модели техники
-  * todo узнать, что за модель техники
   * */
   deleteEquipsModel: (id: number) => {
     return axiosInstance.delete(`/equipsmodel/${id}/`)

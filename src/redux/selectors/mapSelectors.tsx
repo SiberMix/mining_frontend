@@ -91,3 +91,12 @@ export const getEditeEquipmentSelector = createSelector(
     return editedEquipment
   }
 )
+const getAddInternalPolygonMode = (state: RootState) => {
+  return state.mapReducer.addInternalPolygonMode
+}
+export const getAddInternalPolygonModeSelector = createSelector(
+  getAddInternalPolygonMode,
+  (addInternalPolygonMode) => {
+    return addInternalPolygonMode
+  }
+)

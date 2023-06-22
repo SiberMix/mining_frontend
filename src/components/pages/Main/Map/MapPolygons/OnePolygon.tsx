@@ -37,6 +37,9 @@ const OnePolygon: React.FC<Props> = ({ polygon }) => {
     }
   }, [polygonFlyTo])
 
+  /*
+  * выделение выбранного полигона в боковом меню
+  * */
   useEffect(() => {
     map.on('popupopen', (e) => {
       // Приведение типов для доступа к _source

@@ -2,9 +2,14 @@ import L from 'leaflet'
 import {
   Marker,
   Popup,
-  useMap
+  useMap,
+  useMapEvents
 } from 'react-leaflet'
-import React, { useEffect } from 'react'
+import React, {
+  useEffect,
+  useMemo,
+  useState
+} from 'react'
 import type { EquipmentSocketData } from './MapEquipments'
 import { useAppDispatch } from '../../../../../redux/store'
 import { useSelector } from 'react-redux'
@@ -36,11 +41,11 @@ const EquipCastomMarker: React.FC<Props> = ({
   const dispatch = useAppDispatch()
   const equipmentFlyTo = useSelector(getEquipmentFlyToSelector)
   const stateEquipmentOptions = useSelector(getUsingEquipmentOptionsSelector)
-  console.log(stateEquipmentOptions)
+  // console.log(stateEquipmentOptions)
 
   useEffect(() => {
     if (equipmentFlyTo === +coordsData.imei) {
-      map?.flyTo([+coordsData.lat, +coordsData.lon], 18, { animate: false })
+      map?.flyTo([+coordsData.lat, +coordsData.lon], 17, { animate: false })
       //обнуление id после того как перенесли карту, и даже если не перенесли
       dispatch(setEquipmentFlyTo(undefined))
     }
@@ -49,37 +54,37 @@ const EquipCastomMarker: React.FC<Props> = ({
   /*
   * меняет изображение техники при минимальном зуме
   * */
-  // const [zoomLevel, setZoomLevel] = useState(1)
-  //
-  // // webstorm просто не видит использование события zoom, поэтому ловим предупредение
-  // // НЕ ТРОГАТЬ!!!
-  // useMapEvents({
-  //   zoom: () => {
-  //     const newZoomLevel = map.getZoom()
-  //     setZoomLevel(newZoomLevel)
-  //   }
-  // })
-  // const imagePath = useMemo(() => {
-  //   /**
-  //   * todo если нужно отключить то меняем с 17 на 18. Больше 18 он быть не может
-  //   * todo по дефолту 17
-  //   * */
-  //   return zoomLevel > 18 ? 'src/assets/icons_enum/hoveraster-mini.png' : `src/assets/icons_enum/${image_status}.svg`
-  // }, [zoomLevel])
-  //
-  // const markerIcon = useMemo(() => {
-  //   return L.divIcon({
-  //     className: 'custom-marker-icon',
-  //     iconSize: [60, 60],
-  //     html: `<img style='transform: rotate(${0}deg); width: 60px; height: 60px;' alt='${equip_name}' src=${imagePath} />`
-  //   })
-  // }, [imagePath])
+  const [zoomLevel, setZoomLevel] = useState(1)
 
-  const markerIcon = L.divIcon({
-    className: 'custom-marker-icon',
-    iconSize: [60, 60],
-    html: `<img style='transform: rotate(${0}deg); width: 60px; height: 60px;' alt='${equip_name}' src='src/assets/icons_enum/${image_status}.svg' />`
+  // webstorm просто не видит использование события zoom, поэтому ловим предупредение
+  // НЕ ТРОГАТЬ!!!
+  useMapEvents({
+    zoom: () => {
+      const newZoomLevel = map.getZoom()
+      setZoomLevel(newZoomLevel)
+    }
   })
+  const imagePath = useMemo(() => {
+    /**
+    * если нужно отключить то меняем с 17 на 18. Больше 18 он быть не может
+    * по дефолту 17
+    * */
+    return zoomLevel > 17 ? 'src/assets/icons_enum/hoveraster-mini.png' : `src/assets/icons_enum/${image_status}.svg`
+  }, [zoomLevel])
+
+  const markerIcon = useMemo(() => {
+    return L.divIcon({
+      className: 'custom-marker-icon',
+      iconSize: [60, 60],
+      html: `<img style='transform: rotate(${zoomLevel > 17 ? coordsData.direction : 0}deg); width: 60px; height: 60px;' alt='${equip_name}' src=${imagePath} />`
+    })
+  }, [imagePath])
+
+  // const markerIcon = L.divIcon({
+  //   className: 'custom-marker-icon',
+  //   iconSize: [60, 60],
+  //   html: `<img style='transform: rotate(${Math.abs(-90 + coordsData.direction)}deg); width: 60px; height: 60px;' alt='${equip_name}' src='src/assets/icons_enum/${image_status}.svg' />`
+  // })
 
   return (
     <Marker

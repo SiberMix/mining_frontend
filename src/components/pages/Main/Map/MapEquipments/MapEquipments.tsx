@@ -10,6 +10,7 @@ import 'react-leaflet-markercluster/dist/styles.min.css'
 import MarkerClusterGroup from 'react-leaflet-markercluster'
 import { useSelector } from 'react-redux'
 import { getDrawingPolygonModeSelector } from '../../../../../redux/selectors/mapSelectors'
+import { getTokenSelector } from '../../../../../redux/selectors/authSelectors'
 
 type Props = {}
 
@@ -17,9 +18,11 @@ export type EquipmentSocketData = {
   imei: string,
   lat: string,
   lon: string,
-  datetime: string
+  datetime: string,
+  direction: number
 }
 const MapEquipments: React.FC<Props> = () => {
+  const token = useSelector(getTokenSelector)
   const drawingPolygonMode = useSelector(getDrawingPolygonModeSelector)
 
   const [equipmentList, setEquipmentList] = useState<Equip[]>([])
@@ -35,7 +38,7 @@ const MapEquipments: React.FC<Props> = () => {
 
   useEffect(() => {
     void (async () => {
-      const response = await mapService.getLocation()
+      const response = await mapService.getLocation(token)
       setEquipmentCoordinates([response.data.lat, response.data.lon])
       // todo Проверить на наличие изначальноего imei \ запрос вообще не прохоит
     })()

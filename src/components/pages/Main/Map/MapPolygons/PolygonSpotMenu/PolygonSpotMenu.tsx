@@ -4,57 +4,56 @@ import React from 'react'
 import { Button } from 'antd'
 import {
   putEditPolygon,
+  setAddInternalPolygonMode,
   setDrawingPolygonMode,
   setNewPolygonCoords,
   setShowAddNewPolygonModal
 } from '../../../../../../redux/slices/mapSlice'
 import { useAppDispatch } from '../../../../../../redux/store'
 import type { Polygon } from '../../../../../../types'
+import { useSelector } from 'react-redux'
+import { getAddInternalPolygonModeSelector } from '../../../../../../redux/selectors/mapSelectors'
+import type {
+  AddPolygonCoords,
+  EditPolygonCoords
+} from '../DrawingPolygon'
 
 type Props = {
-  index: number,
-  deletePolygonSpot: (n: number) => void,
-  polygonCoords: [number, number][],
+  deletePolygonSpot: () => void,
+  polygonCoords: EditPolygonCoords,
   editedPolygon: Polygon | undefined
 }
 
 const PolygonSpotMenu: React.FC<Props> = ({
-  index,
   deletePolygonSpot,
   polygonCoords,
   editedPolygon
 }) => {
   const dispatch = useAppDispatch()
+  const addInternalPolygonMode = useSelector(getAddInternalPolygonModeSelector)
 
   const buttonsSaveHandler = () => {
+    let isErrorInPolygonData = false
+
+    polygonCoords.forEach((p: AddPolygonCoords, i: number) => {
+      if (i === 0 && p.length < 4) {
+        isErrorInPolygonData = true
+        alert(`Необходимо указать не менее 4 точек полингона на карте! Вы указали: ${p.length}`)
+      } else if (i !== 0 && p.length < 5) {
+        isErrorInPolygonData = true
+        alert(`В одном из вашех полигонов указано неправильное число точек, минимальное число: ${p.length}. Пожалуйста проверьте введенные данные`)
+      }
+    })
+    // прерывание функции если допущена ошибка в количестве координат
+    if (isErrorInPolygonData) return
+
     if (editedPolygon) {
-      //проверям на наличие замыкающей координаты
-      const firstSpot = polygonCoords[0]
-      const lastSpot = polygonCoords[polygonCoords.length - 1]
-      const spotsCondition = firstSpot[0] === lastSpot[0] && firstSpot[1] === lastSpot[1]
-      let currentCoords: [number, number][]
-      if (spotsCondition) {
-        currentCoords = polygonCoords
-      } else {
-        currentCoords = [...polygonCoords, polygonCoords[0]]
-      }
-      // проверка на удаление точек полигона
-      if (polygonCoords.length < 5) {
-        alert(`Необходимо указать не менее 4 точек на карте! Вы указали: ${polygonCoords.length}`)
-      } else {
-        dispatch(putEditPolygon({
-          polygonId: +editedPolygon.id,
-          newOption: { coords: currentCoords }
-        }))
-      }
+      console.log(polygonCoords)
+      dispatch(putEditPolygon({
+        polygonId: +editedPolygon.id,
+        newOption: { coords: polygonCoords }
+      }))
     } else {
-      if (polygonCoords.length < 4) {
-        if (polygonCoords.length === 0) {
-          return
-        }
-        alert(`Необходимо указать не менее 4 точек на карте! Вы указали: ${polygonCoords.length}`)
-        return
-      }
       dispatch(setNewPolygonCoords(polygonCoords))
       dispatch(setShowAddNewPolygonModal(true))
     }
@@ -68,28 +67,54 @@ const PolygonSpotMenu: React.FC<Props> = ({
           className={s.polygonSpotMenuBTN}
 
         >
-          Сохранить
+          Сохранить полигон
         </Button>
         <Button
           className={s.polygonSpotMenuBTN}
           onClick={(e) => {
             e.stopPropagation()
-            deletePolygonSpot(index)
+            deletePolygonSpot()
           }}
         >
-          Удалить
+          Удалить точку
         </Button>
         {
-          editedPolygon
-            ? <Button
-              className={s.polygonSpotMenuBTN}
-              onClick={(e) => {
-                e.stopPropagation()
-                dispatch(setDrawingPolygonMode(false))
-              }}
+          editedPolygon && !addInternalPolygonMode
+            ? <>
+              <Button
+                className={s.polygonSpotMenuBTN}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  dispatch(setDrawingPolygonMode(false))
+                }}
               >
-            Выкл. редактирование
-            </Button>
+                Выкл. редактирование
+              </Button>
+              <Button
+                className={s.polygonSpotMenuBTN}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  dispatch(setAddInternalPolygonMode(true))
+                }}
+              >
+                Внутренний контур
+              </Button>
+            </>
+            : null
+        }
+        {
+          editedPolygon && addInternalPolygonMode
+            ? <>
+              <Button
+                className={s.polygonSpotMenuBTN}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  dispatch(setAddInternalPolygonMode(false))
+                }}
+              >
+                Закончить вн. контур
+              </Button>
+            </>
             : null
         }
       </div>

@@ -23,6 +23,8 @@ import {
 } from '../../../../redux/slices/settingsSlice'
 import { getUsingStartMenuOptionsSelector } from '../../../../redux/selectors/settingsSelector'
 import { setToken } from '../../../../redux/slices/authSlice'
+import { Link } from 'react-router-dom'
+import { BarChartOutlined } from '@ant-design/icons'
 
 const Sidebar: React.FC<PropsWithChildren> = () => {
   const dispatch = useAppDispatch()
@@ -94,6 +96,14 @@ const Sidebar: React.FC<PropsWithChildren> = () => {
           />
         </div>
         <div>
+          {/*<Link*/}
+          {/*  to="/analytics"*/}
+          {/*>*/}
+          {/*  <BarChartOutlined*/}
+          {/*    className={s.icon}*/}
+          {/*    title="Аналитика"*/}
+          {/*  />*/}
+          {/*</Link>*/}
           <Svg
             title="Настройки"
             src={Setting}

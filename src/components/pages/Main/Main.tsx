@@ -19,7 +19,7 @@ import {
   getTrailerList,
   getTypesList
 } from '../../../redux/slices/optionalEquipmentSlice'
-import PolygonListAddModal from '../../modules/polygons/PolygonList/PolygonListAddModal'
+import PolygonListAddModal from './modules/polygons/PolygonList/PolygonListAddModal'
 
 const MainPage = () => {
   const dispatch = useAppDispatch()

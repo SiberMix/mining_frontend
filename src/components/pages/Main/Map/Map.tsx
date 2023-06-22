@@ -20,6 +20,7 @@ import {
   getUsingZoomLevelOptionsSelector
 } from '../../../../redux/selectors/settingsSelector'
 import PickBaseCoord from './PickBaseCoord/PickBaseCoord'
+import EquipCastomMarker from './MapEquipments/EquipCastomMarker'
 
 type Props = {}
 

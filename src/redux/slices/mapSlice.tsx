@@ -15,9 +15,10 @@ type MapInitialState = {
   equipmentFlyTo: number | undefined,
   drawingPolygonMode: boolean,
   showAddNewPolygonModal: boolean,
-  newPolygonCoords: [number, number][],
+  newPolygonCoords: [number, number][][],
   editedPolygon: Polygon | undefined,
-  selectedPolygonId: number | undefined
+  selectedPolygonId: number | undefined,
+  addInternalPolygonMode: boolean
 }
 
 const mapInitialState: MapInitialState = {
@@ -30,7 +31,8 @@ const mapInitialState: MapInitialState = {
   newPolygonCoords: [],
   editedPolygon: undefined,
   editedEquipment: null,
-  selectedPolygonId: undefined
+  selectedPolygonId: undefined,
+  addInternalPolygonMode: false
 }
 
 const mapSlice = createSlice({
@@ -56,6 +58,7 @@ const mapSlice = createSlice({
       if (action.payload === false && state.editedPolygon) {
         state.polygonsList = state.polygonsList.map(polygon => (polygon.id === state.editedPolygon?.id) ? state.editedPolygon : polygon)
         state.editedPolygon = undefined
+        state.addInternalPolygonMode = false
       }
       state.drawingPolygonMode = action.payload
     },
@@ -64,7 +67,8 @@ const mapSlice = createSlice({
     },
     setEditedPolygon: (state: MapInitialState, action) => {
       if (state.editedPolygon) {
-        state.polygonsList = [...state.polygonsList, state.editedPolygon]
+        // state.polygonsList = [...state.polygonsList, state.editedPolygon]
+        state.polygonsList = state.polygonsList.map(polygon => (polygon.id === state.editedPolygon?.id) ? state.editedPolygon : polygon)
       }
       state.drawingPolygonMode = true
       state.editedPolygon = state.polygonsList.find(polygon => polygon.id === action.payload)
@@ -74,6 +78,9 @@ const mapSlice = createSlice({
     },
     setEditedEquipment: (state, action) => {
       state.editedEquipment = state.equipmentList.find(type => type.id === action.payload) || null
+    },
+    setAddInternalPolygonMode: (state: MapInitialState, action) => {
+      state.addInternalPolygonMode = action.payload
     }
   },
   extraReducers: (builder) => {
@@ -204,19 +211,19 @@ export const {
   setNewPolygonCoords,
   setSelectedPolygon,
   removeSelectedPolygon,
-  setEditedEquipment
+  setEditedEquipment,
+  setAddInternalPolygonMode
 } = actions
 
 export default reducer
 
 export type PostNewPolygonData = {
-  //todo оберунть в доп массив для
-  coords: [number, number][],
+  coords: [number, number][][],
   name: string,
   sequence: string,
   activeStatus?: number
 }
 export type EditPolygonData = {
   polygonId: number,
-  newOption: { name: string } | { coords: [number, number][] } | { sequence: string }
+  newOption: { name: string } | { coords: [number, number][][] } | { sequence: string }
 }

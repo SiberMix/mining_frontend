@@ -1,0 +1,11 @@
+.analytics-sidebar-fade-enter {
+    /*opacity: 0;*/
+    transform: translateY(-110%);
+}
+.analytics-sidebar-fade-enter-active {
+    /*opacity: 1;*/
+    transform: translateY(0%);
+}
+.analytics-sidebar-fade-enter-active, .analytics-sidebar-fade-exit-active {
+    transition: opacity 300ms, transform 300ms;
+}
