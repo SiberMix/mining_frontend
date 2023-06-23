@@ -96,7 +96,7 @@ const EquipCastomMarker: React.FC<Props> = ({
   //   className: 'custom-marker-icon',
   //   iconSize: [60, 60],
   //   html: `<img style='transform: rotate(${Math.abs(-90 + coordsData.direction)}deg); width: 60px; height: 60px;' alt='${equip_name}' src='src/assets/icons_enum/${image_status}.svg' />`
-  // })
+  // }))
 
   return (
     <Marker
@@ -123,7 +123,7 @@ const EquipCastomMarker: React.FC<Props> = ({
           {stateEquipmentOptions['Уровень топлива'] ? `Уровень топлива: ${fuel} л` : null}
         </div>
         <div>
-          {stateEquipmentOptions['Последняя активность'] ? `Последняя активность: ${new Date(lastUpdDtt)}` : null}
+          {stateEquipmentOptions['Последняя активность'] ? `Последняя активность: ${new Date(+lastUpdDtt * 1000)}` : null}
         </div>
       </Popup>
     </Marker>

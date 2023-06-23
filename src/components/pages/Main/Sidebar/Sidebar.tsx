@@ -23,13 +23,17 @@ import {
 } from '../../../../redux/slices/settingsSlice'
 import { getUsingStartMenuOptionsSelector } from '../../../../redux/selectors/settingsSelector'
 import { setToken } from '../../../../redux/slices/authSlice'
-import { Link } from 'react-router-dom'
+import {
+  Link,
+  useNavigate
+} from 'react-router-dom'
 import { BarChartOutlined } from '@ant-design/icons'
 
 const Sidebar: React.FC<PropsWithChildren> = () => {
   const dispatch = useAppDispatch()
   const sidebarOpenWindow = useSelector(getSidebarOpenWindowSelector)
   const startMenuOptions = useSelector(getUsingStartMenuOptionsSelector)
+  const navigate = useNavigate()
   /*
   * изначально выбранное меню в настройках
   * */
@@ -44,6 +48,7 @@ const Sidebar: React.FC<PropsWithChildren> = () => {
   const logout = () => {
     dispatch(setToken(''))
     localStorage.removeItem('token')
+    navigate('/')
   }
 
   /*
@@ -96,14 +101,14 @@ const Sidebar: React.FC<PropsWithChildren> = () => {
           />
         </div>
         <div>
-          {/*<Link*/}
-          {/*  to="/analytics"*/}
-          {/*>*/}
-          {/*  <BarChartOutlined*/}
-          {/*    className={s.icon}*/}
-          {/*    title="Аналитика"*/}
-          {/*  />*/}
-          {/*</Link>*/}
+          <Link
+            to="/analytics"
+          >
+            <BarChartOutlined
+              className={s.icon}
+              title="Аналитика"
+            />
+          </Link>
           <Svg
             title="Настройки"
             src={Setting}
