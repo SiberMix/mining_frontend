@@ -28,7 +28,7 @@ const settingsInitialState: SettingsInitialState = {
       'Гос.номер': true,
       'Скорость': true,
       'Уровень топлива': true,
-      'Последнее время активности': true
+      'Последняя активность': true
     }
   },
   usingSettings: {
@@ -42,7 +42,7 @@ const settingsInitialState: SettingsInitialState = {
       'Гос.номер': true,
       'Скорость': true,
       'Уровень топлива': true,
-      'Последнее время активности': true
+      'Последняя активность': true
     }
   }
 }
@@ -146,6 +146,6 @@ export type SettingsData = {
     'Гос.номер': boolean,
     'Скорость': boolean,
     'Уровень топлива': boolean,
-    'Последнее время активности': boolean
+    'Последняя активность': boolean
   }
 }

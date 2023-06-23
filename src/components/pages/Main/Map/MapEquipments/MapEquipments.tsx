@@ -89,7 +89,7 @@ const MapEquipments: React.FC<Props> = () => {
           const coordsData: any = equipmentCoordinates.find(equip => equip.imei === imei)
 
           if (!lastCoords && !coordsData) return
-          console.log(last_coord)
+
           return (
             <EquipCastomMarker
               key={imei}

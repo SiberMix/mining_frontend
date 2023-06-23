@@ -115,8 +115,8 @@ const EquipCastomMarker: React.FC<Props> = ({
           {stateEquipmentOptions['Уровень топлива'] ? `Уровень топлива: ${fuel} л` : null}
         </div>
         <div>
-          {/*{stateEquipmentOptions['Последнее время активности'] ? `Последнее время активности: ${new Date(lastUpdDtt)}` : null}*/}
-          {`Последнее время активности: ${new Date(lastUpdDtt)}`}
+          {stateEquipmentOptions['Последняя активность'] ? `Последняя активность: ${new Date(lastUpdDtt)}` : null}
+          {/*{`Последнее время активности: ${new Date(lastUpdDtt)}`}*/}
         </div>
       </Popup>
     </Marker>

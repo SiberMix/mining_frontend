@@ -1,13 +1,22 @@
 .fields-analytic {
   &-wrapper {
+    display: flex;
     background-color: #ffffff;
     width: 100%;
     height: 100%;
-  }
-  &-diagram {
     &-main {
       width: 70%;
     }
+    &-side {
+      width: 30%;
+    }
   }
-
+  &-diagram {
+    &-main {
+      width: 100%;
+    }
+    &-side {
+      width: 100%;
+    }
+  }
 }
