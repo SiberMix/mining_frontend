@@ -116,7 +116,6 @@ const EquipCastomMarker: React.FC<Props> = ({
         </div>
         <div>
           {stateEquipmentOptions['Последняя активность'] ? `Последняя активность: ${new Date(lastUpdDtt)}` : null}
-          {/*{`Последнее время активности: ${new Date(lastUpdDtt)}`}*/}
         </div>
       </Popup>
     </Marker>

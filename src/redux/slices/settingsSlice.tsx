@@ -85,7 +85,6 @@ const settingsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getSettings.fulfilled, (state: SettingsInitialState, action) => {
-        console.log()
         state.settings = action.payload?.data.value
         state.usingSettings = action.payload?.data.value
       })
@@ -130,7 +129,6 @@ export const {
   setZoomLevelOptions,
   setBaseCoord,
   setMapClickForNewBaseCoord
-
 } = actions
 
 export default reducer
