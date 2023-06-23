@@ -28,7 +28,10 @@ const MainPage = () => {
 
   useEffect(() => {
     // Имитация загрузки данных
-    setTimeout(() => setLoad(false), 3000)
+    const fakeTimeout = setTimeout(() => setLoad(false), 3000)
+    return () => {
+      clearTimeout(fakeTimeout)
+    }
   }, [])
 
   useEffect(() => {

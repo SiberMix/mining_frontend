@@ -6,11 +6,11 @@ import {
   useMapEvents
 } from 'react-leaflet'
 import React, {
+  useCallback,
   useEffect,
   useMemo,
   useState
 } from 'react'
-import type { EquipmentSocketData } from './MapEquipments'
 import { useAppDispatch } from '../../../../../redux/store'
 import { useSelector } from 'react-redux'
 import { getEquipmentFlyToSelector } from '../../../../../redux/selectors/mapSelectors'
@@ -76,13 +76,21 @@ const EquipCastomMarker: React.FC<Props> = ({
     return zoomLevel > 17 ? 'src/assets/icons_enum/hoveraster-mini.png' : `src/assets/icons_enum/${image_status}.svg`
   }, [zoomLevel])
 
-  const markerIcon = useMemo(() => {
+  const createEquipIcon = useCallback(() => {
     return L.divIcon({
       className: 'custom-marker-icon',
       iconSize: [60, 60],
       html: `<img style='transform: rotate(${zoomLevel > 17 ? direction : 0}deg); width: 60px; height: 60px;' alt='${equip_name}' src=${imagePath} />`
     })
-  }, [imagePath])
+  }, [imagePath, direction])
+
+  // const markerIcon = useMemo(() => {
+  //   return L.divIcon({
+  //     className: 'custom-marker-icon',
+  //     iconSize: [60, 60],
+  //     html: `<img style='transform: rotate(${zoomLevel > 17 ? direction : 0}deg); width: 60px; height: 60px;' alt='${equip_name}' src=${imagePath} />`
+  //   })
+  // }, [imagePath, direction])
 
   // const markerIcon = L.divIcon({
   //   className: 'custom-marker-icon',
@@ -93,7 +101,7 @@ const EquipCastomMarker: React.FC<Props> = ({
   return (
     <Marker
       position={[+coordsData.lat, +coordsData.lon]}
-      icon={markerIcon}
+      icon={createEquipIcon()}
     >
       <Popup>
         <div>

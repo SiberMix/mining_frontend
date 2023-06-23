@@ -14,10 +14,14 @@ const Analytic = () => {
 
   useEffect(() => {
     // Имитация загрузки данных
-    setTimeout(() => {
+    const fakeTimeout = setTimeout(() => {
       setLoad(false)
       navigate('/analytics/field')
     }, 3000)
+
+    return () => {
+      clearTimeout(fakeTimeout)
+    }
   }, [])
 
   return (
