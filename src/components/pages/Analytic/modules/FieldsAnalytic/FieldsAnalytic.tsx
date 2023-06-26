@@ -1,6 +1,6 @@
 import './FieldsAnalytic.scss'
-import DefaultDiagram from '../../dashboards/DefaultDiagram/DefaultDiagram'
-import AngleCircleDiagram from '../../dashboards/AngleCircleDiagram/AngleCircleDiagram'
+import DefaultDiagram from '../../diagrams/DefaultDiagram/DefaultDiagram'
+import AngleCircleDiagram from '../../diagrams/AngleCircleDiagram/AngleCircleDiagram'
 
 const FieldsAnalytic = () => {
   return (

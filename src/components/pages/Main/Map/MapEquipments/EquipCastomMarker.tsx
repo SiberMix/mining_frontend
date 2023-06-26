@@ -1,3 +1,4 @@
+import './EquipCastomMarker.scss'
 import L from 'leaflet'
 import {
   Marker,
