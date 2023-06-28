@@ -8,5 +8,6 @@ export type Polygon = {
     id: string,
     name: string,
     color: string
-  }
+  },
+  square: string
 };

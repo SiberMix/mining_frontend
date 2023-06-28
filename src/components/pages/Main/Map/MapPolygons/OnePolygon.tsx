@@ -67,7 +67,7 @@ const OnePolygon: React.FC<Props> = ({ polygon }) => {
     <Polygon
       ref={polygonRef}
       key={polygon.id}
-      positions={polygon.coords as [number, number][]}
+      positions={polygon.coords}
       pathOptions={{ fillColor: polygonColor, ...polygonDefaultStyleSettings }}
     >
       <Popup >
@@ -76,6 +76,9 @@ const OnePolygon: React.FC<Props> = ({ polygon }) => {
         </div>
         <div>
           {`Культура: ${polygon.sequence === null ? 'культура не выбрана' : polygon.sequence.name}`}
+        </div>
+        <div>
+          {`Площвдь полигона: ${polygon.square} Га`}
         </div>
       </Popup>
     </Polygon>
