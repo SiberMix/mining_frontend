@@ -78,7 +78,7 @@ const OnePolygon: React.FC<Props> = ({ polygon }) => {
           {`Культура: ${polygon.sequence === null ? 'культура не выбрана' : polygon.sequence.name}`}
         </div>
         <div>
-          {`Площвдь полигона: ${polygon.square} Га`}
+          {`Площадь полигона: ${polygon.square} Га`}
         </div>
       </Popup>
     </Polygon>

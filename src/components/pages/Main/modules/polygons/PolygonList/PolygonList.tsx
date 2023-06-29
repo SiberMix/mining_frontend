@@ -28,6 +28,7 @@ const PolygonList: React.FC<{
   const dispatch = useAppDispatch()
 
   const polygons = useSelector(getAllPolygonsSelector)
+  const sortedPolygons = [...polygons].sort((a, b) => a.name.localeCompare(b.name))
   const drawingPolygonMode = useSelector(getDrawingPolygonModeSelector)
 
   const toggleDrawing = () => dispatch(setDrawingPolygonMode(!drawingPolygonMode))
@@ -111,7 +112,7 @@ const PolygonList: React.FC<{
           </>}
       </button>
       <TransitionGroup className="polygons">
-        {polygons.map(polygon => {
+        {sortedPolygons.map(polygon => {
           if (!polygon.coords.length) return null
           return (
             <CSSTransition

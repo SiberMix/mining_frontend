@@ -67,7 +67,7 @@ export const SevoInGroups: React.FC<SevoInGroupsProps> = ({ name, id, sowing4Yea
 
       polygons.forEach((polygon) => {
         const fieldType: any = fieldTypes.find((fieldType: any) => fieldType.name === polygon.sequence)
-        const color = fieldType?.color || '#64da54'
+        const color = polygon.sequence.color
 
         ctx.fillStyle = color
 

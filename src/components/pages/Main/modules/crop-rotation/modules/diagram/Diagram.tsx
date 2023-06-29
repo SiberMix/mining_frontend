@@ -61,7 +61,9 @@ const Diagram = () => {
         squareOfCulture.push(parseFloat(polygon.square))
       }
     })
-    return squareOfCulture.reduce((num: number, sum: number) => num + sum, 0)
+    return +squareOfCulture
+      .reduce((num: number, sum: number) => num + sum, 0)
+      .toFixed(2)
   })
 
   const jointSessionData = () => {
