@@ -3,7 +3,6 @@ import s from './PolygonList.module.scss'
 import style from '../../field/FieldList/FieldList.module.scss'
 import * as cn from 'classnames'
 import React from 'react'
-import * as turf from '@turf/turf'
 import settingMap from '/src/assets/icons/equalizersoutline_114523.svg'
 import DownloadMap from '/src/assets/icons/download2.svg'
 import PolygonPreview from '../PolygonPreview/PolygonPreview'
@@ -18,8 +17,8 @@ import {
 } from '../../../../../../redux/slices/mapSlice'
 import { useAppDispatch } from '../../../../../../redux/store'
 import {
-  TransitionGroup,
-  CSSTransition
+  CSSTransition,
+  TransitionGroup
 } from 'react-transition-group'
 
 const PolygonList: React.FC<{
@@ -33,36 +32,26 @@ const PolygonList: React.FC<{
 
   const toggleDrawing = () => dispatch(setDrawingPolygonMode(!drawingPolygonMode))
 
-  const numPolygons = polygons.reduce((count, polygon) => {
-    if (polygon.coords.length) {
-      return count + 1
-    }
-    return count
-  }, 0)
-
-  //todo сыпятся ошибки из-за разных типов координат полигонов
-  function calculateArea(coords: any) {
-    if (coords.length < 3) {
-      console.log('Invalid polygon, not enough coordinates')
-      return 0
-    }
-    const polygon = turf.polygon([coords])
-    const areaInSqMeters = turf.area(polygon)
-    return areaInSqMeters / 2000
+  const polygonsTotalCount = polygons.length
+  const polygonsTotalSquare = polygons
+    .map(polygon => +polygon.square)
+    .reduce((a, b) => a + b, 0)
+    .toFixed(2)
+  /*
+  * Склоняем слово полигоны
+  * */
+  const declination = (num: number, variant: string[]): string => {
+    const cases = [2, 0, 1, 1, 1, 2]
+    return num % 100 > 4 && num % 100 < 20
+      ? variant[2]
+      : variant[cases[num % 10 < 5 ? num % 10 : 5]]
   }
 
-  const calculateTotalArea = () => {
-    let totalArea = 0
-    polygons.forEach((polygon) => {
-      if (polygon.coords.length) {
-        const area = calculateArea(polygon.coords[0])
-        totalArea += area
-      }
-    })
-    return totalArea.toFixed(2)
-  }
-
-  const hectares = calculateTotalArea()
+  const inclinedText = `Всего ${polygonsTotalCount} ${declination(polygonsTotalCount, [
+    'полигон',
+    'полигона',
+    'полигонов'
+  ])}`
 
   const deleteHandler = async (id: string | number) => {
     if (confirm('Вы уверены, что хотите удалить полигон?')) {
@@ -87,7 +76,7 @@ const PolygonList: React.FC<{
             Список полей
           </div>
           <div>
-            {`Всего ${numPolygons} | ${hectares} Га`}
+            {`${inclinedText} | ${polygonsTotalSquare} Га`}
           </div>
         </div>
         <img

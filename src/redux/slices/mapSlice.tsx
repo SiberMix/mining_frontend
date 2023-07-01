@@ -86,7 +86,6 @@ const mapSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getAllPolygons.fulfilled, (state: MapInitialState, action) => {
-        console.log(action.payload.data)
         state.polygonsList = action.payload.data
       })
       .addCase(getAllEquipment.fulfilled, (state: MapInitialState, action) => {
