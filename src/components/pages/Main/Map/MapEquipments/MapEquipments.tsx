@@ -14,6 +14,7 @@ import {
   getDrawingPolygonModeSelector
 } from '../../../../../redux/selectors/mapSelectors'
 import { getTokenSelector } from '../../../../../redux/selectors/authSelectors'
+import Equipments from '../../modules/library/Equipment/Equipments'
 
 type Props = {}
 
@@ -22,24 +23,15 @@ export type EquipmentSocketData = {
   lat: string,
   lon: string,
   datetime: string,
-  direction: number
+  direction: number,
+  speed: number,
+  fuel: number
 }
 const MapEquipments: React.FC<Props> = () => {
-  const token = useSelector(getTokenSelector)
   const drawingPolygonMode = useSelector(getDrawingPolygonModeSelector)
   const equipList = useSelector(getAllEquipmentSelector)
 
   const [equipmentCoordinates, setEquipmentCoordinates] = useState<EquipmentSocketData[]>([])
-  const [speed, setSpeed] = useState(0)
-  const [fuel, setFuel] = useState(0)
-
-  useEffect(() => {
-    void (async () => {
-      const response = await mapService.getLocation(token)
-      setEquipmentCoordinates([response.data.lat, response.data.lon])
-      // todo Проверить на наличие изначальноего imei \ запрос вообще не прохоит
-    })()
-  }, [])
 
   useEffect(() => {
     const ws = new WebSocket('ws://myhectare.ru:8765/')
@@ -54,8 +46,6 @@ const MapEquipments: React.FC<Props> = () => {
       setEquipmentCoordinates(prevState => {
         return [...prevState.filter((item) => item.imei !== data.imei), data]
       })
-      setSpeed(data.speed)
-      setFuel(data.fuel)
     }
 
     return () => {
@@ -77,7 +67,9 @@ const MapEquipments: React.FC<Props> = () => {
             gosnomer,
             image_status,
             imei,
-            last_coord
+            last_coord,
+            fuel,
+            speed
           } = equipment
           //костыльно подтягиваем данные бека под нужные нам
           const lastCoords = last_coord
@@ -86,21 +78,22 @@ const MapEquipments: React.FC<Props> = () => {
               lon: last_coord.lon
             }
             : undefined
-          const coordsData: any = equipmentCoordinates.find(equip => equip.imei === imei)
+          const wsDataForEquip: any = equipmentCoordinates.find(equip => equip.imei === imei)
+          console.log(wsDataForEquip?.speed)
 
-          if (!lastCoords && !coordsData) return
+          if (!lastCoords && !wsDataForEquip) return
 
           return (
             <EquipCastomMarker
               key={imei}
-              coordsData={coordsData || lastCoords}
+              coordsData={wsDataForEquip || lastCoords}
               equip_name={equip_name}
               gosnomer={gosnomer}
               image_status={image_status}
               imei={imei}
-              speed={speed}
+              speed={wsDataForEquip?.speed || 0}
               fuel={fuel}
-              direction={coordsData?.direction || last_coord?.direction}
+              direction={wsDataForEquip?.direction || last_coord?.direction}
               lastUpdDtt={last_coord?.last_upd_ts || ''}
             />
           )

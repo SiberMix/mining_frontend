@@ -6,6 +6,8 @@ export type Equip = {
   gosnomer: string,
   image_status: string,
   imei: string,
+  speed: number,
+  fuel: number,
   last_coord: {
     lat: string,
     lon: string,
