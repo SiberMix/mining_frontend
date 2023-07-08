@@ -8,15 +8,15 @@ import {
 } from '@ant-design/icons'
 
 type Props = {
-  id: number,
   index: number,
-  items: string[]
+  title: string,
+  watchingEquips: string[]
 }
 
 const PlayBackMenuItem: React.FC<Props> = ({
-  items,
+  watchingEquips,
   index,
-  id
+  title
 }) => {
 
   const [isWatching, setIsWatching] = useState(false)
@@ -25,14 +25,22 @@ const PlayBackMenuItem: React.FC<Props> = ({
     setIsWatching(isWatching => !isWatching)
   }
 
+  const createCurrentStringFromWatchingEquips = () => {
+    const currentString = watchingEquips.join(', ')
+    if (currentString.length > 35) {
+      return currentString.slice(0, 32) + '...'
+    }
+    return currentString
+  }
+
   return (
     <div className="PlayBackMenuItem">
       <div className="PlayBackMenuItem__info">
         <span className="PlayBackMenuItem__info-name">
-          {`Playback #${index + 1}`}
+          {`${title} #${index + 1}`}
         </span>
         <span className="PlayBackMenuItem__info-equips">
-          {items.join(', ')}
+          {createCurrentStringFromWatchingEquips()}
         </span>
       </div>
       <div className="PlayBackMenuItem__icons">

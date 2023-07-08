@@ -1,36 +1,44 @@
 import './PlayBack.scss'
 import React from 'react'
 import PlayBackMenuItem from './PlayBackMenuItem/PlayBackMenuItem'
-
-type Rnd = Array<{id: number, items: string[]}>
+import { useSelector } from 'react-redux'
+import type { RootState } from '../../../../../redux/store'
+import PlayBackAddModal from './PlayBackAddModal/PlayBackAddModal'
+import { useAppDispatch } from '../../../../../redux/store'
+import { setIsOpenPlayBackAddModal } from '../../../../../redux/slices/playBackSlice'
 
 const PlayBack = () => {
+  const dispatch = useAppDispatch()
+  const playBacksData = useSelector((state: RootState) => state.playBackReducer.playBacksData)
 
-  const count: Rnd = [
-    { id: 1, items: [ 'Трактор', 'Машинка', 'Паровоз'] },
-    { id: 2, items: [ 'НЕ трактор', 'Самолет', 'Теплоход'] },
-    { id: 3, items: [ 'Пробка', 'Стакан', 'Кофе'] }
-  ]
+  const addButtonHandler = () => {
+    dispatch(setIsOpenPlayBackAddModal(true))
+  }
 
   return (
     <div className="PlayBack">
       <div className="PlayBack__header">
         Воспроизведение местоположения
       </div>
-      <button className="PlayBack__btn-add">
+      <button
+        className="PlayBack__btn-add"
+        onClick={addButtonHandler}
+      >
         + Добавить воспроизведение
       </button>
       <div className="PlayBack__content">
         {
-          count.map((item, i) => (
+          playBacksData.map((item, index) => (
             <PlayBackMenuItem
-              id={item.id}
-              index={i}
-              items={item.items}
+              key={index}
+              index={index}
+              title={item.title}
+              watchingEquips={item.watching_equips}
             />
           ))
         }
       </div>
+      <PlayBackAddModal />
     </div>
   )
 }

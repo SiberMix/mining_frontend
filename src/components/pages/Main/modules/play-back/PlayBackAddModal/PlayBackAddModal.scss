@@ -1,0 +1,31 @@
+.PlayBackAddModal {
+  &__title {
+    font-size: 1em;
+    &-date {
+      margin: 1.3em 0 .3em 0;
+    }
+  }
+  &__colorpicker {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &-color {
+      margin: .5em 0;
+      width: 40%;
+      height: .3em;
+    }
+  }
+  &__datepicker {
+    margin: .3em 0 1em 0;
+  }
+  .github-picker {
+    border: 1px solid #858585 !important;
+    background-color: #565656 !important;
+    span {
+      border: 1px solid #858585 !important;
+      //margin: 1px;
+    }
+  }
+}
+
