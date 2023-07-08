@@ -44,9 +44,9 @@
     background-color: #565656;
     transition: background-color, color .3s;
     &:hover {
-      color: #ffffff;
-      border: 1px solid #858585;
-      background-color: #858585;
+      color: #ffffff !important; //в некоторых файлах почему то перебиваются стили
+      border: 1px solid #858585 !important; //и тут тоже
+      background-color: #858585 !important; //и тут тоже
     }
   }
 

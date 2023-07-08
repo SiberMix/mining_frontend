@@ -4,6 +4,10 @@ import type {
   EquipType
 } from '../../types/equip'
 import { axiosInstance } from '../abstract'
+import type {
+  EquipForPost,
+  EquipForPut
+} from '../../redux/slices/mapSlice'
 
 export const equipsService = {
   /*
@@ -15,13 +19,13 @@ export const equipsService = {
   /*
   * Добавление новой техники
   * */
-  addNewEquip: (params: Omit<Equip, 'id'>) => {
+  addNewEquip: (params: EquipForPost) => {
     return axiosInstance.post<EquipModal>('/equips/', params)
   },
   /*
   * Редактирование техники
   * */
-  editEquip: ({ id, ...params }: Equip) => {
+  editEquip: ({ id, ...params }: EquipForPut) => {
     return axiosInstance.put<EquipModal>(`/equips/${id}/`, params)
   },
   /*

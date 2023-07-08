@@ -7,7 +7,8 @@ import React, {
 import {
   DatePicker,
   Input,
-  Modal
+  Modal,
+  Transfer
 } from 'antd'
 import { useSelector } from 'react-redux'
 import type { RootState } from '../../../../../../redux/store'
@@ -16,15 +17,18 @@ import { setIsOpenPlayBackAddModal } from '../../../../../../redux/slices/playBa
 //@ts-ignore
 import { GithubPicker } from 'react-color'
 import importedColors from './recomended-colors.json'
+import { getAllEquipmentSelector } from '../../../../../../redux/selectors/mapSelectors'
 
 const PlayBackAddModal = () => {
   const dispatch = useAppDispatch()
   const isOpenPlayBackAddModal = useSelector((state: RootState) => state.playBackReducer.isOpenPlayBackAddModal)
   const defaultColor = '#52C41A'
-
+  const allEquipment = useSelector(getAllEquipmentSelector)
   const [name, setName] = useState('')
   const [color, setColor] = useState(defaultColor)
-  const [timeStep, setTimeStep] = useState<{start: number, end: number} | null>(null)
+  const [timeStep, setTimeStep] = useState<{ start: number, end: number } | null>(null)
+  const [targetKeys, setTargetKeys] = useState<string[]>([])
+  const [selectedKeys, setSelectedKeys] = useState<string[]>([])
   /*
   * костыльная перерисовка датапикера, для сброса значений :D
   * */
@@ -33,8 +37,18 @@ const PlayBackAddModal = () => {
     setKeyForReset(Date.now())
   }, [isOpenPlayBackAddModal])
 
-  const handleAdd = () => {
-
+  const handleSubmit = () => {
+    if (name && timeStep !== null && targetKeys.length > 0) {
+      console.log({
+        name,
+        color,
+        time_step: timeStep,
+        equipment: targetKeys
+      })
+      closeHandler()
+    } else {
+      alert('Пожалуйста заполните информацию полностью')
+    }
   }
 
   const closeHandler = () => {
@@ -42,16 +56,17 @@ const PlayBackAddModal = () => {
     setName('')
     setColor(defaultColor)
     setTimeStep(null)
+    setTargetKeys([])
+    setSelectedKeys([])
     //сброс даты происходит с помощью key, смотри ниже
   }
 
   const handleColorChange = (newColor: any) => {
-    console.log(newColor)
     setColor(newColor.hex)
   }
 
   const onOkDate = (value: any) => {
-    if (value && value.length === 2) {
+    if (value[0] !== null && value[1] !== null) {
       const startDate = value[0].toDate()
       const endDate = value[1].toDate()
 
@@ -65,6 +80,19 @@ const PlayBackAddModal = () => {
     }
   }
 
+  const onChange = (nextTargetKeys: string[]) => {
+    setTargetKeys(nextTargetKeys)
+  }
+
+  const onSelectChange = (sourceSelectedKeys: string[], targetSelectedKeys: string[]) => {
+    setSelectedKeys([...sourceSelectedKeys, ...targetSelectedKeys])
+  }
+
+  const mockData = allEquipment.map((equip, i) => ({
+    key: equip.imei.toString(),
+    title: equip.equip_name
+  }))
+
   return (
     <Modal
       className={cn(
@@ -74,7 +102,7 @@ const PlayBackAddModal = () => {
       title="Создать воспроизведение"
       open={isOpenPlayBackAddModal}
       onCancel={closeHandler}
-      onOk={handleAdd}
+      onOk={handleSubmit}
     >
       <Input
         placeholder="Название плэйкбэка"
@@ -113,16 +141,20 @@ const PlayBackAddModal = () => {
       <span className="PlayBackAddModal__title">
         Выберете оорудование
       </span>
-      <Transfer
-        dataSource={mockData}
-        titles={['Source', 'Target']}
-        targetKeys={targetKeys}
-        selectedKeys={selectedKeys}
-        onChange={onChange}
-        onSelectChange={onSelectChange}
-        onScroll={onScroll}
-        render={(item) => item.title}
-      />
+      <div className="PlayBackAddModal__transfer">
+        <Transfer
+          dataSource={mockData}
+          titles={['Все', 'Выбрано']}
+          targetKeys={targetKeys}
+          selectedKeys={selectedKeys}
+          onChange={onChange}
+          onSelectChange={onSelectChange}
+          locale={{
+            notFoundContent: 'Ничего не выбрано'
+          }}
+          render={(item) => item.title}
+        />
+      </div>
     </Modal>
   )
 }

@@ -153,7 +153,7 @@ export const getAllEquipment = createAsyncThunk(
 )
 export const postNewEquipment = createAsyncThunk(
   'map/postNewEquipmentThunk',
-  async (data: Omit<Equip, 'id'>, thunkAPI) => {
+  async (data: Omit<EquipForPost, 'id'>, thunkAPI) => {
     const response = await mapService.addNewEquip(data)
     thunkAPI.dispatch(setAddModalVisible(false))
     return response
@@ -161,7 +161,7 @@ export const postNewEquipment = createAsyncThunk(
 )
 export const putEditEquipment = createAsyncThunk(
   'map/editEquipmentThunk',
-  async ({ id, ...data }: Equip, thunkAPI) => {
+  async ({ id, ...data }: EquipForPut, thunkAPI) => {
     const response = await mapService.editEquip({ id, ...data })
     thunkAPI.dispatch(setAddModalVisible(false))
     return { id, ...data, response }
@@ -217,6 +217,23 @@ export const {
 
 export default reducer
 
+export type EquipForPost = {
+  equip_name: string,
+  gosnomer: string,
+  equip_type: string,
+  equip_model: string,
+  image_status: string,
+  imei: string
+}
+export type EquipForPut = {
+  id: number,
+  equip_name: string,
+  gosnomer: string,
+  equip_type: string,
+  equip_model: string,
+  image_status: string,
+  imei: string
+}
 export type PostNewPolygonData = {
   coords: [number, number][][],
   name: string,

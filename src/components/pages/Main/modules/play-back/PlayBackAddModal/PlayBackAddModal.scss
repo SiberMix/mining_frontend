@@ -1,10 +1,12 @@
 .PlayBackAddModal {
   &__title {
     font-size: 1em;
+
     &-date {
       margin: 1.3em 0 .3em 0;
     }
   }
+
   &__colorpicker {
     display: flex;
     align-items: center;
@@ -16,12 +18,19 @@
       height: .3em;
     }
   }
+
   &__datepicker {
     margin: .3em 0 1em 0;
   }
+
+  &__transfer {
+    margin: 1em 0;
+  }
+
   .github-picker {
     border: 1px solid #858585 !important;
     background-color: #565656 !important;
+
     span {
       border: 1px solid #858585 !important;
       //margin: 1px;
@@ -29,3 +38,102 @@
   }
 }
 
+/*
+тут начинается лютый пиздец (простите), потому что очень сложно стилизовать.
+лучше написать новый компонент вообще полностью кастомный. Это не так сложно но блять, у меня нет на это времени
+*/
+
+:where(.css-dev-only-do-not-override-14wwjjs).ant-transfer {
+  color: #ffffff !important;
+}
+:where(.css-dev-only-do-not-override-14wwjjs).ant-transfer .ant-transfer-list-content-item-checked {
+  background-color: #858585;
+  &:hover {
+    background-color: #C0BDC0 !important;
+  }
+}
+//чекбоксы
+:where(.css-dev-only-do-not-override-14wwjjs).ant-checkbox-checked .ant-checkbox-inner {
+  background-color: #C0BDC0;
+  border-color: #ffffff;
+}
+//очень странный хочер для чекбоксов
+:where(.css-dev-only-do-not-override-14wwjjs).ant-transfer .ant-transfer-list-content-item >*:not(:last-child) {
+  &:hover {
+    :where(.css-dev-only-do-not-override-14wwjjs).ant-checkbox-checked .ant-checkbox-inner {
+      background-color: #C0BDC0;
+      border-color: #ffffff;
+      box-shadow: none !important;
+    }
+  }
+}
+//ховер на обычный элемент меню
+:where(.css-dev-only-do-not-override-14wwjjs).ant-transfer .ant-transfer-list-content-item:not(.ant-transfer-list-content-item-disabled):hover {
+  background-color: rgba(0, 0, 0, 0.04);
+  cursor: pointer;
+  &:hover {
+    background-color: #C0BDC0 !important;
+  }
+}
+//точка для выделения всех чекбоксов
+:where(.css-dev-only-do-not-override-14wwjjs).ant-checkbox-indeterminate .ant-checkbox-inner:after {
+  background-color: #C0BDC0;
+  border-color: #ffffff;
+}
+:where(.css-dev-only-do-not-override-14wwjjs).ant-transfer .ant-transfer-list-header >*:not(:last-child) {
+  &:hover {
+    :where(.css-dev-only-do-not-override-14wwjjs).ant-checkbox-checked .ant-checkbox-inner {
+      background-color: #C0BDC0;
+      border-color: #ffffff;
+    }
+  }
+}
+// еще одна часть чекбокса для всего
+:where(.css-dev-only-do-not-override-14wwjjs).ant-checkbox-checked:after {
+  border: none !important;
+}
+//это шапка окошка
+:where(.css-dev-only-do-not-override-14wwjjs).ant-transfer .ant-transfer-list-header {
+  background-color: #858585;
+  border: #C0BDC0 !important;
+}
+// хочер на кнопки перетаскивания
+:where(.css-dev-only-do-not-override-14wwjjs).ant-btn-primary:not(:disabled):not(.ant-btn-disabled):hover {
+  color: #fff;
+  background-color: #858585;
+}
+// текст не найдено
+.ant-transfer-list-body-not-found {
+  color: #ffffff !important;
+}
+//прячем скроллбар
+:where(.css-dev-only-do-not-override-14wwjjs).ant-transfer .ant-transfer-list-content {
+  scrollbar-width: none; /* hide the scrollbar in Firefox */
+  -ms-overflow-style: none; /* hide the scrollbar in Edge and IE */
+
+  &::-webkit-scrollbar {
+    width: 0.5rem; /* set the width of the scrollbar */
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #2c2c2c; /* set the color of the track */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #1e1e1e; /* set the color of the thumb */
+  }
+}
+//убираем нахуй не нужную кнопку
+:where(.css-dev-only-do-not-override-14wwjjs).ant-transfer .ant-transfer-list-header-dropdown {
+  display: none;
+}
+// раздвигаем оставшиеся элементы
+:where(.css-dev-only-do-not-override-14wwjjs).ant-transfer .ant-transfer-list-header >*:not(:last-child) {
+  margin-inline-end: 4px;
+}
+/*
+  Да простят мою грушную душу все программисты, которые увидят эту жесть,
+  простите пожалуйста, я надеюсь после такого ваше эмоцианальное состояние не упало на дно
+  пожалуйста перепишите этот компонент на свой кастомный вариант
+  еще раз простите
+*/
