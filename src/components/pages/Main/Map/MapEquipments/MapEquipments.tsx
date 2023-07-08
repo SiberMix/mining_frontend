@@ -68,8 +68,7 @@ const MapEquipments: React.FC<Props> = () => {
             image_status,
             imei,
             last_coord,
-            fuel,
-            speed
+            fuel
           } = equipment
           //костыльно подтягиваем данные бека под нужные нам
           const lastCoords = last_coord
@@ -79,7 +78,6 @@ const MapEquipments: React.FC<Props> = () => {
             }
             : undefined
           const wsDataForEquip: any = equipmentCoordinates.find(equip => equip.imei === imei)
-          console.log(wsDataForEquip?.speed)
 
           if (!lastCoords && !wsDataForEquip) return
 
@@ -92,7 +90,7 @@ const MapEquipments: React.FC<Props> = () => {
               image_status={image_status}
               imei={imei}
               speed={wsDataForEquip?.speed || 0}
-              fuel={fuel}
+              fuel={wsDataForEquip?.fuel || fuel || null}
               direction={wsDataForEquip?.direction || last_coord?.direction}
               lastUpdDtt={last_coord?.last_upd_ts || ''}
             />

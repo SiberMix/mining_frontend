@@ -19,7 +19,7 @@ import { setEquipmentFlyTo } from '../../../../../redux/slices/mapSlice'
 import { getUsingEquipmentOptionsSelector } from '../../../../../redux/selectors/settingsSelector'
 
 type Props = {
-  coordsData: {lat: string, lon: string},
+  coordsData: { lat: string, lon: string },
   image_status: string,
   equip_name: string,
   imei: string,
@@ -71,33 +71,27 @@ const EquipCastomMarker: React.FC<Props> = ({
   })
   const imagePath = useMemo(() => {
     /**
-    * если нужно отключить то меняем с 17 на 18. Больше 18 он быть не может
-    * по дефолту 17
-    * */
-    return zoomLevel > 17 ? 'src/assets/icons_enum/hoveraster-mini.png' : `src/assets/icons_enum/${image_status}.svg`
+     * если нужно отключить то меняем с 17 на 18. Больше 18 он быть не может
+     * по дефолту 17
+     * */
+    return zoomLevel > 17 ? 'src/assets/icons_enum/4mini.svg' : `src/assets/icons_enum/${image_status}.svg`
   }, [zoomLevel])
 
   const createEquipIcon = useCallback(() => {
     return L.divIcon({
       className: 'custom-marker-icon',
       iconSize: [60, 60],
-      html: `<img style='transform: rotate(${zoomLevel > 17 ? direction : 0}deg); width: 60px; height: 60px;' alt='${equip_name}' src=${imagePath} />`
+      html: `<img 
+                style='
+                transform: rotate(${zoomLevel > 17 ? direction : 0}deg); 
+                width: 60px; 
+                height: 60px;
+                '
+                alt='${equip_name}' 
+                src='${imagePath}' 
+              />`
     })
   }, [imagePath, direction])
-
-  // const markerIcon = useMemo(() => {
-  //   return L.divIcon({
-  //     className: 'custom-marker-icon',
-  //     iconSize: [60, 60],
-  //     html: `<img style='transform: rotate(${zoomLevel > 17 ? direction : 0}deg); width: 60px; height: 60px;' alt='${equip_name}' src=${imagePath} />`
-  //   })
-  // }, [imagePath, direction])
-
-  // const markerIcon = L.divIcon({
-  //   className: 'custom-marker-icon',
-  //   iconSize: [60, 60],
-  //   html: `<img style='transform: rotate(${Math.abs(-90 + coordsData.direction)}deg); width: 60px; height: 60px;' alt='${equip_name}' src='src/assets/icons_enum/${image_status}.svg' />`
-  // }))
 
   return (
     <Marker
@@ -118,10 +112,11 @@ const EquipCastomMarker: React.FC<Props> = ({
           {stateEquipmentOptions['Скорость'] ? `Скорость: ${speed} км/ч` : null}
         </div>
         <div>
-          {stateEquipmentOptions['Уровень топлива'] ? `Уровень топлива: ${fuel} л` : null}
-        </div>
-        <div>
-          {stateEquipmentOptions['Уровень топлива'] ? `Уровень топлива: ${fuel} л` : null}
+          {
+            fuel === null
+              ? stateEquipmentOptions['Уровень топлива'] ? 'Уровень топлива: данные не зарегистрированы' : null
+              : stateEquipmentOptions['Уровень топлива'] ? `Уровень топлива: ${fuel} л` : null
+          }
         </div>
         <div>
           {stateEquipmentOptions['Последняя активность'] ? `Последняя активность: ${new Date(+lastUpdDtt * 1000)}` : null}
