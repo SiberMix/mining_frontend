@@ -12,6 +12,7 @@ import {
 import { useSelector } from 'react-redux'
 import { getSidebarOpenWindowSelector } from '../../../../redux/selectors/sidebarSelectors'
 import SettingsModal from '../modules/settings/SettingsModal'
+import PlayBack from '../modules/play-back/PlayBack'
 
 type Props = {}
 
@@ -27,15 +28,19 @@ const SidebarContainer: React.FC<Props> = () => {
           classNames="sidebar-fade"
           timeout={280}
         >
-          {sidebarOpenWindow === 'PolygonList'
-            ? <PolygonList />
-            : sidebarOpenWindow === 'EquipmentList'
-              ? <LibraryList />
-              : sidebarOpenWindow === 'FieldList'
-                ? <FieldList />
-                : sidebarOpenWindow === 'Calendar'
-                  ? <CropRotation />
-                  : <></>}
+          {
+            sidebarOpenWindow === 'PolygonList'
+              ? <PolygonList />
+              : sidebarOpenWindow === 'EquipmentList'
+                ? <LibraryList />
+                : sidebarOpenWindow === 'FieldList'
+                  ? <FieldList />
+                  : sidebarOpenWindow === 'Calendar'
+                    ? <CropRotation />
+                    : sidebarOpenWindow === 'PlayBack'
+                      ? <PlayBack />
+                      : <></>
+          }
         </CSSTransition>
       </SwitchTransition>
       <SettingsModal />

@@ -15,13 +15,13 @@ const startSidebarOptions: Array<{value: string, label: string}> = [
     value: 'PolygonList',
     label: 'Список полигонов'
   },
-  // {
-  //   value: 'Заметки',
-  //   label: 'Заметки'
-  // },
   {
     value: 'EquipmentList',
     label: 'Техника'
+  },
+  {
+    value: 'PlayBack',
+    label: 'Плэйбэк'
   },
   {
     value: 'FieldList',

@@ -4,6 +4,7 @@ import type { PropsWithChildren } from 'react'
 import React, { useEffect } from 'react'
 import Field from '/src/assets/icons/field.svg'
 import Job from '/src/assets/icons/job.svg'
+import PlayBack from '/src/assets/icons/playback.svg'
 import Equip from '/src/assets/icons/harvester2.svg'
 import Calendar from '/src/assets/sevo/sevooborot.svg'
 import Setting from '/src/assets/icons/settings.svg'
@@ -57,6 +58,7 @@ const Sidebar: React.FC<PropsWithChildren> = () => {
   const handleChangeSidebarContent = (openSidebarContent: SidebarOpenWindow) => {
     dispatch(setOpenSidebarWindow(openSidebarContent))
   }
+
   function alertMsg() {
     alert('Данный функционал недоступен в демонстрационном режиме')
   }
@@ -86,6 +88,12 @@ const Sidebar: React.FC<PropsWithChildren> = () => {
             title="Оборудование"
             active={(sidebarOpenWindow === 'EquipmentList') ? 'open' : ''}
             onClick={() => handleChangeSidebarContent('EquipmentList')}
+          />
+          <Svg
+            src={PlayBack}
+            title="Плэйбэк"
+            active={(sidebarOpenWindow === 'PlayBack') ? 'open' : ''}
+            onClick={() => handleChangeSidebarContent('PlayBack')}
           />
           <Svg
             src={Trava}

@@ -7,29 +7,26 @@ import EditBox from '/src/assets/icons/edit.svg'
 import { Dropdown } from 'antd'
 import type { Polygon } from '../../../../../../types'
 import PolygonCanvas from '../PolygonCanvas/PolygonCanvas'
-import { mapService } from '../../../../../../api/map'
 import {
   EditPolygonNameModal,
   EditPolygonTypeModal
 } from './PolygonEditModal'
 import { useSelector } from 'react-redux'
-import {
-  getAllPolygonsSelector,
-  getSelectedPolygonIdSelector
-} from '../../../../../../redux/selectors/mapSelectors'
+import { getSelectedPolygonIdSelector } from '../../../../../../redux/selectors/mapSelectors'
 import {
   putEditPolygon,
   setEditedPolygon,
-  setPolygonFlyTo,
-  setPolygons
+  setPolygonFlyTo
 } from '../../../../../../redux/slices/mapSlice'
 import { useAppDispatch } from '../../../../../../redux/store'
 
 const PolygonPreview: React.FC<{
   polygon: Polygon,
   onDelete?: () => void
-}> = ({ polygon,
-  onDelete }) => {
+}> = ({
+  polygon,
+  onDelete
+}) => {
 
   const selectedPolygonId = useSelector(getSelectedPolygonIdSelector)
 

@@ -1,0 +1,41 @@
+.PlayBackMenuItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .5em;
+  height: 4.5em;
+  border-bottom: 0.2px solid #858585;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &__info {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    font-size: .7em;
+    color: #C0BDC0;
+
+    &-name {
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+
+    &-equips {
+      margin-top: .6em;
+      font-size: 1em;
+    }
+  }
+
+  &__icons {
+    display: flex;
+    &-item {
+      width: 1em;
+      height: 1em;
+      margin: 0 .3em;
+    }
+  }
+}

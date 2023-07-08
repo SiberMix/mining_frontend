@@ -33,4 +33,4 @@ export const {
 
 export default reducer
 
-export type SidebarOpenWindow = 'PolygonList' | 'EquipmentList' | 'FieldList' | 'Calendar' | undefined
+export type SidebarOpenWindow = 'PolygonList' | 'EquipmentList' | 'FieldList' | 'Calendar' | 'PlayBack' | undefined
