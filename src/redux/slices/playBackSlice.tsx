@@ -10,7 +10,16 @@ const playBackSliceInitialState: PlayBackSliceInitialState = {
     {
       color: '#1677ff',
       equipment: ['4', '10', '1', '12', '11'],
-      name: 'eroiermnoverm',
+      name: 'Плэйбэк #1',
+      time_step: {
+        start: 1689708930,
+        end: 1690396593
+      }
+    },
+    {
+      color: '#F85F73',
+      equipment: ['1', '12', '11'],
+      name: 'Плэйбэк #2',
       time_step: {
         start: 1689708930,
         end: 1690396593
