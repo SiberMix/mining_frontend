@@ -6,18 +6,26 @@ import {
   EyeOutlined,
   EyeInvisibleOutlined
 } from '@ant-design/icons'
+import { useSelector } from 'react-redux'
+import { getAllEquipmentSelector } from '../../../../../../redux/selectors/mapSelectors'
 
 type Props = {
   index: number,
-  title: string,
-  watchingEquips: string[]
+  color: string,
+  equipment: string[],
+  name: string
 }
 
 const PlayBackMenuItem: React.FC<Props> = ({
-  watchingEquips,
   index,
-  title
+  equipment,
+  name,
+  color
 }) => {
+
+  const watchingEquips = useSelector(getAllEquipmentSelector)
+    .filter(equip => (equipment.some(e => equip.id.toString() === e)))
+    .map(filteredEquip => filteredEquip.equip_name)
 
   const [isWatching, setIsWatching] = useState(false)
 
@@ -37,13 +45,17 @@ const PlayBackMenuItem: React.FC<Props> = ({
     <div className="PlayBackMenuItem">
       <div className="PlayBackMenuItem__info">
         <span className="PlayBackMenuItem__info-name">
-          {`${title} #${index + 1}`}
+          {name}
         </span>
         <span className="PlayBackMenuItem__info-equips">
           {createCurrentStringFromWatchingEquips()}
         </span>
       </div>
       <div className="PlayBackMenuItem__icons">
+        <div
+          className="PlayBackMenuItem__icons-color"
+          style={{ backgroundColor: color }}
+        />
         {
           isWatching
             ? <EyeOutlined
@@ -58,6 +70,7 @@ const PlayBackMenuItem: React.FC<Props> = ({
             />
         }
         <img
+          //todo добавить тайт
           className="PlayBackMenuItem__icons-item"
           src={EditBox}
           alt=""

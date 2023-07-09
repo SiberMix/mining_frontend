@@ -32,10 +32,17 @@
 
   &__icons {
     display: flex;
+    align-items: center;
     &-item {
       width: 1em;
       height: 1em;
       margin: 0 .3em;
+    }
+    &-color {
+      margin: 0 .5em;
+      width: 1.6em;
+      height: .3em;
+      border-radius: 8px;
     }
   }
 }

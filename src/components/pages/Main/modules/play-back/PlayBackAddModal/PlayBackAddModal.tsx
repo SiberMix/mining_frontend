@@ -13,7 +13,10 @@ import {
 import { useSelector } from 'react-redux'
 import type { RootState } from '../../../../../../redux/store'
 import { useAppDispatch } from '../../../../../../redux/store'
-import { setIsOpenPlayBackAddModal } from '../../../../../../redux/slices/playBackSlice'
+import {
+  addPlayBacksData,
+  setIsOpenPlayBackAddModal
+} from '../../../../../../redux/slices/playBackSlice'
 //@ts-ignore
 import { GithubPicker } from 'react-color'
 import importedColors from './recomended-colors.json'
@@ -45,6 +48,12 @@ const PlayBackAddModal = () => {
         time_step: timeStep,
         equipment: targetKeys
       })
+      dispatch(addPlayBacksData({
+        name,
+        color,
+        time_step: timeStep,
+        equipment: targetKeys
+      }))
       closeHandler()
     } else {
       alert('Пожалуйста заполните информацию полностью')
@@ -89,7 +98,7 @@ const PlayBackAddModal = () => {
   }
 
   const mockData = allEquipment.map((equip, i) => ({
-    key: equip.imei.toString(),
+    key: equip.id.toString(),
     title: equip.equip_name
   }))
 

@@ -32,8 +32,7 @@ const PlayBack = () => {
             <PlayBackMenuItem
               key={index}
               index={index}
-              title={item.title}
-              watchingEquips={item.watching_equips}
+              {...item}
             />
           ))
         }
