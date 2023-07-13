@@ -1,7 +1,5 @@
-// важнейший импорт из самой карты, без него карта работает некорректно
-import 'leaflet/dist/leaflet.css'
-// доп файл, убирает флаг и ссылку на leaflet
-import './leafletFix.css'
+import 'leaflet/dist/leaflet.css' // важнейший импорт из самой карты, без него карта работает некорректно
+import './leafletFix.css' // доп файл, убирает флаг и ссылку на leaflet
 import 'leaflet-draw/dist/leaflet.draw-src.css'
 import React from 'react'
 import MapViewSelect from './MapViewSelect/MapViewSelect'
@@ -10,17 +8,11 @@ import DrawingPolygon from './MapPolygons/DrawingPolygon'
 import MapEquipments from './MapEquipments/MapEquipments'
 import * as cn from 'classnames'
 import s from './Map.module.scss'
-import {
-  MapContainer,
-  ZoomControl
-} from 'react-leaflet'
+import { MapContainer, ZoomControl } from 'react-leaflet'
 import { useSelector } from 'react-redux'
-import {
-  getUsingBaseCoordSelector,
-  getUsingZoomLevelOptionsSelector
-} from '../../../../redux/selectors/settingsSelector'
+import { getUsingBaseCoordSelector, getUsingZoomLevelOptionsSelector } from '../../../../redux/selectors/settingsSelector'
 import PickBaseCoord from './PickBaseCoord/PickBaseCoord'
-import EquipCastomMarker from './MapEquipments/EquipCastomMarker'
+import MapPlayback from './MapPlayback/MapPlayback'
 
 type Props = {}
 
@@ -52,11 +44,12 @@ const Map: React.FC<Props> = () => {
       {/*  speed={54.925946}*/}
       {/*  fuel={54.925946}*/}
       {/*/>*/}
+      <MapPlayback />
       <MapViewSelect />
       <MapPolygons />
       <DrawingPolygon />
       <MapEquipments />
-      <ZoomControl position="topright" />
+      <ZoomControl position='topright' />
       <PickBaseCoord />
     </MapContainer>
   )

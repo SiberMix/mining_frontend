@@ -13,3 +13,11 @@ export const axiosInstance = axios.create({
     'Authorization': 'Token ' + localStorage.getItem('token') || ''
   }
 })
+export const axiosInstanceWithoutV1 = axios.create({
+  baseURL: 'http://myhectare.ru:8001/api/v1/',
+  timeout: REQUEST_TIMEOUT,
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Token ' + localStorage.getItem('token') || ''
+  }
+})

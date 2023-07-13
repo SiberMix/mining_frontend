@@ -1,36 +1,33 @@
 import './PlayBackMenuItem.scss'
-import React, { useState } from 'react'
+import React from 'react'
 import TrashBox from '/src/assets/icons/delete.svg'
 import EditBox from '/src/assets/icons/edit.svg'
-import {
-  EyeOutlined,
-  EyeInvisibleOutlined
-} from '@ant-design/icons'
+import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons'
 import { useSelector } from 'react-redux'
 import { getAllEquipmentSelector } from '../../../../../../redux/selectors/mapSelectors'
+import { addShowingPlayback, CurrentPlaybackData, deletePlayback, removeShowingPlayback } from '../../../../../../redux/slices/playBackSlice'
+import { RootState, useAppDispatch } from '../../../../../../redux/store'
 
 type Props = {
-  index: number,
-  color: string,
-  equipment: string[],
-  name: string
+  itemPlaybackData: CurrentPlaybackData
 }
 
 const PlayBackMenuItem: React.FC<Props> = ({
-  index,
-  equipment,
-  name,
-  color
+  itemPlaybackData
 }) => {
-
+  const dispatch = useAppDispatch()
+  const showingPlaybacks = useSelector((state: RootState) => state.playBackReducer.showingPlaybacks)
   const watchingEquips = useSelector(getAllEquipmentSelector)
-    .filter(equip => (equipment.some(e => equip.id.toString() === e)))
+    .filter(equip => (itemPlaybackData.equipment.some(e => equip.id.toString() === e)))
     .map(filteredEquip => filteredEquip.equip_name)
 
-  const [isWatching, setIsWatching] = useState(false)
-
   const toggleIsWatching = () => {
-    setIsWatching(isWatching => !isWatching)
+    // if (showingPlaybacks.some(s => s === itemPlaybackData.id)) {
+    if (showingPlaybacks === itemPlaybackData.id) {
+      dispatch(removeShowingPlayback(itemPlaybackData.id))
+    } else {
+      dispatch(addShowingPlayback(itemPlaybackData.id))
+    }
   }
 
   const createCurrentStringFromWatchingEquips = () => {
@@ -42,46 +39,46 @@ const PlayBackMenuItem: React.FC<Props> = ({
   }
 
   return (
-    <div className="PlayBackMenuItem">
-      <div className="PlayBackMenuItem__info">
-        <span className="PlayBackMenuItem__info-name">
-          {name}
+    <div className='PlayBackMenuItem'>
+      <div className='PlayBackMenuItem__info'>
+        <span className='PlayBackMenuItem__info-name'>
+          {itemPlaybackData.name}
         </span>
-        <span className="PlayBackMenuItem__info-equips">
+        <span className='PlayBackMenuItem__info-equips'>
           {createCurrentStringFromWatchingEquips()}
         </span>
       </div>
-      <div className="PlayBackMenuItem__icons">
+      <div className='PlayBackMenuItem__icons'>
         <div
-          className="PlayBackMenuItem__icons-color"
-          style={{ backgroundColor: color }}
+          className='PlayBackMenuItem__icons-color'
+          style={{ backgroundColor: itemPlaybackData.color }}
         />
         {
-          isWatching
+          // showingPlaybacks.some(s => s === itemPlaybackData.id)
+          showingPlaybacks === itemPlaybackData.id
             ? <EyeOutlined
-              className="PlayBackMenuItem__icons-item"
+              className='PlayBackMenuItem__icons-item'
               style={{ color: '#ffffff' }}
               onClick={toggleIsWatching}
             />
             : <EyeInvisibleOutlined
-              className="PlayBackMenuItem__icons-item"
+              className='PlayBackMenuItem__icons-item'
               style={{ color: '#848484' }}
               onClick={toggleIsWatching}
             />
         }
         <img
-          //todo добавить тайт
-          className="PlayBackMenuItem__icons-item"
+          className='PlayBackMenuItem__icons-item'
           src={EditBox}
-          alt=""
-          title="Редактировать полигон"
+          alt=''
+          title='Редактировать плэйбэк'
         />
         <img
-          className="PlayBackMenuItem__icons-item"
-          // onClick={onDelete}
+          className='PlayBackMenuItem__icons-item'
+          onClick={() => dispatch(deletePlayback(itemPlaybackData.id))}
           src={TrashBox}
-          alt=""
-          title="Удалить полигон"
+          alt=''
+          title='Удалить плэйбэк'
         />
       </div>
     </div>

@@ -1,64 +1,119 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { mapService } from '../../api/map'
 
 type PlayBackSliceInitialState = {
-  playBacksData: PlayBacksData[],
+  playbacksData: CurrentPlaybackData[]
   isOpenPlayBackAddModal: boolean
+  showingPlaybacks: number | null
 }
 
 const playBackSliceInitialState: PlayBackSliceInitialState = {
-  playBacksData: [
-    {
-      color: '#1677ff',
-      equipment: ['4', '10', '1', '12', '11'],
-      name: 'Плэйбэк #1',
-      time_step: {
-        start: 1689708930,
-        end: 1690396593
-      }
-    },
-    {
-      color: '#F85F73',
-      equipment: ['1', '12', '11'],
-      name: 'Плэйбэк #2',
-      time_step: {
-        start: 1689708930,
-        end: 1690396593
-      }
-    }
-  ],
-  isOpenPlayBackAddModal: false
+  playbacksData: [],
+  isOpenPlayBackAddModal: false,
+  showingPlaybacks: null
 }
 
-const playBackSlice = createSlice({
-  name: 'sidebar',
+const playbackSlice = createSlice({
+  name: 'playback',
   initialState: playBackSliceInitialState,
   reducers: {
     setIsOpenPlayBackAddModal: (state: PlayBackSliceInitialState, action) => {
       state.isOpenPlayBackAddModal = action.payload
     },
-    setPlayBacksData: (state: PlayBackSliceInitialState, action) => {
-      state.playBacksData = action.payload
+    addShowingPlayback: (state: PlayBackSliceInitialState, action) => {
+      state.showingPlaybacks = action.payload
     },
-    addPlayBacksData: (state: PlayBackSliceInitialState, action: { type: string, payload: PlayBacksData }) => {
-      state.playBacksData.push(action.payload)
+    removeShowingPlayback: (state: PlayBackSliceInitialState, action) => {
+      state.showingPlaybacks = null
     }
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(getAllPlaybacks.fulfilled, (state: PlayBackSliceInitialState, action) => {
+        state.playbacksData = action.payload?.data
+      })
+      .addCase(postNewPlayback.fulfilled, (state: PlayBackSliceInitialState, action) => {
+        state.playbacksData.push(action.payload?.data)
+      })
+      .addCase(editeNewPlayback.fulfilled, (state: PlayBackSliceInitialState, action) => {
+        state.playbacksData = state.playbacksData.map(playback => {
+          if (playback.id === action.payload.id) {
+            return action.payload.newPlaybackData
+          }
+          return playback
+        })
+      })
+      .addCase(deletePlayback.fulfilled, (state: PlayBackSliceInitialState, action) => {
+        state.playbacksData = state.playbacksData.filter(playback => playback.id !== action.payload.id)
+      })
+      .addDefaultCase(() => {
+      })
   }
 })
+
+export const getAllPlaybacks = createAsyncThunk(
+  'playback/getAllPlaybacks',
+  () => {
+    return mapService.getPlayback()
+  }
+)
+export const postNewPlayback = createAsyncThunk(
+  'playback/postNewPlayback',
+  (newPlaybackData: PlaybackPostData) => {
+    return mapService.addNewPlayback(newPlaybackData)
+  }
+)
+export const editeNewPlayback = createAsyncThunk(
+  'playback/editeNewPlayback',
+  async ({
+    id,
+    newPlaybackData
+  }: PlaybackDataForEdit) => {
+    const response = await mapService.updatePlayback(id, newPlaybackData)
+    return {
+      id,
+      newPlaybackData,
+      response
+    }
+  }
+)
+export const deletePlayback = createAsyncThunk(
+  'playback/deletePlayback',
+  async (id: number) => {
+    const response = await mapService.deletePlayback(id)
+    return {
+      id,
+      response
+    }
+  }
+)
 
 const {
   reducer,
   actions
-} = playBackSlice
+} = playbackSlice
 
 export const {
   setIsOpenPlayBackAddModal,
-  setPlayBacksData,
-  addPlayBacksData
+  addShowingPlayback,
+  removeShowingPlayback
 } = actions
 
 export default reducer
 
-export type PlayBacksData = {
+export type CurrentPlaybackData = {
+  id: number
+  name: string
+  color: string
+  time_step: {
+    end: number
+    start: number
+  }
+  equipment: string[]
+  equipments_data: EquipmentsData[]
+}
+
+export type PlaybackPostData = {
   color: string,
   equipment: string[],
   name: string,
@@ -66,4 +121,22 @@ export type PlayBacksData = {
     start: number,
     end: number
   }
+}
+
+export type PlaybackDataForEdit = {
+  id: number,
+  newPlaybackData: CurrentPlaybackData
+}
+
+export type EquipmentsData = {
+  id: number,
+  imei: string,
+  name: string
+  imei_data: imeiData[]
+}
+
+export type imeiData = {
+  lat: number
+  lon: number
+  datetime: number
 }

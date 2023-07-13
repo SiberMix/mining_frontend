@@ -1,17 +1,7 @@
 import './EquipCastomMarker.scss'
 import L from 'leaflet'
-import {
-  Marker,
-  Popup,
-  useMap,
-  useMapEvents
-} from 'react-leaflet'
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useState
-} from 'react'
+import { Marker, Popup, useMap, useMapEvents } from 'react-leaflet'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { useAppDispatch } from '../../../../../redux/store'
 import { useSelector } from 'react-redux'
 import { getEquipmentFlyToSelector } from '../../../../../redux/selectors/mapSelectors'
@@ -60,21 +50,19 @@ const EquipCastomMarker: React.FC<Props> = ({
   * меняет изображение техники при минимальном зуме
   * */
   const [zoomLevel, setZoomLevel] = useState(1)
-
-  // webstorm просто не видит использование события zoom, поэтому ловим предупредение
-  // НЕ ТРОГАТЬ!!!
   useMapEvents({
     zoom: () => {
       const newZoomLevel = map.getZoom()
       setZoomLevel(newZoomLevel)
     }
   })
+
   const imagePath = useMemo(() => {
     /**
      * если нужно отключить то меняем с 17 на 18. Больше 18 он быть не может
      * по дефолту 17
      * */
-    return zoomLevel > 17 ? 'src/assets/icons_enum/4mini.svg' : `src/assets/icons_enum/${image_status}.svg`
+    return zoomLevel > 17 ? 'src/assets/icons_enum/mini_icons/combaingreen.svg' : `src/assets/icons_enum/${image_status}.svg`
   }, [zoomLevel])
 
   const createEquipIcon = useCallback(() => {

@@ -1,22 +1,11 @@
 import './PlayBackAddModal.scss'
 import * as cn from 'classnames'
-import React, {
-  useEffect,
-  useState
-} from 'react'
-import {
-  DatePicker,
-  Input,
-  Modal,
-  Transfer
-} from 'antd'
+import React, { useEffect, useState } from 'react'
+import { DatePicker, Input, Modal, Transfer } from 'antd'
 import { useSelector } from 'react-redux'
 import type { RootState } from '../../../../../../redux/store'
 import { useAppDispatch } from '../../../../../../redux/store'
-import {
-  addPlayBacksData,
-  setIsOpenPlayBackAddModal
-} from '../../../../../../redux/slices/playBackSlice'
+import { postNewPlayback, setIsOpenPlayBackAddModal } from '../../../../../../redux/slices/playBackSlice'
 //@ts-ignore
 import { GithubPicker } from 'react-color'
 import importedColors from './recomended-colors.json'
@@ -48,7 +37,7 @@ const PlayBackAddModal = () => {
         time_step: timeStep,
         equipment: targetKeys
       })
-      dispatch(addPlayBacksData({
+      dispatch(postNewPlayback({
         name,
         color,
         time_step: timeStep,
@@ -108,49 +97,49 @@ const PlayBackAddModal = () => {
         'fieldPreviewModal',
         'PlayBackAddModal'
       )}
-      title="Создать воспроизведение"
+      title='Создать воспроизведение'
       open={isOpenPlayBackAddModal}
       onCancel={closeHandler}
       onOk={handleSubmit}
     >
       <Input
-        placeholder="Название плэйкбэка"
+        placeholder='Название плэйкбэка'
         value={name}
         onChange={(e) => setName(e.target.value)}
         style={{ marginBottom: '16px' }}
       />
-      <span className="PlayBackAddModal__title">
+      <span className='PlayBackAddModal__title'>
         Выберете цвет линий
       </span>
       <div
-        className="PlayBackAddModal__colorpicker-color"
+        className='PlayBackAddModal__colorpicker-color'
         style={{ backgroundColor: color }}
       />
-      <div className="PlayBackAddModal__colorpicker">
+      <div className='PlayBackAddModal__colorpicker'>
         <GithubPicker
-          width="95%"
-          triangle="hide"
+          width='95%'
+          triangle='hide'
           color={color}
           onChange={handleColorChange}
           colors={importedColors.colors}
         />
       </div>
-      <span className="PlayBackAddModal__title PlayBackAddModal__title-date">
+      <span className='PlayBackAddModal__title PlayBackAddModal__title-date'>
         Выберете временной интервал
       </span>
-      <div className="PlayBackAddModal__datepicker">
+      <div className='PlayBackAddModal__datepicker'>
         <DatePicker.RangePicker
           //костыльно перерисовываем компонент для сброса значений
           key={`${keyForReset}`}
           showTime={{ format: 'HH:mm' }}
-          format="YYYY-MM-DD HH:mm"
+          format='YYYY-MM-DD HH:mm'
           onOk={onOkDate}
         />
       </div>
-      <span className="PlayBackAddModal__title">
+      <span className='PlayBackAddModal__title'>
         Выберете оорудование
       </span>
-      <div className="PlayBackAddModal__transfer">
+      <div className='PlayBackAddModal__transfer'>
         <Transfer
           dataSource={mockData}
           titles={['Все', 'Выбрано']}
