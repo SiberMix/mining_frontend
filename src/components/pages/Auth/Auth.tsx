@@ -29,40 +29,40 @@ const LoginPage = () => {
   }
 
   return (
-    <div className="root">
+    <div className='root'>
 
       <img
-        className="logo"
-        id="displayed"
-        alt="logo"
+        className='logo'
+        id='displayed'
+        alt='logo'
         src={CompanyLogo}
       />
       <form
-        className="form"
+        className='form'
         onSubmit={handleSubmit}
       >
         <input
-          className="input"
-          type="text"
+          className='input'
+          type='text'
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          placeholder="username"
+          placeholder='username'
         />
         <input
-          className="input"
-          type="password"
+          className='input'
+          type='password'
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          placeholder="password"
+          placeholder='password'
         />
         <button
-          className="button"
-          type="submit"
+          className='button'
+          type='submit'
         >
           ➤
         </button>
         {error
-          ? <div className="error">
+          ? <div className='error'>
             {error}
           </div>
           : null}

@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 type AuthInitialState = {
-  token: string
+  token: string | null
 }
 
 const authInitialState: AuthInitialState = {
-  token: ''
+  token: null
   // токен на случай какого то пиздеца '6126e8c08dbcb7cef6e4294b9eb76df6e46dc769'
 }
 

@@ -18,23 +18,26 @@ const MainPage = () => {
   const [load, setLoad] = useState(true)
 
   useEffect(() => {
-    // Имитация загрузки данных
-    const fakeTimeout = setTimeout(() => setLoad(false), 3000)
-    return () => {
-      clearTimeout(fakeTimeout)
-    }
-  }, [])
 
-  useEffect(() => {
-    ((async () => {
-      dispatch(getAllFields())
-      dispatch(getAllPolygons())
-      dispatch(getAllEquipment())
-      dispatch(getTypesList())
-      dispatch(getEquipsModelsList())
-      dispatch(getTrailerList())
-      dispatch(getAllPlaybacks())
-    }))()
+    (async () => {
+      try {
+        await Promise.all([
+          dispatch(getAllFields()),
+          dispatch(getAllPolygons()),
+          dispatch(getAllEquipment()),
+          dispatch(getTypesList()),
+          dispatch(getEquipsModelsList()),
+          dispatch(getTrailerList()),
+          dispatch(getAllPlaybacks())
+        ])
+
+        setLoad(false)
+        //todo сделать уведомление
+        console.log('Информация загружена')
+      } catch (error) {
+        console.error('Произошла ошибка при загрузке данных:', error)
+      }
+    })()
   }, [])
 
   return (

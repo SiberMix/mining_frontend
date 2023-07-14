@@ -18,16 +18,10 @@ import type { SidebarOpenWindow } from '../../../../redux/slices/sidebarSlice'
 import { setOpenSidebarWindow } from '../../../../redux/slices/sidebarSlice'
 import { useSelector } from 'react-redux'
 import { getSidebarOpenWindowSelector } from '../../../../redux/selectors/sidebarSelectors'
-import {
-  setMapClickForNewBaseCoord,
-  setShowSettingsModal
-} from '../../../../redux/slices/settingsSlice'
+import { setMapClickForNewBaseCoord, setShowSettingsModal } from '../../../../redux/slices/settingsSlice'
 import { getUsingStartMenuOptionsSelector } from '../../../../redux/selectors/settingsSelector'
 import { setToken } from '../../../../redux/slices/authSlice'
-import {
-  Link,
-  useNavigate
-} from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { BarChartOutlined } from '@ant-design/icons'
 
 const Sidebar: React.FC<PropsWithChildren> = () => {
@@ -47,7 +41,7 @@ const Sidebar: React.FC<PropsWithChildren> = () => {
   * Функционал для выхода из акаунта
   * */
   const logout = () => {
-    dispatch(setToken(''))
+    dispatch(setToken(null))
     localStorage.removeItem('token')
     navigate('/')
   }
@@ -70,55 +64,55 @@ const Sidebar: React.FC<PropsWithChildren> = () => {
           <img
             className={cn(s.navImg)}
             src={miniLogo}
-            alt=""
+            alt=''
           />
           <Svg
-            title="Список полей"
+            title='Список полей'
             active={(sidebarOpenWindow === 'PolygonList') ? 'open' : ''}
             onClick={() => handleChangeSidebarContent('PolygonList')}
             src={Field}
           />
           <Svg
             src={Job}
-            title="Задания"
+            title='Задания'
             onClick={alertMsg}
           />
           <Svg
             src={Equip}
-            title="Оборудование"
+            title='Оборудование'
             active={(sidebarOpenWindow === 'EquipmentList') ? 'open' : ''}
             onClick={() => handleChangeSidebarContent('EquipmentList')}
           />
           <Svg
             src={PlayBack}
-            title="Плэйбэк"
+            title='Плэйбэк'
             active={(sidebarOpenWindow === 'PlayBack') ? 'open' : ''}
             onClick={() => handleChangeSidebarContent('PlayBack')}
           />
           <Svg
             src={Trava}
-            title="Культура"
+            title='Культура'
             active={(sidebarOpenWindow === 'FieldList') ? 'open' : ''}
             onClick={() => handleChangeSidebarContent('FieldList')}
           />
           <Svg
             src={Calendar}
-            title="Планирование"
+            title='Планирование'
             active={(sidebarOpenWindow === 'Calendar') ? 'open' : ''}
             onClick={() => handleChangeSidebarContent('Calendar')}
           />
         </div>
         <div>
           <Link
-            to="/analytics"
+            to='/analytics'
           >
             <BarChartOutlined
               className={s.icon}
-              title="Аналитика"
+              title='Аналитика'
             />
           </Link>
           <Svg
-            title="Настройки"
+            title='Настройки'
             src={Setting}
             onClick={() => {
               dispatch(setOpenSidebarWindow(undefined))
@@ -127,8 +121,8 @@ const Sidebar: React.FC<PropsWithChildren> = () => {
             }}
           />
           <Svg
-            title="Выход"
-            color="#b53f42"
+            title='Выход'
+            color='#b53f42'
             src={LogoutBtn}
             onClick={logout}
           />

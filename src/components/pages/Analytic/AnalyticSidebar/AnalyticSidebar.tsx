@@ -9,11 +9,7 @@ import SVG from 'react-inlinesvg'
 import { useAppDispatch } from '../../../../redux/store'
 import { setToken } from '../../../../redux/slices/authSlice'
 import { NavLink } from 'react-router-dom'
-import {
-  GlobalOutlined,
-  PieChartOutlined,
-  LineChartOutlined
-} from '@ant-design/icons'
+import { GlobalOutlined, LineChartOutlined, PieChartOutlined } from '@ant-design/icons'
 
 const AnalyticSidebar: React.FC<PropsWithChildren> = () => {
   const dispatch = useAppDispatch()
@@ -22,7 +18,7 @@ const AnalyticSidebar: React.FC<PropsWithChildren> = () => {
   * Функционал для выхода из акаунта
   * */
   const logout = () => {
-    dispatch(setToken(''))
+    dispatch(setToken(null))
     localStorage.removeItem('token')
   }
 
@@ -33,43 +29,43 @@ const AnalyticSidebar: React.FC<PropsWithChildren> = () => {
           <img
             className={cn(s.navImg)}
             src={miniLogo}
-            alt=""
+            alt=''
           />
           <NavLink
-            to="/analytics/field"
+            to='/analytics/field'
           >
             {({ isActive }) => (
               <PieChartOutlined
                 style={{ color: isActive ? '#28b6fe' : '' }}
                 className={s.icon}
-                title="Аналитика"
+                title='Аналитика'
               />
             )}
           </NavLink>
           <NavLink
-            to="/analytics/equipments"
+            to='/analytics/equipments'
           >
             {({ isActive }) => (
               <LineChartOutlined
                 style={{ color: isActive ? '#28b6fe' : '' }}
                 className={s.icon}
-                title="Аналитика"
+                title='Аналитика'
               />
             )}
           </NavLink>
         </div>
         <div>
           <NavLink
-            to="/monitoring"
+            to='/monitoring'
           >
             <GlobalOutlined
               className={s.icon}
-              title="Аналитика"
+              title='Аналитика'
             />
           </NavLink>
           <Svg
-            title="Выход"
-            color="#b53f42"
+            title='Выход'
+            color='#b53f42'
             src={LogoutBtn}
             onClick={logout}
           />
