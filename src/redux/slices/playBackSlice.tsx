@@ -5,12 +5,14 @@ type PlayBackSliceInitialState = {
   playbacksData: CurrentPlaybackData[]
   isOpenPlayBackAddModal: boolean
   showingPlaybacks: number | null
+  editedPlayback: CurrentPlaybackData | null
 }
 
 const playBackSliceInitialState: PlayBackSliceInitialState = {
   playbacksData: [],
   isOpenPlayBackAddModal: false,
-  showingPlaybacks: null
+  showingPlaybacks: null,
+  editedPlayback: null
 }
 
 const playbackSlice = createSlice({
@@ -25,6 +27,9 @@ const playbackSlice = createSlice({
     },
     removeShowingPlayback: (state: PlayBackSliceInitialState, action) => {
       state.showingPlaybacks = null
+    },
+    setEditedPlayback: (state: PlayBackSliceInitialState, action) => {
+      state.editedPlayback = action.payload
     }
   },
   extraReducers: (builder) => {
@@ -96,7 +101,8 @@ const {
 export const {
   setIsOpenPlayBackAddModal,
   addShowingPlayback,
-  removeShowingPlayback
+  removeShowingPlayback,
+  setEditedPlayback
 } = actions
 
 export default reducer

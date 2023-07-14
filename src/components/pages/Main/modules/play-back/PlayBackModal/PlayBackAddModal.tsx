@@ -31,12 +31,6 @@ const PlayBackAddModal = () => {
 
   const handleSubmit = () => {
     if (name && timeStep !== null && targetKeys.length > 0) {
-      console.log({
-        name,
-        color,
-        time_step: timeStep,
-        equipment: targetKeys
-      })
       dispatch(postNewPlayback({
         name,
         color,
@@ -78,11 +72,11 @@ const PlayBackAddModal = () => {
     }
   }
 
-  const onChange = (nextTargetKeys: string[]) => {
+  const onEquipChange = (nextTargetKeys: string[]) => {
     setTargetKeys(nextTargetKeys)
   }
 
-  const onSelectChange = (sourceSelectedKeys: string[], targetSelectedKeys: string[]) => {
+  const onSelectEquipChange = (sourceSelectedKeys: string[], targetSelectedKeys: string[]) => {
     setSelectedKeys([...sourceSelectedKeys, ...targetSelectedKeys])
   }
 
@@ -145,8 +139,8 @@ const PlayBackAddModal = () => {
           titles={['Все', 'Выбрано']}
           targetKeys={targetKeys}
           selectedKeys={selectedKeys}
-          onChange={onChange}
-          onSelectChange={onSelectChange}
+          onChange={onEquipChange}
+          onSelectChange={onSelectEquipChange}
           locale={{
             notFoundContent: 'Ничего не выбрано'
           }}

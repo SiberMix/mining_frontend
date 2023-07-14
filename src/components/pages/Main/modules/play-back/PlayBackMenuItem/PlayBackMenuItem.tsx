@@ -5,7 +5,7 @@ import EditBox from '/src/assets/icons/edit.svg'
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons'
 import { useSelector } from 'react-redux'
 import { getAllEquipmentSelector } from '../../../../../../redux/selectors/mapSelectors'
-import { addShowingPlayback, CurrentPlaybackData, deletePlayback, removeShowingPlayback } from '../../../../../../redux/slices/playBackSlice'
+import { addShowingPlayback, CurrentPlaybackData, deletePlayback, removeShowingPlayback, setEditedPlayback } from '../../../../../../redux/slices/playBackSlice'
 import { RootState, useAppDispatch } from '../../../../../../redux/store'
 
 type Props = {
@@ -70,6 +70,7 @@ const PlayBackMenuItem: React.FC<Props> = ({
         <img
           className='PlayBackMenuItem__icons-item'
           src={EditBox}
+          onClick={() => dispatch(setEditedPlayback(itemPlaybackData))}
           alt=''
           title='Редактировать плэйбэк'
         />

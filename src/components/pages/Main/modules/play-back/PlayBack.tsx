@@ -4,8 +4,9 @@ import PlayBackMenuItem from './PlayBackMenuItem/PlayBackMenuItem'
 import { useSelector } from 'react-redux'
 import type { RootState } from '../../../../../redux/store'
 import { useAppDispatch } from '../../../../../redux/store'
-import PlayBackAddModal from './PlayBackAddModal/PlayBackAddModal'
+import PlayBackAddModal from './PlayBackModal/PlayBackAddModal'
 import { setIsOpenPlayBackAddModal } from '../../../../../redux/slices/playBackSlice'
+import PlayBackEditModal from './PlayBackModal/PlayBackEditModal'
 
 const PlayBack = () => {
   const dispatch = useAppDispatch()
@@ -37,6 +38,7 @@ const PlayBack = () => {
         }
       </div>
       <PlayBackAddModal />
+      <PlayBackEditModal />
     </div>
   )
 }

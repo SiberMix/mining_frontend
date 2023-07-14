@@ -15,7 +15,7 @@ export const playbackService = {
     return axiosInstanceWithoutV1.post('/playback/', newPlaybackData)
   },
   updatePlayback: (id: number, newPlaybackData: CurrentPlaybackData) => {
-    return axiosInstanceWithoutV1.put(`/playback/${id}`, newPlaybackData)
+    return axiosInstanceWithoutV1.put(`/playback/${id}/`, newPlaybackData)
   },
   deletePlayback: (id: number) => {
     return axiosInstanceWithoutV1.delete(`/playback/${id}`)
