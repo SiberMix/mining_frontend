@@ -1,15 +1,11 @@
-import {
-  createAsyncThunk,
-  createSlice
-} from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { mapService } from '../../api/map'
-import type { EquipType } from '../../types/equip'
-import type { EquipModal } from '../../types/equip'
-import type { EquipTrailer } from '../../types/equip'
+import type { EquipModal, EquipTrailer, EquipType } from '../../types/equip'
+import { toast } from 'react-toastify'
 
-type Type = {id: number, description: string, status:boolean};
-type Model = {id: number, description: string, length: string, width: string};
-type Trailer = {id: number, trailer_name: string, gosnomer: string};
+type Type = { id: number, description: string, status: boolean };
+type Model = { id: number, description: string, length: string, width: string };
+type Trailer = { id: number, trailer_name: string, gosnomer: string };
 
 type OptionalEquipmentInitialState = {
   optionalEquipmentOpenWindow: SidebarOpenWindow,
@@ -37,7 +33,7 @@ const optionalEquipmentSlice = createSlice({
   name: 'optionalEquipment',
   initialState: optionalEquipmentInitialState,
   reducers: {
-    setOpenOptionalEquipmentWindow: (state: OptionalEquipmentInitialState, action: {type: string, payload: SidebarOpenWindow}) => {
+    setOpenOptionalEquipmentWindow: (state: OptionalEquipmentInitialState, action: { type: string, payload: SidebarOpenWindow }) => {
       state.optionalEquipmentOpenWindow = action.payload
     },
     setAddModalVisible: (state: OptionalEquipmentInitialState, action) => {
@@ -48,13 +44,13 @@ const optionalEquipmentSlice = createSlice({
         state.editedType = null
       }
     },
-    setEditedType: (state: OptionalEquipmentInitialState, action: {type: string, payload: number}) => {
+    setEditedType: (state: OptionalEquipmentInitialState, action: { type: string, payload: number }) => {
       state.editedType = state.optionalEquipmentTypesList.find(type => type.id === action.payload) || null
     },
-    setEditedModel: (state: OptionalEquipmentInitialState, action: {type: string, payload: number}) => {
+    setEditedModel: (state: OptionalEquipmentInitialState, action: { type: string, payload: number }) => {
       state.editedModel = state.optionalEquipmentModelList.find(type => type.id === action.payload) || null
     },
-    setEditedTrailer: (state: OptionalEquipmentInitialState, action: {type: string, payload: number}) => {
+    setEditedTrailer: (state: OptionalEquipmentInitialState, action: { type: string, payload: number }) => {
       state.editedTrailer = state.optionalEquipmentTrailerList.find(type => type.id === action.payload) || null
     }
   },
@@ -94,9 +90,19 @@ const optionalEquipmentSlice = createSlice({
       })
       .addCase(editModel.fulfilled, (state: OptionalEquipmentInitialState, action) => {
         state.optionalEquipmentModelList = state.optionalEquipmentModelList.map(model => {
-          const { id, description, length, width } = action.payload
+          const {
+            id,
+            description,
+            length,
+            width
+          } = action.payload
           if (model.id === action.payload.id) {
-            return { id, description, length, width }
+            return {
+              id,
+              description,
+              length,
+              width
+            }
           }
           return model
         })
@@ -113,9 +119,17 @@ const optionalEquipmentSlice = createSlice({
       })
       .addCase(editTrailer.fulfilled, (state: OptionalEquipmentInitialState, action) => {
         state.optionalEquipmentTrailerList = state.optionalEquipmentTrailerList.map(trailer => {
-          const { id, gosnomer, trailer_name } = action.payload
+          const {
+            id,
+            gosnomer,
+            trailer_name
+          } = action.payload
           if (trailer.id === action.payload.id) {
-            return { id, gosnomer, trailer_name }
+            return {
+              id,
+              gosnomer,
+              trailer_name
+            }
           }
           return trailer
         })
@@ -133,56 +147,157 @@ const optionalEquipmentSlice = createSlice({
 export const getTypesList = createAsyncThunk(
   'optionalEquipment/getTypesListThunk',
   () => {
-    return mapService.getEquipTypes()
+    return toast.promise(
+      mapService.getEquipTypes(),
+      {
+        pending: 'Получение списка типов оборудования...',
+        success: 'Список типов оборудования успешно получен',
+        error: 'Ошибка при получении списка типов оборудования'
+      }
+    )
   }
 )
+
 //todo получать айдишник назад, для оптимизации, и чтоб не обновлять каждый раз при обновлении
 export const addType = createAsyncThunk(
   'map/addTypesListThunk',
-  ({ description, status }: {description: string, status: boolean}) => {
-    return mapService.addNewEquipType({ description, status })
+  ({
+    description,
+    status
+  }: { description: string, status: boolean }) => {
+    return toast.promise(
+      mapService.addNewEquipType({
+        description,
+        status
+      }),
+      {
+        pending: 'Добавление нового типа оборудования...',
+        success: 'Новый тип оборудования успешно добавлен',
+        error: 'Ошибка при добавлении нового типа оборудования'
+      }
+    )
   }
 )
 export const editType = createAsyncThunk(
   'optionalEquipment/editTypeThunk',
-  ({ status, id, description }: EquipType) => {
-    const newData: any = { description, status }
-    const response = mapService.editEquipType(id, newData)
-    return { id, newData, response }
+  async ({
+    status,
+    id,
+    description
+  }: EquipType) => {
+    const newData: any = {
+      description,
+      status
+    }
+
+    const response = await toast.promise(
+      mapService.editEquipType(id, newData),
+      {
+        pending: 'Редактирование типа оборудования...',
+        success: 'Тип оборудования успешно отредактирован',
+        error: 'Ошибка при редактировании типа оборудования'
+      }
+    )
+
+    return {
+      id,
+      newData,
+      response
+    }
   }
 )
 export const deleteType = createAsyncThunk(
   'optionalEquipment/deleteTypeThunk',
-  (id: number) => {
-    const response = mapService.deleteEquipType(id)
-    return { id, response }
+  async (id: number) => {
+    const response = await toast.promise(
+      mapService.deleteEquipType(id),
+      {
+        pending: 'Удаление типа оборудования...',
+        success: 'Тип оборудования успешно удален',
+        error: 'Ошибка при удалении типа оборудования'
+      }
+    )
+
+    return {
+      id,
+      response
+    }
   }
 )
 export const getEquipsModelsList = createAsyncThunk(
   'optionalEquipment/getEquipsModelsListThunk',
   () => {
-    return mapService.getEquipsModelsList()
+    return toast.promise(
+      mapService.getEquipsModelsList(),
+      {
+        pending: 'Получение списка моделей оборудования...',
+        success: 'Список моделей оборудования успешно получен',
+        error: 'Ошибка при получении списка моделей оборудования'
+      }
+    )
   }
 )
 //todo получать айдишник назад, для оптимизации, и чтоб не обновлять каждый раз при обновлении
 export const addModel = createAsyncThunk(
   'optionalEquipment/addModelThunk',
   (data: any) => {
-    return mapService.addNewEquipsModel(data)
+    return toast.promise(
+      mapService.addNewEquipsModel(data),
+      {
+        pending: 'Добавление новой модели оборудования...',
+        success: 'Новая модель оборудования успешно добавлена',
+        error: 'Ошибка при добавлении новой модели оборудования'
+      }
+    )
   }
 )
 export const editModel = createAsyncThunk(
   'optionalEquipment/editModelThunk',
-  ({ id, description, length, width }: EquipModal) => {
-    const response = mapService.editEquipsModel({ id, description, length, width })
-    return { id, description, length, width, response }
+  async ({
+    id,
+    description,
+    length,
+    width
+  }: EquipModal) => {
+    const response = await toast.promise(
+      mapService.editEquipsModel({
+        id,
+        description,
+        length,
+        width
+      }),
+      {
+        pending: 'Редактирование модели оборудования...',
+        success: 'Модель оборудования успешно отредактирована',
+        error: 'Ошибка при редактировании модели оборудования'
+      }
+    )
+
+    return {
+      id,
+      description,
+      length,
+      width,
+      response
+    }
   }
 )
 export const deleteModel = createAsyncThunk(
   'optionalEquipment/deleteModelThunk',
-  (id: number) => {
-    const response = mapService.deleteEquipsModel(id)
-    return { id, response }
+  async (id: number) => {
+    const response = await toast.promise(
+      mapService.deleteEquipsModel(id),
+      {
+        pending: 'Удаление модели оборудования...',
+        success: 'Модель оборудования успешно удалена',
+        error: 'Ошибка при удалении модели оборудования'
+      }
+    )
+
+    return {
+      id,
+      response
+    }
   }
 )
 export const getTrailerList = createAsyncThunk(
@@ -195,21 +310,54 @@ export const getTrailerList = createAsyncThunk(
 export const addTrailer = createAsyncThunk(
   'optionalEquipment/addTrailerThunk',
   (data: any) => {
-    return mapService.addTrailer(data)
+    return toast.promise(
+      mapService.addTrailer(data),
+      {
+        pending: 'Добавление нового прицепа...',
+        success: 'Новый прицеп успешно добавлен',
+        error: 'Ошибка при добавлении нового прицепа'
+      }
+    )
   }
 )
 export const editTrailer = createAsyncThunk(
   'optionalEquipment/editTrailerThunk',
-  ({ id, ...params }: EquipTrailer) => {
-    const response = mapService.editTrailer({ id, ...params })
-    return { id, ...params, response }
+  async ({
+    id,
+    ...params
+  }: EquipTrailer) => {
+    const response = await toast.promise(
+      mapService.editTrailer({ id, ...params }),
+      {
+        pending: 'Редактирование прицепа...',
+        success: 'Прицеп успешно отредактирован',
+        error: 'Ошибка при редактировании прицепа'
+      }
+    )
+
+    return {
+      id,
+      ...params,
+      response
+    }
   }
 )
 export const deleteTrailer = createAsyncThunk(
   'optionalEquipment/deleteTrailerThunk',
-  (id: number) => {
-    const response = mapService.deleteTrailer(id)
-    return { id, response }
+  async (id: number) => {
+    const response = await toast.promise(
+      mapService.deleteTrailer(id),
+      {
+        pending: 'Удаление прицепа...',
+        success: 'Прицеп успешно удален',
+        error: 'Ошибка при удалении прицепа'
+      }
+    )
+
+    return {
+      id,
+      response
+    }
   }
 )
 

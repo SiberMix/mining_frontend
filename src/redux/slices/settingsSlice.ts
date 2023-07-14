@@ -1,9 +1,7 @@
-import {
-  createAsyncThunk,
-  createSlice
-} from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { settingsService } from '../../api/settings'
 import type { RootState } from '../store'
+import { toast } from 'react-toastify'
 
 type SettingsInitialState = {
   showSettingsModal: boolean,
@@ -100,7 +98,11 @@ export const getSettings = createAsyncThunk(
   'settings/getSettingsThunk',
   (token: string) => {
     if (token) {
-      return settingsService.getSettings(token)
+      return toast.promise(settingsService.getSettings(token), {
+        pending: 'Загружаем настройки...',
+        success: 'Настройки успешно загружены',
+        error: 'Произошла ошибка при загрузке настроек'
+      })
     }
   }
 )
@@ -110,7 +112,17 @@ export const postSettings = createAsyncThunk(
     const state = thunkAPI.getState() as RootState
     const data = state.settingsReducer.settings
     const token = state.authReducer.token
-    return settingsService.postSettings({ token, data })
+    if (token) {
+      return toast.promise(settingsService.postSettings({
+        token: token,
+        data
+      }), {
+        pending: 'Отправляем настройки...',
+        success: 'Настройки успешно отправлены',
+        error: 'Произошла ошибка при отправке настроек'
+      })
+    }
+
   }
 )
 

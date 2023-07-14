@@ -1,11 +1,9 @@
-import {
-  createAsyncThunk,
-  createSlice
-} from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { mapService } from '../../api/map'
 import type { Polygon } from '../../types'
 import type { Equip } from '../../types/equip'
 import { setAddModalVisible } from './optionalEquipmentSlice'
+import { toast } from 'react-toastify'
 
 type MapInitialState = {
   polygonsList: Polygon[],
@@ -118,7 +116,15 @@ const mapSlice = createSlice({
         // state.equipmentList = [...state.equipmentList, action.payload.data]
       })
       .addCase(putEditEquipment.fulfilled, (state: MapInitialState, action) => {
-        const { id, gosnomer, image_status, equip_type, imei, equip_name, equip_model } = action.payload
+        const {
+          id,
+          gosnomer,
+          image_status,
+          equip_type,
+          imei,
+          equip_name,
+          equip_model
+        } = action.payload
         state.equipmentList.map(equip => equip.id === action.payload.id
           ? {
             id,
@@ -142,57 +148,146 @@ const mapSlice = createSlice({
 export const getAllPolygons = createAsyncThunk(
   'map/getAllPolygonsThunk',
   () => {
-    return mapService.getPolygons()
+    return toast.promise(
+      mapService.getPolygons(),
+      {
+        pending: 'Получение всех полигонов...',
+        success: 'Полигоны успешно получены',
+        error: 'Ошибка при получении полигонов'
+      }
+    )
   }
 )
 export const getAllEquipment = createAsyncThunk(
   'map/getAllEquipmentThunk',
   () => {
-    return mapService.getEquips()
+    return toast.promise(
+      mapService.getEquips(),
+      {
+        pending: 'Получение всего оборудования...',
+        success: 'Оборудование успешно получено',
+        error: 'Ошибка при получении оборудования'
+      }
+    )
   }
 )
 export const postNewEquipment = createAsyncThunk(
   'map/postNewEquipmentThunk',
   async (data: Omit<EquipForPost, 'id'>, thunkAPI) => {
-    const response = await mapService.addNewEquip(data)
+    const response = await toast.promise(
+      mapService.addNewEquip(data),
+      {
+        pending: 'Добавление нового оборудования...',
+        success: 'Новое оборудование успешно добавлено',
+        error: 'Ошибка при добавлении нового оборудования'
+      }
+    )
+
     thunkAPI.dispatch(setAddModalVisible(false))
+
     return response
   }
 )
+
 export const putEditEquipment = createAsyncThunk(
   'map/editEquipmentThunk',
-  async ({ id, ...data }: EquipForPut, thunkAPI) => {
-    const response = await mapService.editEquip({ id, ...data })
+  async ({
+    id,
+    ...data
+  }: EquipForPut, thunkAPI) => {
+    const response = await toast.promise(
+      mapService.editEquip({ id, ...data }),
+      {
+        pending: 'Редактирование оборудования...',
+        success: 'Оборудование успешно отредактировано',
+        error: 'Ошибка при редактировании оборудования'
+      }
+    )
+
     thunkAPI.dispatch(setAddModalVisible(false))
-    return { id, ...data, response }
+
+    return {
+      id,
+      ...data,
+      response
+    }
   }
 )
+
 export const deleteEquipment = createAsyncThunk(
   'map/deleteEquipmentThunk',
   async (id: number, thunkAPI) => {
     const response = await mapService.deleteEquip(id)
     thunkAPI.dispatch(setAddModalVisible(false))
-    return { id, response }
+    return {
+      id,
+      response
+    }
   }
 )
 export const postNewPolygon = createAsyncThunk(
   'map/postNewPolygonThunk',
-  ({ coords, name, activeStatus = 1, sequence }: PostNewPolygonData) => {
-    return mapService.addNewPolygon({ coords, name, activeStatus, sequence })
+  ({
+    coords,
+    name,
+    activeStatus = 1,
+    sequence
+  }: PostNewPolygonData) => {
+    return toast.promise(
+      mapService.addNewPolygon({
+        coords,
+        name,
+        activeStatus,
+        sequence
+      }),
+      {
+        pending: 'Добавление нового полигона...',
+        success: 'Новый полигон успешно добавлен',
+        error: 'Ошибка при добавлении нового полигона'
+      }
+    )
   }
 )
 export const putEditPolygon = createAsyncThunk(
   'map/editPolygonThunk',
-  async ({ polygonId, newOption }: EditPolygonData) => {
-    const response = await mapService.updatePolygonById({ polygonId, newOption })
-    return { polygonId, response }
+  async ({
+    polygonId,
+    newOption
+  }: EditPolygonData) => {
+    const response = await toast.promise(
+      mapService.updatePolygonById({
+        polygonId,
+        newOption
+      }),
+      {
+        pending: 'Редактирование полигона...',
+        success: 'Полигон успешно отредактирован',
+        error: 'Ошибка при редактировании полигона'
+      }
+    )
+
+    return {
+      polygonId,
+      response
+    }
   }
 )
 export const deletePolygon = createAsyncThunk(
   'map/deletePolygonThunk',
   async (id: number) => {
-    const response = await mapService.removePolygonById(id)
-    return { id, response }
+    const response = await toast.promise(
+      mapService.removePolygonById(id),
+      {
+        pending: 'Удаление полигона...',
+        success: 'Полигон успешно удален',
+        error: 'Ошибка при удалении полигона'
+      }
+    )
+
+    return {
+      id,
+      response
+    }
   }
 )
 

@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { mapService } from '../../api/map'
+import { toast } from 'react-toastify'
 
 type PlayBackSliceInitialState = {
   playbacksData: CurrentPlaybackData[]
@@ -59,13 +60,21 @@ const playbackSlice = createSlice({
 export const getAllPlaybacks = createAsyncThunk(
   'playback/getAllPlaybacks',
   () => {
-    return mapService.getPlayback()
+    return toast.promise(mapService.getPlayback(), {
+      pending: 'Загружаем плэйбэки с сервера...',
+      success: 'Плэйбэки успешно загружены',
+      error: 'Произошла ошибка при загрузке плэйбэков'
+    })
   }
 )
 export const postNewPlayback = createAsyncThunk(
   'playback/postNewPlayback',
   (newPlaybackData: PlaybackPostData) => {
-    return mapService.addNewPlayback(newPlaybackData)
+    return toast.promise(mapService.addNewPlayback(newPlaybackData), {
+      pending: 'Собираем новый плейбэк на сервере...',
+      success: 'Плэйбэк успешно собран',
+      error: 'Произошла ошибка при сборке плэйбэка'
+    })
   }
 )
 export const editeNewPlayback = createAsyncThunk(
@@ -74,7 +83,11 @@ export const editeNewPlayback = createAsyncThunk(
     id,
     newPlaybackData
   }: PlaybackDataForEdit) => {
-    const response = await mapService.updatePlayback(id, newPlaybackData)
+    const response = await toast.promise(mapService.updatePlayback(id, newPlaybackData), {
+      pending: 'Редактируем плейбэк на сервере...',
+      success: 'Плэйбэк успешно изменен',
+      error: 'Произошла ошибка при изменении плэйбэка'
+    })
     return {
       id,
       newPlaybackData,
@@ -85,7 +98,12 @@ export const editeNewPlayback = createAsyncThunk(
 export const deletePlayback = createAsyncThunk(
   'playback/deletePlayback',
   async (id: number) => {
-    const response = await mapService.deletePlayback(id)
+    const response = await toast.promise(mapService.deletePlayback(id), {
+      pending: 'Удаляем плейбэк на сервере...',
+      success: 'Плэйбэк успешно удален',
+      error: 'Произошла ошибка при удалении плэйбэка'
+    })
+
     return {
       id,
       response

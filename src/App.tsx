@@ -10,6 +10,7 @@ import Main from './components/pages/Main/Main'
 import Analytic from './components/pages/Analytic/Analytic'
 import FieldsAnalytic from './components/pages/Analytic/modules/FieldsAnalytic/FieldsAnalytic'
 import EquipsAnalytic from './components/pages/Analytic/modules/EquipsAnalytic/EquipsAnalytic'
+import Notifications from './components/common/Notifications/Notifications'
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -53,6 +54,7 @@ const App: React.FC = () => {
           />
         </Route>
       </Routes>
+      <Notifications />
     </div>
   )
 }

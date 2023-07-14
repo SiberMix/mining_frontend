@@ -1,9 +1,7 @@
-import {
-  createAsyncThunk,
-  createSlice
-} from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { mapService } from '../../api/map'
 import { getAllPolygons } from './mapSlice'
+import { toast } from 'react-toastify'
 
 type FieldsInitialState = {
   fieldList: FieldType[],
@@ -53,42 +51,76 @@ const fieldSlice = createSlice({
       .addCase(deleteField.fulfilled, (state: FieldsInitialState, action) => {
         state.fieldList = state.fieldList.filter((field: FieldType) => field.id !== action.payload.id)
       })
-      .addDefaultCase(() => {})
+      .addDefaultCase(() => {
+      })
   }
 })
 
 export const getAllFields = createAsyncThunk(
   'fields/getAllFieldsThunk',
   () => {
-    return mapService.getFieldList()
+    return toast.promise(mapService.getFieldList(), {
+      pending: 'Загружаем поля...',
+      success: 'Поля успешно загружены',
+      error: 'Произошла ошибка при загрузке полей'
+    })
   }
 )
 export const addField = createAsyncThunk(
   'fields/addFieldThunk',
-  ({ name, color }: FieldAddType) => {
-    return mapService.addField({
+  ({
+    name,
+    color
+  }: FieldAddType) => {
+    return toast.promise(mapService.addField({
       name,
       color
+    }), {
+      pending: 'Отправка культуры на сервер...',
+      success: 'Культура успешно загружено',
+      error: 'Произошла ошибка при загрузке поля'
     })
   }
 )
 export const changeField = createAsyncThunk(
   'fields/changeFieldThunk',
-  async ({ id, name, color } : FieldType, thunkAPI) => {
-    const response = await mapService.editField({
+  async ({
+    id,
+    name,
+    color
+  }: FieldType, thunkAPI) => {
+    const response = await toast.promise(mapService.editField({
       id,
       name,
       color
+    }), {
+      pending: 'Мняем культуру на сервере...',
+      success: 'Культура успешно загружена',
+      error: 'Произошла ошибка при загрузке культуры'
     })
+
     thunkAPI.dispatch(getAllPolygons())
-    return { id, name, color, response }
+
+    return {
+      id,
+      name,
+      color,
+      response
+    }
   }
 )
 export const deleteField = createAsyncThunk(
   'fields/deleteFieldThunk',
   async (id: number) => {
-    const response = await mapService.deleteField(id)
-    return { id, response }
+    const response = await toast.promise(mapService.deleteField(id), {
+      pending: 'Удаляем культуру на сервере...',
+      success: 'Культура успешно удалена',
+      error: 'Произошла ошибка при удалении культуры'
+    })
+    return {
+      id,
+      response
+    }
   }
 )
 

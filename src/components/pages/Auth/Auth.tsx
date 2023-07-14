@@ -2,9 +2,8 @@ import type { FormEvent } from 'react'
 import React, { useState } from 'react'
 import CompanyLogo from '/src/assets/logo.png'
 import './Auth.modules.css'
-import { authService } from '../../../api/auth'
 import { useAppDispatch } from '../../../redux/store'
-import { setToken } from '../../../redux/slices/authSlice'
+import { getToken } from '../../../redux/slices/authSlice'
 
 const LoginPage = () => {
   const dispatch = useAppDispatch()
@@ -16,13 +15,10 @@ const LoginPage = () => {
     event.preventDefault()
 
     try {
-      const { data } = await authService.login(username, password)
-      if (data.auth_token) {
-        localStorage.setItem('token', data.auth_token)
-        dispatch(setToken(data.auth_token))
-      } else {
-        setError('Неверное имя пользователя или пароль. Попробуйте еще раз.')
-      }
+      dispatch(getToken({
+        username,
+        password
+      }))
     } catch {
       setError('Ошибка сервера.')
     }

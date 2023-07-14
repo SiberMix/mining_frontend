@@ -1,4 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { authService } from '../../api/auth'
+import { toast } from 'react-toastify'
 
 type AuthInitialState = {
   token: string | null
@@ -16,8 +18,28 @@ const authSlice = createSlice({
     setToken: (state: AuthInitialState, action) => {
       state.token = action.payload
     }
+  },
+  extraReducers: (builder) => {
+    builder.addCase(getToken.fulfilled, (state, action) => {
+      state.token = action.payload.data.auth_token
+      localStorage.setItem('token', action.payload.data.auth_token)
+    })
   }
 })
+
+export const getToken = createAsyncThunk(
+  'auth/getToken',
+  async ({
+    username,
+    password
+  }: AuthDataForLogin) => {
+    return toast.promise(authService.login(username, password), {
+      pending: 'Аутентификация...',
+      success: 'Успешная аутентификация',
+      error: 'Ошибка аутентификации'
+    })
+  }
+)
 
 const {
   reducer,
@@ -29,3 +51,8 @@ export const {
 } = actions
 
 export default reducer
+
+type AuthDataForLogin = {
+  username: string
+  password: string
+}
