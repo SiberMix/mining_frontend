@@ -24,8 +24,8 @@ const MapPlayback = () => {
                   key={`Polyline__${equipData.imei}__${filteredPlayback.id}`}
                   positions={coords as LatLngExpression[]}
                   color={filteredPlayback.color}
-                  weight={10}
-                  opacity={0.7}
+                  // weight={10} не задаем! тогда линии будут постоянно одного размера вне зависимости от зума
+                  opacity={0.6}
                 >
                   <Popup>
                     {equipData.name}

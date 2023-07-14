@@ -43,71 +43,84 @@
 лучше написать новый компонент вообще полностью кастомный. Это не так сложно но блять, у меня нет на это времени
 */
 
-:where(.css-dev-only-do-not-override-14wwjjs).ant-transfer {
+.ant-transfer {
   color: #ffffff !important;
 }
-:where(.css-dev-only-do-not-override-14wwjjs).ant-transfer .ant-transfer-list-content-item-checked {
-  background-color: #858585;
+
+.ant-transfer .ant-transfer-list-content-item-checked {
+  background-color: #858585 !important;
+
   &:hover {
     background-color: #C0BDC0 !important;
   }
 }
+
 //чекбоксы
-:where(.css-dev-only-do-not-override-14wwjjs).ant-checkbox-checked .ant-checkbox-inner {
-  background-color: #C0BDC0;
-  border-color: #ffffff;
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: #C0BDC0 !important;
+  border-color: #ffffff !important;
 }
+
 //очень странный хочер для чекбоксов
-:where(.css-dev-only-do-not-override-14wwjjs).ant-transfer .ant-transfer-list-content-item >*:not(:last-child) {
+.ant-transfer .ant-transfer-list-content-item > *:not(:last-child) {
   &:hover {
-    :where(.css-dev-only-do-not-override-14wwjjs).ant-checkbox-checked .ant-checkbox-inner {
-      background-color: #C0BDC0;
-      border-color: #ffffff;
+    .ant-checkbox-checked .ant-checkbox-inner {
+      background-color: #C0BDC0 !important;
+      border-color: #ffffff !important;
       box-shadow: none !important;
     }
   }
 }
+
 //ховер на обычный элемент меню
-:where(.css-dev-only-do-not-override-14wwjjs).ant-transfer .ant-transfer-list-content-item:not(.ant-transfer-list-content-item-disabled):hover {
-  background-color: rgba(0, 0, 0, 0.04);
-  cursor: pointer;
+.ant-transfer .ant-transfer-list-content-item:not(.ant-transfer-list-content-item-disabled):hover {
+  background-color: rgba(0, 0, 0, 0.04) !important;
+  cursor: pointer !important;
+
   &:hover {
     background-color: #C0BDC0 !important;
   }
 }
+
 //точка для выделения всех чекбоксов
-:where(.css-dev-only-do-not-override-14wwjjs).ant-checkbox-indeterminate .ant-checkbox-inner:after {
-  background-color: #C0BDC0;
-  border-color: #ffffff;
+.ant-checkbox-indeterminate .ant-checkbox-inner:after {
+  background-color: #C0BDC0 !important;
+  border-color: #ffffff !important;
 }
-:where(.css-dev-only-do-not-override-14wwjjs).ant-transfer .ant-transfer-list-header >*:not(:last-child) {
+
+.ant-transfer .ant-transfer-list-header > *:not(:last-child) {
   &:hover {
-    :where(.css-dev-only-do-not-override-14wwjjs).ant-checkbox-checked .ant-checkbox-inner {
-      background-color: #C0BDC0;
-      border-color: #ffffff;
+    .ant-checkbox-checked .ant-checkbox-inner {
+      background-color: #C0BDC0 !important;
+      border-color: #ffffff !important;
     }
   }
 }
+
 // еще одна часть чекбокса для всего
-:where(.css-dev-only-do-not-override-14wwjjs).ant-checkbox-checked:after {
+.ant-checkbox-checked:after {
   border: none !important;
 }
+
 //это шапка окошка
-:where(.css-dev-only-do-not-override-14wwjjs).ant-transfer .ant-transfer-list-header {
-  background-color: #858585;
+.ant-transfer .ant-transfer-list-header {
+  background-color: #858585 !important;
   border: #C0BDC0 !important;
 }
+
 // хочер на кнопки перетаскивания
-:where(.css-dev-only-do-not-override-14wwjjs).ant-btn-primary:not(:disabled):not(.ant-btn-disabled):hover {
-  color: #fff;
-  background-color: #858585;
+.ant-btn-primary:not(:disabled):not(.ant-btn-disabled):hover {
+  color: #fff !important;
+  background-color: #858585 !important;
 }
+
 // текст не найдено
 .ant-transfer-list-body-not-found {
   color: #ffffff !important;
 }
+
 //прячем скроллбар
-:where(.css-dev-only-do-not-override-14wwjjs).ant-transfer .ant-transfer-list-content {
+.ant-transfer .ant-transfer-list-content {
   scrollbar-width: none; /* hide the scrollbar in Firefox */
   -ms-overflow-style: none; /* hide the scrollbar in Edge and IE */
 
@@ -123,14 +136,17 @@
     background-color: #1e1e1e; /* set the color of the thumb */
   }
 }
+
 //убираем нахуй не нужную кнопку
-:where(.css-dev-only-do-not-override-14wwjjs).ant-transfer .ant-transfer-list-header-dropdown {
+.ant-transfer .ant-transfer-list-header-dropdown {
   display: none;
 }
+
 // раздвигаем оставшиеся элементы
-:where(.css-dev-only-do-not-override-14wwjjs).ant-transfer .ant-transfer-list-header >*:not(:last-child) {
-  margin-inline-end: 4px;
+.ant-transfer-list-header-selected {
+  margin-left: 4px;
 }
+
 /*
   Да простят мою грушную душу все программисты, которые увидят эту жесть,
   простите пожалуйста, я надеюсь после такого ваше эмоцианальное состояние не упало на дно
