@@ -1,26 +1,26 @@
 import './PlayBackAddModal.scss'
 import * as cn from 'classnames'
 import React, { useEffect, useState } from 'react'
-import { DatePicker, Input, Modal, Transfer } from 'antd'
+import { DatePicker, Input, Modal } from 'antd'
 import { useSelector } from 'react-redux'
 import type { RootState } from '../../../../../../redux/store'
 import { useAppDispatch } from '../../../../../../redux/store'
-import { postNewPlayback, setIsOpenPlayBackAddModal } from '../../../../../../redux/slices/playBackSlice'
+import { EquipmentData, postNewPlayback, setIsOpenPlayBackAddModal } from '../../../../../../redux/slices/playBackSlice'
+import importedColors from './recomended-colors.json'
+import PlayBackEquipPicker from './PlayBackEquipPicker/PlayBackEquipPicker'
 //@ts-ignore
 import { GithubPicker } from 'react-color'
-import importedColors from './recomended-colors.json'
-import { getAllEquipmentSelector } from '../../../../../../redux/selectors/mapSelectors'
+import { Collapse } from 'antd/lib'
 
 const PlayBackAddModal = () => {
   const dispatch = useAppDispatch()
   const isOpenPlayBackAddModal = useSelector((state: RootState) => state.playBackReducer.isOpenPlayBackAddModal)
-  const defaultColor = '#52C41A'
-  const allEquipment = useSelector(getAllEquipmentSelector)
+
   const [name, setName] = useState('')
-  const [color, setColor] = useState(defaultColor)
   const [timeStep, setTimeStep] = useState<{ start: number, end: number } | null>(null)
-  const [targetKeys, setTargetKeys] = useState<string[]>([])
-  const [selectedKeys, setSelectedKeys] = useState<string[]>([])
+  const [selectedEquipment, setSelectedEquipment] = useState<EquipmentData[]>([])
+  const [colorForThisEquip, setColorForThisEquip] = useState<number | null>(null)
+
   /*
   * костыльная перерисовка датапикера, для сброса значений :D
   * */
@@ -30,12 +30,11 @@ const PlayBackAddModal = () => {
   }, [isOpenPlayBackAddModal])
 
   const handleSubmit = () => {
-    if (name && timeStep !== null && targetKeys.length > 0) {
+    if (name && timeStep !== null && selectedEquipment.length > 0) {
       dispatch(postNewPlayback({
         name,
-        color,
         time_step: timeStep,
-        equipment: targetKeys
+        equipment: selectedEquipment
       }))
       closeHandler()
     } else {
@@ -46,15 +45,25 @@ const PlayBackAddModal = () => {
   const closeHandler = () => {
     dispatch(setIsOpenPlayBackAddModal(false))
     setName('')
-    setColor(defaultColor)
     setTimeStep(null)
-    setTargetKeys([])
-    setSelectedKeys([])
+    setColorForThisEquip(null)
+    setSelectedEquipment([])
     //сброс даты происходит с помощью key, смотри ниже
   }
 
   const handleColorChange = (newColor: any) => {
-    setColor(newColor.hex)
+    if (colorForThisEquip !== null) {
+      const selectedEquipmentWithNewColor = selectedEquipment.map(equip => {
+        if (equip.equip_id === colorForThisEquip) {
+          return {
+            equip_id: equip.equip_id,
+            equip_color: newColor.hex
+          }
+        }
+        return equip
+      })
+      setSelectedEquipment(selectedEquipmentWithNewColor)
+    }
   }
 
   const onOkDate = (value: any) => {
@@ -71,19 +80,6 @@ const PlayBackAddModal = () => {
       })
     }
   }
-
-  const onEquipChange = (nextTargetKeys: string[]) => {
-    setTargetKeys(nextTargetKeys)
-  }
-
-  const onSelectEquipChange = (sourceSelectedKeys: string[], targetSelectedKeys: string[]) => {
-    setSelectedKeys([...sourceSelectedKeys, ...targetSelectedKeys])
-  }
-
-  const mockData = allEquipment.map((equip, i) => ({
-    key: equip.id.toString(),
-    title: equip.equip_name
-  }))
 
   return (
     <Modal
@@ -102,22 +98,6 @@ const PlayBackAddModal = () => {
         onChange={(e) => setName(e.target.value)}
         style={{ marginBottom: '16px' }}
       />
-      <span className='PlayBackAddModal__title'>
-        Выберете цвет линий
-      </span>
-      <div
-        className='PlayBackAddModal__colorpicker-color'
-        style={{ backgroundColor: color }}
-      />
-      <div className='PlayBackAddModal__colorpicker'>
-        <GithubPicker
-          width='95%'
-          triangle='hide'
-          color={color}
-          onChange={handleColorChange}
-          colors={importedColors.colors}
-        />
-      </div>
       <span className='PlayBackAddModal__title PlayBackAddModal__title-date'>
         Выберете временной интервал
       </span>
@@ -130,23 +110,39 @@ const PlayBackAddModal = () => {
           onOk={onOkDate}
         />
       </div>
+      {
+        !!colorForThisEquip
+          ? (
+            <span className='PlayBackAddModal__title'>
+              Выберете цвет линий
+            </span>
+          ) : null
+      }
+      <Collapse
+        size={'small'}
+        activeKey={'' + !!colorForThisEquip}
+      >
+        <Collapse.Panel
+          key='true'
+          header='open'
+        >
+          <GithubPicker
+            width='95%'
+            triangle='hide'
+            onChange={handleColorChange}
+            colors={importedColors.colors}
+          />
+        </Collapse.Panel>
+      </Collapse>
       <span className='PlayBackAddModal__title'>
         Выберете оорудование
       </span>
-      <div className='PlayBackAddModal__transfer'>
-        <Transfer
-          dataSource={mockData}
-          titles={['Все', 'Выбрано']}
-          targetKeys={targetKeys}
-          selectedKeys={selectedKeys}
-          onChange={onEquipChange}
-          onSelectChange={onSelectEquipChange}
-          locale={{
-            notFoundContent: 'Ничего не выбрано'
-          }}
-          render={(item) => item.title}
-        />
-      </div>
+      <PlayBackEquipPicker
+        selectedEquipment={selectedEquipment}
+        setSelectedEquipment={setSelectedEquipment}
+        colorForThisEquip={colorForThisEquip}
+        setColorForThisEquip={setColorForThisEquip}
+      />
     </Modal>
   )
 }

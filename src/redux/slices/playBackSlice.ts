@@ -138,13 +138,17 @@ export type CurrentPlaybackData = {
 }
 
 export type PlaybackPostData = {
-  color: string,
-  equipment: string[],
+  equipment: EquipmentData[],
   name: string,
   time_step: {
     start: number,
     end: number
   }
+}
+
+export type EquipmentData = {
+  equip_id: number,
+  equip_color: string
 }
 
 export type PlaybackDataForEdit = {
