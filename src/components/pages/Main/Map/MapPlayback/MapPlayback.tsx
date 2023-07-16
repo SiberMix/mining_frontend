@@ -23,8 +23,8 @@ const MapPlayback = () => {
                   key={`Polyline__${equipData.imei}__${filteredPlayback.id}`}
                   positions={coords as LatLngExpression[]}
                   color={equipData.color}
-                  weight={4}
-                  opacity={.9}
+                  // weight={4}
+                  opacity={.7}
                 >
                   <Popup>
                     {equipData.name}

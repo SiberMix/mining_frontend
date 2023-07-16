@@ -32,6 +32,7 @@ const PlayBackEquipPicker: React.FC<Props> = ({
         equip_id: id,
         equip_color: defaultColor
       }])
+      setColorForThisEquip(id)
     }
   }
 
