@@ -13,7 +13,6 @@ const MapPlayback = () => {
     <>
       {
         playbacksData
-          // .filter(playback => showingPlaybacks.some(s => s === playback.id))
           .filter(playback => showingPlaybacks === playback.id)
           .map(filteredPlayback => {
             return filteredPlayback.equipments_data.map(equipData => {
@@ -23,9 +22,9 @@ const MapPlayback = () => {
                   className='constant-weight-polyline'
                   key={`Polyline__${equipData.imei}__${filteredPlayback.id}`}
                   positions={coords as LatLngExpression[]}
-                  color={filteredPlayback.color}
-                  // weight={10} не задаем! тогда линии будут постоянно одного размера вне зависимости от зума
-                  opacity={0.6}
+                  color={equipData.color}
+                  weight={4}
+                  opacity={.9}
                 >
                   <Popup>
                     {equipData.name}

@@ -36,6 +36,7 @@ const playbackSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getAllPlaybacks.fulfilled, (state: PlayBackSliceInitialState, action) => {
+        console.log(action.payload?.data)
         state.playbacksData = action.payload?.data
       })
       .addCase(postNewPlayback.fulfilled, (state: PlayBackSliceInitialState, action) => {
@@ -133,7 +134,7 @@ export type CurrentPlaybackData = {
     end: number
     start: number
   }
-  equipment: string[]
+  equipment: number[]
   equipments_data: EquipmentsData[]
 }
 
@@ -160,6 +161,7 @@ export type EquipmentsData = {
   id: number,
   imei: string,
   name: string
+  color: string
   imei_data: imeiData[]
 }
 

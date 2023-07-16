@@ -62,7 +62,7 @@ const EquipCastomMarker: React.FC<Props> = ({
      * если нужно отключить то меняем с 17 на 18. Больше 18 он быть не может
      * по дефолту 17
      * */
-    return zoomLevel > 17 ? 'src/assets/icons_enum/mini_icons/combaingreen.svg' : `src/assets/icons_enum/${image_status}.svg`
+    return zoomLevel > 17 ? `src/assets/icons_enum/mini_icons/${image_status}.svg` : `src/assets/icons_enum/${image_status}.svg`
   }, [zoomLevel])
 
   const createEquipIcon = useCallback(() => {

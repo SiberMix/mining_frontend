@@ -11,9 +11,11 @@ import PlayBackEquipPicker from './PlayBackEquipPicker/PlayBackEquipPicker'
 //@ts-ignore
 import { GithubPicker } from 'react-color'
 import { Collapse } from 'antd/lib'
+import { toast } from 'react-toastify'
 
 const PlayBackAddModal = () => {
   const dispatch = useAppDispatch()
+  const playbacksData = useSelector((state: RootState) => state.playBackReducer.playbacksData)
   const isOpenPlayBackAddModal = useSelector((state: RootState) => state.playBackReducer.isOpenPlayBackAddModal)
 
   const [name, setName] = useState('')
@@ -31,14 +33,18 @@ const PlayBackAddModal = () => {
 
   const handleSubmit = () => {
     if (name && timeStep !== null && selectedEquipment.length > 0) {
-      dispatch(postNewPlayback({
-        name,
-        time_step: timeStep,
-        equipment: selectedEquipment
-      }))
-      closeHandler()
+      if (playbacksData.some(data => data.name === name)) {
+        toast.error('Плейбэк с таким названием уже существует')
+      } else {
+        dispatch(postNewPlayback({
+          name,
+          time_step: timeStep,
+          equipment: selectedEquipment
+        }))
+        closeHandler()
+      }
     } else {
-      alert('Пожалуйста заполните информацию полностью')
+      toast.error('Пожалуйста заполните информацию полностью')
     }
   }
 

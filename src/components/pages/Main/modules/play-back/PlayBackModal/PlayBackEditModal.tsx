@@ -4,7 +4,6 @@ import { RootState, useAppDispatch } from '../../../../../../redux/store'
 import { useSelector } from 'react-redux'
 import * as cn from 'classnames'
 import { Input, Modal } from 'antd'
-import importedColors from './recomended-colors.json'
 import { editeNewPlayback, setEditedPlayback } from '../../../../../../redux/slices/playBackSlice'
 //@ts-ignore
 import { GithubPicker } from 'react-color'
@@ -14,12 +13,12 @@ const PlayBackEditModal = () => {
   const dispatch = useAppDispatch()
   const editedPlayback = useSelector((state: RootState) => state.playBackReducer.editedPlayback)
   const [name, setName] = useState('')
-  const [color, setColor] = useState('')
+  // const [color, setColor] = useState('')
 
   useEffect(() => {
     if (editedPlayback) {
       setName(editedPlayback.name)
-      setColor(editedPlayback.color)
+      // setColor(editedPlayback.color)
     }
   }, [editedPlayback])
 
@@ -29,8 +28,8 @@ const PlayBackEditModal = () => {
         id: editedPlayback.id,
         newPlaybackData: {
           ...editedPlayback,
-          name,
-          color
+          name
+          // color
         }
       }))
       closeHandler()
@@ -42,11 +41,11 @@ const PlayBackEditModal = () => {
   const closeHandler = () => {
     dispatch(setEditedPlayback(null))
     setName('')
-    setColor('')
+    // setColor('')
   }
 
   const handleColorChange = (newColor: any) => {
-    setColor(newColor.hex)
+    // setColor(newColor.hex)
   }
 
   return (
@@ -55,7 +54,7 @@ const PlayBackEditModal = () => {
         'fieldPreviewModal',
         'PlayBackAddModal'
       )}
-      title='Создать воспроизведение'
+      title='Редактировать плэйбэк'
       open={!!editedPlayback}
       onCancel={closeHandler}
       onOk={handleSubmit}
@@ -66,22 +65,22 @@ const PlayBackEditModal = () => {
         onChange={(e) => setName(e.target.value)}
         style={{ marginBottom: '16px' }}
       />
-      <span className='PlayBackAddModal__title'>
-        Выберете цвет линий
-      </span>
-      <div
-        className='PlayBackAddModal__colorpicker-color'
-        style={{ backgroundColor: color }}
-      />
-      <div className='PlayBackAddModal__colorpicker'>
-        <GithubPicker
-          width='95%'
-          triangle='hide'
-          color={color}
-          onChange={handleColorChange}
-          colors={importedColors.colors}
-        />
-      </div>
+      {/*<span className='PlayBackAddModal__title'>*/}
+      {/*  Выберете цвет линий*/}
+      {/*</span>*/}
+      {/*<div*/}
+      {/*  className='PlayBackAddModal__colorpicker-color'*/}
+      {/*  style={{ backgroundColor: color }}*/}
+      {/*/>*/}
+      {/*<div className='PlayBackAddModal__colorpicker'>*/}
+      {/*  <GithubPicker*/}
+      {/*    width='95%'*/}
+      {/*    triangle='hide'*/}
+      {/*    color={color}*/}
+      {/*    onChange={handleColorChange}*/}
+      {/*    colors={importedColors.colors}*/}
+      {/*  />*/}
+      {/*</div>*/}
     </Modal>
   )
 }

@@ -18,7 +18,7 @@ const PlayBackMenuItem: React.FC<Props> = ({
   const dispatch = useAppDispatch()
   const showingPlaybacks = useSelector((state: RootState) => state.playBackReducer.showingPlaybacks)
   const watchingEquips = useSelector(getAllEquipmentSelector)
-    .filter(equip => (itemPlaybackData.equipment.some(e => equip.id.toString() === e)))
+    .filter(equip => (itemPlaybackData.equipment.some(e => equip.id === e)))
     .map(filteredEquip => filteredEquip.equip_name)
 
   const toggleIsWatching = () => {
@@ -36,6 +36,13 @@ const PlayBackMenuItem: React.FC<Props> = ({
       return currentString.slice(0, 32) + '...'
     }
     return currentString
+  }
+
+  const deleteHandler = () => {
+    const result = confirm('Вы уверены, что хотите продолжить?')
+    if (result) {
+      dispatch(deletePlayback(itemPlaybackData.id))
+    }
   }
 
   return (
@@ -76,7 +83,7 @@ const PlayBackMenuItem: React.FC<Props> = ({
         />
         <img
           className='PlayBackMenuItem__icons-item'
-          onClick={() => dispatch(deletePlayback(itemPlaybackData.id))}
+          onClick={deleteHandler}
           src={TrashBox}
           alt=''
           title='Удалить плэйбэк'
@@ -86,4 +93,4 @@ const PlayBackMenuItem: React.FC<Props> = ({
   )
 }
 
-export default PlayBackMenuItem
+export default React.memo(PlayBackMenuItem)

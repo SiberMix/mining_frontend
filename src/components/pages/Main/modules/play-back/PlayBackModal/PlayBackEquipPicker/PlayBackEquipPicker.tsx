@@ -49,11 +49,10 @@ const PlayBackEquipPicker: React.FC<Props> = ({
     <div className='PlayBackAddModal__equippicker'>
       {
         allEquipment.map(equip => (
-          <div className='PlayBackAddModal__equippicker-card-wrapper'>
-            <Card size={'small'}
-                  onClick={() => toggleEquipment(equip.id)}
-                  key={'PlayBackAddModal__equippicker_' + equip.id}
-            >
+          <div className='PlayBackAddModal__equippicker-card-wrapper'
+               key={'PlayBackAddModal__equippicker_' + equip.id}
+          >
+            <Card size={'small'} onClick={() => toggleEquipment(equip.id)}>
               <Meta
                 avatar={
                   <div className='PlayBackAddModal__equippicker-header'>
