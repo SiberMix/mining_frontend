@@ -1,8 +1,5 @@
 import BasePreloader from '../../common/BasePreloader/BasePreloader'
-import React, {
-  useEffect,
-  useState
-} from 'react'
+import React, { useEffect, useState } from 'react'
 import AnalyticLayout from './MainLayout/AnalyticLayout'
 import AnalyticSidebarContainer from './AnalyticSidebar/AnalyticSidebarContainer'
 import { useNavigate } from 'react-router-dom'
@@ -14,13 +11,13 @@ const Analytic = () => {
 
   useEffect(() => {
     // Имитация загрузки данных
-    const fakeTimeout = setTimeout(() => {
-      setLoad(false)
-      navigate('/analytics/field')
-    }, 3000)
+    // const fakeTimeout = setTimeout(() => {
+    setLoad(false)
+    navigate('/analytics/field')
+    // }, 3000)
 
     return () => {
-      clearTimeout(fakeTimeout)
+      // clearTimeout(fakeTimeout)
     }
   }, [])
 

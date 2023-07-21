@@ -12,7 +12,7 @@ const sidebarSlice = createSlice({
   name: 'sidebar',
   initialState: sidebarInitialState,
   reducers: {
-    setOpenSidebarWindow: (state: SidebarInitialState, action: {type: any, payload: SidebarOpenWindow}) => {
+    setOpenSidebarWindow: (state: SidebarInitialState, action: { type: any, payload: SidebarOpenWindow }) => {
       if (state.sidebarOpenWindow === action.payload) {
         state.sidebarOpenWindow = undefined
       } else {
@@ -33,4 +33,4 @@ export const {
 
 export default reducer
 
-export type SidebarOpenWindow = 'PolygonList' | 'EquipmentList' | 'FieldList' | 'Calendar' | 'PlayBack' | undefined
+export type SidebarOpenWindow = 'PolygonList' | 'EquipmentList' | 'FieldList' | 'PlayBack' | undefined

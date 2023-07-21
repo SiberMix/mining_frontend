@@ -6,7 +6,6 @@ import Field from '/src/assets/icons/field.svg'
 import Job from '/src/assets/icons/job.svg'
 import PlayBack from '/src/assets/icons/playback.svg'
 import Equip from '/src/assets/icons/harvester2.svg'
-import Calendar from '/src/assets/sevo/sevooborot.svg'
 import Setting from '/src/assets/icons/settings.svg'
 import LogoutBtn from '/src/assets/icons/logout.svg'
 import Trava from '/src/assets/icons/corn-seeds-svgrepo-com.svg'
@@ -94,12 +93,6 @@ const Sidebar: React.FC<PropsWithChildren> = () => {
             title='Культура'
             active={(sidebarOpenWindow === 'FieldList') ? 'open' : ''}
             onClick={() => handleChangeSidebarContent('FieldList')}
-          />
-          <Svg
-            src={Calendar}
-            title='Планирование'
-            active={(sidebarOpenWindow === 'Calendar') ? 'open' : ''}
-            onClick={() => handleChangeSidebarContent('Calendar')}
           />
         </div>
         <div>

@@ -3,12 +3,8 @@ import React from 'react'
 import PolygonList from '../modules/polygons/PolygonList/PolygonList'
 import LibraryList from '../modules/library/LibraryList/LibraryList'
 import FieldList from '../modules/field/FieldList/FieldList'
-import CropRotation from '../modules/crop-rotation/CropRotation'
 import Sidebar from './Sidebar'
-import {
-  CSSTransition,
-  SwitchTransition
-} from 'react-transition-group'
+import { CSSTransition, SwitchTransition } from 'react-transition-group'
 import { useSelector } from 'react-redux'
 import { getSidebarOpenWindowSelector } from '../../../../redux/selectors/sidebarSelectors'
 import SettingsModal from '../modules/settings/SettingsModal'
@@ -22,10 +18,10 @@ const SidebarContainer: React.FC<Props> = () => {
   return (
     <>
       <Sidebar />
-      <SwitchTransition mode="out-in">
+      <SwitchTransition mode='out-in'>
         <CSSTransition
           key={sidebarOpenWindow}
-          classNames="sidebar-fade"
+          classNames='sidebar-fade'
           timeout={280}
         >
           {
@@ -35,11 +31,9 @@ const SidebarContainer: React.FC<Props> = () => {
                 ? <LibraryList />
                 : sidebarOpenWindow === 'FieldList'
                   ? <FieldList />
-                  : sidebarOpenWindow === 'Calendar'
-                    ? <CropRotation />
-                    : sidebarOpenWindow === 'PlayBack'
-                      ? <PlayBack />
-                      : <></>
+                  : sidebarOpenWindow === 'PlayBack'
+                    ? <PlayBack />
+                    : <></>
           }
         </CSSTransition>
       </SwitchTransition>

@@ -11,6 +11,7 @@ import Analytic from './components/pages/Analytic/Analytic'
 import FieldsAnalytic from './components/pages/Analytic/modules/FieldsAnalytic/FieldsAnalytic'
 import EquipsAnalytic from './components/pages/Analytic/modules/EquipsAnalytic/EquipsAnalytic'
 import Notifications from './components/common/Notifications/Notifications'
+import CropRotation from './components/pages/Analytic/modules/CropRotation/CropRotation'
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -51,6 +52,10 @@ const App: React.FC = () => {
           <Route
             path='equipments'
             element={<EquipsAnalytic />}
+          />
+          <Route
+            path='crop_rotation'
+            element={<CropRotation />}
           />
         </Route>
       </Routes>

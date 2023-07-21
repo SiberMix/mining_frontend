@@ -3,6 +3,7 @@ import * as cn from 'classnames'
 import type { PropsWithChildren } from 'react'
 import React from 'react'
 import LogoutBtn from '/src/assets/icons/logout.svg'
+import Calendar from '/src/assets/sevo/sevooborot.svg'
 import miniLogo from '/src/assets/hectareLogoOnly.png'
 import styled from 'styled-components'
 import SVG from 'react-inlinesvg'
@@ -50,6 +51,17 @@ const AnalyticSidebar: React.FC<PropsWithChildren> = () => {
                 style={{ color: isActive ? '#28b6fe' : '' }}
                 className={s.icon}
                 title='Аналитика'
+              />
+            )}
+          </NavLink>
+          <NavLink
+            to='/analytics/crop_rotation'
+          >
+            {({ isActive }) => (
+              <Svg
+                src={Calendar}
+                title='Планирование'
+                active={isActive ? 'open' : ''}
               />
             )}
           </NavLink>

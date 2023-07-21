@@ -36,7 +36,6 @@ const playbackSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getAllPlaybacks.fulfilled, (state: PlayBackSliceInitialState, action) => {
-        console.log(action.payload?.data)
         state.playbacksData = action.payload?.data
       })
       .addCase(postNewPlayback.fulfilled, (state: PlayBackSliceInitialState, action) => {
@@ -51,6 +50,7 @@ const playbackSlice = createSlice({
         })
       })
       .addCase(deletePlayback.fulfilled, (state: PlayBackSliceInitialState, action) => {
+        state.showingPlaybacks = null
         state.playbacksData = state.playbacksData.filter(playback => playback.id !== action.payload.id)
       })
       .addDefaultCase(() => {

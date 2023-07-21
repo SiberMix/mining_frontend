@@ -1,7 +1,6 @@
+import './styles.scss'
 import React, { useEffect, useState } from 'react'
 import MainLayout from './MainLayout/MainLayout'
-
-import './styles.css'
 import SidebarContainer from './Sidebar/SidebarContainer'
 import Map from './Map/Map'
 import { getAllEquipment, getAllPolygons } from '../../../redux/slices/mapSlice'
