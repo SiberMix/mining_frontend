@@ -1,25 +1,12 @@
 import './PreviewAddModal.scss'
-import React, {
-  useEffect,
-  useState
-} from 'react'
-import {
-  Input,
-  Modal
-} from 'antd'
-// @ts-ignore
-import { CompactPicker } from 'react-color'
+import React, { useEffect, useState } from 'react'
+import { Input, Modal } from 'antd'
 import { useAppDispatch } from '../../../../../../redux/store'
 import { useSelector } from 'react-redux'
-import {
-  getEditedFieldSelector,
-  getShowAddFieldModalSelector
-} from '../../../../../../redux/selectors/fieldsSelectors'
-import {
-  addField,
-  changeField,
-  setVisibleAddFieldModal
-} from '../../../../../../redux/slices/fieldSlice'
+import { getEditedFieldSelector, getShowAddFieldModalSelector } from '../../../../../../redux/selectors/fieldsSelectors'
+import { addField, changeField, setVisibleAddFieldModal } from '../../../../../../redux/slices/fieldSlice'
+// @ts-ignore
+import { CompactPicker } from 'react-color'
 
 const AddPreviewModal = () => {
   const dispatch = useAppDispatch()
@@ -64,7 +51,7 @@ const AddPreviewModal = () => {
 
   return (
     <Modal
-      className="fieldPreviewModal"
+      className='fieldPreviewModal'
       title={
         EditedField ? 'Редактировать культуру' : 'Добавить культуру'
       }
@@ -73,7 +60,7 @@ const AddPreviewModal = () => {
       onOk={handleAdd}
     >
       <Input
-        placeholder="Название культуры"
+        placeholder='Название культуры'
         value={name}
         onChange={(e) => setName(e.target.value)}
         style={{ marginBottom: '16px' }}

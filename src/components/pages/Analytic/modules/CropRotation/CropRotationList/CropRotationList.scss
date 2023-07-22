@@ -65,7 +65,13 @@
 
     &-name {
       padding: 5px;
+      cursor: pointer;
+      transition: color .4s;
 
+      &:hover {
+        text-decoration: underline;
+        color: #ffffff;
+      }
     }
 
     &-description {

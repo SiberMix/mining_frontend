@@ -18,13 +18,24 @@ const CropRotationListItem: React.FC<Props> = ({
   const dispatch = useAppDispatch()
   const truncatedComment = itemInfo.groupName.length > 30 ? itemInfo.groupName.slice(0, 30) + '...' : itemInfo.groupName
 
+  const selectGroupHandler = () => {
+    dispatch(setSelectedCropRotationGroup(itemInfo.id))
+  }
+
   return (
     <div className='cropRotation-list-item'>
-      <div className='cropRotation-list-item-icon' onClick={() => dispatch(setSelectedCropRotationGroup(itemInfo.id))}>
-        <Icon src='/src/assets/icons/rotation.svg' active={active} />
+      <div className='cropRotation-list-item-icon'
+           onClick={selectGroupHandler}
+      >
+        <Icon
+          src='/src/assets/icons/rotation.svg'
+          active={active}
+        />
       </div>
       <div className='cropRotation-list-item-info'>
-        <div className='cropRotation-list-item-name'>
+        <div className='cropRotation-list-item-name'
+             onClick={selectGroupHandler}
+        >
           {itemInfo.groupName}
         </div>
         {
