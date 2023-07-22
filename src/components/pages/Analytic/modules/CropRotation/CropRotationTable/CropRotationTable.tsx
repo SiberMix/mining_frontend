@@ -255,3 +255,5 @@ const CropRotationTable = () => {
     </div>
   )
 }
+
+export default CropRotationTable
