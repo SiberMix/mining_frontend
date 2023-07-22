@@ -28,10 +28,12 @@
 
   &-item {
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
     min-width: 250px;
-    min-height: 80px;
+    //min-height: 80px;
+    height: auto;
     //background-color: green;
     width: 100%;
     border: .5px solid #ffffff;
@@ -44,7 +46,37 @@
     }
 
     &-icon {
-      
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &-info {
+      padding: 5px;
+
+      .ant-collapse-content-box {
+        word-wrap: break-word !important;
+      }
+
+      .ant-collapse-header {
+        width: 100% !important;
+        background-color: #616161;
+        border-radius: 8px !important;
+      }
+    }
+
+    &-name {
+      padding: 5px;
+
+    }
+
+    &-description {
+      width: 200px;
+
+      &-text {
+        word-wrap: break-word !important;
+      }
     }
   }
 }

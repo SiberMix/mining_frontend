@@ -14,19 +14,19 @@ const CropRotationControl = () => {
         type='primary'
         className='cropRotation-control-btn'
       >
-        Сохранить
+        Сохранить изменения
       </Button>
       <Button
         type='primary'
         className='cropRotation-control-btn'
       >
-        Применить к карте
+        Применить группу к карте
       </Button>
       <Button
         type='primary'
         className='cropRotation-control-btn'
       >
-        Редактировать
+        Редактировать группу
       </Button>
     </div>
   )

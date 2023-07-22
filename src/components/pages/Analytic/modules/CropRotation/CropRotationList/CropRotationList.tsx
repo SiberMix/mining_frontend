@@ -1,7 +1,24 @@
 import './CropRotationList.scss'
 import CropRotationListItem from './CropRotationListItem/CropRotationListItem'
 
-const fakeArr = ['первый', 'второй', 'третий', 'четвертый']
+const fakeArr = [
+  {
+    name: 'Тестовый образец',
+    description: 'oeruvniuenvuierniuvneriuvniuernviurenviunruievniurenivune'
+  },
+  {
+    name: 'Вторая группа',
+    description: 'oeruvniuenvuierniuvneriuvniuernviurenviunruievniurenoeruvniuenvuierniuvneriuniuren'
+  },
+  {
+    name: 'Номер три',
+    description: 'oeruvniuenvuierniuvneriuvniuernviurenviunruiev'
+  },
+  {
+    name: '4етвертый',
+    description: 'oeruvniuenvuierniuvneriuvniuernviurenviunruievniurenoeruvniuenvuierniuvneriuvniuernviurenviunruievniuren'
+  }
+]
 
 const CropRotationList = () => {
   return (
@@ -10,7 +27,7 @@ const CropRotationList = () => {
         fakeArr.map((f, index) => (
           <CropRotationListItem
             key={'CropRotationListItem_' + f}
-            listItemName={f}
+            itemInfo={f}
           />
         ))
       }

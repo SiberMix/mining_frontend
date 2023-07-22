@@ -1,8 +1,51 @@
-
 .cropRotation-table {
-  width: 100%;
-  padding: 10px;
-  margin: 40px 40px 40px 0;
   color: #929292;
   box-shadow: 0 0 13px 0 rgba(0, 0, 0, 0.36);
+
+  &-wrapper {
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    margin: 40px 40px 40px 0;
+  }
+
+  .ant-table {
+
+  }
+
+  .ant-table-body {
+    scrollbar-width: none; /* hide the scrollbar in Firefox */
+    -ms-overflow-style: none; /* hide the scrollbar in Edge and IE */
+
+    &::-webkit-scrollbar {
+      width: 0.5rem; /* set the width of the scrollbar */
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: #565656; /* set the color of the track */
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #929292; /* set the color of the thumb */
+    }
+  }
+
+  .ant-table-container {
+    border-radius: 8px;
+
+    .ant-table-cell {
+      text-align: center;
+      color: #929292;
+      background-color: #565656;
+    }
+  }
+
+  .ant-table-row {
+    &:hover {
+      .ant-table-cell {
+        color: #ffffff !important;
+        background-color: #858585 !important;
+      }
+    }
+  }
 }
