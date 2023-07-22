@@ -23,7 +23,11 @@ const cropRotationSlice = createSlice({
       state.cropRotationGroups.push(action.payload)
     },
     setSelectedCropRotationGroup: (state: CropRotationSliceInitialState, action) => {
-      state.selectedCropRotationGroup = action.payload
+      if (state.selectedCropRotationGroup === action.payload) {
+        state.selectedCropRotationGroup = null
+      } else {
+        state.selectedCropRotationGroup = action.payload
+      }
     }
   }
 })
