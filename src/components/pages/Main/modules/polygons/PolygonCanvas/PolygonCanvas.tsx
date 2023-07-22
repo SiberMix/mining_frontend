@@ -1,12 +1,9 @@
 import s from './PolygonCanvas.module.scss'
-import React, {
-  useEffect,
-  useRef
-} from 'react'
+import React, { useEffect, useRef } from 'react'
 import type { Polygon } from '../../../../../../types'
 import { getBoundingRect } from '../../../../../../utils/getBoundingRect'
 
-const PolygonCanvas: React.FC<{polygon: Polygon}> = ({ polygon }) => {
+const PolygonCanvas: React.FC<{ polygon: Polygon }> = ({ polygon }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
@@ -33,7 +30,7 @@ const PolygonCanvas: React.FC<{polygon: Polygon}> = ({ polygon }) => {
 
       const ctx = canvasRef.current.getContext('2d')
       if (ctx) {
-        ctx.fillStyle = '#3e4b5c'
+        ctx.fillStyle = polygon.sequence.color
 
         draw(ctx, polygon.coords[0])
       }

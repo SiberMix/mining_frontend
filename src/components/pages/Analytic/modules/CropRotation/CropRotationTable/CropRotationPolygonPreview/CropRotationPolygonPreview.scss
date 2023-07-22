@@ -1,0 +1,33 @@
+.CropRotationPolygonPreview {
+  width: 100%;
+  //height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  canvas {
+    padding: 0;
+    margin: 0;
+  }
+
+  &-name {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    color: #ffffff;
+  }
+
+  &-btn {
+    border: 1px solid #858585;
+    color: #929292;
+    background-color: #565656;
+    transition: background-color, color .3s;
+
+    &:hover {
+      color: #ffffff !important;
+      border: 1px solid #ffffff !important;
+      background-color: #858585 !important;
+    }
+  }
+}

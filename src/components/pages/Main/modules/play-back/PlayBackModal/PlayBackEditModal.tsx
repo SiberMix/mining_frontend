@@ -65,22 +65,6 @@ const PlayBackEditModal = () => {
         onChange={(e) => setName(e.target.value)}
         style={{ marginBottom: '16px' }}
       />
-      {/*<span className='PlayBackAddModal__title'>*/}
-      {/*  Выберете цвет линий*/}
-      {/*</span>*/}
-      {/*<div*/}
-      {/*  className='PlayBackAddModal__colorpicker-color'*/}
-      {/*  style={{ backgroundColor: color }}*/}
-      {/*/>*/}
-      {/*<div className='PlayBackAddModal__colorpicker'>*/}
-      {/*  <GithubPicker*/}
-      {/*    width='95%'*/}
-      {/*    triangle='hide'*/}
-      {/*    color={color}*/}
-      {/*    onChange={handleColorChange}*/}
-      {/*    colors={importedColors.colors}*/}
-      {/*  />*/}
-      {/*</div>*/}
     </Modal>
   )
 }

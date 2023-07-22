@@ -3,39 +3,46 @@ import '../CropRotationList.scss'
 import styled from 'styled-components'
 import SVG from 'react-inlinesvg'
 import { Collapse } from 'antd/lib'
+import { CropRotationGroup, setSelectedCropRotationGroup } from '../../../../../../../redux/slices/cropRotationSlice'
+import { useAppDispatch } from '../../../../../../../redux/store'
 
 type Props = {
-  itemInfo: {
-    name: string,
-    description: string
-  }
+  itemInfo: CropRotationGroup
+  active: boolean
 }
 
-const CropRotationListItem: React.FC<Props> = ({ itemInfo }) => {
-
-  const truncatedComment = itemInfo.name.length > 30 ? itemInfo.name.slice(0, 30) + '...' : itemInfo.name
+const CropRotationListItem: React.FC<Props> = ({
+  itemInfo,
+  active
+}) => {
+  const dispatch = useAppDispatch()
+  const truncatedComment = itemInfo.groupName.length > 30 ? itemInfo.groupName.slice(0, 30) + '...' : itemInfo.groupName
 
   return (
     <div className='cropRotation-list-item'>
-      <div className='cropRotation-list-item-icon'>
-        <Icon src='/src/assets/icons/rotation.svg' />
+      <div className='cropRotation-list-item-icon' onClick={() => dispatch(setSelectedCropRotationGroup(itemInfo.id))}>
+        <Icon src='/src/assets/icons/rotation.svg' active={active} />
       </div>
       <div className='cropRotation-list-item-info'>
         <div className='cropRotation-list-item-name'>
-          {itemInfo.name}
+          {itemInfo.groupName}
         </div>
-        <Collapse
-          className='cropRotation-list-item-description'
-          size='small'
-          style={{
-            color: '#ffffff'
-          }}
-          items={[{
-            key: '1',
-            label: 'Описание',
-            children: <p className='cropRotation-list-item-description-text'>{itemInfo.description}</p>
-          }]}
-        />
+        {
+          itemInfo.description.length > 0
+            ? <Collapse
+              className='cropRotation-list-item-description'
+              size='small'
+              style={{
+                color: '#ffffff'
+              }}
+              items={[{
+                key: '1',
+                label: 'Описание',
+                children: <p className='cropRotation-list-item-description-text'>{itemInfo.description}</p>
+              }]}
+            />
+            : <div className='cropRotation-list-item-description' />
+        }
       </div>
     </div>
   )
@@ -43,13 +50,13 @@ const CropRotationListItem: React.FC<Props> = ({ itemInfo }) => {
 
 export default CropRotationListItem
 
-const Icon = styled(SVG)`
+const Icon = styled(SVG)<{ active: boolean }>`
   padding: 5px;
   height: 70px;
   width: 70px;
   cursor: pointer;
 
   path {
-    fill: #c5ef75;
+    fill: ${({ active }) => (!active ? '#c5ef75' : '#ffffff')};
   }
 `

@@ -1,16 +1,11 @@
 import './Diagram.scss'
 import React from 'react'
-import {
-  Badge,
-  Card,
-  Col,
-  Row
-} from 'antd'
+import { Badge, Card, Col, Row } from 'antd'
 import ApexChart from 'react-apexcharts'
 import { apexPieChartDefaultOption } from './default-data'
 import { useSelector } from 'react-redux'
-import { getAllPolygonsSelector } from '../../../../../../../redux/selectors/mapSelectors'
-import { getAllFieldsSelector } from '../../../../../../../redux/selectors/fieldsSelectors'
+import { getAllPolygonsSelector } from '../../../../../redux/selectors/mapSelectors'
+import { getAllFieldsSelector } from '../../../../../redux/selectors/fieldsSelectors'
 
 const DonutChartWidget = (props: any) => {
   const {
@@ -32,10 +27,10 @@ const DonutChartWidget = (props: any) => {
     options = { ...options, ...customOptions }
   }
   return (
-    <Card className="diagram">
-      <div className="text-center">
+    <Card className='diagram'>
+      <div className='text-center'>
         <ApexChart
-          type="donut"
+          type='donut'
           options={options}
           series={series}
           width={width}
@@ -87,10 +82,10 @@ const Diagram = () => {
     <DonutChartWidget
       series={squares}
       labels={cultures}
-      title="Всего"
+      title='Всего'
       customOptions={{ colors: colors }}
       extra={
-        <Row justify="center">
+        <Row justify='center'>
           <Col
             xs={20}
             sm={20}
@@ -98,20 +93,20 @@ const Diagram = () => {
             lg={24}
           >
             <div
-              className="diagram-markers-wrapper"
+              className='diagram-markers-wrapper'
             >
               {conbinedSessionData.map((elm: any) => (
                 <div
-                  className="diagram-marker"
+                  className='diagram-marker'
                   key={elm.label}
                 >
                   <div>
                     <Badge color={elm.color} />
-                    <span className="diagram-marker-name">
+                    <span className='diagram-marker-name'>
                       {elm.label}
                     </span>
                   </div>
-                  <span className="diagram-marker-value">
+                  <span className='diagram-marker-value'>
                     {elm.data}
                   </span>
                 </div>
