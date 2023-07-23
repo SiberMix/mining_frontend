@@ -95,8 +95,8 @@ const CropRotationAddGroupModal = () => {
       )}
       title={
         editedCropRotationGroup
-          ? 'Добавить группу севооборота'
-          : 'Редактировать группу севооборота'
+          ? 'Редактировать группу севооборота'
+          : 'Добавить группу севооборота'
       }
       open={openCropRotationAddGroupModal}
       onCancel={closeHandler}
@@ -127,7 +127,11 @@ const CropRotationAddGroupModal = () => {
               <Button onClick={() => setGroupData([])}>
                 Убрать все
               </Button>
-              Выберете поля для группы севооборота
+              {
+                editedCropRotationGroup
+                  ? 'Редактирование полей для группы севооборота'
+                  : 'Выбор полей для группы севооборота'
+              }
               <Button onClick={addAll}>
                 Выбрать все
               </Button>
