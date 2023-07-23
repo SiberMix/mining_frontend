@@ -3,7 +3,6 @@ import CropRotationListItem from './CropRotationListItem/CropRotationListItem'
 import { useSelector } from 'react-redux'
 import { RootState, useAppDispatch } from '../../../../../../redux/store'
 import { setOpenCropRotationAddGroupModal } from '../../../../../../redux/slices/cropRotationSlice'
-import { Button } from 'antd'
 
 const CropRotationList = () => {
   const dispatch = useAppDispatch()
@@ -12,26 +11,27 @@ const CropRotationList = () => {
 
   return (
     <div className='cropRotation-list'>
-      {
-        cropRotationGroups.length > 0
-          ? cropRotationGroups.map((group) => (
+      <div className='cropRotation-list-total'>
+        Севооборот ({cropRotationGroups.length} плана)
+      </div>
+      <div className='cropRotation-list-items'>
+        <button
+          className='cropRotation-list-addBtn'
+          onClick={() => dispatch(setOpenCropRotationAddGroupModal(true))}
+        >
+          + Добавить
+        </button>
+        {
+          cropRotationGroups.map((group) => (
             <CropRotationListItem
               key={'CropRotationListItem_' + group.groupName}
               itemInfo={group}
               active={group.id === selectedCropRotationGroup}
             />
           ))
-          : <div className='cropRotation-list-empty'>
-            На данный момент нет групп
-            <Button
-              type='primary'
-              className='cropRotation-control-btn'
-              onClick={() => dispatch(setOpenCropRotationAddGroupModal(true))}
-            >
-              Создайте первую группу
-            </Button>
-          </div>
-      }
+        }
+      </div>
+
     </div>
   )
 }

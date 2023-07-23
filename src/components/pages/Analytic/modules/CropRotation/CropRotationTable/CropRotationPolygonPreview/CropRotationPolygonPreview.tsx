@@ -17,6 +17,8 @@ const CropRotationPolygonPreview: React.FC<Props> = ({
     event.stopPropagation()
   }
 
+  console.log(polygon)
+
   return (
     <div
       className='CropRotationPolygonPreview'

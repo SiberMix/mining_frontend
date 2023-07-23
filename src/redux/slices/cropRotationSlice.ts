@@ -4,30 +4,48 @@ type CropRotationSliceInitialState = {
   openCropRotationAddGroupModal: boolean
   cropRotationGroups: CropRotationGroup[]
   selectedCropRotationGroup: number | null
+  editedCropRotationGroup: CropRotationGroup | undefined
 }
 
 const cropRotationSliceInitialState: CropRotationSliceInitialState = {
   openCropRotationAddGroupModal: false,
   cropRotationGroups: [],
-  selectedCropRotationGroup: null
+  selectedCropRotationGroup: null,
+  editedCropRotationGroup: undefined
 }
 
 const cropRotationSlice = createSlice({
   name: 'cropRotation',
   initialState: cropRotationSliceInitialState,
   reducers: {
+    setCropRotationGroup: (state: CropRotationSliceInitialState, action) => {
+      if (state.cropRotationGroups.some(group => group.id === action.payload.id)) {
+        state.cropRotationGroups = state.cropRotationGroups.map(group => {
+          if (group.id === action.payload.id) {
+            return action.payload
+          } else {
+            return group
+          }
+        })
+        state.selectedCropRotationGroup = action.payload.id
+      } else {
+        state.selectedCropRotationGroup = action.payload.id
+        state.cropRotationGroups.push(action.payload)
+      }
+    },
     setOpenCropRotationAddGroupModal: (state: CropRotationSliceInitialState, action) => {
       state.openCropRotationAddGroupModal = action.payload
     },
-    setCropRotationGroup: (state: CropRotationSliceInitialState, action) => {
-      state.selectedCropRotationGroup = action.payload.id
-      state.cropRotationGroups.push(action.payload)
-    },
     setSelectedCropRotationGroup: (state: CropRotationSliceInitialState, action) => {
-      if (state.selectedCropRotationGroup === action.payload) {
-        state.selectedCropRotationGroup = null
+      state.selectedCropRotationGroup = action.payload
+    },
+    setEditedCropRotationGroup: (state: CropRotationSliceInitialState, action) => {
+      if (action.payload !== undefined) {
+        state.editedCropRotationGroup = state.cropRotationGroups.find(group => group.id === action.payload)
+        state.openCropRotationAddGroupModal = true
       } else {
-        state.selectedCropRotationGroup = action.payload
+        state.editedCropRotationGroup = action.payload
+        state.openCropRotationAddGroupModal = false
       }
     }
   }
@@ -41,7 +59,8 @@ const {
 export const {
   setOpenCropRotationAddGroupModal,
   setCropRotationGroup,
-  setSelectedCropRotationGroup
+  setSelectedCropRotationGroup,
+  setEditedCropRotationGroup
 } = actions
 
 export default reducer

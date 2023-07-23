@@ -26,7 +26,8 @@ const App: React.FC = () => {
   useEffect(() => {
     if (!!token) {
       dispatch(getSettings(token))
-      navigate('/monitoring')
+      navigate('/analytics/crop_rotation')
+      // navigate('/monitoring')
     }
   }, [token])
 

@@ -4,21 +4,31 @@ import AnalyticLayout from './MainLayout/AnalyticLayout'
 import AnalyticSidebarContainer from './AnalyticSidebar/AnalyticSidebarContainer'
 import { useNavigate } from 'react-router-dom'
 import AnalyticSidebar from './AnalyticSidebar/AnalyticSidebar'
+import { useAppDispatch } from '../../../redux/store'
+import { getAllPolygons } from '../../../redux/slices/mapSlice'
 
 const Analytic = () => {
+  const dispatch = useAppDispatch()
+
   const navigate = useNavigate()
   const [load, setLoad] = useState(true)
 
   useEffect(() => {
-    // Имитация загрузки данных
-    // const fakeTimeout = setTimeout(() => {
-    setLoad(false)
-    navigate('/analytics/field')
-    // }, 3000)
 
-    return () => {
-      // clearTimeout(fakeTimeout)
-    }
+    (async () => {
+      try {
+        await Promise.all([
+          dispatch(getAllPolygons())
+        ])
+
+        setLoad(false)
+        console.log('Информация загружена')
+        navigate('/analytics/crop_rotation')
+        // navigate('/analytics/field')
+      } catch (error) {
+        console.error('Произошла ошибка при загрузке данных:', error)
+      }
+    })()
   }, [])
 
   return (

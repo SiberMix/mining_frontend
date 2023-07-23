@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Button, Input, Modal } from 'antd'
 import * as cn from 'classnames'
 import { RootState, useAppDispatch } from '../../../../../../redux/store'
-import { setCropRotationGroup, setOpenCropRotationAddGroupModal } from '../../../../../../redux/slices/cropRotationSlice'
+import { setCropRotationGroup, setEditedCropRotationGroup, setOpenCropRotationAddGroupModal } from '../../../../../../redux/slices/cropRotationSlice'
 import { useSelector } from 'react-redux'
 import { getAllPolygonsSelector } from '../../../../../../redux/selectors/mapSelectors'
 import CropRotationPolygonPreview from '../CropRotationTable/CropRotationPolygonPreview/CropRotationPolygonPreview'
@@ -11,6 +11,7 @@ import TextArea from 'antd/es/input/TextArea'
 import Search from 'antd/es/input/Search'
 
 const CropRotationAddGroupModal = () => {
+  const editedCropRotationGroup = useSelector((state: RootState) => state.cropRotationReducer.editedCropRotationGroup)
   const openCropRotationAddGroupModal = useSelector((state: RootState) => state.cropRotationReducer.openCropRotationAddGroupModal)
   const allPolygons = useSelector(getAllPolygonsSelector)
 
@@ -19,7 +20,16 @@ const CropRotationAddGroupModal = () => {
   const [description, setDescription] = useState('')
   const [groupData, setGroupData] = useState<number[]>([])
   const [search, setSearch] = useState('')
+  const [searchValue, setSearchValue] = useState('')
   const [allPolygonsWithFilter, setAllPolygonsWithFilter] = useState(allPolygons)
+
+  useEffect(() => {
+    if (editedCropRotationGroup !== undefined) {
+      setGroupName(editedCropRotationGroup.groupName)
+      setDescription(editedCropRotationGroup.description)
+      setGroupData(editedCropRotationGroup.groupData)
+    }
+  }, [openCropRotationAddGroupModal])
 
   useEffect(() => {
     if (search.length > 0) {
@@ -36,16 +46,11 @@ const CropRotationAddGroupModal = () => {
   const handleSubmit = () => {
     if (groupName && groupData.length > 0) {
       dispatch(setCropRotationGroup({
-        id: Math.floor(Math.random() * (10000 - 1) + 1),
+        id: editedCropRotationGroup ? editedCropRotationGroup.id : Math.floor(Math.random() * (10000 - 1) + 1),
         groupName,
-        description,
+        description: description ? description : '-----',
         groupData
       }))
-      console.log({
-        groupName,
-        description,
-        groupData
-      })
       closeHandler()
     } else {
       alert('Название или группа не могут быть пустыми')
@@ -62,10 +67,12 @@ const CropRotationAddGroupModal = () => {
 
   const closeHandler = () => {
     dispatch(setOpenCropRotationAddGroupModal(false))
+    dispatch(setEditedCropRotationGroup(undefined))
     setGroupName('')
     setDescription('')
     setGroupData([])
     setSearch('')
+    setSearchValue('')
   }
 
   const addAll = () => {
@@ -77,6 +84,7 @@ const CropRotationAddGroupModal = () => {
     if (e.target.value.length === 0) {
       setSearch('')
     }
+    setSearchValue(e.target.value)
   }
 
   return (
@@ -85,7 +93,11 @@ const CropRotationAddGroupModal = () => {
         'fieldPreviewModal',
         'CropRotationAddGroupModal'
       )}
-      title='Добавить группу севооборота'
+      title={
+        editedCropRotationGroup
+          ? 'Добавить группу севооборота'
+          : 'Редактировать группу севооборота'
+      }
       open={openCropRotationAddGroupModal}
       onCancel={closeHandler}
       onOk={handleSubmit}
@@ -122,6 +134,7 @@ const CropRotationAddGroupModal = () => {
             </div>
             <Search
               placeholder='Воспользуйтесь поиском'
+              value={searchValue}
               onSearch={setSearch}
               onChange={resetSearch} />
           </div>

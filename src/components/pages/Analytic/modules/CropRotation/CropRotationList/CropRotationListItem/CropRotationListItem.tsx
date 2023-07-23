@@ -1,10 +1,13 @@
+import './CropRotationListItem.scss'
 import React from 'react'
 import '../CropRotationList.scss'
 import styled from 'styled-components'
 import SVG from 'react-inlinesvg'
-import { Collapse } from 'antd/lib'
-import { CropRotationGroup, setSelectedCropRotationGroup } from '../../../../../../../redux/slices/cropRotationSlice'
+import { CropRotationGroup, setEditedCropRotationGroup, setSelectedCropRotationGroup } from '../../../../../../../redux/slices/cropRotationSlice'
 import { useAppDispatch } from '../../../../../../../redux/store'
+import EditBox from '/src/assets/icons/edit.svg'
+import TrashBox from '/src/assets/icons/delete.svg'
+import { CheckCircleFilled } from '@ant-design/icons'
 
 type Props = {
   itemInfo: CropRotationGroup
@@ -23,37 +26,36 @@ const CropRotationListItem: React.FC<Props> = ({
   }
 
   return (
-    <div className='cropRotation-list-item'>
-      <div className='cropRotation-list-item-icon'
-           onClick={selectGroupHandler}
-      >
-        <Icon
-          src='/src/assets/icons/rotation.svg'
-          active={active}
-        />
-      </div>
-      <div className='cropRotation-list-item-info'>
-        <div className='cropRotation-list-item-name'
-             onClick={selectGroupHandler}
-        >
+    <div className='cropRotation-list-item'
+         onClick={selectGroupHandler}
+    >
+      <div className='cropRotation-list-item__info'>
+        <span className='cropRotation-list-item__info-name'>
           {itemInfo.groupName}
-        </div>
-        {
-          itemInfo.description.length > 0
-            ? <Collapse
-              className='cropRotation-list-item-description'
-              size='small'
-              style={{
-                color: '#ffffff'
-              }}
-              items={[{
-                key: '1',
-                label: 'Описание',
-                children: <p className='cropRotation-list-item-description-text'>{itemInfo.description}</p>
-              }]}
-            />
-            : <div className='cropRotation-list-item-description' />
-        }
+          <CheckCircleFilled
+            className='cropRotation-list-item__info-icon'
+            style={{ color: active ? '#91C658' : '#434345' }}
+          />
+        </span>
+        <span className='cropRotation-list-item__info-description'>
+          {itemInfo.description}
+        </span>
+      </div>
+      <div className='cropRotation-list-item__icons'>
+        <img
+          className='cropRotation-list-item__icons-item'
+          src={EditBox}
+          onClick={() => dispatch(setEditedCropRotationGroup(itemInfo.id))}
+          alt=''
+          title='Редактировать плэйбэк'
+        />
+        <img
+          className='cropRotation-list-item__icons-item'
+          // onClick={deleteHandler}
+          src={TrashBox}
+          alt=''
+          title='Удалить плэйбэк'
+        />
       </div>
     </div>
   )

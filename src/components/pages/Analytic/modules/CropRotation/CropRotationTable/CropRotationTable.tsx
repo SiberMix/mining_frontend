@@ -20,7 +20,6 @@ const years = [
 ].reverse()
 
 const CropRotationTable = () => {
-
   const allPolygons = useSelector(getAllPolygonsSelector)
   const cropRotationGroups: CropRotationGroup[] = useSelector((state: RootState) => state.cropRotationReducer.cropRotationGroups)
   const selectedCropRotationGroup = useSelector((state: RootState) => state.cropRotationReducer.selectedCropRotationGroup)
@@ -41,7 +40,7 @@ const CropRotationTable = () => {
       const usingPolygons = allPolygons.filter(polygon => idOfUsingPolygons?.some(usingId => usingId === polygon.id))
       setTableData(usingPolygons)
     }
-  }, [selectedCropRotationGroup])
+  }, [selectedCropRotationGroup, cropRotationGroups])
 
   return (
     <div className='cropRotation-table-wrapper'>
@@ -52,7 +51,7 @@ const CropRotationTable = () => {
             dataSource={tableData}
             pagination={false}
             bordered={true}
-            scroll={{ y: '80vh' }}
+            scroll={{ y: '92vh' }}
           >
             <Table.Column
               title='Список полей'
