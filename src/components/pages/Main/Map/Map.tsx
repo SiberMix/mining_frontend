@@ -28,31 +28,34 @@ const Map: React.FC<Props> = () => {
       zoom={+stateZoomLevelOptions}
       minZoom={3}
     >
-      {/*todo тестовое оборудование потому что сокет любит отъебнуть*/}
-      {/*<EquipCastomMarker*/}
-      {/*  key={54.925946}*/}
-      {/*  coordsData={{*/}
-      {/*    imei: '54.925946',*/}
-      {/*    lat: '54.925946',*/}
-      {/*    lon: '82.775931',*/}
-      {/*    datetime: '123'*/}
-      {/*  }}*/}
-      {/*  equip_name="equip_name"*/}
-      {/*  gosnomer={54.925946}*/}
-      {/*  image_status={2}*/}
-      {/*  imei={54.925946}*/}
-      {/*  speed={54.925946}*/}
-      {/*  fuel={54.925946}*/}
-      {/*/>*/}
-      <MapPlayback />
       <MapViewSelect />
       <MapPolygons />
       <DrawingPolygon />
       <MapEquipments />
       <ZoomControl position='topright' />
       <PickBaseCoord />
+      <MapPlayback />
     </MapContainer>
   )
 }
 
 export default React.memo(Map)
+
+/**
+ todo тестовое оборудование потому что сокет любит отъебнуть
+ <EquipCastomMarker
+ key={54.925946}
+ coordsData={{
+ imei: '54.925946',
+ lat: '54.925946',
+ lon: '82.775931',
+ datetime: '123'
+ }}
+ equip_name="equip_name"
+ gosnomer={54.925946}
+ image_status={2}
+ imei={54.925946}
+ speed={54.925946}
+ fuel={54.925946}
+ />
+ * */
