@@ -1,23 +1,31 @@
 import './EquipsAnalyticMenu.scss'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Segmented } from 'antd'
 import EquipsAnalyticMenuItems from './EquipsAnalyticMenuItems/EquipsAnalyticMenuItems'
 import { useAppDispatch } from '../../../../../../redux/store'
-import { setPikedEquipsColors, setPikedEquipsId, setTsEnd, setTsStart } from '../../../../../../redux/slices/EquipsAnalytic'
+import { ChartType, getEquipsAnalyticThunk, resetEquipsAnalyticThunk, setScheduleType, setTsEnd, setTsStart } from '../../../../../../redux/slices/EquipsAnalytic'
 import { useSelector } from 'react-redux'
-import { getIsLoadingSelector, getPikedEquipsColorsSelector, getPikedEquipsIdSelector } from '../../../../../../redux/selectors/equipsAnalyticSlectors'
+import { getIsLoadingSelector, getPikedEquipsIdSelector, getScheduleTypeSelector } from '../../../../../../redux/selectors/equipsAnalyticSlectors'
+
+type Period = 'День' | 'Неделя' | 'Месяц' | 'Свой вариант'
 
 const EquipsAnalyticMenu = () => {
   const dispatch = useAppDispatch()
   const pikedEquipsId = useSelector(getPikedEquipsIdSelector)
-  const pikedEquipsColors = useSelector(getPikedEquipsColorsSelector)
   const isLoading = useSelector(getIsLoadingSelector)
+  const scheduleType = useSelector(getScheduleTypeSelector)
+  const [period, setPeriod] = useState<Period>('День')
 
+  //При первой загрузке сбрасываем все в 0
   useEffect(() => {
-
+    dispatch(resetEquipsAnalyticThunk())
   }, [])
 
-  const pickTime = (period: 'День' | 'Неделя' | 'Месяц' | 'Свой вариант') => {
+  useEffect(() => {
+    createTimeStamp()
+  }, [period])
+
+  const createTimeStamp = () => {
     const now = new Date().getTime() // Текущая временная метка
 
     switch (period) {
@@ -45,30 +53,57 @@ const EquipsAnalyticMenu = () => {
         // Ваша логика для обработки "Свой вариант"
         break
       default:
-      // Обработка для непредвиденных случаев
+        const dayAgoForDefault = now - 24 * 60 * 60 * 1000
+        dispatch(setTsEnd(now))
+        dispatch(setTsStart(dayAgoForDefault))
+    }
+  }
+
+  const getNewAnalyticData = () => {
+    if (pikedEquipsId.length === 0) {
+      alert('Необходимо выбрать минимум одно оборудование')
+    } else {
+      dispatch(getEquipsAnalyticThunk())
     }
   }
 
   const resetHandler = () => {
-    dispatch(setPikedEquipsColors(pikedEquipsId[0]))
-    dispatch(setPikedEquipsId(pikedEquipsColors[0]))
-
+    dispatch(resetEquipsAnalyticThunk())
   }
 
   return (
     <div className='equipsAnalyticMenu'>
       <div className='equipsAnalyticMenu-btns_conatiner'>
         <div className='equipsAnalyticMenu-title'>
-          Выберете временной промежуток
+          Тип графика
+          <span>Не требует повторной загрузки с сервера</span>
+        </div>
+        <Segmented
+          options={['Скорость', 'Топливо']}
+          value={scheduleType}
+          onChange={(value) => dispatch(setScheduleType(value as ChartType))}
+        />
+        <div className='equipsAnalyticMenu-title'>
+          Временной отрезок
+          <span>Берется ровно от данного момента</span>
         </div>
         <Segmented
           options={['День', 'Неделя', 'Месяц', 'Свой вариант']}
-          onChange={(value) => console.log(value)}
-          disabled={isLoading}
+          value={period}
+          onChange={(value) => setPeriod(value as Period)}
         />
+        <div
+          className={`
+                equipsAnalyticMenu-timepicker 
+                ${period === 'Свой вариант' ? 'equipsAnalyticMenu-timepicker__open' : 'equipsAnalyticMenu-timepicker__close'}
+              `}
+        >
+          ПРИВЕТ Я ТАЙМПИКЕР
+        </div>
         <Button className='equipsAnalyticMenu-btn'
                 type='primary'
                 disabled={isLoading}
+                onClick={getNewAnalyticData}
         >
           Загрузить статистику
         </Button>

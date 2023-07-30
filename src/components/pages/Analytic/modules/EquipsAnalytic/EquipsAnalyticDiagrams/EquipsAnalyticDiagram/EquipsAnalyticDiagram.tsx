@@ -1,7 +1,6 @@
 import React from 'react'
 import ApexChart from 'react-apexcharts'
 import { ApexOptions } from 'apexcharts'
-import { COLORS } from '../../../../diagrams/ChartConstant'
 
 const DefaultDiagramData = {
   title: 'Пример простого графика',
@@ -52,9 +51,9 @@ type Props = {
 const EquipsAnalyticDiagram: React.FC<Props> = ({
   categories,
   series,
-  title
+  title,
+  colors
 }) => {
-  const colors
 
   const options: ApexOptions = {
     title: {
@@ -70,7 +69,7 @@ const EquipsAnalyticDiagram: React.FC<Props> = ({
         show: false
       }
     },
-    colors: [...COLORS],
+    colors: [...colors],
     dataLabels: {
       enabled: false
     },

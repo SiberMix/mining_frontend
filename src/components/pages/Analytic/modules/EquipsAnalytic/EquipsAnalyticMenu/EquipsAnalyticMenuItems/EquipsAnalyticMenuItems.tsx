@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux'
 import { getAllEquipmentSelector } from '../../../../../../../redux/selectors/mapSelectors'
 import { getPikedEquipsColorsSelector, getPikedEquipsIdSelector } from '../../../../../../../redux/selectors/equipsAnalyticSlectors'
 import { setPikedEquipsColors, setPikedEquipsId } from '../../../../../../../redux/slices/EquipsAnalytic'
-import { colors } from '../../../../analytic-data.json'
+import { getRandomColor } from '../../reusingFunctions'
 
 const EquipsAnalyticMenuItems = () => {
 
@@ -15,13 +15,6 @@ const EquipsAnalyticMenuItems = () => {
   const allEquips: Equip[] = useSelector(getAllEquipmentSelector)
   const pikedEquipsId = useSelector(getPikedEquipsIdSelector)
   const pikedEquipsColors = useSelector(getPikedEquipsColorsSelector)
-
-  const getRandomColor = () => {
-    const randomSeed = Date.now()
-    let randomIndex = randomSeed % colors.length
-
-    return colors[randomIndex]
-  }
 
   const pickEquipment = (equipId: number) => {
     const equipIndex = pikedEquipsId.indexOf(equipId)

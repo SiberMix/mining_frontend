@@ -20,10 +20,13 @@ const authSlice = createSlice({
     }
   },
   extraReducers: (builder) => {
-    builder.addCase(getToken.fulfilled, (state, action) => {
-      state.token = action.payload.data.auth_token
-      localStorage.setItem('token', action.payload.data.auth_token)
-    })
+    builder
+      .addCase(getToken.fulfilled, (state, action) => {
+        state.token = action.payload.data.auth_token
+        localStorage.setItem('token', action.payload.data.auth_token)
+      })
+      .addDefaultCase(() => {
+      })
   }
 })
 
