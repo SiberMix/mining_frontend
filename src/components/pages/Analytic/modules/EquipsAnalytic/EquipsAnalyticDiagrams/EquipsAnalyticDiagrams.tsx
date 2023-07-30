@@ -8,9 +8,11 @@ import DefaultDiagram from '../../../diagrams/DefaultDiagram/DefaultDiagram'
 const EquipsAnalyticDiagrams = () => {
   const allEquips = useSelector(getAllEquipment)
   const pikedEquipsColors = useSelector(getPikedEquipsColorsSelector)
+
   //todo убрать эту хуйню
   const scheduleType = useSelector(getScheduleTypeSelector)
 
+  //todo нужно найти и добавить лоудер
   return (
     <div className='fieldsAnalyticDiagrams'>
       <DefaultDiagram key={'fieldsAnalyticDiagrams' + scheduleType} />

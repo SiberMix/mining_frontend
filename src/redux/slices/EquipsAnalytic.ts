@@ -103,6 +103,7 @@ export const resetEquipsAnalyticThunk = createAsyncThunk(
     const dayAgo = now - 24 * 60 * 60 * 1000
     dispatch(setTsEnd(now))
     dispatch(setTsStart(dayAgo))
+    dispatch(setScheduleType('Скорость'))
     dispatch(setPikedEquipsId([equipmentList[0].id]))
     dispatch(setPikedEquipsColors([getRandomColor()]))
 
