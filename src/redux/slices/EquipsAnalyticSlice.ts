@@ -5,7 +5,7 @@ import { RootState } from '../store'
 import { getRandomColor } from '../../components/pages/Analytic/modules/EquipsAnalytic/reusingFunctions'
 
 type EquipAnalyticSliceInitialState = {
-  equipsData: any
+  equipsData: EquipsData | undefined
   tsStart: number
   tsEnd: number
   pikedEquipsId: number[]
@@ -134,4 +134,21 @@ export const {
 
 export default reducer
 
-export type EquipsData = {}
+export type EquipsData = {
+  time_range: {
+    'ts_from': number,
+    'ts_to': number
+  },
+  data: EquipsDataData[]
+}
+export type EquipsDataData = {
+  id: number
+  imei_str: string
+  imei_data: EquipsDataImeiData[]
+}
+export type EquipsDataImeiData = {
+  timestamp: string
+  avg_speed: number
+  avg_fuel: number
+}
+

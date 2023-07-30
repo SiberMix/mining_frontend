@@ -7,7 +7,7 @@ import optionalEquipmentReducer from './slices/optionalEquipmentSlice'
 import authReducer from './slices/authSlice'
 import playBackReducer from './slices/playBackSlice'
 import cropRotationReducer from './slices/cropRotationSlice'
-import equipAnalyticReducer from './slices/EquipsAnalytic'
+import equipAnalyticReducer from './slices/EquipsAnalyticSlice'
 import { useDispatch } from 'react-redux'
 
 const rootReducer = combineReducers({

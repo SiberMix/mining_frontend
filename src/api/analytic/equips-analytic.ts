@@ -10,7 +10,7 @@ const EquipsAnalytic = {
 
     return axiosInstanceWithoutV1.post('/tractors_avg_speed/', {
       ts_start: Math.round(ts_start / 1000),
-      ts_end: Math.round(ts_start / 1000),
+      ts_end: Math.round(ts_end / 1000),
       imei_ids
     })
   }

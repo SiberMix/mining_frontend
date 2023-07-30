@@ -23,7 +23,7 @@ const Analytic = () => {
 
         setLoad(false)
         console.log('Информация загружена')
-        navigate('/analytics/crop_rotation')
+        navigate('/analytics/equipments')
         // navigate('/analytics/field')
       } catch (error) {
         console.error('Произошла ошибка при загрузке данных:', error)

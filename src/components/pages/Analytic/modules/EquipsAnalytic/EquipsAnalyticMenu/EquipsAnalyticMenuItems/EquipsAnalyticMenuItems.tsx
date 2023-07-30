@@ -6,7 +6,7 @@ import { Equip } from '../../../../../../../types/equip'
 import { useSelector } from 'react-redux'
 import { getAllEquipmentSelector } from '../../../../../../../redux/selectors/mapSelectors'
 import { getPikedEquipsColorsSelector, getPikedEquipsIdSelector } from '../../../../../../../redux/selectors/equipsAnalyticSlectors'
-import { setPikedEquipsColors, setPikedEquipsId } from '../../../../../../../redux/slices/EquipsAnalytic'
+import { setPikedEquipsColors, setPikedEquipsId } from '../../../../../../../redux/slices/EquipsAnalyticSlice'
 import { getRandomColor } from '../../reusingFunctions'
 
 const EquipsAnalyticMenuItems = () => {

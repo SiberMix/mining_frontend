@@ -2,42 +2,6 @@ import React from 'react'
 import ApexChart from 'react-apexcharts'
 import { ApexOptions } from 'apexcharts'
 
-const DefaultDiagramData = {
-  title: 'Пример простого графика',
-  series: [
-    {
-      name: 'Заглушка 1',
-      data: [41, 23, 68, 21, 23, 36, 61, 10, 16, 28, 12, 11]
-    },
-    {
-      name: 'Заглушка 2',
-      data: [35, 41, 22, 12, 34, 33, 22, 41, 66, 17, 23, 50]
-    },
-    {
-      name: 'Заглушка 3',
-      data: [15, 55, 22, 42, 13, 18, 29, 37, 36, 51, 32, 35]
-    },
-    {
-      name: 'Заглушка 4',
-      data: [12, 15, 28, 24, 33, 26, 21, 20, 6, 8, 15, 10]
-    }
-  ],
-  categories: [
-    '01 Jan',
-    '02 Jan',
-    '03 Jan',
-    '04 Jan',
-    '05 Jan',
-    '06 Jan',
-    '07 Jan',
-    '08 Jan',
-    '09 Jan',
-    '10 Jan',
-    '11 Jan',
-    '12 Jan'
-  ]
-}
-
 type Props = {
   title: string,
   series: {
@@ -61,6 +25,15 @@ const EquipsAnalyticDiagram: React.FC<Props> = ({
       align: 'left'
     },
     chart: {
+      animations: {
+        enabled: true,
+        easing: 'easeinout',
+        speed: 300, // Длительность анимации в миллисекундах
+        animateGradually: {
+          enabled: true,
+          delay: 100 // Задержка перед стартом анимации
+        }
+      },
       foreColor: '#6B6B6B', //цвета всех текстовых обозначений на графике
       zoom: {
         enabled: false

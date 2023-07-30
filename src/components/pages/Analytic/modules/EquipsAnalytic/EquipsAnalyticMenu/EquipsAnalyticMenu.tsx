@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Button, Segmented } from 'antd'
 import EquipsAnalyticMenuItems from './EquipsAnalyticMenuItems/EquipsAnalyticMenuItems'
 import { useAppDispatch } from '../../../../../../redux/store'
-import { ChartType, getEquipsAnalyticThunk, resetEquipsAnalyticThunk, setScheduleType, setTsEnd, setTsStart } from '../../../../../../redux/slices/EquipsAnalytic'
+import { ChartType, getEquipsAnalyticThunk, resetEquipsAnalyticThunk, setScheduleType, setTsEnd, setTsStart } from '../../../../../../redux/slices/EquipsAnalyticSlice'
 import { useSelector } from 'react-redux'
 import { getIsLoadingSelector, getPikedEquipsIdSelector, getScheduleTypeSelector } from '../../../../../../redux/selectors/equipsAnalyticSlectors'
 
@@ -69,6 +69,7 @@ const EquipsAnalyticMenu = () => {
 
   const resetHandler = () => {
     dispatch(resetEquipsAnalyticThunk())
+    setPeriod('День')
   }
 
   return (
