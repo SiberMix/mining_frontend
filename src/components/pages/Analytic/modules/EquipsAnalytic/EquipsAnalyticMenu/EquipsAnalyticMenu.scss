@@ -58,9 +58,13 @@
   }
 
   &-timepicker {
-    border: 1px solid red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #858585;
+    color: #929292;
+    background-color: #565656;
     border-radius: 8px;
-    background-color: red;
     overflow: hidden;
     //transition: width 2s, height 1s; /* Длительность анимации */
 
@@ -71,10 +75,10 @@
     }
 
     &__close {
-      border: none;
+      border-color: #232325;
       width: 0;
       height: 0;
-      transition: height 1ms .5s, width .5s;
+      transition: height .5s, width .5s .5s, border 1ms 1s;
     }
   }
 

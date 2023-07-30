@@ -48,6 +48,15 @@ const DefaultDiagram = () => {
       align: 'left'
     },
     chart: {
+      animations: {
+        enabled: true,
+        easing: 'easeinout',
+        speed: 300, // Длительность анимации в миллисекундах
+        animateGradually: {
+          enabled: true,
+          delay: 100 // Задержка перед стартом анимации
+        }
+      },
       foreColor: '#6B6B6B', //цвета всех текстовых обозначений на графике
       zoom: {
         enabled: false

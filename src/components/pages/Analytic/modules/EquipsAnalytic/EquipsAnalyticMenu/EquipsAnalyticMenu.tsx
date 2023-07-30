@@ -98,7 +98,9 @@ const EquipsAnalyticMenu = () => {
                 ${period === 'Свой вариант' ? 'equipsAnalyticMenu-timepicker__open' : 'equipsAnalyticMenu-timepicker__close'}
               `}
         >
-          ПРИВЕТ Я ТАЙМПИКЕР
+          <span style={{ display: period === 'Свой вариант' ? '' : 'none' }}>
+            ТУТ БУДЕТ ТАЙМПИКЕР
+          </span>
         </div>
         <Button className='equipsAnalyticMenu-btn'
                 type='primary'
