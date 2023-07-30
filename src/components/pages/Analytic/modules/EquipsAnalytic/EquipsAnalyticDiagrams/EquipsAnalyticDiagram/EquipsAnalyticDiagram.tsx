@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import ApexChart from 'react-apexcharts'
-import { COLORS } from '../ChartConstant'
-import type { ApexOptions } from 'apexcharts'
+import { ApexOptions } from 'apexcharts'
+import { COLORS } from '../../../../diagrams/ChartConstant'
 
 const DefaultDiagramData = {
   title: 'Пример простого графика',
@@ -39,12 +39,26 @@ const DefaultDiagramData = {
   ]
 }
 
-const DefaultDiagram = () => {
-  const [visitorChartData] = useState(DefaultDiagramData)
+type Props = {
+  title: string,
+  series: {
+    name: string,
+    data: number[]
+  }[]
+  categories: string[]
+  colors: string[]
+}
+
+const EquipsAnalyticDiagram: React.FC<Props> = ({
+  categories,
+  series,
+  title
+}) => {
+  const colors
 
   const options: ApexOptions = {
     title: {
-      text: visitorChartData.title,
+      text: title,
       align: 'left'
     },
     chart: {
@@ -78,7 +92,7 @@ const DefaultDiagram = () => {
       }
     },
     xaxis: {
-      categories: visitorChartData.categories
+      categories: categories
     },
     grid: {
       borderColor: '#6B6B6B', //это свойство для цвета вертикальных линий на графике
@@ -98,11 +112,11 @@ const DefaultDiagram = () => {
   return (
     <ApexChart
       options={options}
-      series={visitorChartData.series}
+      series={series}
       width='100%'
       height='100%'
     />
   )
 }
 
-export default DefaultDiagram
+export default EquipsAnalyticDiagram

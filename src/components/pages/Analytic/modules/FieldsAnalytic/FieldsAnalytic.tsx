@@ -4,15 +4,15 @@ import AngleCircleDiagram from '../../diagrams/AngleCircleDiagram/AngleCircleDia
 
 const FieldsAnalytic = () => {
   return (
-    <div className="fields-analytic-wrapper">
-      <div className="fields-analytic-wrapper-main">
-        <div className="fields-analytic-diagram-main">
+    <div className='fields-analytic-wrapper'>
+      <div className='fields-analytic-wrapper-main'>
+        <div className='fields-analytic-diagram-main'>
           <DefaultDiagram />
           <div />
         </div>
       </div>
-      <div className="fields-analytic-wrapper-side">
-        <div className="fields-analytic-diagram-side">
+      <div className='fields-analytic-wrapper-side'>
+        <div className='fields-analytic-diagram-side'>
           <AngleCircleDiagram />
         </div>
       </div>

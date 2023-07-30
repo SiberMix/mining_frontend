@@ -7,6 +7,7 @@ import optionalEquipmentReducer from './slices/optionalEquipmentSlice'
 import authReducer from './slices/authSlice'
 import playBackReducer from './slices/playBackSlice'
 import cropRotationReducer from './slices/cropRotationSlice'
+import equipAnalyticReducer from './slices/EquipsAnalytic'
 import { useDispatch } from 'react-redux'
 
 const rootReducer = combineReducers({
@@ -17,7 +18,8 @@ const rootReducer = combineReducers({
   optionalEquipmentReducer,
   authReducer,
   playBackReducer,
-  cropRotationReducer
+  cropRotationReducer,
+  equipAnalyticReducer
 })
 export type RootReducer = ReturnType<typeof rootReducer>
 

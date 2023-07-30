@@ -49,11 +49,14 @@
       background-color: #232325;
       border: .5px solid #303030 !important;
     }
-  }
 
-  .ant-table-row {
-    &:hover {
-      .ant-table-cell {
+    .ant-table-cell-row-hover {
+      color: #ffffff !important;
+      background-color: #858585 !important;
+    }
+
+    .ant-table-row {
+      &:hover {
         color: #ffffff !important;
         background-color: #858585 !important;
       }

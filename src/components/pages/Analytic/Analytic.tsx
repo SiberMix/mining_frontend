@@ -1,5 +1,5 @@
-import BasePreloader from '../../common/BasePreloader/BasePreloader'
 import React, { useEffect, useState } from 'react'
+import BasePreloader from '../../common/BasePreloader/BasePreloader'
 import AnalyticLayout from './MainLayout/AnalyticLayout'
 import AnalyticSidebarContainer from './AnalyticSidebar/AnalyticSidebarContainer'
 import { useNavigate } from 'react-router-dom'

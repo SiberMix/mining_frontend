@@ -10,7 +10,7 @@ import SVG from 'react-inlinesvg'
 import { useAppDispatch } from '../../../../redux/store'
 import { setToken } from '../../../../redux/slices/authSlice'
 import { NavLink } from 'react-router-dom'
-import { GlobalOutlined, LineChartOutlined, PieChartOutlined } from '@ant-design/icons'
+import { GlobalOutlined, LineChartOutlined } from '@ant-design/icons'
 
 const AnalyticSidebar: React.FC<PropsWithChildren> = () => {
   const dispatch = useAppDispatch()
@@ -32,17 +32,17 @@ const AnalyticSidebar: React.FC<PropsWithChildren> = () => {
             src={miniLogo}
             alt=''
           />
-          <NavLink
-            to='/analytics/field'
-          >
-            {({ isActive }) => (
-              <PieChartOutlined
-                style={{ color: isActive ? '#28b6fe' : '' }}
-                className={s.icon}
-                title='Аналитика'
-              />
-            )}
-          </NavLink>
+          {/*<NavLink*/}
+          {/*  to='/analytics/field'*/}
+          {/*>*/}
+          {/*  {({ isActive }) => (*/}
+          {/*    <PieChartOutlined*/}
+          {/*      style={{ color: isActive ? '#28b6fe' : '' }}*/}
+          {/*      className={s.icon}*/}
+          {/*      title='Аналитика'*/}
+          {/*    />*/}
+          {/*  )}*/}
+          {/*</NavLink>*/}
           <NavLink
             to='/analytics/equipments'
           >
