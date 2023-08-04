@@ -70,17 +70,17 @@ const EquipsAnalyticDiagrams = () => {
           : scheduleType === 'Скорость'
             ? (
               <EquipsAnalyticDiagram
-                title={'График скорости техники'}
-                series={fuelSeries !== undefined ? fuelSeries : []}
-                categories={createTextCategories(fuelCategories)}
+                title={'График скорости'}
+                series={speedSeries !== undefined ? speedSeries : []}
+                categories={createTextCategories(speedCategories)}
                 colors={pikedEquipsColors}
               />
             )
             : (
               <EquipsAnalyticDiagram
-                title={'График количества топлива техники'}
-                series={speedSeries !== undefined ? speedSeries : []}
-                categories={createTextCategories(speedCategories)}
+                title={'График уровня топлива'}
+                series={fuelSeries !== undefined ? fuelSeries : []}
+                categories={createTextCategories(fuelCategories)}
                 colors={pikedEquipsColors}
               />
             )

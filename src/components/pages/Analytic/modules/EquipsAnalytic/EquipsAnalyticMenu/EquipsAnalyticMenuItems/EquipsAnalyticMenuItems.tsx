@@ -34,6 +34,15 @@ const EquipsAnalyticMenuItems = () => {
     }
   }
 
+  const formatDateToDayMonth = (date: string) => {
+    const lastUpdateDate = new Date(date)
+    const options: { day: 'numeric', month: 'long' } = {
+      day: 'numeric',
+      month: 'long'
+    }
+    return new Intl.DateTimeFormat('ru-RU', options).format(lastUpdateDate)
+  }
+
   return (
     <div className='equipsAnalyticMenu-container'>
       {
@@ -62,16 +71,12 @@ const EquipsAnalyticMenuItems = () => {
                 alt={equip.equip_name + ' icon'}
               />
               <span>
-                Название:
-              </span>
-              <div className='equipsAnalyticMenu-container-item-name'>
                 {equip.equip_name}
-              </div>
-              <span>
-                IMEI:
               </span>
               <div className='equipsAnalyticMenu-container-item-name'>
-                {equip.imei}
+                Последняя активность:
+                <br />
+                {equip.last_coord ? formatDateToDayMonth(equip.last_coord?.last_upd_ts) : 'Нет данных'}
               </div>
             </div>
           )

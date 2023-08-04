@@ -23,6 +23,7 @@
 
       &-item {
         &-selected {
+          background-color: #C8FF63;
           color: #6B6B6B !important;
         }
 
@@ -30,19 +31,23 @@
           color: #6B6B6B !important;
         }
       }
+
+      &-thumb {
+        background-color: #C8FF63;
+      }
     }
   }
 
   &-btn {
     border: 1px solid #858585;
     color: #929292;
-    background-color: #565656;
+    background-color: #434F2F;
     transition: background-color, color .3s;
 
     &:hover {
       color: #ffffff !important;
       border: 1px solid #858585 !important;
-      background-color: #858585 !important;
+      background-color: #434F2F !important;
     }
   }
 
@@ -69,7 +74,7 @@
     //transition: width 2s, height 1s; /* Длительность анимации */
 
     &__open {
-      width: 400px;
+      width: 256px;
       height: 34px;
       transition: height .5s .5s, width .5s;
     }
@@ -79,6 +84,26 @@
       width: 0;
       height: 0;
       transition: height .5s, width .5s .5s, border 1ms 1s;
+    }
+
+    .ant-picker {
+      border: none;
+      background-color: #565656;
+
+      &-active-bar {
+        background-color: #C8FF63;
+      }
+    }
+
+    .anticon-close-circle {
+      background-color: #565656;
+    }
+
+    .ant-picker-input {
+      input {
+        color: #ffffff !important;
+        
+      }
     }
   }
 
@@ -131,6 +156,7 @@
       }
 
       span {
+        text-align: center;
         margin: .3em 0;
         text-transform: uppercase;
       }
@@ -141,6 +167,7 @@
       }
 
       &-name {
+        text-align: center;
         font-size: 14px;
       }
 

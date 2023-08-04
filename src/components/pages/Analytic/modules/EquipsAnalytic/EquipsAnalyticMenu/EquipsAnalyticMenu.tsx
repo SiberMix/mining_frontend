@@ -1,11 +1,13 @@
 import './EquipsAnalyticMenu.scss'
 import React, { useEffect, useState } from 'react'
-import { Button, Segmented } from 'antd'
+import { Button, DatePicker, Segmented } from 'antd'
 import EquipsAnalyticMenuItems from './EquipsAnalyticMenuItems/EquipsAnalyticMenuItems'
 import { useAppDispatch } from '../../../../../../redux/store'
 import { ChartType, getEquipsAnalyticThunk, resetEquipsAnalyticThunk, setScheduleType, setTsEnd, setTsStart } from '../../../../../../redux/slices/EquipsAnalyticSlice'
 import { useSelector } from 'react-redux'
 import { getIsLoadingSelector, getPikedEquipsIdSelector, getScheduleTypeSelector } from '../../../../../../redux/selectors/equipsAnalyticSlectors'
+
+const { RangePicker } = DatePicker
 
 type Period = 'День' | 'Неделя' | 'Месяц' | 'Свой вариант'
 
@@ -16,8 +18,19 @@ const EquipsAnalyticMenu = () => {
   const scheduleType = useSelector(getScheduleTypeSelector)
   const [period, setPeriod] = useState<Period>('День')
 
+  const [timeStep, setTimeStep] = useState<{ start: number, end: number } | null>(null)
+
+  /*
+  * костыльная перерисовка датапикера, для сброса значений :D
+  * */
+  const [keyForReset, setKeyForReset] = useState(1)
+  useEffect(() => {
+    setKeyForReset(Date.now())
+  }, [period])
+
   //При первой загрузке сбрасываем все в 0
   useEffect(() => {
+    setTimeStep(null)
     dispatch(resetEquipsAnalyticThunk())
   }, [])
 
@@ -67,6 +80,25 @@ const EquipsAnalyticMenu = () => {
     }
   }
 
+  const onChangeDate = (value: any) => {
+    if (value[0] !== null && value[1] !== null) {
+      const startDate = value[0].toDate()
+      const endDate = value[1].toDate()
+
+      const startTimestep = Math.floor(startDate.getTime() / 1000)
+      const endTimestep = Math.floor(endDate.getTime() / 1000)
+
+      setTimeStep({
+        start: startTimestep,
+        end: endTimestep
+      })
+      console.log(endDate.getTime())
+      console.log(startDate.getTime())
+      dispatch(setTsEnd(endDate.getTime()))
+      dispatch(setTsStart(startDate.getTime()))
+    }
+  }
+
   const resetHandler = () => {
     dispatch(resetEquipsAnalyticThunk())
     setPeriod('День')
@@ -91,7 +123,10 @@ const EquipsAnalyticMenu = () => {
         <Segmented
           options={['День', 'Неделя', 'Месяц', 'Свой вариант']}
           value={period}
-          onChange={(value) => setPeriod(value as Period)}
+          onChange={(value) => {
+            setTimeStep(null)
+            setPeriod(value as Period)
+          }}
         />
         <div
           className={`
@@ -100,7 +135,12 @@ const EquipsAnalyticMenu = () => {
               `}
         >
           <span style={{ display: period === 'Свой вариант' ? '' : 'none' }}>
-            ТУТ БУДЕТ ТАЙМПИКЕР
+            <RangePicker
+              //костыльно перерисовываем компонент для сброса значений
+              key={`${keyForReset}`}
+              placeholder={['Начало', 'Конец']}
+              onChange={onChangeDate}
+            />
           </span>
         </div>
         <Button className='equipsAnalyticMenu-btn'

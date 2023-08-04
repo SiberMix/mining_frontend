@@ -8,10 +8,10 @@ import { useAppDispatch } from '../../../../../../redux/store'
 import { EquipmentData, postNewPlayback, setIsOpenPlayBackAddModal } from '../../../../../../redux/slices/playBackSlice'
 import importedColors from './recomended-colors.json'
 import PlayBackEquipPicker from './PlayBackEquipPicker/PlayBackEquipPicker'
-//@ts-ignore
-import { GithubPicker } from 'react-color'
 import { Collapse } from 'antd/lib'
 import { toast } from 'react-toastify'
+//@ts-ignore
+import { GithubPicker } from 'react-color'
 
 const PlayBackAddModal = () => {
   const dispatch = useAppDispatch()
