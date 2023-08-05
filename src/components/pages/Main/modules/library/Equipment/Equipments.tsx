@@ -3,22 +3,17 @@ import * as cn from 'classnames'
 import React from 'react'
 import styled from 'styled-components'
 import '/src/style/equipments.css'
-import TrashBox from '/src/assets/icons/delete.svg'
 import EditBox from '/src/assets/icons/edit.svg'
 
 import SVG from 'react-inlinesvg'
 import GeoBox from '/src/assets/icons/GPS-navigate.svg'
 import AddEquipmentModal from './EquipmentAddModal'
-import {
-  deleteEquipment,
-  getAllEquipment,
-  setEditedEquipment,
-  setEquipmentFlyTo
-} from '../../../../../../redux/slices/mapSlice'
+import { deleteEquipment, getAllEquipment, setEditedEquipment, setEquipmentFlyTo } from '../../../../../../redux/slices/mapSlice'
 import { useAppDispatch } from '../../../../../../redux/store'
 import { useSelector } from 'react-redux'
 import { getAllEquipmentSelector } from '../../../../../../redux/selectors/mapSelectors'
 import { setAddModalVisible } from '../../../../../../redux/slices/optionalEquipmentSlice'
+import DeleteOption from '../../../../../common/DeleteOption/DeleteOption'
 
 type Props = {}
 
@@ -33,10 +28,8 @@ const EquipmentsComponent: React.FC<Props> = () => {
   }
 
   const deleteEquipmentHandler = async (id: number) => {
-    if (confirm('Вы уверены, что хотите удалить оборудование?')) {
-      dispatch(deleteEquipment(id))
-      dispatch(getAllEquipment())
-    }
+    dispatch(deleteEquipment(id))
+    dispatch(getAllEquipment())
   }
 
   const addModalHandler = () => {
@@ -74,8 +67,8 @@ const EquipmentsComponent: React.FC<Props> = () => {
                   className={cn(s.geo)}
                   src={GeoBox}
                   onClick={() => dispatch(setEquipmentFlyTo(+equip.imei))}
-                  alt=""
-                  title="Перейти к оборудованию на карте"
+                  alt=''
+                  title='Перейти к оборудованию на карте'
                 />
               </div>
               <p className={cn(s.culture)}>
@@ -90,15 +83,15 @@ const EquipmentsComponent: React.FC<Props> = () => {
                 className={cn(s.edit)}
                 onClick={() => editItemHandler(equip.id)}
                 src={EditBox}
-                alt=""
-                title="Редактировать оборудование"
+                alt=''
+                title='Редактировать оборудование'
               />
-              <img
+              <DeleteOption
+                onDelete={() => deleteEquipmentHandler(equip.id)}
                 className={cn(s.trash)}
-                onClick={() => deleteEquipmentHandler(equip.id)}
-                src={TrashBox}
-                alt=""
-                title="Удалить оборудование"
+                popConfirmDescription={'Удалить оборудование'}
+                popConfirmTitle={'Вы хотите удалить оборудование?'}
+                title={'Удалить оборудование'}
               />
             </div>
           </div>

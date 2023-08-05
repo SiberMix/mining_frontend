@@ -61,11 +61,7 @@ const playbackSlice = createSlice({
 export const getAllPlaybacks = createAsyncThunk(
   'playback/getAllPlaybacks',
   () => {
-    return toast.promise(mapService.getPlayback(), {
-      pending: 'Загружаем плэйбэки с сервера...',
-      success: 'Плэйбэки успешно загружены',
-      error: 'Произошла ошибка при загрузке плэйбэков'
-    })
+    return mapService.getPlayback()
   }
 )
 export const postNewPlayback = createAsyncThunk(

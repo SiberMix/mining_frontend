@@ -7,19 +7,10 @@ import settingMap from '/src/assets/icons/equalizersoutline_114523.svg'
 import DownloadMap from '/src/assets/icons/download2.svg'
 import PolygonPreview from '../PolygonPreview/PolygonPreview'
 import { useSelector } from 'react-redux'
-import {
-  getAllPolygonsSelector,
-  getDrawingPolygonModeSelector
-} from '../../../../../../redux/selectors/mapSelectors'
-import {
-  deletePolygon,
-  setDrawingPolygonMode
-} from '../../../../../../redux/slices/mapSlice'
+import { getAllPolygonsSelector, getDrawingPolygonModeSelector } from '../../../../../../redux/selectors/mapSelectors'
+import { deletePolygon, setDrawingPolygonMode } from '../../../../../../redux/slices/mapSlice'
 import { useAppDispatch } from '../../../../../../redux/store'
-import {
-  CSSTransition,
-  TransitionGroup
-} from 'react-transition-group'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
 const PolygonList: React.FC<{
   onPolygonOption?: (id: string | number) => void
@@ -54,12 +45,10 @@ const PolygonList: React.FC<{
   ])}`
 
   const deleteHandler = async (id: string | number) => {
-    if (confirm('Вы уверены, что хотите удалить полигон?')) {
-      try {
-        dispatch(deletePolygon(+id))
-      } catch (e) {
-        console.log(e)
-      }
+    try {
+      dispatch(deletePolygon(+id))
+    } catch (e) {
+      console.log(e)
     }
   }
 
@@ -69,7 +58,7 @@ const PolygonList: React.FC<{
         <img
           className={cn(s.image)}
           src={settingMap}
-          alt=""
+          alt=''
         />
         <div className={s.headerCount}>
           <div>
@@ -82,7 +71,7 @@ const PolygonList: React.FC<{
         <img
           className={cn(s.image)}
           src={DownloadMap}
-          alt=""
+          alt=''
         />
       </div>
       <button
@@ -100,14 +89,14 @@ const PolygonList: React.FC<{
             Добавить поле
           </>}
       </button>
-      <TransitionGroup className="polygons">
+      <TransitionGroup className='polygons'>
         {sortedPolygons.map(polygon => {
           if (!polygon.coords.length) return null
           return (
             <CSSTransition
               key={polygon.id}
               timeout={500}
-              classNames="item"
+              classNames='item'
             >
               <PolygonPreview
                 polygon={polygon}

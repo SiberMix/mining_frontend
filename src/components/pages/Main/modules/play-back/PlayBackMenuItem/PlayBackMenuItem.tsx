@@ -1,12 +1,12 @@
 import './PlayBackMenuItem.scss'
 import React from 'react'
-import TrashBox from '/src/assets/icons/delete.svg'
 import EditBox from '/src/assets/icons/edit.svg'
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons'
 import { useSelector } from 'react-redux'
 import { getAllEquipmentSelector } from '../../../../../../redux/selectors/mapSelectors'
 import { addShowingPlayback, CurrentPlaybackData, deletePlayback, removeShowingPlayback, setEditedPlayback } from '../../../../../../redux/slices/playBackSlice'
 import { RootState, useAppDispatch } from '../../../../../../redux/store'
+import DeleteOption from '../../../../../common/DeleteOption/DeleteOption'
 
 type Props = {
   itemPlaybackData: CurrentPlaybackData
@@ -39,10 +39,7 @@ const PlayBackMenuItem: React.FC<Props> = ({
   }
 
   const deleteHandler = () => {
-    const result = confirm('Вы уверены, что хотите продолжить?')
-    if (result) {
-      dispatch(deletePlayback(itemPlaybackData.id))
-    }
+    dispatch(deletePlayback(itemPlaybackData.id))
   }
 
   return (
@@ -81,12 +78,12 @@ const PlayBackMenuItem: React.FC<Props> = ({
           alt=''
           title='Редактировать плэйбэк'
         />
-        <img
-          className='PlayBackMenuItem__icons-item'
-          onClick={deleteHandler}
-          src={TrashBox}
-          alt=''
-          title='Удалить плэйбэк'
+        <DeleteOption
+          onDelete={deleteHandler}
+          className={'PlayBackMenuItem__icons-item'}
+          popConfirmTitle={'Вы точно хотите удалить плэйбэк?'}
+          title={'Удалить плэйбэк'}
+          popConfirmDescription={'Удалить плэйбэк'}
         />
       </div>
     </div>

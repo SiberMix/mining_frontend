@@ -148,27 +148,13 @@ const mapSlice = createSlice({
 export const getAllPolygons = createAsyncThunk(
   'map/getAllPolygonsThunk',
   () => {
-    return toast.promise(
-      mapService.getPolygons(),
-      {
-        pending: 'Получение всех полигонов...',
-        success: 'Полигоны успешно получены',
-        error: 'Ошибка при получении полигонов'
-      }
-    )
+    return mapService.getPolygons()
   }
 )
 export const getAllEquipment = createAsyncThunk(
   'map/getAllEquipmentThunk',
   () => {
-    return toast.promise(
-      mapService.getEquips(),
-      {
-        pending: 'Получение всего оборудования...',
-        success: 'Оборудование успешно получено',
-        error: 'Ошибка при получении оборудования'
-      }
-    )
+    return mapService.getEquips()
   }
 )
 export const postNewEquipment = createAsyncThunk(

@@ -147,14 +147,7 @@ const optionalEquipmentSlice = createSlice({
 export const getTypesList = createAsyncThunk(
   'optionalEquipment/getTypesListThunk',
   () => {
-    return toast.promise(
-      mapService.getEquipTypes(),
-      {
-        pending: 'Получение списка типов оборудования...',
-        success: 'Список типов оборудования успешно получен',
-        error: 'Ошибка при получении списка типов оборудования'
-      }
-    )
+    return mapService.getEquipTypes()
   }
 )
 
@@ -227,14 +220,7 @@ export const deleteType = createAsyncThunk(
 export const getEquipsModelsList = createAsyncThunk(
   'optionalEquipment/getEquipsModelsListThunk',
   () => {
-    return toast.promise(
-      mapService.getEquipsModelsList(),
-      {
-        pending: 'Получение списка моделей оборудования...',
-        success: 'Список моделей оборудования успешно получен',
-        error: 'Ошибка при получении списка моделей оборудования'
-      }
-    )
+    return mapService.getEquipsModelsList()
   }
 )
 //todo получать айдишник назад, для оптимизации, и чтоб не обновлять каждый раз при обновлении

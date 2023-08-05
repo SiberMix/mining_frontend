@@ -28,6 +28,8 @@ const App: React.FC = () => {
       dispatch(getSettings(token))
       // navigate('/analytics/crop_rotation')
       navigate('/monitoring')
+    } else {
+      navigate('/')
     }
   }, [token])
 

@@ -59,11 +59,7 @@ const fieldSlice = createSlice({
 export const getAllFields = createAsyncThunk(
   'fields/getAllFieldsThunk',
   () => {
-    return toast.promise(mapService.getFieldList(), {
-      pending: 'Загружаем поля...',
-      success: 'Поля успешно загружены',
-      error: 'Произошла ошибка при загрузке полей'
-    })
+    return mapService.getFieldList()
   }
 )
 export const addField = createAsyncThunk(

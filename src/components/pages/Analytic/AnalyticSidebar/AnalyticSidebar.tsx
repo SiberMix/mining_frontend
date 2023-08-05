@@ -9,11 +9,12 @@ import styled from 'styled-components'
 import SVG from 'react-inlinesvg'
 import { useAppDispatch } from '../../../../redux/store'
 import { setToken } from '../../../../redux/slices/authSlice'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { GlobalOutlined, LineChartOutlined } from '@ant-design/icons'
 
 const AnalyticSidebar: React.FC<PropsWithChildren> = () => {
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
   /*
   * Функционал для выхода из акаунта
@@ -21,6 +22,7 @@ const AnalyticSidebar: React.FC<PropsWithChildren> = () => {
   const logout = () => {
     dispatch(setToken(null))
     localStorage.removeItem('token')
+    navigate('/')
   }
 
   return (

@@ -10,6 +10,7 @@ import BasePreloader from '../../common/BasePreloader/BasePreloader'
 import { getEquipsModelsList, getTrailerList, getTypesList } from '../../../redux/slices/optionalEquipmentSlice'
 import PolygonListAddModal from './modules/polygons/PolygonList/PolygonListAddModal'
 import { getAllPlaybacks } from '../../../redux/slices/playBackSlice'
+import { toast } from 'react-toastify'
 
 const MainPage = () => {
   const dispatch = useAppDispatch()
@@ -20,7 +21,7 @@ const MainPage = () => {
 
     (async () => {
       try {
-        await Promise.all([
+        await toast.promise(Promise.all([
           dispatch(getAllFields()),
           dispatch(getAllPolygons()),
           dispatch(getAllEquipment()),
@@ -28,7 +29,11 @@ const MainPage = () => {
           dispatch(getEquipsModelsList()),
           dispatch(getTrailerList()),
           dispatch(getAllPlaybacks())
-        ])
+        ]), {
+          pending: 'Загружаем информацию с сервера...',
+          success: 'Информация успешно загружена',
+          error: 'Произошла ошибка при загрузке информации'
+        })
 
         setLoad(false)
         //todo сделать уведомление

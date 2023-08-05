@@ -1,28 +1,21 @@
 import s from './PolygonPreview.module.scss'
 import * as cn from 'classnames'
 import React, { useState } from 'react'
-import TrashBox from '/src/assets/icons/delete.svg'
 import GeoBox from '/src/assets/icons/GPS-navigate.svg'
 import EditBox from '/src/assets/icons/edit.svg'
 import { Dropdown } from 'antd'
 import type { Polygon } from '../../../../../../types'
 import PolygonCanvas from '../PolygonCanvas/PolygonCanvas'
-import {
-  EditPolygonNameModal,
-  EditPolygonTypeModal
-} from './PolygonEditModal'
+import { EditPolygonNameModal, EditPolygonTypeModal } from './PolygonEditModal'
 import { useSelector } from 'react-redux'
 import { getSelectedPolygonIdSelector } from '../../../../../../redux/selectors/mapSelectors'
-import {
-  putEditPolygon,
-  setEditedPolygon,
-  setPolygonFlyTo
-} from '../../../../../../redux/slices/mapSlice'
+import { putEditPolygon, setEditedPolygon, setPolygonFlyTo } from '../../../../../../redux/slices/mapSlice'
 import { useAppDispatch } from '../../../../../../redux/store'
+import DeleteOption from '../../../../../common/DeleteOption/DeleteOption'
 
 const PolygonPreview: React.FC<{
   polygon: Polygon,
-  onDelete?: () => void
+  onDelete: () => void
 }> = ({
   polygon,
   onDelete
@@ -70,8 +63,8 @@ const PolygonPreview: React.FC<{
                 className={cn(s.geo)}
                 src={GeoBox}
                 onClick={() => dispatch(setPolygonFlyTo(+polygon.id))}
-                alt=""
-                title="Перейти к полигону на карте"
+                alt=''
+                title='Перейти к полигону на карте'
               />
             </div>
             <p className={cn(s.culture)}>
@@ -104,16 +97,16 @@ const PolygonPreview: React.FC<{
             <img
               className={cn(s.edit)}
               src={EditBox}
-              alt=""
-              title="Редактировать полигон"
+              alt=''
+              title='Редактировать полигон'
             />
           </Dropdown>
-          <img
+          <DeleteOption
+            onDelete={onDelete}
             className={cn(s.trash)}
-            onClick={onDelete}
-            src={TrashBox}
-            alt=""
-            title="Удалить полигон"
+            title={'Удалить полигон'}
+            popConfirmTitle={'Вы хотите удалить полигон?'}
+            popConfirmDescription={'Удалить полигон'}
           />
         </div>
       </div>
