@@ -1,31 +1,15 @@
 import './EquipmentAddModal.scss'
-import React, {
-  useEffect,
-  useState
-} from 'react'
-import {
-  Checkbox,
-  Input,
-  Modal,
-  Select
-} from 'antd'
+import React, { useEffect, useState } from 'react'
+import { Checkbox, Input, message, Modal, Select } from 'antd'
 import styled from 'styled-components'
 import SVG from 'react-inlinesvg'
 import { useAppDispatch } from '../../../../../../redux/store'
 import { useSelector } from 'react-redux'
-import {
-  getAddModalVisibleSelector,
-  getOptionalEquipmentModelsListSelector,
-  getOptionalEquipmentTypesListSelector
-} from '../../../../../../redux/selectors/optionalEquipmentSelectors'
+import { getAddModalVisibleSelector, getOptionalEquipmentModelsListSelector, getOptionalEquipmentTypesListSelector } from '../../../../../../redux/selectors/optionalEquipmentSelectors'
 import { getEditeEquipmentSelector } from '../../../../../../redux/selectors/mapSelectors'
 import type { Equip } from '../../../../../../types/equip'
 import { setAddModalVisible } from '../../../../../../redux/slices/optionalEquipmentSlice'
-import {
-  getAllEquipment,
-  postNewEquipment,
-  putEditEquipment
-} from '../../../../../../redux/slices/mapSlice'
+import { getAllEquipment, postNewEquipment, putEditEquipment } from '../../../../../../redux/slices/mapSlice'
 
 type Props = {
   equips: any
@@ -68,6 +52,7 @@ const AddEquipmentModal: React.FC<Props> = ({ equips }) => {
     }
   }, [editedEquipment, equipmentTypes, equipmentModels])
 
+  const [messageApi, contextHolder] = message.useMessage()
   const handleAdd = async () => {
     if (name && gosnomer && type && model) {
       if (editedEquipment) {
@@ -83,7 +68,7 @@ const AddEquipmentModal: React.FC<Props> = ({ equips }) => {
       } else {
         // Проверка на совпадения imei
         if (equips.some((equip: any) => equip.imei === imei_number.toString())) {
-          alert('Данный номер уже зарезервирован, пожалуйста проверьте введенные данные')
+          messageApi.info('Данный номер уже зарезервирован, пожалуйста проверьте введенные данные')
         } else {
           dispatch(postNewEquipment({
             equip_name: name,
@@ -101,55 +86,56 @@ const AddEquipmentModal: React.FC<Props> = ({ equips }) => {
 
   const images: string[] = []
 
-  Object.values(import.meta.glob('../../../../../../assets/icons_enum/*.svg', { eager: true })).forEach(({ default: path }: any) => {
-    const url = new URL(path, import.meta.url)
-    images.push(url.pathname)
-  })
+  Object.values(import.meta.glob('../../../../../../assets/icons_enum/*.svg', { eager: true }))
+    .forEach(({ default: path }: any) => {
+      const url = new URL(path, import.meta.url)
+      images.push(url.pathname)
+    })
 
   return (
     <Modal
-      title="Добавить оборудование"
+      title='Добавить оборудование'
       open={addVisibleModal}
       onOk={handleAdd}
       onCancel={() => dispatch(setAddModalVisible(false))}
-      className="equipmentAddModal"
+      className='equipmentAddModal'
     >
       <Input
-        placeholder="Название оборудования"
+        placeholder='Название оборудования'
         value={name}
         onChange={(e) => setName(e.target.value)}
-        className="modalStyle"
+        className='modalStyle'
       />
       <Input
-        placeholder="Госномер оборудования"
+        placeholder='Госномер оборудования'
         value={gosnomer}
         onChange={(e) => setGosnomer(e.target.value)}
-        className="modalStyle"
+        className='modalStyle'
       />
       <Input
-        placeholder="IMEI (Не обязательно)"
+        placeholder='IMEI (Не обязательно)'
         value={imei_number}
         onChange={(e) => setImei(e.target.value)}
-        className="modalStyle"
+        className='modalStyle'
       />
       <Select
         value={type}
         onChange={setType}
-        placeholder="Тип оборудования"
-        popupClassName="equipmentAddModalSelect"
+        placeholder='Тип оборудования'
+        popupClassName='equipmentAddModalSelect'
       >
         {equipmentTypes
           .filter((item) => item.status)
           .map((item) => (
             <Option
-            //antd не дает стилизовать по другому выпадающее меню
+              //antd не дает стилизовать по другому выпадающее меню
               style={{ backgroundColor: '#565656' }}
               key={item.id}
               value={item.id}
             >
-              <div className="equipmentAddModalSelect-textDiv">
+              <div className='equipmentAddModalSelect-textDiv'>
                 {item.description}
-                <div className="mini-line" />
+                <div className='mini-line' />
               </div>
             </Option>
           ))}
@@ -157,8 +143,8 @@ const AddEquipmentModal: React.FC<Props> = ({ equips }) => {
       <Select
         value={model}
         onChange={setModel}
-        placeholder="Модель оборудования"
-        popupClassName="equipmentAddModalSelect"
+        placeholder='Модель оборудования'
+        popupClassName='equipmentAddModalSelect'
       >
         {equipmentModels.map((item) => (
           <Option
@@ -167,18 +153,18 @@ const AddEquipmentModal: React.FC<Props> = ({ equips }) => {
             key={item.id}
             value={item.id}
           >
-            <div className="equipmentAddModalSelect-textDiv">
+            <div className='equipmentAddModalSelect-textDiv'>
               {item.description}
-              <div className="mini-line" />
+              <div className='mini-line' />
             </div>
           </Option>
         ))}
       </Select>
-      <div className="imagesList">
+      <div className='imagesList'>
         {images.map((item, index) => (
           <label
             key={index}
-            className="imageField"
+            className='imageField'
           >
             <Checkbox
               onChange={() => setImageStatus(index + 1)}
@@ -191,6 +177,7 @@ const AddEquipmentModal: React.FC<Props> = ({ equips }) => {
           </label>
         ))}
       </div>
+      {contextHolder}
     </Modal>
   )
 }
@@ -200,6 +187,7 @@ export default AddEquipmentModal
 const Icon = styled(SVG)`
   height: 60px;
   width: 60px;
+
   path {
     fill: #c5ef75;
   }

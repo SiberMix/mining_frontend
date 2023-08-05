@@ -1,22 +1,13 @@
 import s from './PolygonSpotMenu.module.scss'
 import { Popup } from 'react-leaflet'
 import React from 'react'
-import { Button } from 'antd'
-import {
-  putEditPolygon,
-  setAddInternalPolygonMode,
-  setDrawingPolygonMode,
-  setNewPolygonCoords,
-  setShowAddNewPolygonModal
-} from '../../../../../../redux/slices/mapSlice'
+import { Button, message } from 'antd'
+import { putEditPolygon, setAddInternalPolygonMode, setDrawingPolygonMode, setNewPolygonCoords, setShowAddNewPolygonModal } from '../../../../../../redux/slices/mapSlice'
 import { useAppDispatch } from '../../../../../../redux/store'
 import type { Polygon } from '../../../../../../types'
 import { useSelector } from 'react-redux'
 import { getAddInternalPolygonModeSelector } from '../../../../../../redux/selectors/mapSelectors'
-import type {
-  AddPolygonCoords,
-  EditPolygonCoords
-} from '../DrawingPolygon'
+import type { AddPolygonCoords, EditPolygonCoords } from '../DrawingPolygon'
 
 type Props = {
   deletePolygonSpot: () => void,
@@ -32,16 +23,17 @@ const PolygonSpotMenu: React.FC<Props> = ({
   const dispatch = useAppDispatch()
   const addInternalPolygonMode = useSelector(getAddInternalPolygonModeSelector)
 
+  const [messageApi, contextHolder] = message.useMessage()
   const buttonsSaveHandler = () => {
     let isErrorInPolygonData = false
 
     polygonCoords.forEach((p: AddPolygonCoords, i: number) => {
       if (i === 0 && p.length < 4) {
         isErrorInPolygonData = true
-        alert(`Необходимо указать не менее 4 точек полингона на карте! Вы указали: ${p.length}`)
+        messageApi.info(`Необходимо указать не менее 4 точек полингона на карте! Вы указали: ${p.length}`)
       } else if (i !== 0 && p.length < 5) {
         isErrorInPolygonData = true
-        alert(`В одном из вашех полигонов указано неправильное число точек, минимальное число: ${p.length}. Пожалуйста проверьте введенные данные`)
+        messageApi.info(`В одном из вашех полигонов указано неправильное число точек, минимальное число: ${p.length}. Пожалуйста проверьте введенные данные`)
       }
     })
     // прерывание функции если допущена ошибка в количестве координат
@@ -118,6 +110,7 @@ const PolygonSpotMenu: React.FC<Props> = ({
             : null
         }
       </div>
+      {contextHolder}
     </Popup>
   )
 }

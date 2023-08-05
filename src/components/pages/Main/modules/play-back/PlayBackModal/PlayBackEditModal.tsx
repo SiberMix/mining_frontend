@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { RootState, useAppDispatch } from '../../../../../../redux/store'
 import { useSelector } from 'react-redux'
 import * as cn from 'classnames'
-import { Input, Modal } from 'antd'
+import { Input, message, Modal } from 'antd'
 import { editeNewPlayback, setEditedPlayback } from '../../../../../../redux/slices/playBackSlice'
 //@ts-ignore
 import { GithubPicker } from 'react-color'
@@ -22,6 +22,7 @@ const PlayBackEditModal = () => {
     }
   }, [editedPlayback])
 
+  const [messageApi, contextHolder] = message.useMessage()
   const handleSubmit = () => {
     if (name && editedPlayback) {
       dispatch(editeNewPlayback({
@@ -34,7 +35,7 @@ const PlayBackEditModal = () => {
       }))
       closeHandler()
     } else {
-      alert('Название не может быть пустым')
+      messageApi.info('Название не может быть пустым')
     }
   }
 
@@ -65,6 +66,7 @@ const PlayBackEditModal = () => {
         onChange={(e) => setName(e.target.value)}
         style={{ marginBottom: '16px' }}
       />
+      {contextHolder}
     </Modal>
   )
 }

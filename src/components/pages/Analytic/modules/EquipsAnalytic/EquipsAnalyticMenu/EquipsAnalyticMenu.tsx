@@ -1,11 +1,12 @@
 import './EquipsAnalyticMenu.scss'
 import React, { useEffect, useState } from 'react'
-import { Button, DatePicker, Segmented } from 'antd'
+import { Button, DatePicker, message, Segmented } from 'antd'
 import EquipsAnalyticMenuItems from './EquipsAnalyticMenuItems/EquipsAnalyticMenuItems'
 import { useAppDispatch } from '../../../../../../redux/store'
 import { ChartType, getEquipsAnalyticThunk, resetEquipsAnalyticThunk, setScheduleType, setTsEnd, setTsStart } from '../../../../../../redux/slices/EquipsAnalyticSlice'
 import { useSelector } from 'react-redux'
 import { getIsLoadingSelector, getPikedEquipsIdSelector, getScheduleTypeSelector } from '../../../../../../redux/selectors/equipsAnalyticSlectors'
+import dayjs from 'dayjs'
 
 const { RangePicker } = DatePicker
 
@@ -72,9 +73,10 @@ const EquipsAnalyticMenu = () => {
     }
   }
 
+  const [messageApi, contextHolder] = message.useMessage()
   const getNewAnalyticData = () => {
     if (pikedEquipsId.length === 0) {
-      alert('Необходимо выбрать минимум одно оборудование')
+      messageApi.info('Необходимо выбрать минимум одно оборудование')
     } else {
       dispatch(getEquipsAnalyticThunk())
     }
@@ -103,6 +105,14 @@ const EquipsAnalyticMenu = () => {
     dispatch(resetEquipsAnalyticThunk())
     setPeriod('День')
   }
+
+  // Вычисляем дату на месяц назад с помощью Dayjs
+  const oneMonthAgo = dayjs()
+    .subtract(1, 'month')
+
+  // Преобразуем объекты Date в Dayjs
+  const defaultStartDate = dayjs(oneMonthAgo)
+  const defaultEndDate = dayjs()
 
   return (
     <div className='equipsAnalyticMenu'>
@@ -140,6 +150,7 @@ const EquipsAnalyticMenu = () => {
               key={`${keyForReset}`}
               placeholder={['Начало', 'Конец']}
               onChange={onChangeDate}
+              defaultPickerValue={[defaultStartDate, defaultEndDate]}
             />
           </span>
         </div>
@@ -159,6 +170,7 @@ const EquipsAnalyticMenu = () => {
         </Button>
       </div>
       <EquipsAnalyticMenuItems />
+      {contextHolder}
     </div>
   )
 }

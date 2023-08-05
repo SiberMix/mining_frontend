@@ -22,6 +22,7 @@ import { getUsingStartMenuOptionsSelector } from '../../../../redux/selectors/se
 import { setToken } from '../../../../redux/slices/authSlice'
 import { Link, useNavigate } from 'react-router-dom'
 import { BarChartOutlined } from '@ant-design/icons'
+import { message } from 'antd'
 
 const Sidebar: React.FC<PropsWithChildren> = () => {
   const dispatch = useAppDispatch()
@@ -52,8 +53,10 @@ const Sidebar: React.FC<PropsWithChildren> = () => {
     dispatch(setOpenSidebarWindow(openSidebarContent))
   }
 
+  const [messageApi, contextHolder] = message.useMessage()
+
   function alertMsg() {
-    alert('Данный функционал недоступен в демонстрационном режиме')
+    messageApi.info('Данный функционал недоступен в демонстрационном режиме')
   }
 
   return (
@@ -121,6 +124,7 @@ const Sidebar: React.FC<PropsWithChildren> = () => {
           />
         </div>
       </div>
+      {contextHolder}
     </div>
   )
 }

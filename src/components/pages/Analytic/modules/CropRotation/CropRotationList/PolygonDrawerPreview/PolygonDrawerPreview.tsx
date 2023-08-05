@@ -103,7 +103,7 @@ const PolygonDrawerPreview: React.FC<Props> = ({
         <span className='polygonDrawerPreview-info'>{polygon.sequence.name}</span>
       </p>
       <p>
-        <span className='polygonDrawerPreview-info_name'>Общая площадь: </span>
+        <span className='polygonDrawerPreview-info_name'>Площадь: </span>
         <span className='polygonDrawerPreview-info'>{polygon.square} га</span>
       </p>
       <div className='polygonDrawerPreview-info_chart'>

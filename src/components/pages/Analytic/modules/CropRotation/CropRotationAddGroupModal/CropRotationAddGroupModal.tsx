@@ -1,6 +1,6 @@
 import './CropRotationAddGroupModal.scss'
 import React, { useEffect, useState } from 'react'
-import { Button, Input, Modal } from 'antd'
+import { Button, Input, message, Modal } from 'antd'
 import * as cn from 'classnames'
 import { RootState, useAppDispatch } from '../../../../../../redux/store'
 import { setCropRotationGroup, setEditedCropRotationGroup, setOpenCropRotationAddGroupModal } from '../../../../../../redux/slices/cropRotationSlice'
@@ -43,6 +43,7 @@ const CropRotationAddGroupModal = () => {
     }
   }, [search])
 
+  const [messageApi, contextHolder] = message.useMessage()
   const handleSubmit = () => {
     if (groupName && groupData.length > 0) {
       dispatch(setCropRotationGroup({
@@ -53,7 +54,7 @@ const CropRotationAddGroupModal = () => {
       }))
       closeHandler()
     } else {
-      alert('Название или группа не могут быть пустыми')
+      messageApi.info('Название или группа не могут быть пустыми')
     }
   }
 
@@ -160,6 +161,7 @@ const CropRotationAddGroupModal = () => {
             }
           </div>
         </div>
+        {contextHolder}
       </div>
     </Modal>
   )
