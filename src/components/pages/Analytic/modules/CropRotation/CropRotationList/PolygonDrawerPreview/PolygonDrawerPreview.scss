@@ -22,6 +22,15 @@
       text-transform: uppercase;
       color: #ffffff;
     }
+
+    &_chart {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 2em 0;
+    }
   }
 
   .ant-drawer-title {
