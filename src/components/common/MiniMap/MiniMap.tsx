@@ -32,6 +32,7 @@ const MiniMap: React.FC<Props> = ({
       zoomControl={false}
       zoom={createBaseZoom()}
       scrollWheelZoom={false}
+      doubleClickZoom={false}
       dragging={false}
     >
       <MapViewSelect />
