@@ -1,12 +1,13 @@
 import './DeleteOption.scss'
-import React from 'react'
+import React, { CSSProperties } from 'react'
 import TrashBox from '/src/assets/icons/delete.svg'
 import { Popconfirm } from 'antd'
 
 type Props = {
+  style?: CSSProperties
   popConfirmTitle?: string,
   popConfirmDescription?: string,
-  className: string,
+  className?: string,
   onDelete: () => void
   title?: string
 }
@@ -16,7 +17,8 @@ const DeleteOption: React.FC<Props> = ({
   title,
   className,
   popConfirmTitle,
-  popConfirmDescription
+  popConfirmDescription,
+  style
 }) => {
 
   return (
@@ -29,6 +31,7 @@ const DeleteOption: React.FC<Props> = ({
       cancelText='Нет'
     >
       <img
+        style={style}
         className={className}
         src={TrashBox}
         alt=''

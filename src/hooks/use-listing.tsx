@@ -1,16 +1,12 @@
-import React, {
-  useEffect,
-  useMemo,
-  useState
-} from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 
 import { responseStatus } from '../enums/api'
 import type { UseListingProps } from './use-listing.props'
 import { Table } from 'antd'
 import styled from 'styled-components'
 import type { ColumnsType } from 'antd/es/table'
-import TrashBox from '/src/assets/icons/delete.svg'
 import EditBox from '/src/assets/icons/edit.svg'
+import DeleteOption from '../components/common/DeleteOption/DeleteOption'
 
 export const useListing = <Type extends { id: number }>({
   headerData = null,
@@ -151,14 +147,21 @@ export const useListing = <Type extends { id: number }>({
           <Edit
             onClick={() => editItemHandler?.(record.id)}
             src={EditBox}
-            alt=""
-            title="Редактировать"
+            alt=''
+            title='Редактировать'
           />
-          <Trash
-            onClick={() => removeItem(record.id)}
-            src={TrashBox}
-            alt=""
-            title="Удалить"
+          <DeleteOption
+            onDelete={() => removeItem(record.id)}
+            title={'Удалить'}
+            popConfirmTitle={'Вы уверены, что хотите удалить?'}
+            popConfirmDescription={'Удалить'}
+            style={{
+              padding: '3px',
+              width: '20px',
+              height: '20px',
+              cursor: 'pointer',
+              alignItems: 'flex-end'
+            }}
           />
         </div>
       )
@@ -170,10 +173,10 @@ export const useListing = <Type extends { id: number }>({
       )
       : (
         <TableComponent
-          size="small"
+          size='small'
           scroll={{ x: '100%' }}
           loading={loading}
-          id="page-list-table"
+          id='page-list-table'
           //@ts-ignore
           columns={columns}
           dataSource={tableData}
@@ -205,10 +208,12 @@ const TableComponent = styled(Table)`
   border: none;
   border-radius: 0;
   margin-top: 20px;
+
   * {
-    border-top-left-radius: 0!important;
-    border-top-right-radius: 0!important;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
   }
+
   thead {
     background: #232323 !important;
   }
@@ -216,31 +221,33 @@ const TableComponent = styled(Table)`
   .ant-table-tbody > tr.ant-table-row:hover > td {
     background: #565656 !important;
   }
+
   .ant-table-thead {
     background: #232323;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
-    
+
     & > tr > th {
       border-bottom: 1px solid #323136;
     }
   }
+
   .ant-table-thead > tr > th {
     color: #fff;
     background: #232323;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     border-right: 1px solid #323136;
-    
+
     &:last-child {
       border-right: none;
     }
-    
+
     &::before {
       display: none;
     }
   }
-  
+
   // do in dark theme
   .ant-table-tbody > tr > td {
     background: #232323;
@@ -249,10 +256,10 @@ const TableComponent = styled(Table)`
     -webkit-touch-callout: none;
     user-select: none;
   }
-  
+
   .ant-table-tbody {
     border-spacing: 0 5px;
-    
+
     & > tr {
       & > td {
         border-bottom: 1px solid #323136;
@@ -264,7 +271,7 @@ const TableComponent = styled(Table)`
   .ant-table-wrapper {
     overflow-x: hidden !important;
   }
-  
+
 `
 
 const Edit = styled.img`
@@ -273,13 +280,6 @@ const Edit = styled.img`
   width: 20px;
   height: 20px;
   cursor: pointer;
-`
-const Trash = styled.img`
-  padding: 3px;
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
-  align-items: flex-end;
 `
 
 const EmptyText = styled.div`

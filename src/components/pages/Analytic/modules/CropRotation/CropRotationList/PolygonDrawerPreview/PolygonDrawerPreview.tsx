@@ -60,7 +60,6 @@ const PolygonDrawerPreview: React.FC<Props> = ({
     },
     colors: [polygon.sequence.color],
     fill: {
-      type: 'gradient',
       gradient: {
         shade: 'light',
         shadeIntensity: 0.4,
