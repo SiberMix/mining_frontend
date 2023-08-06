@@ -5,8 +5,8 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { getAllEquipmentSelector } from '../../../../../../../redux/selectors/mapSelectors'
 import { EquipmentData } from '../../../../../../../redux/slices/playBackSlice'
-
-const defaultColor = '#52C41A'
+import { getRandomColor } from '../../../../../../../utils/getRandomColor/getRandomColor'
+import { colors } from '../recomended-colors.json'
 
 type Props = {
   selectedEquipment: EquipmentData[]
@@ -21,6 +21,7 @@ const PlayBackEquipPicker: React.FC<Props> = ({
   setColorForThisEquip,
   colorForThisEquip
 }) => {
+  const defaultColor = getRandomColor(colors)
   const allEquipment = useSelector(getAllEquipmentSelector)
 
   const toggleEquipment = (id: number) => {

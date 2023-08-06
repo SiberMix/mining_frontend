@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify'
 import { analyticService } from '../../api/analytic'
 import { RootState } from '../store'
-import { getRandomColor } from '../../components/pages/Analytic/modules/EquipsAnalytic/reusingFunctions'
+import { getRandomColor } from '../../utils/getRandomColor/getRandomColor'
 
 type EquipAnalyticSliceInitialState = {
   chartType: 'AVG' | 'MEDIAN'
@@ -107,6 +107,7 @@ export const resetEquipsAnalyticThunk = createAsyncThunk(
     dispatch(setTsEnd(now))
     dispatch(setTsStart(dayAgo))
     dispatch(setScheduleType('Скорость'))
+    dispatch(setChartType('AVG'))
     dispatch(setPikedEquips([{
       equipsId: equipmentList[0].id,
       equipColor: getRandomColor()
