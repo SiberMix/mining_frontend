@@ -13,6 +13,19 @@
       background-color: #6B6B6B !important;
     }
   }
+
+  .ant-btn {
+    border: 1px solid #858585;
+    color: #929292;
+    background-color: #565656;
+    transition: background-color, color .3s;
+
+    &:hover {
+      color: #ffffff !important; //в некоторых файлах почему то перебиваются стили
+      border: 1px solid #858585 !important; //и тут тоже
+      background-color: #858585 !important; //и тут тоже
+    }
+  }
 }
 
 .ant-popconfirm-title {
@@ -21,18 +34,5 @@
 
 .ant-popconfirm-description {
   color: #929292 !important;
-}
-
-.ant-btn {
-  border: 1px solid #858585;
-  color: #929292;
-  background-color: #565656;
-  transition: background-color, color .3s;
-
-  &:hover {
-    color: #ffffff !important; //в некоторых файлах почему то перебиваются стили
-    border: 1px solid #858585 !important; //и тут тоже
-    background-color: #858585 !important; //и тут тоже
-  }
 }
 

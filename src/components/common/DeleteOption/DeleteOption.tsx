@@ -23,6 +23,7 @@ const DeleteOption: React.FC<Props> = ({
 
   return (
     <Popconfirm
+      className='deleteOption'
       title={popConfirmTitle}
       placement='right'
       description={popConfirmDescription}

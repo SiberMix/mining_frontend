@@ -5,23 +5,25 @@ import { RootState } from '../store'
 import { getRandomColor } from '../../components/pages/Analytic/modules/EquipsAnalytic/reusingFunctions'
 
 type EquipAnalyticSliceInitialState = {
+  chartType: 'AVG' | 'MEDIAN'
   equipsData: EquipsData | undefined
   tsStart: number
   tsEnd: number
-  pikedEquipsId: number[]
+  pikedEquips: PickedEquip[]
+  equipsUsingInDiagrams: PickedEquip[]
   scheduleType: ChartType
-  pikedEquipsColors: string[]
   isLoading: boolean
 }
 export type ChartType = 'Скорость' | 'Тип'
 
 const equipAnalyticSliceInitialState: EquipAnalyticSliceInitialState = {
+  chartType: 'AVG',
   equipsData: undefined,
   tsStart: 0,
   tsEnd: 0,
-  pikedEquipsId: [],
+  pikedEquips: [],
+  equipsUsingInDiagrams: [],
   scheduleType: 'Скорость',
-  pikedEquipsColors: [],
   isLoading: false
 }
 
@@ -35,14 +37,14 @@ const equipAnalyticSlice = createSlice({
     setTsEnd: (state: EquipAnalyticSliceInitialState, action) => {
       state.tsEnd = action.payload
     },
-    setPikedEquipsId: (state: EquipAnalyticSliceInitialState, action) => {
-      state.pikedEquipsId = action.payload
-    },
-    setPikedEquipsColors: (state: EquipAnalyticSliceInitialState, action) => {
-      state.pikedEquipsColors = action.payload
+    setPikedEquips: (state: EquipAnalyticSliceInitialState, action) => {
+      state.pikedEquips = action.payload
     },
     setScheduleType: (state: EquipAnalyticSliceInitialState, action) => {
       state.scheduleType = action.payload
+    },
+    setChartType: (state: EquipAnalyticSliceInitialState, action) => {
+      state.chartType = action.payload
     }
   },
   extraReducers: (builder) => {
@@ -55,8 +57,8 @@ const equipAnalyticSlice = createSlice({
       })
       .addCase(getEquipsAnalyticThunk.fulfilled, (state: EquipAnalyticSliceInitialState, action) => {
         state.isLoading = false
-        console.log(action.payload.data)
         state.equipsData = action.payload.data
+        state.equipsUsingInDiagrams = state.pikedEquips
       })
       .addCase(resetEquipsAnalyticThunk.pending, (state: EquipAnalyticSliceInitialState) => {
         state.isLoading = true
@@ -66,8 +68,8 @@ const equipAnalyticSlice = createSlice({
       })
       .addCase(resetEquipsAnalyticThunk.fulfilled, (state: EquipAnalyticSliceInitialState, action) => {
         state.isLoading = false
-        console.log(action.payload.data)
         state.equipsData = action.payload.data
+        state.equipsUsingInDiagrams = state.pikedEquips
       })
       .addDefaultCase(() => {
       })
@@ -80,13 +82,14 @@ export const getEquipsAnalyticThunk = createAsyncThunk(
     const {
       tsStart,
       tsEnd,
-      pikedEquipsId
+      pikedEquips
     } = (thunkAPI.getState() as RootState).equipAnalyticReducer
+    const equipsId = pikedEquips.map(pickedEquip => pickedEquip.equipsId)
 
     return toast.promise(analyticService.getEquipsAnalytic({
       ts_start: tsStart,
-      ts_end: tsEnd, //ваще хз зачем так сделано
-      imei_ids: pikedEquipsId
+      ts_end: tsEnd,
+      imei_ids: equipsId
     }), {
       pending: 'Подгружаю статистику техники',
       success: 'Статистика техники успешно загружена',
@@ -104,8 +107,10 @@ export const resetEquipsAnalyticThunk = createAsyncThunk(
     dispatch(setTsEnd(now))
     dispatch(setTsStart(dayAgo))
     dispatch(setScheduleType('Скорость'))
-    dispatch(setPikedEquipsId([equipmentList[0].id]))
-    dispatch(setPikedEquipsColors([getRandomColor()]))
+    dispatch(setPikedEquips([{
+      equipsId: equipmentList[0].id,
+      equipColor: getRandomColor()
+    }]))
 
     return toast.promise(analyticService.getEquipsAnalytic({
       ts_start: dayAgo,
@@ -127,13 +132,17 @@ const {
 export const {
   setTsStart,
   setTsEnd,
-  setPikedEquipsId,
-  setPikedEquipsColors,
-  setScheduleType
+  setPikedEquips,
+  setScheduleType,
+  setChartType
 } = actions
 
 export default reducer
 
+export type PickedEquip = {
+  equipsId: number
+  equipColor: string
+}
 export type EquipsData = {
   time_range: {
     'ts_from': number,
@@ -150,5 +159,7 @@ export type EquipsDataImeiData = {
   timestamp: string
   avg_speed: number
   avg_fuel: number
+  median_speed: number
+  median_fuel: number
 }
 

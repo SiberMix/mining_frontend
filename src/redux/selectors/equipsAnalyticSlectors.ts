@@ -2,30 +2,18 @@ import { createSelector } from 'reselect'
 import { RootState } from '../store'
 
 const selectEquipsData = (state: RootState) => state.equipAnalyticReducer.equipsData
-const selectTsStart = (state: RootState) => state.equipAnalyticReducer.tsStart
-const selectTsEnd = (state: RootState) => state.equipAnalyticReducer.tsEnd
-const selectPikedEquipsId = (state: RootState) => state.equipAnalyticReducer.pikedEquipsId
+const selectPikedEquips = (state: RootState) => state.equipAnalyticReducer.pikedEquips
 const selectScheduleType = (state: RootState) => state.equipAnalyticReducer.scheduleType
-const selectPikedEquipsColors = (state: RootState) => state.equipAnalyticReducer.pikedEquipsColors
 const selectIsLoading = (state: RootState) => state.equipAnalyticReducer.isLoading
+const selectEquipsUsingInDiagrams = (state: RootState) => state.equipAnalyticReducer.equipsUsingInDiagrams
+const selectChartType = (state: RootState) => state.equipAnalyticReducer.chartType
 
 export const getEquipsDataSelector = createSelector(
   selectEquipsData,
   (equipsData) => equipsData
 )
-
-export const getTsStartSelector = createSelector(
-  selectTsStart,
-  (tsStart) => tsStart
-)
-
-export const getTsEndSelector = createSelector(
-  selectTsEnd,
-  (tsEnd) => tsEnd
-)
-
 export const getPikedEquipsIdSelector = createSelector(
-  selectPikedEquipsId,
+  selectPikedEquips,
   (pikedEquipsId) => pikedEquipsId
 )
 
@@ -34,11 +22,17 @@ export const getScheduleTypeSelector = createSelector(
   (scheduleType) => scheduleType
 )
 
-export const getPikedEquipsColorsSelector = createSelector(
-  selectPikedEquipsColors,
-  (pikedEquipsColors) => pikedEquipsColors
-)
 export const getIsLoadingSelector = createSelector(
   selectIsLoading,
   (isLoading) => isLoading
+)
+
+export const getEquipsUsingInDiagrams = createSelector(
+  selectEquipsUsingInDiagrams,
+  (equipsUsingInDiagrams) => equipsUsingInDiagrams
+)
+
+export const getChartType = createSelector(
+  selectChartType,
+  (chartType) => chartType
 )

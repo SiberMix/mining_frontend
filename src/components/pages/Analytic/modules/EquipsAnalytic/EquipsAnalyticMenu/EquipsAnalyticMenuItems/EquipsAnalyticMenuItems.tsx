@@ -5,32 +5,31 @@ import { useAppDispatch } from '../../../../../../../redux/store'
 import { Equip } from '../../../../../../../types/equip'
 import { useSelector } from 'react-redux'
 import { getAllEquipmentSelector } from '../../../../../../../redux/selectors/mapSelectors'
-import { getPikedEquipsColorsSelector, getPikedEquipsIdSelector } from '../../../../../../../redux/selectors/equipsAnalyticSlectors'
-import { setPikedEquipsColors, setPikedEquipsId } from '../../../../../../../redux/slices/EquipsAnalyticSlice'
+import { getPikedEquipsIdSelector } from '../../../../../../../redux/selectors/equipsAnalyticSlectors'
 import { getRandomColor } from '../../reusingFunctions'
+import { PickedEquip, setPikedEquips } from '../../../../../../../redux/slices/EquipsAnalyticSlice'
 
 const EquipsAnalyticMenuItems = () => {
 
   const dispatch = useAppDispatch()
   const allEquips: Equip[] = useSelector(getAllEquipmentSelector)
-  const pikedEquipsId = useSelector(getPikedEquipsIdSelector)
-  const pikedEquipsColors = useSelector(getPikedEquipsColorsSelector)
+  const pikedEquips: PickedEquip[] = useSelector(getPikedEquipsIdSelector)
 
   const pickEquipment = (equipId: number) => {
-    const equipIndex = pikedEquipsId.indexOf(equipId)
+    const equipExist = pikedEquips.some(equip => equip.equipsId === equipId)
 
-    if (equipIndex !== -1) {
+    if (equipExist) {
       // Если оборудование уже выбрано, удаляем его из списка
-      const updatedEquipsId = pikedEquipsId.filter((id) => id !== equipId)
-      const updatedEquipsColors = pikedEquipsColors.filter((_, index) => index !== equipIndex)
-
-      dispatch(setPikedEquipsId(updatedEquipsId))
-      dispatch(setPikedEquipsColors(updatedEquipsColors))
+      const filteredEquips = pikedEquips.filter(equip => equip.equipsId !== equipId)
+      dispatch(setPikedEquips(filteredEquips))
     } else {
       // Если оборудование не выбрано, добавляем его и генерируем цвет
       const newColor = getRandomColor()
-      dispatch(setPikedEquipsId([...pikedEquipsId, equipId]))
-      dispatch(setPikedEquipsColors([...pikedEquipsColors, newColor]))
+      const newEquip: PickedEquip = {
+        equipsId: equipId,
+        equipColor: newColor
+      }
+      dispatch(setPikedEquips([...pikedEquips, newEquip]))
     }
   }
 
@@ -46,13 +45,14 @@ const EquipsAnalyticMenuItems = () => {
   return (
     <div className='equipsAnalyticMenu-container'>
       {
-        allEquips.map((equip) => {
-          const equipsIndexInPikedEquipsId = pikedEquipsId.indexOf(equip.id)
+        allEquips.map((equip: Equip) => {
+          const findInPickedEquips = pikedEquips.find(pikedEquip => pikedEquip.equipsId === equip.id)
+
           return (
             <div
               className={cn(
                 'equipsAnalyticMenu-container-item',
-                { 'selected': pikedEquipsId.some(id => id === equip.id) }
+                { 'selected': !!findInPickedEquips }
               )}
               onClick={() => pickEquipment(equip.id)}
               key={'equipsAnalyticMenu-container-item_' + equip.id}
@@ -60,8 +60,8 @@ const EquipsAnalyticMenuItems = () => {
               <div
                 className='equipsAnalyticMenu-container-item-color'
                 style={{
-                  backgroundColor: equipsIndexInPikedEquipsId >= 0
-                    ? pikedEquipsColors[equipsIndexInPikedEquipsId]
+                  backgroundColor: findInPickedEquips
+                    ? findInPickedEquips.equipColor
                     : 'inherit'
                 }}
               />

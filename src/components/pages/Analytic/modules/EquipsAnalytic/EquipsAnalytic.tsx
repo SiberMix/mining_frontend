@@ -1,6 +1,6 @@
 import './EquipsAnalytic.scss'
-import EquipsAnalyticDiagrams from './EquipsAnalyticDiagrams/EquipsAnalyticDiagrams'
 import EquipsAnalyticMenu from './EquipsAnalyticMenu/EquipsAnalyticMenu'
+import EquipsAnalyticDiagrams from './EquipsAnalyticDiagrams/EquipsAnalyticDiagrams'
 
 const EquipsAnalytic = () => {
   return (

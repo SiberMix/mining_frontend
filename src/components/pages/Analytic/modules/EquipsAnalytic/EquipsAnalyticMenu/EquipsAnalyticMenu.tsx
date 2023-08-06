@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react'
 import { Button, DatePicker, message, Segmented } from 'antd'
 import EquipsAnalyticMenuItems from './EquipsAnalyticMenuItems/EquipsAnalyticMenuItems'
 import { useAppDispatch } from '../../../../../../redux/store'
-import { ChartType, getEquipsAnalyticThunk, resetEquipsAnalyticThunk, setScheduleType, setTsEnd, setTsStart } from '../../../../../../redux/slices/EquipsAnalyticSlice'
+import { ChartType, getEquipsAnalyticThunk, resetEquipsAnalyticThunk, setChartType, setScheduleType, setTsEnd, setTsStart } from '../../../../../../redux/slices/EquipsAnalyticSlice'
 import { useSelector } from 'react-redux'
-import { getIsLoadingSelector, getPikedEquipsIdSelector, getScheduleTypeSelector } from '../../../../../../redux/selectors/equipsAnalyticSlectors'
+import { getChartType, getIsLoadingSelector, getPikedEquipsIdSelector, getScheduleTypeSelector } from '../../../../../../redux/selectors/equipsAnalyticSlectors'
 import dayjs from 'dayjs'
 
 const { RangePicker } = DatePicker
@@ -17,9 +17,8 @@ const EquipsAnalyticMenu = () => {
   const pikedEquipsId = useSelector(getPikedEquipsIdSelector)
   const isLoading = useSelector(getIsLoadingSelector)
   const scheduleType = useSelector(getScheduleTypeSelector)
+  const chartType = useSelector(getChartType)
   const [period, setPeriod] = useState<Period>('День')
-
-  const [timeStep, setTimeStep] = useState<{ start: number, end: number } | null>(null)
 
   /*
   * костыльная перерисовка датапикера, для сброса значений :D
@@ -31,7 +30,6 @@ const EquipsAnalyticMenu = () => {
 
   //При первой загрузке сбрасываем все в 0
   useEffect(() => {
-    setTimeStep(null)
     dispatch(resetEquipsAnalyticThunk())
   }, [])
 
@@ -87,15 +85,6 @@ const EquipsAnalyticMenu = () => {
       const startDate = value[0].toDate()
       const endDate = value[1].toDate()
 
-      const startTimestep = Math.floor(startDate.getTime() / 1000)
-      const endTimestep = Math.floor(endDate.getTime() / 1000)
-
-      setTimeStep({
-        start: startTimestep,
-        end: endTimestep
-      })
-      console.log(endDate.getTime())
-      console.log(startDate.getTime())
       dispatch(setTsEnd(endDate.getTime()))
       dispatch(setTsStart(startDate.getTime()))
     }
@@ -127,16 +116,21 @@ const EquipsAnalyticMenu = () => {
           onChange={(value) => dispatch(setScheduleType(value as ChartType))}
         />
         <div className='equipsAnalyticMenu-title'>
+          Тип данных
+          <span>Не требует повторной загрузки с сервера</span>
+        </div>
+        <Segmented
+          options={['AVG', 'MEDIAN']}
+          value={chartType}
+          onChange={(value) => dispatch(setChartType(value))}
+        />
+        <div className='equipsAnalyticMenu-title'>
           Временной отрезок
-          <span>Берется ровно от данного момента</span>
         </div>
         <Segmented
           options={['День', 'Неделя', 'Месяц', 'Свой вариант']}
           value={period}
-          onChange={(value) => {
-            setTimeStep(null)
-            setPeriod(value as Period)
-          }}
+          onChange={(value) => setPeriod(value as Period)}
         />
         <div
           className={`

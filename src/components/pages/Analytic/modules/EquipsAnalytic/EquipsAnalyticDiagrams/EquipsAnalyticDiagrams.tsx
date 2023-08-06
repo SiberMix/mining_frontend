@@ -1,8 +1,8 @@
 import './EquipsAnalyticDiagrams.scss'
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { getEquipsDataSelector, getIsLoadingSelector, getPikedEquipsColorsSelector, getScheduleTypeSelector } from '../../../../../../redux/selectors/equipsAnalyticSlectors'
-import { EquipsDataData } from '../../../../../../redux/slices/EquipsAnalyticSlice'
+import { getChartType, getEquipsDataSelector, getEquipsUsingInDiagrams, getIsLoadingSelector, getScheduleTypeSelector } from '../../../../../../redux/selectors/equipsAnalyticSlectors'
+import { EquipsDataData, PickedEquip } from '../../../../../../redux/slices/EquipsAnalyticSlice'
 import { getAllEquipmentSelector } from '../../../../../../redux/selectors/mapSelectors'
 import EquipsAnalyticDiagram from './EquipsAnalyticDiagram/EquipsAnalyticDiagram'
 import BasePreloader from '../../../../../common/BasePreloader/BasePreloader'
@@ -10,9 +10,10 @@ import BasePreloader from '../../../../../common/BasePreloader/BasePreloader'
 const EquipsAnalyticDiagrams = () => {
   const isLoading = useSelector(getIsLoadingSelector)
   const allEquips = useSelector(getAllEquipmentSelector)
-  const pikedEquipsColors = useSelector(getPikedEquipsColorsSelector)
   const equipsData = useSelector(getEquipsDataSelector)
   const scheduleType = useSelector(getScheduleTypeSelector)
+  const chartType = useSelector(getChartType)
+  const equipsUsingInDiagrams: PickedEquip[] = useSelector(getEquipsUsingInDiagrams)
 
   let speedCategories: number[] = []
   const speedSeries = equipsData?.data
@@ -21,7 +22,10 @@ const EquipsAnalyticDiagrams = () => {
       const equipData = equip.imei_data.map(imeiData => {
         //заодно создаем категории
         speedCategories.push(+imeiData.timestamp)
-        return +imeiData.avg_speed.toFixed(2)
+        if (chartType === 'AVG') {
+          return +imeiData.avg_speed.toFixed(2)
+        }
+        return +imeiData.median_speed.toFixed(2)
       })
       return {
         name: equipName,
@@ -36,7 +40,10 @@ const EquipsAnalyticDiagrams = () => {
       const equipData = equip.imei_data.map(imeiData => {
         //заодно создаем категории
         fuelCategories.push(+imeiData.timestamp)
-        return +imeiData.avg_fuel.toFixed(2)
+        if (chartType === 'AVG') {
+          return +imeiData.avg_fuel.toFixed(2)
+        }
+        return +imeiData.median_fuel.toFixed(2)
       })
       return {
         name: equipName,
@@ -59,6 +66,21 @@ const EquipsAnalyticDiagrams = () => {
     })
   }
 
+  const createColors = () => {
+    if (equipsData) {
+      return equipsData.data
+        .map((equip: EquipsDataData) => {
+          const findUsingEquip = equipsUsingInDiagrams.find(usingEquip => usingEquip.equipsId === equip.id)
+          if (findUsingEquip !== undefined) {
+            return findUsingEquip.equipColor
+          } else {
+            return 'red'
+          }
+        })
+    }
+    return []
+  }
+
   return (
     <div className='fieldsAnalyticDiagrams'>
 
@@ -73,7 +95,7 @@ const EquipsAnalyticDiagrams = () => {
                 title={'График скорости'}
                 series={speedSeries !== undefined ? speedSeries : []}
                 categories={createTextCategories(speedCategories)}
-                colors={pikedEquipsColors}
+                colors={createColors()}
               />
             )
             : (
@@ -81,7 +103,7 @@ const EquipsAnalyticDiagrams = () => {
                 title={'График уровня топлива'}
                 series={fuelSeries !== undefined ? fuelSeries : []}
                 categories={createTextCategories(fuelCategories)}
-                colors={pikedEquipsColors}
+                colors={createColors()}
               />
             )
       }
