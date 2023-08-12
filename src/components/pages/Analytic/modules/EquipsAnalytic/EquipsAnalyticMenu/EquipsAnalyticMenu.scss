@@ -39,14 +39,12 @@
   }
 
   &-btn {
-    border: 1px solid #858585;
-    color: #929292;
+    color: #C8FF63;
     background-color: #434F2F;
     transition: background-color, color .3s;
 
     &:hover {
-      color: #ffffff !important;
-      border: 1px solid #858585 !important;
+      color: #C8FF63 !important;
       background-color: #434F2F !important;
     }
   }
