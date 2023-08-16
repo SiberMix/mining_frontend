@@ -1,21 +1,10 @@
-import {
-  Polygon,
-  Popup,
-  useMap
-} from 'react-leaflet'
-import React, {
-  useEffect,
-  useRef
-} from 'react'
+import { Polygon, Popup, useMap } from 'react-leaflet'
+import React, { useEffect, useRef } from 'react'
 import type { Polygon as PolygonType } from '../../../../../types'
 import { useAppDispatch } from '../../../../../redux/store'
 import { useSelector } from 'react-redux'
 import { getPolygonFlyToSelector } from '../../../../../redux/selectors/mapSelectors'
-import {
-  removeSelectedPolygon,
-  setPolygonFlyTo,
-  setSelectedPolygon
-} from '../../../../../redux/slices/mapSlice'
+import { removeSelectedPolygon, setPolygonFlyTo, setSelectedPolygon } from '../../../../../redux/slices/mapSlice'
 
 type Props = {
   polygon: PolygonType
@@ -70,7 +59,7 @@ const OnePolygon: React.FC<Props> = ({ polygon }) => {
       positions={polygon.coords}
       pathOptions={{ fillColor: polygonColor, ...polygonDefaultStyleSettings }}
     >
-      <Popup >
+      <Popup>
         <div>
           {polygon.name}
         </div>
@@ -78,7 +67,7 @@ const OnePolygon: React.FC<Props> = ({ polygon }) => {
           {`Культура: ${polygon.sequence === null ? 'культура не выбрана' : polygon.sequence.name}`}
         </div>
         <div>
-          {`Площадь полигона: ${polygon.square} Га`}
+          {`Площадь полигона: ${(+polygon.square).toFixed(2)} Га`}
         </div>
       </Popup>
     </Polygon>

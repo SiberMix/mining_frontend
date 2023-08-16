@@ -19,10 +19,21 @@ const EquipsAnalyticDiagram: React.FC<Props> = ({
   colors
 }) => {
 
+  //  TODO сделать функцию форматер, которая будет выводить все значения по срезу
+  // const customTooltipFormatter = (params: CustomTooltipFormatterParams): string => {
+  //   const dataPoint = params.series[params.seriesIndex].data[params.dataPointIndex]
+  //   return `${params.series[params.seriesIndex].name}: ${dataPoint}`
+  // }
+
   const options: ApexOptions = {
     title: {
       text: title,
       align: 'left'
+    },
+    tooltip: {
+      enabled: true,
+      theme: 'dark'
+      // custom: customTooltipFormatter
     },
     chart: {
       animations: {
@@ -39,12 +50,12 @@ const EquipsAnalyticDiagram: React.FC<Props> = ({
         enabled: false
       },
       toolbar: {
-        show: false
+        show: true
       }
     },
     colors: [...colors],
     dataLabels: {
-      enabled: false
+      enabled: false //подпись точек
     },
     stroke: {
       width: 3,
@@ -58,7 +69,6 @@ const EquipsAnalyticDiagram: React.FC<Props> = ({
       itemMargin: {
         vertical: 20
       },
-      //используюется, но вебшторм этого не видит
       tooltipHoverFormatter: function(val: any, opts: any) {
         return val + ' : ' + opts.w.globals.series[opts.seriesIndex][opts.dataPointIndex] + ''
       }

@@ -11,6 +11,9 @@ import { useAppDispatch } from '../../../../redux/store'
 import { setToken } from '../../../../redux/slices/authSlice'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { GlobalOutlined, LineChartOutlined } from '@ant-design/icons'
+import Setting from '/src/assets/icons/settings.svg'
+import { setOpenSidebarWindow } from '../../../../redux/slices/sidebarSlice'
+import { setMapClickForNewBaseCoord, setShowSettingsModal } from '../../../../redux/slices/settingsSlice'
 
 const AnalyticSidebar: React.FC<PropsWithChildren> = () => {
   const dispatch = useAppDispatch()
@@ -77,6 +80,15 @@ const AnalyticSidebar: React.FC<PropsWithChildren> = () => {
               title='Аналитика'
             />
           </NavLink>
+          <Svg
+            title='Настройки'
+            src={Setting}
+            onClick={() => {
+              dispatch(setOpenSidebarWindow(undefined))
+              dispatch(setMapClickForNewBaseCoord(false))
+              dispatch(setShowSettingsModal(true))
+            }}
+          />
           <Svg
             title='Выход'
             color='#b53f42'

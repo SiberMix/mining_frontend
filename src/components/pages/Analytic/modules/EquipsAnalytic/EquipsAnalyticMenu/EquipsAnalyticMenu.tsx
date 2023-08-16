@@ -1,12 +1,14 @@
 import './EquipsAnalyticMenu.scss'
 import React, { useEffect, useState } from 'react'
-import { Button, DatePicker, message, Segmented } from 'antd'
+import { Button, ConfigProvider, DatePicker, message, Segmented } from 'antd'
 import EquipsAnalyticMenuItems from './EquipsAnalyticMenuItems/EquipsAnalyticMenuItems'
 import { useAppDispatch } from '../../../../../../redux/store'
 import { ChartType, getEquipsAnalyticThunk, resetEquipsAnalyticThunk, setChartType, setScheduleType, setTsEnd, setTsStart } from '../../../../../../redux/slices/EquipsAnalyticSlice'
 import { useSelector } from 'react-redux'
 import { getChartType, getIsLoadingSelector, getPikedEquipsIdSelector, getScheduleTypeSelector } from '../../../../../../redux/selectors/equipsAnalyticSlectors'
 import dayjs from 'dayjs'
+import 'dayjs/locale/ru'
+import locale from 'antd/locale/ru_RU'
 
 const { RangePicker } = DatePicker
 
@@ -139,13 +141,15 @@ const EquipsAnalyticMenu = () => {
               `}
         >
           <span style={{ display: period === 'Свой вариант' ? '' : 'none' }}>
-            <RangePicker
-              //костыльно перерисовываем компонент для сброса значений
-              key={`${keyForReset}`}
-              placeholder={['Начало', 'Конец']}
-              onChange={onChangeDate}
-              defaultPickerValue={[defaultStartDate, defaultEndDate]}
-            />
+            <ConfigProvider locale={locale}>
+              <RangePicker
+                //костыльно перерисовываем компонент для сброса значений
+                key={`${keyForReset}`}
+                placeholder={['Начало', 'Конец']}
+                onChange={onChangeDate}
+                defaultPickerValue={[defaultStartDate, defaultEndDate]}
+              />
+            </ConfigProvider>
           </span>
         </div>
         <Button className='equipsAnalyticMenu-btn'

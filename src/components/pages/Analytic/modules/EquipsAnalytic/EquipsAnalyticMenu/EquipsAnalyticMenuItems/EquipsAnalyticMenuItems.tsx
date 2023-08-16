@@ -34,7 +34,7 @@ const EquipsAnalyticMenuItems = () => {
   }
 
   const formatDateToDayMonth = (date: string) => {
-    const lastUpdateDate = new Date(date)
+    const lastUpdateDate = new Date(+date * 1000)
     const options: { day: 'numeric', month: 'long' } = {
       day: 'numeric',
       month: 'long'

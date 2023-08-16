@@ -1,7 +1,7 @@
 import './PlayBackAddModal.scss'
 import * as cn from 'classnames'
 import React, { useEffect, useState } from 'react'
-import { DatePicker, Input, Modal } from 'antd'
+import { ConfigProvider, DatePicker, Input, message, Modal } from 'antd'
 import { useSelector } from 'react-redux'
 import type { RootState } from '../../../../../../redux/store'
 import { useAppDispatch } from '../../../../../../redux/store'
@@ -9,9 +9,10 @@ import { EquipmentData, postNewPlayback, setIsOpenPlayBackAddModal } from '../..
 import importedColors from './recomended-colors.json'
 import PlayBackEquipPicker from './PlayBackEquipPicker/PlayBackEquipPicker'
 import { Collapse } from 'antd/lib'
-import { toast } from 'react-toastify'
 //@ts-ignore
 import { GithubPicker } from 'react-color'
+import 'dayjs/locale/ru'
+import locale from 'antd/locale/ru_RU'
 
 const PlayBackAddModal = () => {
   const dispatch = useAppDispatch()
@@ -31,10 +32,12 @@ const PlayBackAddModal = () => {
     setKeyForReset(Date.now())
   }, [isOpenPlayBackAddModal])
 
+  const [messageApi, contextHolder] = message.useMessage()
+
   const handleSubmit = () => {
     if (name && timeStep !== null && selectedEquipment.length > 0) {
       if (playbacksData.some(data => data.name === name)) {
-        toast.error('Плейбэк с таким названием уже существует')
+        messageApi.info('Плейбэк с таким названием уже существует')
       } else {
         dispatch(postNewPlayback({
           name,
@@ -44,7 +47,7 @@ const PlayBackAddModal = () => {
         closeHandler()
       }
     } else {
-      toast.error('Пожалуйста заполните информацию полностью')
+      messageApi.info('Пожалуйста заполните информацию полностью')
     }
   }
 
@@ -108,13 +111,15 @@ const PlayBackAddModal = () => {
         Выберете временной интервал
       </span>
       <div className='PlayBackAddModal__datepicker'>
-        <DatePicker.RangePicker
-          //костыльно перерисовываем компонент для сброса значений
-          key={`${keyForReset}`}
-          showTime={{ format: 'HH:mm' }}
-          format='YYYY-MM-DD HH:mm'
-          onOk={onOkDate}
-        />
+        <ConfigProvider locale={locale}>
+          <DatePicker.RangePicker
+            //костыльно перерисовываем компонент для сброса значений
+            key={`${keyForReset}`}
+            showTime={{ format: 'HH:mm' }}
+            format='YYYY-MM-DD HH:mm'
+            onOk={onOkDate}
+          />
+        </ConfigProvider>
       </div>
       {
         !!colorForThisEquip
@@ -149,6 +154,7 @@ const PlayBackAddModal = () => {
         colorForThisEquip={colorForThisEquip}
         setColorForThisEquip={setColorForThisEquip}
       />
+      {contextHolder}
     </Modal>
   )
 }

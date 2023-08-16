@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import AnalyticSidebar from './AnalyticSidebar/AnalyticSidebar'
 import { useAppDispatch } from '../../../redux/store'
 import { getAllPolygons } from '../../../redux/slices/mapSlice'
+import SettingsModal from '../Main/modules/settings/SettingsModal'
 
 const Analytic = () => {
   const dispatch = useAppDispatch()
@@ -22,7 +23,6 @@ const Analytic = () => {
         ])
 
         setLoad(false)
-        console.log('Информация загружена')
         navigate('/analytics/equipments')
         // navigate('/analytics/field')
       } catch (error) {
@@ -43,6 +43,7 @@ const Analytic = () => {
           <AnalyticLayout>
             <AnalyticSidebar />
             <AnalyticSidebarContainer />
+            <SettingsModal />
           </AnalyticLayout>
         )}
     </div>
