@@ -12,7 +12,7 @@ const CropRotationList = () => {
   const cropRotationGroups = useSelector(getCropRotationGroupsSelector)
 
   useEffect(() => {
-    if (selectedCropRotationGroup === null) {
+    if (selectedCropRotationGroup === null && cropRotationGroups.length > 0) {
       dispatch(setSelectedCropRotationGroup(cropRotationGroups[0].id_group))
     }
   }, [cropRotationGroups])
