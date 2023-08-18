@@ -1,38 +1,30 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { analyticService } from '../../api/analytic'
+import { toast } from 'react-toastify'
+import { RootState } from '../store'
 
 type CropRotationSliceInitialState = {
   openCropRotationAddGroupModal: boolean
   cropRotationGroups: CropRotationGroup[]
   selectedCropRotationGroup: number | null
   editedCropRotationGroup: CropRotationGroup | undefined
+  isLoadingCropRotation: boolean
+  arrOfLoadingCultures: EditCropRotationGroupCulture[]
 }
 
 const cropRotationSliceInitialState: CropRotationSliceInitialState = {
   openCropRotationAddGroupModal: false,
   cropRotationGroups: [],
   selectedCropRotationGroup: null,
-  editedCropRotationGroup: undefined
+  editedCropRotationGroup: undefined,
+  isLoadingCropRotation: false,
+  arrOfLoadingCultures: []
 }
 
 const cropRotationSlice = createSlice({
   name: 'cropRotation',
   initialState: cropRotationSliceInitialState,
   reducers: {
-    setCropRotationGroup: (state: CropRotationSliceInitialState, action) => {
-      if (state.cropRotationGroups.some(group => group.id === action.payload.id)) {
-        state.cropRotationGroups = state.cropRotationGroups.map(group => {
-          if (group.id === action.payload.id) {
-            return action.payload
-          } else {
-            return group
-          }
-        })
-        state.selectedCropRotationGroup = action.payload.id
-      } else {
-        state.selectedCropRotationGroup = action.payload.id
-        state.cropRotationGroups.push(action.payload)
-      }
-    },
     setOpenCropRotationAddGroupModal: (state: CropRotationSliceInitialState, action) => {
       state.openCropRotationAddGroupModal = action.payload
     },
@@ -40,16 +32,141 @@ const cropRotationSlice = createSlice({
       state.selectedCropRotationGroup = action.payload
     },
     setEditedCropRotationGroup: (state: CropRotationSliceInitialState, action) => {
-      if (action.payload !== undefined) {
-        state.editedCropRotationGroup = state.cropRotationGroups.find(group => group.id === action.payload)
-        state.openCropRotationAddGroupModal = true
-      } else {
-        state.editedCropRotationGroup = action.payload
-        state.openCropRotationAddGroupModal = false
-      }
+      console.log(`выбрана ${action.payload} группа на редактирование`)
+    },
+    pushArrOfLoadingCultures: (state: CropRotationSliceInitialState, action) => {
+      state.arrOfLoadingCultures.push(action.payload)
+    },
+    removeLoadingFromArrOfLoadingCultures: (state: CropRotationSliceInitialState, action: { type: string, payload: EditCropRotationGroupCulture }) => {
+      const {
+        groupId,
+        year,
+        cultureId,
+        polygonId
+      } = action.payload
+      state.arrOfLoadingCultures = state.arrOfLoadingCultures.filter((loadingCulture: EditCropRotationGroupCulture) => {
+        const findLoadingForRemove = loadingCulture.cultureId === cultureId
+          && loadingCulture.groupId === groupId
+          && loadingCulture.polygonId === polygonId
+          && loadingCulture.year === year
+
+        return !findLoadingForRemove
+      })
     }
+  },
+  extraReducers(builder) {
+    builder
+      .addCase(getCropRotationGroupsThunk.pending, (state: CropRotationSliceInitialState) => {
+        state.isLoadingCropRotation = true
+      })
+      .addCase(getCropRotationGroupsThunk.rejected, (state: CropRotationSliceInitialState) => {
+        state.isLoadingCropRotation = false
+      })
+      .addCase(getCropRotationGroupsThunk.fulfilled, (state: CropRotationSliceInitialState, action) => {
+        state.cropRotationGroups = action.payload
+        state.isLoadingCropRotation = false
+      })
+      .addCase(postCropRotationGroupThunk.fulfilled, (state, action) => {
+        //todo пушить новую запись в
+        console.log(action.payload)
+      })
+      .addCase(deleteCropRotationGroupThunk.fulfilled, (state, action) => {
+        state.cropRotationGroups = state.cropRotationGroups.filter(group => group.id_group !== action.payload.groupId)
+      })
+      .addCase(editCropRotationGroupCultureThunk.fulfilled, (state, action) => {
+        const {
+          groupId,
+          year,
+          cultureId,
+          polygonId
+        } = action.payload.editCropRotationGroupCultureData
+
+        state.cropRotationGroups = state.cropRotationGroups.map(group => {
+          if (group.id_group !== groupId) return group
+
+          return {
+            ...group,
+            years: group.years.map(yearData => {
+              if (+yearData.year !== year) return yearData
+
+              return {
+                ...yearData,
+                cropPolygons: yearData.cropPolygons.map(polygon => {
+                  if (polygon.id !== polygonId) return polygon
+
+                  return {
+                    ...polygon,
+                    culture: action.payload.nameOfCulture
+                  }
+                })
+              }
+            })
+          } as CropRotationGroup
+        })
+      })
+      .addDefaultCase(() => {
+      })
   }
 })
+
+export const getCropRotationGroupsThunk = createAsyncThunk(
+  'cropRotation/getCropRotationGroupsThunk',
+  () => {
+    return toast.promise(analyticService.getCropRotationGroups(), {
+      pending: 'Загрузка групп с сервера',
+      success: 'Группы успешно загружены',
+      error: 'Ошибка при загрузке групп'
+    })
+  }
+)
+export const postCropRotationGroupThunk = createAsyncThunk(
+  'cropRotation/postCropRotationGroupsThunk',
+  (postData: PostCropRotationGroup) => {
+    return toast.promise(analyticService.postCropRotationGroup(postData), {
+      pending: 'Формирование группы на сервере',
+      success: 'Группа успешно сформирована',
+      error: 'Ошибка при создании группы'
+    })
+  }
+)
+export const deleteCropRotationGroupThunk = createAsyncThunk(
+  'cropRotation/deleteCropRotationGroupsThunk',
+  async (groupId: number) => {
+    const response = await toast.promise(analyticService.deleteCropRotationGroup(groupId),
+      {
+        pending: 'Удаляю данные о группе с сервера',
+        success: 'Группа успешно удалена',
+        error: 'Произошла ошибка при удалении группы'
+      })
+    return {
+      response,
+      groupId
+    }
+  }
+)
+export const editCropRotationGroupCultureThunk = createAsyncThunk(
+  'cropRotation/editCropRotationGroupCultureThunk',
+  async (editCropRotationGroupCultureData: EditCropRotationGroupCulture, thunkAPI) => {
+    const dispatch = thunkAPI.dispatch
+    const state = thunkAPI.getState() as RootState
+    const nameOfCulture = state.fieldsReducer.fieldList.find(field => field.id === editCropRotationGroupCultureData.cultureId)?.name
+
+    let response
+    try {
+      dispatch(pushArrOfLoadingCultures(editCropRotationGroupCultureData))
+      response = await analyticService.editCropRotationGroupCulture(editCropRotationGroupCultureData)
+      dispatch(removeLoadingFromArrOfLoadingCultures(editCropRotationGroupCultureData))
+    } catch (e) {
+      dispatch(removeLoadingFromArrOfLoadingCultures(editCropRotationGroupCultureData))
+    }
+
+    return {
+      response,
+      editCropRotationGroupCultureData,
+      nameOfCulture
+    }
+  }
+)
 
 const {
   reducer,
@@ -58,16 +175,39 @@ const {
 
 export const {
   setOpenCropRotationAddGroupModal,
-  setCropRotationGroup,
   setSelectedCropRotationGroup,
-  setEditedCropRotationGroup
+  setEditedCropRotationGroup,
+  removeLoadingFromArrOfLoadingCultures,
+  pushArrOfLoadingCultures
 } = actions
 
 export default reducer
 
-export type CropRotationGroup = {
-  id: number
+export type PostCropRotationGroup = {
   groupName: string,
   description: string
   groupData: number[]
+}
+
+export type EditCropRotationGroupCulture = {
+  groupId: number
+  year: number
+  polygonId: number
+  cultureId: number
+}
+
+export type CropRotationGroup = {
+  name: string
+  id_group: number
+  years: CropRotationGroupYear[]
+}
+
+export type CropRotationGroupYear = {
+  year: string
+  cropPolygons: cropPolygon[]
+}
+
+export type cropPolygon = {
+  id: number
+  culture: string | null
 }

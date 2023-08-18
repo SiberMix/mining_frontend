@@ -1,13 +1,21 @@
 import './CropRotationList.scss'
 import CropRotationListItem from './CropRotationListItem/CropRotationListItem'
 import { useSelector } from 'react-redux'
-import { RootState, useAppDispatch } from '../../../../../../redux/store'
-import { setOpenCropRotationAddGroupModal } from '../../../../../../redux/slices/cropRotationSlice'
+import { useAppDispatch } from '../../../../../../redux/store'
+import { setOpenCropRotationAddGroupModal, setSelectedCropRotationGroup } from '../../../../../../redux/slices/cropRotationSlice'
+import { getCropRotationGroupsSelector, getSelectedCropRotationGroupSelector } from '../../../../../../redux/selectors/cropRotationSelectors'
+import { useEffect } from 'react'
 
 const CropRotationList = () => {
   const dispatch = useAppDispatch()
-  const selectedCropRotationGroup = useSelector((state: RootState) => state.cropRotationReducer.selectedCropRotationGroup)
-  const cropRotationGroups = useSelector((state: RootState) => state.cropRotationReducer.cropRotationGroups)
+  const selectedCropRotationGroup = useSelector(getSelectedCropRotationGroupSelector)
+  const cropRotationGroups = useSelector(getCropRotationGroupsSelector)
+
+  useEffect(() => {
+    if (selectedCropRotationGroup === null) {
+      dispatch(setSelectedCropRotationGroup(cropRotationGroups[0].id_group))
+    }
+  }, [cropRotationGroups])
 
   return (
     <div className='cropRotation-list'>
@@ -24,9 +32,9 @@ const CropRotationList = () => {
         {
           cropRotationGroups.map((group) => (
             <CropRotationListItem
-              key={'CropRotationListItem_' + group.groupName}
+              key={'CropRotationListItem_' + group.id_group}
               itemInfo={group}
-              active={group.id === selectedCropRotationGroup}
+              active={group.id_group === selectedCropRotationGroup}
             />
           ))
         }

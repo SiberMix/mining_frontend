@@ -63,3 +63,16 @@
     }
   }
 }
+
+.ant-select-selector {
+
+}
+
+.ant-select-item, .ant-select-item-option {
+  color: #858585 !important;
+}
+
+.ant-select-item-option-active, .ant-select-item-option-selected {
+  color: #ffffff !important;
+  background-color: #858585 !important;
+}

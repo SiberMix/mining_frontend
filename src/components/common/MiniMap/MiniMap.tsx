@@ -23,8 +23,6 @@ const MiniMap: React.FC<Props> = ({
     }
   }
 
-  console.log(polygon.square)
-
   return (
     <MapContainer
       className='miniMap'

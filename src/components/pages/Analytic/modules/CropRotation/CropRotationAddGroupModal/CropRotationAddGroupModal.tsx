@@ -2,17 +2,18 @@ import './CropRotationAddGroupModal.scss'
 import React, { useEffect, useState } from 'react'
 import { Button, Input, message, Modal } from 'antd'
 import * as cn from 'classnames'
-import { RootState, useAppDispatch } from '../../../../../../redux/store'
-import { setCropRotationGroup, setEditedCropRotationGroup, setOpenCropRotationAddGroupModal } from '../../../../../../redux/slices/cropRotationSlice'
+import { useAppDispatch } from '../../../../../../redux/store'
+import { getCropRotationGroupsThunk, postCropRotationGroupThunk, setEditedCropRotationGroup, setOpenCropRotationAddGroupModal } from '../../../../../../redux/slices/cropRotationSlice'
 import { useSelector } from 'react-redux'
 import { getAllPolygonsSelector } from '../../../../../../redux/selectors/mapSelectors'
 import CropRotationPolygonPreview from '../CropRotationTable/CropRotationPolygonPreview/CropRotationPolygonPreview'
 import TextArea from 'antd/es/input/TextArea'
 import Search from 'antd/es/input/Search'
+import { getEditedCropRotationGroupSelector, getOpenCropRotationAddGroupModalSelector } from '../../../../../../redux/selectors/cropRotationSelectors'
 
 const CropRotationAddGroupModal = () => {
-  const editedCropRotationGroup = useSelector((state: RootState) => state.cropRotationReducer.editedCropRotationGroup)
-  const openCropRotationAddGroupModal = useSelector((state: RootState) => state.cropRotationReducer.openCropRotationAddGroupModal)
+  const editedCropRotationGroup = useSelector(getEditedCropRotationGroupSelector)
+  const openCropRotationAddGroupModal = useSelector(getOpenCropRotationAddGroupModalSelector)
   const allPolygons = useSelector(getAllPolygonsSelector)
 
   const dispatch = useAppDispatch()
@@ -23,13 +24,13 @@ const CropRotationAddGroupModal = () => {
   const [searchValue, setSearchValue] = useState('')
   const [allPolygonsWithFilter, setAllPolygonsWithFilter] = useState(allPolygons)
 
-  useEffect(() => {
-    if (editedCropRotationGroup !== undefined) {
-      setGroupName(editedCropRotationGroup.groupName)
-      setDescription(editedCropRotationGroup.description)
-      setGroupData(editedCropRotationGroup.groupData)
-    }
-  }, [openCropRotationAddGroupModal])
+  // useEffect(() => { todo редактирование группы
+  //   if (editedCropRotationGroup !== undefined) {
+  //     setGroupName(editedCropRotationGroup.groupName)
+  //     setDescription(editedCropRotationGroup.description)
+  //     setGroupData(editedCropRotationGroup.groupData)
+  //   }
+  // }, [openCropRotationAddGroupModal])
 
   useEffect(() => {
     if (search.length > 0) {
@@ -44,15 +45,15 @@ const CropRotationAddGroupModal = () => {
   }, [search])
 
   const [messageApi, contextHolder] = message.useMessage()
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (groupName && groupData.length > 0) {
-      dispatch(setCropRotationGroup({
-        id: editedCropRotationGroup ? editedCropRotationGroup.id : Math.floor(Math.random() * (10000 - 1) + 1),
+      closeHandler()
+      await dispatch(postCropRotationGroupThunk({
         groupName,
         description: description ? description : '-----',
         groupData
       }))
-      closeHandler()
+      dispatch(getCropRotationGroupsThunk())
     } else {
       messageApi.info('Название или группа не могут быть пустыми')
     }

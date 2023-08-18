@@ -1,9 +1,17 @@
 import './CropRotation.scss'
+import React, { useEffect } from 'react'
+import CropRotationAddGroupModal from './CropRotationAddGroupModal/CropRotationAddGroupModal'
+import { getCropRotationGroupsThunk } from '../../../../../redux/slices/cropRotationSlice'
+import { useAppDispatch } from '../../../../../redux/store'
 import CropRotationList from './CropRotationList/CropRotationList'
 import CropRotationTable from './CropRotationTable/CropRotationTable'
-import CropRotationAddGroupModal from './CropRotationAddGroupModal/CropRotationAddGroupModal'
 
 const CropRotation = () => {
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    dispatch(getCropRotationGroupsThunk())
+  }, [])
 
   return (
     <div className='cropRotation'>

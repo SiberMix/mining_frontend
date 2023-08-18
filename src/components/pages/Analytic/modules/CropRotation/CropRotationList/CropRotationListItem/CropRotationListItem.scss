@@ -7,6 +7,12 @@
   height: 4.5em;
   border-bottom: 0.2px solid #858585;
 
+  &:hover {
+    .cropRotation-list-item__icons-btn {
+      opacity: 1;
+    }
+  }
+
   &:last-child {
     border-bottom: none;
   }
@@ -21,8 +27,26 @@
     color: #C0BDC0;
 
     &-name {
+      position: relative;
       font-size: 1.2em;
       font-weight: bold;
+      cursor: pointer;
+
+      &-line {
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        height: 1px;
+        width: 0;
+        background-color: #C0BDC0;
+        transition: width .3s;
+      }
+
+      &:hover {
+        .cropRotation-list-item__info-name-line {
+          width: 100%;
+        }
+      }
     }
 
     &-icon {

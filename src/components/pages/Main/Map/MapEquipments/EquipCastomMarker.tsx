@@ -36,7 +36,6 @@ const EquipCastomMarker: React.FC<Props> = ({
   const dispatch = useAppDispatch()
   const equipmentFlyTo = useSelector(getEquipmentFlyToSelector)
   const stateEquipmentOptions = useSelector(getUsingEquipmentOptionsSelector)
-  // console.log(stateEquipmentOptions)
 
   useEffect(() => {
     if (equipmentFlyTo === +imei) {
