@@ -70,7 +70,7 @@ const CropRotationTable = () => {
                   return (
                     <CropRotationPolygonPreview
                       polygon={record}
-                      key={record.name}
+                      key={'CropRotationPolygonPreview_' + record.name}
                     />
                   )
                 }}
@@ -90,6 +90,7 @@ const CropRotationTable = () => {
 
                         return (
                           <CustomSelect //styled-components down
+                            key={'CustomSelect_' + culture}
                             backgroundColor={createBGColorForCustomSelect(culture, allFields)}
                             disabled={isLoading}
                             loading={isLoading}
@@ -116,7 +117,6 @@ const CropRotationTable = () => {
             </Table>
           )
       }
-
     </div>
   )
 }

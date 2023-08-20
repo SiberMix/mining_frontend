@@ -2,8 +2,9 @@ import './CropRotationPolygonPreview.scss'
 import React, { useState } from 'react'
 import PolygonCanvas from '../../../../../Main/modules/polygons/PolygonCanvas/PolygonCanvas'
 import { Polygon } from '../../../../../../../types'
-import { Button } from 'antd'
 import PolygonDrawerPreview from '../../CropRotationList/PolygonDrawerPreview/PolygonDrawerPreview'
+import { InfoCircleOutlined } from '@ant-design/icons'
+import styled from 'styled-components'
 
 type Props = {
   polygon: Polygon
@@ -35,13 +36,7 @@ const CropRotationPolygonPreview: React.FC<Props> = ({
           <PolygonCanvas polygon={polygon} />
           {polygon.name}
         </div>
-        <Button
-          type={'default'}
-          className='CropRotationPolygonPreview-btn'
-          onClick={moreInfoClickHandler}
-        >
-          Инфо
-        </Button>
+        <MoreInfo onClick={moreInfoClickHandler} />
       </div>
       <PolygonDrawerPreview
         isOpen={isOpen}
@@ -49,8 +44,17 @@ const CropRotationPolygonPreview: React.FC<Props> = ({
         onClose={closeMoreInfoClickHandler}
       />
     </>
-
   )
 }
+
+const MoreInfo = styled(InfoCircleOutlined)`
+  cursor: pointer;
+  color: #565656;
+  transition: color .2s;
+
+  &:hover {
+    color: #ffffff;
+  }
+`
 
 export default CropRotationPolygonPreview

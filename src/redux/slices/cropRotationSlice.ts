@@ -66,18 +66,23 @@ const cropRotationSlice = createSlice({
         state.cropRotationGroups = action.payload
         state.isLoadingCropRotation = false
       })
-      .addCase(postCropRotationGroupThunk.fulfilled, (state, action) => {
-        //todo пушить новую запись в
-        console.log(action.payload)
+      .addCase(postCropRotationGroupThunk.fulfilled, (state: CropRotationSliceInitialState, action) => {
+        state.cropRotationGroups = [...state.cropRotationGroups, action.payload]
       })
-      .addCase(deleteCropRotationGroupThunk.fulfilled, (state, action) => {
+      .addCase(deleteCropRotationGroupThunk.fulfilled, (state: CropRotationSliceInitialState, action) => {
         state.cropRotationGroups = state.cropRotationGroups.filter(group => group.id_group !== action.payload.groupId)
+        if (state.selectedCropRotationGroup === action.payload.groupId) {
+          if (state.cropRotationGroups.length === 0) {
+            state.selectedCropRotationGroup = null
+          } else {
+            state.selectedCropRotationGroup = state.cropRotationGroups[0].id_group
+          }
+        }
       })
       .addCase(editCropRotationGroupCultureThunk.fulfilled, (state, action) => {
         const {
           groupId,
           year,
-          cultureId,
           polygonId
         } = action.payload.editCropRotationGroupCultureData
 
@@ -199,6 +204,7 @@ export type EditCropRotationGroupCulture = {
 export type CropRotationGroup = {
   name: string
   id_group: number
+  description: string
   years: CropRotationGroupYear[]
 }
 

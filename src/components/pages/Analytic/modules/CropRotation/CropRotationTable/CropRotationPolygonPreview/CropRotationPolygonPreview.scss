@@ -17,17 +17,4 @@
     font-size: 15px;
     color: #ffffff;
   }
-
-  &-btn {
-    border: 1px solid #858585;
-    color: #929292;
-    background-color: #565656;
-    transition: background-color, color .3s;
-
-    &:hover {
-      color: #ffffff !important;
-      border: 1px solid #ffffff !important;
-      background-color: #858585 !important;
-    }
-  }
 }

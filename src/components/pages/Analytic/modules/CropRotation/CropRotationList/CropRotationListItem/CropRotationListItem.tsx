@@ -19,7 +19,9 @@ const CropRotationListItem: React.FC<Props> = ({
   active
 }) => {
   const dispatch = useAppDispatch()
-  // const truncatedComment = itemInfo.groupName.length > 30 ? itemInfo.groupName.slice(0, 30) + '...' : itemInfo.groupName
+
+  const maxTextLength = 20
+  const truncatedComment = itemInfo.description.length > maxTextLength ? itemInfo.description.slice(0, maxTextLength) + '...' : itemInfo.description
 
   const selectGroupHandler = () => {
     dispatch(setSelectedCropRotationGroup(itemInfo.id_group))
@@ -29,40 +31,44 @@ const CropRotationListItem: React.FC<Props> = ({
     dispatch(deleteCropRotationGroupThunk(itemInfo.id_group))
   }
 
+  const editeClickHandler = (event: React.MouseEvent<HTMLImageElement>) => {
+    event.stopPropagation()
+    dispatch(setEditedCropRotationGroup(itemInfo.id_group))
+  }
+
   return (
-    <div className='cropRotation-list-item'>
-      <div className='cropRotation-list-item__info'>
+    <div className='cropRotation-list-item-wrapper'>
+      <div className='cropRotation-list-item' onClick={selectGroupHandler}>
+        <div className='cropRotation-list-item__info'>
         <span
           className='cropRotation-list-item__info-name'
-          onClick={selectGroupHandler}
         >
-          <div className={'cropRotation-list-item__info-name-line'} />
           {itemInfo.name}
           <CheckCircleFilled
             className='cropRotation-list-item__info-icon'
             style={{ color: active ? '#91C658' : '#434345' }}
           />
         </span>
-        <span className='cropRotation-list-item__info-description'>
-          жду метод с бэка
-          {/*{itemInfo.description}*/}
+          <span className='cropRotation-list-item__info-description'>
+            {truncatedComment}
         </span>
-      </div>
-      <div className='cropRotation-list-item__icons'>
-        <img
-          className='cropRotation-list-item__icons-item'
-          src={EditBox}
-          onClick={() => dispatch(setEditedCropRotationGroup(itemInfo.id_group))}
-          alt=''
-          title='Редактировать плэйбэк'
-        />
-        <DeleteOption
-          onDelete={deleteHandler}
-          className='cropRotation-list-item__icons-item'
-          title='Удалить группу'
-          popConfirmTitle='Вы уверены, что хотите удалить группу?'
-          popConfirmDescription='Удалить группу'
-        />
+        </div>
+        <div className='cropRotation-list-item__icons'>
+          <img
+            className='cropRotation-list-item__icons-item'
+            src={EditBox}
+            onClick={editeClickHandler}
+            alt=''
+            title='Редактировать плэйбэк'
+          />
+          <DeleteOption
+            onDelete={deleteHandler}
+            className='cropRotation-list-item__icons-item'
+            title='Удалить группу'
+            popConfirmTitle='Вы уверены, что хотите удалить группу?'
+            popConfirmDescription='Удалить группу'
+          />
+        </div>
       </div>
     </div>
   )

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Button, Input, message, Modal } from 'antd'
 import * as cn from 'classnames'
 import { useAppDispatch } from '../../../../../../redux/store'
-import { getCropRotationGroupsThunk, postCropRotationGroupThunk, setEditedCropRotationGroup, setOpenCropRotationAddGroupModal } from '../../../../../../redux/slices/cropRotationSlice'
+import { postCropRotationGroupThunk, setEditedCropRotationGroup, setOpenCropRotationAddGroupModal } from '../../../../../../redux/slices/cropRotationSlice'
 import { useSelector } from 'react-redux'
 import { getAllPolygonsSelector } from '../../../../../../redux/selectors/mapSelectors'
 import CropRotationPolygonPreview from '../CropRotationTable/CropRotationPolygonPreview/CropRotationPolygonPreview'
@@ -45,15 +45,14 @@ const CropRotationAddGroupModal = () => {
   }, [search])
 
   const [messageApi, contextHolder] = message.useMessage()
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     if (groupName && groupData.length > 0) {
       closeHandler()
-      await dispatch(postCropRotationGroupThunk({
+      dispatch(postCropRotationGroupThunk({
         groupName,
         description: description ? description : '-----',
         groupData
       }))
-      dispatch(getCropRotationGroupsThunk())
     } else {
       messageApi.info('Название или группа не могут быть пустыми')
     }

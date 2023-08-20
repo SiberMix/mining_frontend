@@ -6,7 +6,10 @@ export const CropRotation = {
     const response = await axiosInstance.get('/sevo/get_crop_rotation/')
     return response.data
   },
-  postCropRotationGroup: (postData: PostCropRotationGroup) => axiosInstance.post('/sevo/add_sevo_group/', postData),
+  postCropRotationGroup: async (postData: PostCropRotationGroup) => {
+    const response = await axiosInstance.post('/sevo/add_sevo_group/', postData)
+    return response.data
+  },
   editCropRotationGroupCulture: ({
     groupId,
     year,
