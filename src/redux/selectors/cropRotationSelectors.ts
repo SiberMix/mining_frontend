@@ -6,3 +6,4 @@ export const getEditedCropRotationGroupSelector = (state: RootState) => state.cr
 export const getOpenCropRotationAddGroupModalSelector = (state: RootState) => state.cropRotationReducer.openCropRotationAddGroupModal
 export const getArrOfLoadingCulturesSelector = (state: RootState) => state.cropRotationReducer.arrOfLoadingCultures
 export const getIsLoadingCropRotation = (state: RootState) => state.cropRotationReducer.isLoadingCropRotation
+export const getIsLoadingCreationNewMainGroupSelector = (state: RootState) => state.cropRotationReducer.isLoadingCreationNewMainGroup

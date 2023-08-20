@@ -43,7 +43,9 @@ const CropRotationTable = () => {
         return acc
       }, [])
 
-      const usingPolygons = allPolygons.filter(p => usingPolygonsIds?.some(u => u === p.id))
+      const usingPolygons = allPolygons
+        .filter(p => usingPolygonsIds?.some(u => u === p.id))
+        .sort((a, b) => +a.id - +b.id)
 
       setTableData(usingPolygons)
     }

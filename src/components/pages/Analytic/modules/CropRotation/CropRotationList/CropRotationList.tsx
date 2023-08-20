@@ -5,11 +5,13 @@ import { useAppDispatch } from '../../../../../../redux/store'
 import { setOpenCropRotationAddGroupModal, setSelectedCropRotationGroup } from '../../../../../../redux/slices/cropRotationSlice'
 import { getCropRotationGroupsSelector, getSelectedCropRotationGroupSelector } from '../../../../../../redux/selectors/cropRotationSelectors'
 import { useEffect } from 'react'
+import { getAllPolygonsSelector } from '../../../../../../redux/selectors/mapSelectors'
 
 const CropRotationList = () => {
   const dispatch = useAppDispatch()
   const selectedCropRotationGroup = useSelector(getSelectedCropRotationGroupSelector)
   const cropRotationGroups = useSelector(getCropRotationGroupsSelector)
+  const countOfAllPolygons = useSelector(getAllPolygonsSelector).length
 
   useEffect(() => {
     if (selectedCropRotationGroup === null && cropRotationGroups.length > 0) {
@@ -30,11 +32,13 @@ const CropRotationList = () => {
           + Добавить
         </button>
         {
-          cropRotationGroups.map((group) => (
+          cropRotationGroups.map((group, index) => (
             <CropRotationListItem
               key={'CropRotationListItem_' + group.id_group}
               itemInfo={group}
               active={group.id_group === selectedCropRotationGroup}
+              countOfAllPolygons={countOfAllPolygons}
+              main={index === 0}
             />
           ))
         }

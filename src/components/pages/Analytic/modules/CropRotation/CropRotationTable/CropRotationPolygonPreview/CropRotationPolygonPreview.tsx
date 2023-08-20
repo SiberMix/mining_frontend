@@ -49,7 +49,7 @@ const CropRotationPolygonPreview: React.FC<Props> = ({
 
 const MoreInfo = styled(InfoCircleOutlined)`
   cursor: pointer;
-  color: #565656;
+  color: #28b6fe;
   transition: color .2s;
 
   &:hover {

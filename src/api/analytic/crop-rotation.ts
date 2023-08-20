@@ -17,5 +17,5 @@ export const CropRotation = {
     cultureId
   }: EditCropRotationGroupCulture) => axiosInstance.put(`/sevo/update_crop_culture/${groupId}/${year}/${polygonId}/`, { id_culture: cultureId }),
   deleteCropRotationGroup: (groupId: number) => axiosInstance.delete(`/sevo/delete_sevo_group/${groupId}/`),
-  setMainCropRotationGroup: (groupId: number) => axiosInstance.post(`sevo/set_main_page/${groupId}/`)
+  setMainCropRotationGroup: (groupId: number) => axiosInstance.post(`/sevo/set_main_page/${groupId}/`)
 }

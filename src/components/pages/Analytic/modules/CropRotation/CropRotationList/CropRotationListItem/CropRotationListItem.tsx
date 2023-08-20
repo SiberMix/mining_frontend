@@ -1,27 +1,37 @@
 import './CropRotationListItem.scss'
 import React from 'react'
 import '../CropRotationList.scss'
-import styled from 'styled-components'
-import SVG from 'react-inlinesvg'
-import { CropRotationGroup, deleteCropRotationGroupThunk, setEditedCropRotationGroup, setSelectedCropRotationGroup } from '../../../../../../../redux/slices/cropRotationSlice'
+import {
+  CropRotationGroup,
+  deleteCropRotationGroupThunk,
+  setEditedCropRotationGroup,
+  setMainCropRotationGroupThunk,
+  setSelectedCropRotationGroup
+} from '../../../../../../../redux/slices/cropRotationSlice'
 import { useAppDispatch } from '../../../../../../../redux/store'
 import EditBox from '/src/assets/icons/edit.svg'
-import { CheckCircleFilled } from '@ant-design/icons'
+import { CheckCircleFilled, VerticalAlignBottomOutlined } from '@ant-design/icons'
 import DeleteOption from '../../../../../../common/DeleteOption/DeleteOption'
+import * as cn from 'classnames'
+import { useSelector } from 'react-redux'
+import { getIsLoadingCreationNewMainGroupSelector } from '../../../../../../../redux/selectors/cropRotationSelectors'
+import { message } from 'antd'
 
 type Props = {
   itemInfo: CropRotationGroup
   active: boolean
+  countOfAllPolygons: number
+  main: boolean
 }
 
 const CropRotationListItem: React.FC<Props> = ({
   itemInfo,
-  active
+  active,
+  countOfAllPolygons,
+  main
 }) => {
   const dispatch = useAppDispatch()
-
-  const maxTextLength = 20
-  const truncatedComment = itemInfo.description.length > maxTextLength ? itemInfo.description.slice(0, maxTextLength) + '...' : itemInfo.description
+  const isLoadingCreationNewMainGroup = useSelector(getIsLoadingCreationNewMainGroupSelector)
 
   const selectGroupHandler = () => {
     dispatch(setSelectedCropRotationGroup(itemInfo.id_group))
@@ -36,28 +46,55 @@ const CropRotationListItem: React.FC<Props> = ({
     dispatch(setEditedCropRotationGroup(itemInfo.id_group))
   }
 
+  const chooseMainCropGroup = (event: React.MouseEvent<HTMLSpanElement>) => {
+    event.stopPropagation()
+    dispatch(setMainCropRotationGroupThunk(itemInfo.id_group))
+  }
+
+  //todo убрать эту заглушку
+
+  const [messageApi, contextHolder] = message.useMessage()
+
+  function alertMsg(e: React.MouseEvent<HTMLImageElement>) {
+    e.stopPropagation()
+    messageApi.info('Данный функционал находится в разработке и недоступен в демонстрационном режиме')
+  }
+
   return (
     <div className='cropRotation-list-item-wrapper'>
-      <div className='cropRotation-list-item' onClick={selectGroupHandler}>
+      <div className={cn('cropRotation-list-item', { active })}
+           onClick={selectGroupHandler}
+      >
         <div className='cropRotation-list-item__info'>
-        <span
-          className='cropRotation-list-item__info-name'
-        >
+        <span className='cropRotation-list-item__info-name'>
           {itemInfo.name}
-          <CheckCircleFilled
-            className='cropRotation-list-item__info-icon'
-            style={{ color: active ? '#91C658' : '#434345' }}
-          />
         </span>
           <span className='cropRotation-list-item__info-description'>
-            {truncatedComment}
+            {itemInfo.description}
         </span>
         </div>
         <div className='cropRotation-list-item__icons'>
+          {
+            itemInfo.years[0].cropPolygons.length === countOfAllPolygons
+              ?
+              main ? <CheckCircleFilled //если группа главная, то отмечаем это
+                  className={cn('cropRotation-list-item__info-icon', 'cropRotation-list-item__icons-item')}
+                  style={{ color: '#91C658' }}
+                />
+                : (
+                  !isLoadingCreationNewMainGroup && //Убираем иконку когда идет загрузка
+                  <VerticalAlignBottomOutlined
+                    className='cropRotation-list-item__icons-item'
+                    style={{ color: '#858585' }}
+                    onClick={chooseMainCropGroup}
+                  />
+                )
+              : null //ничего не показываем, если у группы не все поля
+          }
           <img
             className='cropRotation-list-item__icons-item'
             src={EditBox}
-            onClick={editeClickHandler}
+            onClick={alertMsg} //editeClickHandler
             alt=''
             title='Редактировать плэйбэк'
           />
@@ -70,19 +107,9 @@ const CropRotationListItem: React.FC<Props> = ({
           />
         </div>
       </div>
+      {contextHolder}
     </div>
   )
 }
 
 export default CropRotationListItem
-
-const Icon = styled(SVG)<{ active: boolean }>`
-  padding: 5px;
-  height: 70px;
-  width: 70px;
-  cursor: pointer;
-
-  path {
-    fill: ${({ active }) => (!active ? '#c5ef75' : '#ffffff')};
-  }
-`

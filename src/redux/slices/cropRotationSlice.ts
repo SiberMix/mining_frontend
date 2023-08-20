@@ -10,6 +10,7 @@ type CropRotationSliceInitialState = {
   editedCropRotationGroup: CropRotationGroup | undefined
   isLoadingCropRotation: boolean
   arrOfLoadingCultures: EditCropRotationGroupCulture[]
+  isLoadingCreationNewMainGroup: boolean
 }
 
 const cropRotationSliceInitialState: CropRotationSliceInitialState = {
@@ -18,7 +19,8 @@ const cropRotationSliceInitialState: CropRotationSliceInitialState = {
   selectedCropRotationGroup: null,
   editedCropRotationGroup: undefined,
   isLoadingCropRotation: false,
-  arrOfLoadingCultures: []
+  arrOfLoadingCultures: [],
+  isLoadingCreationNewMainGroup: false
 }
 
 const cropRotationSlice = createSlice({
@@ -109,6 +111,23 @@ const cropRotationSlice = createSlice({
           } as CropRotationGroup
         })
       })
+      .addCase(setMainCropRotationGroupThunk.pending, (state: CropRotationSliceInitialState, action) => {
+        state.isLoadingCreationNewMainGroup = true
+      })
+      .addCase(setMainCropRotationGroupThunk.rejected, (state: CropRotationSliceInitialState, action) => {
+        state.isLoadingCreationNewMainGroup = false
+      })
+      .addCase(setMainCropRotationGroupThunk.fulfilled, (state: CropRotationSliceInitialState, action) => {
+        const newMainGroup = state.cropRotationGroups.find(group => group.id_group === action.payload.groupId)
+
+        if (newMainGroup) {
+          const otherGroups = state.cropRotationGroups.filter(group => group.id_group !== action.payload.groupId)
+          state.cropRotationGroups = [newMainGroup, ...otherGroups]
+        } else {
+          toast.error('Произошла ошибка при формировании главной группы в списке, пожалуйста перезагрузите страницу и обратитесь в нашу поддержку')
+        }
+        state.isLoadingCreationNewMainGroup = false
+      })
       .addDefaultCase(() => {
       })
   }
@@ -170,6 +189,19 @@ export const editCropRotationGroupCultureThunk = createAsyncThunk(
       editCropRotationGroupCultureData,
       nameOfCulture
     }
+  }
+)
+
+export const setMainCropRotationGroupThunk = createAsyncThunk(
+  'cropRotation/setMainCropRotationGroup',
+  async (groupId: number) => {
+    const response = await toast.promise(analyticService.setMainCropRotationGroup(groupId),
+      {
+        pending: 'Применение выбранных культур',
+        success: 'Культуры полей успешно применены',
+        error: 'Произошла ошибка при применении культур'
+      })
+    return { response, groupId }
   }
 )
 
