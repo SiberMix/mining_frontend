@@ -85,12 +85,12 @@ const PolygonPreview: React.FC<{
                   key: '2',
                   label: 'Редактировать название',
                   onClick: toggleEditNameModal
-                },
-                {
-                  key: '3',
-                  label: 'Редактировать культуру',
-                  onClick: toggleEditTypeModal
                 }
+                // { todo вернуть редактирование полигона
+                //   key: '3',
+                //   label: 'Редактировать культуру',
+                //   onClick: toggleEditTypeModal
+                // }
               ]
             }}
           >
