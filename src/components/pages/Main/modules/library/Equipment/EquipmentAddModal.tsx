@@ -29,7 +29,7 @@ const AddEquipmentModal: React.FC<Props> = ({ equips }) => {
   const [imei_number, setImei] = useState('')
   const [type, setType] = useState<number | undefined>(undefined)
   const [model, setModel] = useState<number | undefined>(undefined)
-  const [isRadiusDisabled, setIsRadiusDisabled] = useState(true)
+  const [isRadiusDisabled, setIsRadiusDisabled] = useState(false)
   const [radius, setRadius] = useState<number | null>(null)
   const [imageStatus, setImageStatus] = useState(0)
 
@@ -168,7 +168,12 @@ const AddEquipmentModal: React.FC<Props> = ({ equips }) => {
         <Switch
           size='small'
           checked={isRadiusDisabled}
-          onChange={() => setIsRadiusDisabled(d => !d)}
+          onChange={() => {
+            setIsRadiusDisabled(d => !d)
+            if (radius === null) {
+              setRadius(10)
+            }
+          }}
         />
         {isRadiusDisabled && radius !== null ? `${radius}м` : 'выкл'}
       </div>
