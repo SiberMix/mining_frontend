@@ -1,20 +1,12 @@
-import React, {
-  useEffect,
-  useState
-} from 'react'
-import { mapService } from '../../../../../api/map'
+import React, { useEffect, useState } from 'react'
 import type { Equip } from '../../../../../types/equip'
 import EquipCastomMarker from './EquipCastomMarker'
 // импорты для кластеров
 import 'react-leaflet-markercluster/dist/styles.min.css'
 import MarkerClusterGroup from 'react-leaflet-markercluster'
 import { useSelector } from 'react-redux'
-import {
-  getAllEquipmentSelector,
-  getDrawingPolygonModeSelector
-} from '../../../../../redux/selectors/mapSelectors'
-import { getTokenSelector } from '../../../../../redux/selectors/authSelectors'
-import Equipments from '../../modules/library/Equipment/Equipments'
+import { getAllEquipmentSelector, getDrawingPolygonModeSelector } from '../../../../../redux/selectors/mapSelectors'
+import MapEquipmentsCircles from './MapEquipmentsCircles'
 
 type Props = {}
 
@@ -61,15 +53,15 @@ const MapEquipments: React.FC<Props> = () => {
         showCoverageOnHover={true}
         maxClusterRadius={45}
       >
-        {equipList.map((equipment: Equip) => {
-          const {
-            equip_name,
-            gosnomer,
-            image_status,
-            imei,
-            last_coord,
-            fuel
-          } = equipment
+        {equipList.map(({
+          equip_name,
+          gosnomer,
+          image_status,
+          imei,
+          last_coord,
+          fuel,
+          radius
+        }: Equip) => {
           //костыльно подтягиваем данные бека под нужные нам
           const lastCoords = last_coord
             ? {
@@ -97,6 +89,7 @@ const MapEquipments: React.FC<Props> = () => {
           )
         })}
       </MarkerClusterGroup>
+      <MapEquipmentsCircles equipmentCoordinates={equipmentCoordinates} />
     </>
   )
 }

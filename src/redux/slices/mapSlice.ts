@@ -6,6 +6,7 @@ import { setAddModalVisible } from './optionalEquipmentSlice'
 import { toast } from 'react-toastify'
 
 type MapInitialState = {
+  zoomLevel: number
   polygonsList: Polygon[],
   equipmentList: Equip[],
   editedEquipment: Equip | null,
@@ -20,6 +21,7 @@ type MapInitialState = {
 }
 
 const mapInitialState: MapInitialState = {
+  zoomLevel: 1,
   polygonsList: [],
   equipmentList: [],
   polygonFlyTo: undefined,
@@ -37,6 +39,9 @@ const mapSlice = createSlice({
   name: 'map',
   initialState: mapInitialState,
   reducers: {
+    setZoomLevel: (state: MapInitialState, action) => {
+      state.zoomLevel = action.payload
+    },
     setPolygons: (state: MapInitialState, action) => {
       state.polygonsList = action.payload
     },
@@ -283,7 +288,7 @@ const {
 } = mapSlice
 
 export const {
-  setPolygons,
+  setZoomLevel,
   setPolygonFlyTo,
   setEquipmentFlyTo,
   setDrawingPolygonMode,
@@ -299,12 +304,13 @@ export const {
 export default reducer
 
 export type EquipForPost = {
-  equip_name: string,
-  gosnomer: string,
-  equip_type: string,
-  equip_model: string,
-  image_status: string,
+  equip_name: string
+  gosnomer: string
+  equip_type: string
+  equip_model: string
+  image_status: string
   imei: string
+  radius: number | null
 }
 export type EquipForPut = {
   id: number,

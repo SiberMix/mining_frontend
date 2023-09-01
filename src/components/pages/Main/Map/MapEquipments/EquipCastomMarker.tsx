@@ -1,10 +1,10 @@
 import './EquipCastomMarker.scss'
 import L from 'leaflet'
-import { Marker, Popup, useMap, useMapEvents } from 'react-leaflet'
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import { Marker, Popup, useMap } from 'react-leaflet'
+import React, { useCallback, useEffect, useMemo } from 'react'
 import { useAppDispatch } from '../../../../../redux/store'
 import { useSelector } from 'react-redux'
-import { getEquipmentFlyToSelector } from '../../../../../redux/selectors/mapSelectors'
+import { getEquipmentFlyToSelector, getZoomLevelSelector } from '../../../../../redux/selectors/mapSelectors'
 import { setEquipmentFlyTo } from '../../../../../redux/slices/mapSlice'
 import { getUsingEquipmentOptionsSelector } from '../../../../../redux/selectors/settingsSelector'
 
@@ -36,6 +36,7 @@ const EquipCastomMarker: React.FC<Props> = ({
   const dispatch = useAppDispatch()
   const equipmentFlyTo = useSelector(getEquipmentFlyToSelector)
   const stateEquipmentOptions = useSelector(getUsingEquipmentOptionsSelector)
+  const zoomLevel = useSelector(getZoomLevelSelector)
 
   useEffect(() => {
     if (equipmentFlyTo === +imei) {
@@ -44,17 +45,6 @@ const EquipCastomMarker: React.FC<Props> = ({
       dispatch(setEquipmentFlyTo(undefined))
     }
   }, [equipmentFlyTo])
-
-  /*
-  * меняет изображение техники при минимальном зуме
-  * */
-  const [zoomLevel, setZoomLevel] = useState(1)
-  useMapEvents({
-    zoom: () => {
-      const newZoomLevel = map.getZoom()
-      setZoomLevel(newZoomLevel)
-    }
-  })
 
   const imagePath = useMemo(() => {
     /**

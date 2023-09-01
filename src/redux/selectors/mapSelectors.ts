@@ -100,3 +100,12 @@ export const getAddInternalPolygonModeSelector = createSelector(
     return addInternalPolygonMode
   }
 )
+const getZoomLevel = (state: RootState) => {
+  return state.mapReducer.zoomLevel
+}
+export const getZoomLevelSelector = createSelector(
+  getZoomLevel,
+  (zoomLevel) => {
+    return zoomLevel
+  }
+)

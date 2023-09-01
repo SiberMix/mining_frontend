@@ -1,22 +1,24 @@
-import {
-  LayersControl,
-  TileLayer,
-  useMapEvents
-} from 'react-leaflet'
-import React, { useCallback } from 'react'
+import { LayersControl, TileLayer, useMap, useMapEvents } from 'react-leaflet'
+import React from 'react'
 import { useSelector } from 'react-redux'
 import { useAppDispatch } from '../../../../../redux/store'
-import {
-  setBaseCoord,
-  setMapClickForNewBaseCoord,
-  setShowSettingsModal
-} from '../../../../../redux/slices/settingsSlice'
-import {
-  getMapClickForNewBaseCoordSelector,
-  getUsingBaseMapOptionsSelector
-} from '../../../../../redux/selectors/settingsSelector'
+import { getUsingBaseMapOptionsSelector } from '../../../../../redux/selectors/settingsSelector'
+import { setZoomLevel } from '../../../../../redux/slices/mapSlice'
 
 const MapViewSelect = () => {
+  const dispatch = useAppDispatch()
+  const map = useMap()
+
+  /*
+  * отслеживает зум. Нельзя вынести на уровень выше
+  * */
+  useMapEvents({
+    zoom: () => {
+      const newZoomLevel = map.getZoom()
+      dispatch(setZoomLevel(newZoomLevel))
+    }
+  })
+
   /*
   * Объкт содержащий карты
   * доп карты можно взять https://leaflet-extras.github.io/leaflet-providers/preview/
@@ -50,7 +52,7 @@ const MapViewSelect = () => {
 
   return (
     <LayersControl
-      position="topright"
+      position='topright'
       collapsed={true}
     >
       {mapLayersWithSettings.map((layer, index) => {

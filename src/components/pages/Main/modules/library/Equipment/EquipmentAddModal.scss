@@ -18,6 +18,7 @@
     &-close-x {
       color: #929292;
       transition: color .3s;
+
       &:hover {
         color: #ffffff;
       }
@@ -28,13 +29,20 @@
       flex-direction: column;
       align-items: center;
       color: #929292;
+
       .ant-input {
         margin: 10px 0;
         border: 1px solid #858585;
         color: #ffffff;
         background-color: #565656;
-        &::-moz-placeholder { color: rgba(255, 255, 255, 0.3); }
-        &::-webkit-input-placeholder { color: rgba(255, 255, 255, 0.3); }
+
+        &::-moz-placeholder {
+          color: rgba(255, 255, 255, 0.3);
+        }
+
+        &::-webkit-input-placeholder {
+          color: rgba(255, 255, 255, 0.3);
+        }
       }
     }
   }
@@ -44,6 +52,7 @@
     color: #929292;
     background-color: #565656;
     transition: background-color, color .3s;
+
     &:hover {
       color: #ffffff;
       border: 1px solid #858585;
@@ -53,29 +62,72 @@
 
   .ant-select {
     width: 80%;
+
     &-selector {
       margin: 10px 0;
       width: 100% !important;
       border: 1px solid #858585 !important;
       background-color: #565656 !important;
+
       .ant-select-arrow {
         color: #ffffff !important;
       }
     }
   }
+
+  .ant-switch {
+    margin: 0 10px 0 10px;
+    background-color: #232323;
+
+    &-checked {
+      background-color: #858585;
+
+      &:hover {
+        color: #929292;
+        background-color: #858585 !important;
+      }
+    }
+  }
+
+  .ant-slider {
+
+    &:hover {
+      .ant-slider-handle::after {
+        box-shadow: 0 0 0 4px #858585;
+      }
+    }
+
+    &-handle {
+      &::after {
+        box-shadow: 0 0 0 2px #858585;
+      }
+
+      &:hover::after {
+        box-shadow: 0 0 0 4px #858585;
+      }
+
+      &:focus::after {
+        box-shadow: 0 0 0 4px #858585;
+      }
+    }
+  }
 }
+
 .equipmentAddModalSelect {
   border: 1px solid #858585 !important;
   background-color: #565656 !important;
+
   &-textDiv {
     color: #ffffff;
     transition: all .3s;
+
     .mini-line {
       width: 0;
       height: 1px;
       border-bottom: 1px solid #ffffff;
       transition: width .3s;
     }
+
     &:hover {
       .mini-line {
         width: 100%;
@@ -83,6 +135,7 @@
     }
   }
 }
+
 .imagesList {
   display: flex;
   justify-content: center;

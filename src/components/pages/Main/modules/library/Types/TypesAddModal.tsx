@@ -1,26 +1,10 @@
 import './TypesAddModal.scss'
-import React, {
-  useEffect,
-  useState
-} from 'react'
-import {
-  Checkbox,
-  Input,
-  Modal,
-  Switch
-} from 'antd'
+import React, { useEffect, useState } from 'react'
+import { Input, Modal, Switch } from 'antd'
 import { useAppDispatch } from '../../../../../../redux/store'
 import { useSelector } from 'react-redux'
-import {
-  getAddModalVisibleSelector,
-  getEditedTypeSelector
-} from '../../../../../../redux/selectors/optionalEquipmentSelectors'
-import {
-  addType,
-  editType,
-  setAddModalVisible
-} from '../../../../../../redux/slices/optionalEquipmentSlice'
-import miniLogo from '/src/assets/hectareLogoOnly.png'
+import { getAddModalVisibleSelector, getEditedTypeSelector } from '../../../../../../redux/selectors/optionalEquipmentSelectors'
+import { addType, editType, setAddModalVisible } from '../../../../../../redux/slices/optionalEquipmentSlice'
 
 const AddTypeModal = () => {
   const dispatch = useAppDispatch()
@@ -59,21 +43,21 @@ const AddTypeModal = () => {
 
   return (
     <Modal
-      className="typesAddModal"
+      className='typesAddModal'
       title={editedType ? 'Редактировать тип' : 'Добавить тип'}
       open={addModalVisible}
       onCancel={() => dispatch(setAddModalVisible(false))}
       onOk={handleAdd}
     >
       <Input
-        placeholder="Название типа"
+        placeholder='Название типа'
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         style={{ marginBottom: '16px' }}
       />
       <Switch
-        checkedChildren="Активен"
-        unCheckedChildren="Неактивен"
+        checkedChildren='Активен'
+        unCheckedChildren='Неактивен'
         checked={status}
         onChange={(e) => setStatus(e.valueOf())}
       />

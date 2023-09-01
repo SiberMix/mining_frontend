@@ -1,6 +1,6 @@
 import './EquipmentAddModal.scss'
 import React, { useEffect, useState } from 'react'
-import { Checkbox, Input, message, Modal, Select } from 'antd'
+import { Checkbox, Input, message, Modal, Select, Slider, Switch } from 'antd'
 import styled from 'styled-components'
 import SVG from 'react-inlinesvg'
 import { useAppDispatch } from '../../../../../../redux/store'
@@ -29,6 +29,8 @@ const AddEquipmentModal: React.FC<Props> = ({ equips }) => {
   const [imei_number, setImei] = useState('')
   const [type, setType] = useState<number | undefined>(undefined)
   const [model, setModel] = useState<number | undefined>(undefined)
+  const [isRadiusDisabled, setIsRadiusDisabled] = useState(true)
+  const [radius, setRadius] = useState<number | null>(null)
   const [imageStatus, setImageStatus] = useState(0)
 
   useEffect(() => {
@@ -76,7 +78,8 @@ const AddEquipmentModal: React.FC<Props> = ({ equips }) => {
             equip_type: type.toString(),
             equip_model: model.toString(),
             image_status: imageStatus.toString(),
-            imei: imei_number.toString()
+            imei: imei_number.toString(),
+            radius
           }))
         }
       }
@@ -160,6 +163,24 @@ const AddEquipmentModal: React.FC<Props> = ({ equips }) => {
           </Option>
         ))}
       </Select>
+      <div>
+        Радиус
+        <Switch
+          size='small'
+          checked={isRadiusDisabled}
+          onChange={() => setIsRadiusDisabled(d => !d)}
+        />
+        {isRadiusDisabled && radius !== null ? `${radius}м` : 'выкл'}
+      </div>
+      <CustomSlider
+        value={radius ?? 10}
+        onChange={setRadius}
+        min={1}
+        max={30}
+        trackStyle={{ backgroundColor: '#565656' }}
+        isRadiusDisabled={isRadiusDisabled}
+        tipFormatter={(num) => `${num}м`}
+      />
       <div className='imagesList'>
         {images.map((item, index) => (
           <label
@@ -183,6 +204,13 @@ const AddEquipmentModal: React.FC<Props> = ({ equips }) => {
 }
 
 export default AddEquipmentModal
+
+const CustomSlider = styled(Slider)<{ isRadiusDisabled: boolean }>`
+  width: ${({ isRadiusDisabled }) => isRadiusDisabled ? '80%' : '0'};
+  overflow: ${({ isRadiusDisabled }) => isRadiusDisabled ? '' : 'hidden'};
+  margin-top: 20px;
+  transition: width 1s, overflow .1s 1s;
+`
 
 const Icon = styled(SVG)`
   height: 60px;

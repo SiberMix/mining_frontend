@@ -14,6 +14,7 @@ export type Equip = {
     direction: number,
     last_upd_ts: string
   } | null
+  radius: null | number
 };
 
 export type EquipType = {
