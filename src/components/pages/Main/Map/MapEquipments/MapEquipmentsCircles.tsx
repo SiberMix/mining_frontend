@@ -18,7 +18,8 @@ const MapEquipmentsCircles: React.FC<Props> = ({ equipmentCoordinates }) => {
       {equipList.map(({
         imei,
         last_coord,
-        radius
+        radius,
+        equip_name
       }: Equip) => {
         const lastCoords = last_coord
           ? {
@@ -28,25 +29,24 @@ const MapEquipmentsCircles: React.FC<Props> = ({ equipmentCoordinates }) => {
           : undefined
         const wsDataForEquip: any = equipmentCoordinates.find(equip => equip.imei === imei)
 
-        if (!lastCoords && !wsDataForEquip && radius === null) return
+        const noCoords = !lastCoords && !wsDataForEquip
+        const noRadius = radius === null
+        const isMinZoom = zoomLevel > 17
+        
+        if (noCoords || noRadius || !isMinZoom) return
 
         return (
-          <>
-            {
-              zoomLevel > 17 &&
-              <Circle
-                key={'circle_' + imei}
-                center={lastCoords ? [+lastCoords?.lat, +lastCoords?.lon] : [+wsDataForEquip?.lat, +wsDataForEquip?.lon]}
-                radius={radius as number} //убрали все случаи null чуть выше
-                pathOptions={{
-                  color: '#ffffff', // Цвет границы круга
-                  fillColor: 'transparent', // Прозрачный цвет заливки
-                  fillOpacity: 0, // Прозрачность заливки
-                  weight: 1 // Толщина границы в пикселях
-                }}
-              />
-            }
-          </>
+          <Circle
+            key={'circle_' + imei}
+            center={wsDataForEquip || lastCoords}
+            radius={radius as number} //убрали все случаи null чуть выше
+            pathOptions={{
+              color: '#ffffff', // Цвет границы круга
+              fillColor: 'transparent', // Прозрачный цвет заливки
+              fillOpacity: 0, // Прозрачность заливки
+              weight: 1 // Толщина границы в пикселях
+            }}
+          />
         )
       })}
     </>
