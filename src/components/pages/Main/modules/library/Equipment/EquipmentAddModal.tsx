@@ -67,7 +67,7 @@ const AddEquipmentModal: React.FC<Props> = ({ equips }) => {
       radius
     }
 
-    if (!!name) {
+    if (!name) {
       messageApi.info('Вы не указали имя')
       return
     }
@@ -79,11 +79,11 @@ const AddEquipmentModal: React.FC<Props> = ({ equips }) => {
       messageApi.info('Данный imei уже зарегистрирован в системе')
       return
     }
-    if (!!type) {
+    if (!type) {
       messageApi.info('Вы не указали имя')
       return
     }
-    if (!!model) {
+    if (!model) {
       messageApi.info('Вы не указали имя')
       return
     }
