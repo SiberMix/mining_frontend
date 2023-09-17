@@ -195,6 +195,8 @@ const AddEquipmentModal: React.FC<Props> = ({ equips }) => {
           onChange={() => {
             if (radius === null) {
               setRadius(10)
+            } else {
+              setRadius(null)
             }
           }}
         />

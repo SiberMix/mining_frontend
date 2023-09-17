@@ -18,8 +18,7 @@ const MapEquipmentsCircles: React.FC<Props> = ({ equipmentCoordinates }) => {
       {equipList.map(({
         imei,
         last_coord,
-        radius,
-        equip_name
+        radius
       }: Equip) => {
         const lastCoords = last_coord
           ? {
@@ -32,7 +31,7 @@ const MapEquipmentsCircles: React.FC<Props> = ({ equipmentCoordinates }) => {
         const noCoords = !lastCoords && !wsDataForEquip
         const noRadius = radius === null
         const isMinZoom = zoomLevel > 17
-        
+
         if (noCoords || noRadius || !isMinZoom) return
 
         return (
