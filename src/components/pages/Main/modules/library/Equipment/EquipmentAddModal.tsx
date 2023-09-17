@@ -9,7 +9,7 @@ import { getAddModalVisibleSelector, getOptionalEquipmentModelsListSelector, get
 import { getEditeEquipmentSelector } from '../../../../../../redux/selectors/mapSelectors'
 import type { Equip } from '../../../../../../types/equip'
 import { setAddModalVisible } from '../../../../../../redux/slices/optionalEquipmentSlice'
-import { postNewEquipment, putEditEquipment } from '../../../../../../redux/slices/mapSlice'
+import { postNewEquipment, putEditEquipment, setEditedEquipment } from '../../../../../../redux/slices/mapSlice'
 
 type Props = {
   equips: any
@@ -32,59 +32,85 @@ const AddEquipmentModal: React.FC<Props> = ({ equips }) => {
   const [isRadiusDisabled, setIsRadiusDisabled] = useState(false)
   const [radius, setRadius] = useState<number | null>(null)
   const [imageStatus, setImageStatus] = useState(0)
+  const [messageApi, contextHolder] = message.useMessage()
 
   useEffect(() => {
-    if (editedEquipment) {
+    if (editedEquipment !== null) {
       setName(editedEquipment.equip_name)
       setGosnomer(editedEquipment.gosnomer)
       setImei(editedEquipment.imei)
       setImageStatus(Number(editedEquipment.image_status))
+      setRadius(editedEquipment.radius)
 
       const type = equipmentTypes.find((t) => t.description === editedEquipment.equip_type)
       setType(type?.id)
       const model = equipmentModels.find((m) => m.description === editedEquipment.equip_model)
       setModel(model?.id)
     } else {
-      setName('')
-      setGosnomer('')
-      setImei('')
-      setType(undefined)
-      setModel(undefined)
-      setImageStatus(0)
+      resetModalData()
     }
   }, [editedEquipment, equipmentTypes, equipmentModels])
 
-  const [messageApi, contextHolder] = message.useMessage()
+  const onCancelHandler = () => {
+    dispatch(setAddModalVisible(false))
+    resetModalData()
+  }
+
   const handleAdd = async () => {
-    if (name && gosnomer && type && model) {
-      if (editedEquipment) {
-        dispatch(putEditEquipment({
-          id: editedEquipment.id,
-          equip_name: name,
-          gosnomer,
-          equip_type: type.toString(),
-          equip_model: model.toString(),
-          image_status: imageStatus.toString(),
-          imei: imei_number.toString()
-        }))
-      } else {
-        // Проверка на совпадения imei
-        if (equips.some((equip: any) => equip.imei === imei_number.toString())) {
-          messageApi.info('Данный номер уже зарезервирован, пожалуйста проверьте введенные данные')
-        } else {
-          dispatch(postNewEquipment({
-            equip_name: name,
-            gosnomer,
-            equip_type: type.toString(),
-            equip_model: model.toString(),
-            image_status: imageStatus.toString(),
-            imei: imei_number.toString(),
-            radius
-          }))
-        }
-      }
+    const newDataForEquip = {
+      equip_name: name,
+      gosnomer,
+      equip_type: type?.toString(),
+      equip_model: model?.toString(),
+      image_status: imageStatus.toString(),
+      imei: imei_number.toString(),
+      radius
+    }
+
+    if (!!name) {
+      messageApi.info('Вы не указали имя')
+      return
+    }
+    if (gosnomer) {
+      messageApi.info('Вы не указали гос. номер')
+      return
+    }
+    if (equips.some((equip: any) => equip.imei === imei_number.toString())) {
+      messageApi.info('Данный imei уже зарегистрирован в системе')
+      return
+    }
+    if (!!type) {
+      messageApi.info('Вы не указали имя')
+      return
+    }
+    if (!!model) {
+      messageApi.info('Вы не указали имя')
+      return
+    }
+
+    if (editedEquipment) {
+      dispatch(putEditEquipment({ id: editedEquipment.id, ...newDataForEquip }))
+      return
+    } else {
+      dispatch(postNewEquipment(newDataForEquip))
+      return
     }
   }
+
+  const resetModalData = () => {
+    setName('')
+    setGosnomer('')
+    setImei('')
+    setType(undefined)
+    setModel(undefined)
+    setImageStatus(0)
+    setRadius(null)
+    dispatch(setEditedEquipment(null))
+  }
+
+  /*
+  * тут формируются изображения для селекта
+  * */
 
   const images: string[] = []
 
@@ -96,10 +122,10 @@ const AddEquipmentModal: React.FC<Props> = ({ equips }) => {
 
   return (
     <Modal
-      title='Добавить оборудование'
+      title={!!editedEquipment ? 'Редактировать оборудование' : 'Добавить оборудование'}
       open={addVisibleModal}
       onOk={handleAdd}
-      onCancel={() => dispatch(setAddModalVisible(false))}
+      onCancel={onCancelHandler}
       className='equipmentAddModal'
     >
       <Input

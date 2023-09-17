@@ -33,6 +33,7 @@ const EquipmentsComponent: React.FC<Props> = () => {
   }
 
   const addModalHandler = () => {
+    dispatch(setEditedEquipment(null))
     dispatch(setAddModalVisible(true))
   }
 

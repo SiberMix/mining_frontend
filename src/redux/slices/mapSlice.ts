@@ -79,7 +79,7 @@ const mapSlice = createSlice({
     setNewPolygonCoords: (state: MapInitialState, action) => {
       state.newPolygonCoords = action.payload
     },
-    setEditedEquipment: (state, action) => {
+    setEditedEquipment: (state: MapInitialState, action) => {
       state.editedEquipment = state.equipmentList.find(type => type.id === action.payload) || null
     },
     setAddInternalPolygonMode: (state: MapInitialState, action) => {
@@ -121,25 +121,8 @@ const mapSlice = createSlice({
         state.equipmentList = [...state.equipmentList, action.payload.data]
       })
       .addCase(putEditEquipment.fulfilled, (state: MapInitialState, action) => {
-        const {
-          id,
-          gosnomer,
-          image_status,
-          equip_type,
-          imei,
-          equip_name,
-          equip_model
-        } = action.payload
         state.equipmentList.map(equip => equip.id === action.payload.id
-          ? {
-            id,
-            gosnomer,
-            image_status,
-            equip_type,
-            imei,
-            equip_name,
-            equip_model
-          }
+          ? action.payload
           : equip)
       })
       .addCase(deleteEquipment.fulfilled, (state: MapInitialState, action) => {
@@ -306,8 +289,8 @@ export default reducer
 export type EquipForPost = {
   equip_name: string
   gosnomer: string
-  equip_type: string
-  equip_model: string
+  equip_type?: string
+  equip_model?: string
   image_status: string
   imei: string
   radius: number | null
@@ -316,10 +299,11 @@ export type EquipForPut = {
   id: number,
   equip_name: string,
   gosnomer: string,
-  equip_type: string,
-  equip_model: string,
+  equip_type?: string,
+  equip_model?: string,
   image_status: string,
   imei: string
+  radius: number | null
 }
 export type PostNewPolygonData = {
   coords: [number, number][][],
