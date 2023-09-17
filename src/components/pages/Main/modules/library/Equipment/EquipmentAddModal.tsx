@@ -9,7 +9,7 @@ import { getAddModalVisibleSelector, getOptionalEquipmentModelsListSelector, get
 import { getEditeEquipmentSelector } from '../../../../../../redux/selectors/mapSelectors'
 import type { Equip } from '../../../../../../types/equip'
 import { setAddModalVisible } from '../../../../../../redux/slices/optionalEquipmentSlice'
-import { getAllEquipment, postNewEquipment, putEditEquipment } from '../../../../../../redux/slices/mapSlice'
+import { postNewEquipment, putEditEquipment } from '../../../../../../redux/slices/mapSlice'
 
 type Props = {
   equips: any
@@ -83,7 +83,6 @@ const AddEquipmentModal: React.FC<Props> = ({ equips }) => {
           }))
         }
       }
-      dispatch(getAllEquipment())
     }
   }
 

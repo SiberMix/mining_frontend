@@ -118,7 +118,7 @@ const mapSlice = createSlice({
       })
       .addCase(postNewEquipment.fulfilled, (state: MapInitialState, action) => {
         //todo мне нужно чтоб сервер возвращал equipment с id
-        // state.equipmentList = [...state.equipmentList, action.payload.data]
+        // state.equipmentList = [...state.equipmentList, action.payload]
       })
       .addCase(putEditEquipment.fulfilled, (state: MapInitialState, action) => {
         const {

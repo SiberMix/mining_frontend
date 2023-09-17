@@ -66,8 +66,7 @@ const optionalEquipmentSlice = createSlice({
         state.optionalEquipmentTrailerList = action.payload.data
       })
       .addCase(addType.fulfilled, (state: OptionalEquipmentInitialState, action) => {
-        //todo сейчас на пост не возвращаются данные с id, да и вообще ничего не возращается
-        // state.optionalEquipmentTypesList = [...state.optionalEquipmentTypesList, action.payload.data]
+        state.optionalEquipmentTypesList = [...state.optionalEquipmentTypesList, action.payload.data]
         state.addModalVisible = false
       })
       .addCase(editType.fulfilled, (state: OptionalEquipmentInitialState, action) => {
@@ -84,8 +83,7 @@ const optionalEquipmentSlice = createSlice({
         state.addModalVisible = false
       })
       .addCase(addModel.fulfilled, (state: OptionalEquipmentInitialState, action) => {
-        //todo сейчас на пост не возвращаются данные с id, да и вообще ничего не возращается
-        // state.optionalEquipmentModelList = [...state.optionalEquipmentModelList, action.payload.data]
+        state.optionalEquipmentModelList = [...state.optionalEquipmentModelList, action.payload.data]
         state.addModalVisible = false
       })
       .addCase(editModel.fulfilled, (state: OptionalEquipmentInitialState, action) => {
@@ -113,8 +111,7 @@ const optionalEquipmentSlice = createSlice({
         state.addModalVisible = false
       })
       .addCase(addTrailer.fulfilled, (state: OptionalEquipmentInitialState, action) => {
-        //todo сейчас на пост не возвращаются данные с id, да и вообще ничего не возращается
-        // state.optionalEquipmentTrailerList = [...state.optionalEquipmentTrailerList, action.payload.data]
+        state.optionalEquipmentTrailerList = [...state.optionalEquipmentTrailerList, action.payload.data]
         state.addModalVisible = false
       })
       .addCase(editTrailer.fulfilled, (state: OptionalEquipmentInitialState, action) => {
@@ -150,8 +147,6 @@ export const getTypesList = createAsyncThunk(
     return mapService.getEquipTypes()
   }
 )
-
-//todo получать айдишник назад, для оптимизации, и чтоб не обновлять каждый раз при обновлении
 export const addType = createAsyncThunk(
   'map/addTypesListThunk',
   ({
@@ -223,7 +218,6 @@ export const getEquipsModelsList = createAsyncThunk(
     return mapService.getEquipsModelsList()
   }
 )
-//todo получать айдишник назад, для оптимизации, и чтоб не обновлять каждый раз при обновлении
 export const addModel = createAsyncThunk(
   'optionalEquipment/addModelThunk',
   (data: any) => {
@@ -292,7 +286,6 @@ export const getTrailerList = createAsyncThunk(
     return mapService.getTrailerList()
   }
 )
-//todo получать айдишник назад, для оптимизации, и чтоб не обновлять каждый раз при обновлении
 export const addTrailer = createAsyncThunk(
   'optionalEquipment/addTrailerThunk',
   (data: any) => {
