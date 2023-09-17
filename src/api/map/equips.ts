@@ -13,7 +13,7 @@ export const equipsService = {
   * Добавление новой техники
   * */
   addNewEquip: (params: EquipForPost) => {
-    return axiosInstance.post<EquipModal>('/equips/', params)
+    return axiosInstance.post<Equip>('/equips/', params)
   },
   /*
   * Редактирование техники

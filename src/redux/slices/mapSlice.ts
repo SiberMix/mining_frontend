@@ -117,8 +117,8 @@ const mapSlice = createSlice({
         state.polygonsList = state.polygonsList.filter(polygon => polygon.id !== action.payload.id)
       })
       .addCase(postNewEquipment.fulfilled, (state: MapInitialState, action) => {
-        //todo мне нужно чтоб сервер возвращал equipment с id
-        // state.equipmentList = [...state.equipmentList, action.payload]
+        //todo ТУТ МОЖЕТ БЫТЬ БАГ ОСТОРОЖНЕЙ
+        state.equipmentList = [...state.equipmentList, action.payload.data]
       })
       .addCase(putEditEquipment.fulfilled, (state: MapInitialState, action) => {
         const {

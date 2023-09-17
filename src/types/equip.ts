@@ -8,7 +8,7 @@ export type Equip = {
   imei: string,
   speed: number,
   fuel: number,
-  last_coord: {
+  last_coord?: {
     lat: string,
     lon: string,
     direction: number,
