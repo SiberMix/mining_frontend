@@ -86,6 +86,10 @@ const AddEquipmentModal: React.FC<Props> = ({ equips }) => {
       messageApi.info('Вы не указали модель')
       return
     }
+    if (!imageStatus.toString()) {
+      messageApi.info('Вы не выбрали иконку')
+      return
+    }
 
     if (editedEquipment) {
       dispatch(putEditEquipment({ id: editedEquipment.id, ...newDataForEquip }))

@@ -5,16 +5,9 @@ import { useListing } from '../../../../../../hooks/use-listing'
 import type { EquipModal } from '../../../../../../types/equip'
 import AddModelModal from './ModelAddModal'
 import { useSelector } from 'react-redux'
-import {
-  getOptionalEquipmentModelsListSelector
-} from '../../../../../../redux/selectors/optionalEquipmentSelectors'
+import { getOptionalEquipmentModelsListSelector } from '../../../../../../redux/selectors/optionalEquipmentSelectors'
 import { useAppDispatch } from '../../../../../../redux/store'
-import {
-  deleteModel,
-  getEquipsModelsList,
-  setAddModalVisible,
-  setEditedModel
-} from '../../../../../../redux/slices/optionalEquipmentSlice'
+import { deleteModel, setAddModalVisible, setEditedModel } from '../../../../../../redux/slices/optionalEquipmentSlice'
 
 const EquipmentModelsComponent = () => {
   const dispatch = useAppDispatch()
@@ -27,14 +20,16 @@ const EquipmentModelsComponent = () => {
 
   const deleteItemHandler = async (id: number) => {
     dispatch(deleteModel(id))
-    dispatch(getEquipsModelsList())
   }
 
   const addModalHandler = () => {
     dispatch(setAddModalVisible(true))
   }
 
-  const { tableBlock, refreshData } = useListing<EquipModal>({
+  const {
+    tableBlock,
+    refreshData
+  } = useListing<EquipModal>({
     columnNames: ['Название', 'Длина', 'Ширина'],
     mapTableData: (data: any) => {
       return data.map((item: any) => {
