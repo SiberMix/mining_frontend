@@ -8,7 +8,7 @@ import EditBox from '/src/assets/icons/edit.svg'
 import SVG from 'react-inlinesvg'
 import GeoBox from '/src/assets/icons/GPS-navigate.svg'
 import AddEquipmentModal from './EquipmentAddModal'
-import { deleteEquipment, getAllEquipment, setEditedEquipment, setEquipmentFlyTo } from '../../../../../../redux/slices/mapSlice'
+import { deleteEquipment, setEditedEquipment, setEquipmentFlyTo } from '../../../../../../redux/slices/mapSlice'
 import { useAppDispatch } from '../../../../../../redux/store'
 import { useSelector } from 'react-redux'
 import { getAllEquipmentSelector } from '../../../../../../redux/selectors/mapSelectors'
@@ -29,7 +29,6 @@ const EquipmentsComponent: React.FC<Props> = () => {
 
   const deleteEquipmentHandler = async (id: number) => {
     dispatch(deleteEquipment(id))
-    dispatch(getAllEquipment())
   }
 
   const addModalHandler = () => {
