@@ -29,7 +29,6 @@ const AddEquipmentModal: React.FC<Props> = ({ equips }) => {
   const [imei_number, setImei] = useState('')
   const [type, setType] = useState<number | undefined>(undefined)
   const [model, setModel] = useState<number | undefined>(undefined)
-  const [isRadiusDisabled, setIsRadiusDisabled] = useState(false)
   const [radius, setRadius] = useState<number | null>(null)
   const [imageStatus, setImageStatus] = useState(0)
   const [messageApi, contextHolder] = message.useMessage()
@@ -71,11 +70,11 @@ const AddEquipmentModal: React.FC<Props> = ({ equips }) => {
       messageApi.info('Вы не указали имя')
       return
     }
-    if (gosnomer) {
+    if (!gosnomer) {
       messageApi.info('Вы не указали гос. номер')
       return
     }
-    if (equips.some((equip: any) => equip.imei === imei_number.toString())) {
+    if (!editedEquipment && equips.some((equip: any) => equip.imei === imei_number.toString())) {
       messageApi.info('Данный imei уже зарегистрирован в системе')
       return
     }
@@ -192,15 +191,14 @@ const AddEquipmentModal: React.FC<Props> = ({ equips }) => {
         Радиус
         <Switch
           size='small'
-          checked={isRadiusDisabled}
+          checked={radius !== null}
           onChange={() => {
-            setIsRadiusDisabled(d => !d)
             if (radius === null) {
               setRadius(10)
             }
           }}
         />
-        {isRadiusDisabled && radius !== null ? `${radius}м` : 'выкл'}
+        {radius !== null ? `${radius}м` : 'выкл'}
       </div>
       <CustomSlider
         value={radius ?? 10}
@@ -208,7 +206,7 @@ const AddEquipmentModal: React.FC<Props> = ({ equips }) => {
         min={1}
         max={30}
         trackStyle={{ backgroundColor: '#565656' }}
-        isRadiusDisabled={isRadiusDisabled}
+        isRadiusDisabled={radius !== null}
         tipFormatter={(num) => `${num}м`}
       />
       <div className='imagesList'>
