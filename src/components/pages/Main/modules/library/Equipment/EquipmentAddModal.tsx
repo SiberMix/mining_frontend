@@ -79,11 +79,11 @@ const AddEquipmentModal: React.FC<Props> = ({ equips }) => {
       return
     }
     if (!type) {
-      messageApi.info('Вы не указали имя')
+      messageApi.info('Вы не указали тип')
       return
     }
     if (!model) {
-      messageApi.info('Вы не указали имя')
+      messageApi.info('Вы не указали модель')
       return
     }
 
