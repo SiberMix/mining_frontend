@@ -126,7 +126,7 @@ const mapSlice = createSlice({
           : equip)
       })
       .addCase(deleteEquipment.fulfilled, (state: MapInitialState, action) => {
-        state.equipmentList = state.equipmentList.filter(equip => equip.id !== action.payload.id)
+        state.equipmentList = state.equipmentList.filter(equip => equip.id !== action.payload.equipmentId)
       })
       .addDefaultCase(() => {
       })
@@ -194,7 +194,7 @@ export const deleteEquipment = createAsyncThunk(
     const response = await mapService.deleteEquip(id)
     thunkAPI.dispatch(setAddModalVisible(false))
     return {
-      id,
+      equipmentId: id,
       response
     }
   }
