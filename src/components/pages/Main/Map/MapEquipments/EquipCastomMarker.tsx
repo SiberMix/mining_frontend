@@ -5,7 +5,7 @@ import React, { useCallback, useEffect, useMemo } from 'react'
 import { useAppDispatch } from '../../../../../redux/store'
 import { useSelector } from 'react-redux'
 import { getEquipmentFlyToSelector, getZoomLevelSelector } from '../../../../../redux/selectors/mapSelectors'
-import { setEquipmentFlyTo } from '../../../../../redux/slices/mapSlice'
+import { EquipStatus, setEquipmentFlyTo } from '../../../../../redux/slices/mapSlice'
 import { getUsingEquipmentOptionsSelector } from '../../../../../redux/selectors/settingsSelector'
 
 type Props = {
@@ -18,6 +18,7 @@ type Props = {
   fuel: number,
   direction: number,
   lastUpdDtt: string
+  status?: EquipStatus
 }
 
 const EquipCastomMarker: React.FC<Props> = ({
@@ -29,7 +30,8 @@ const EquipCastomMarker: React.FC<Props> = ({
   speed,
   fuel,
   direction,
-  lastUpdDtt
+  lastUpdDtt,
+  status = 'Offline'
 }) => {
 
   const map = useMap()
@@ -51,7 +53,7 @@ const EquipCastomMarker: React.FC<Props> = ({
      * если нужно отключить то меняем с 17 на 18. Больше 18 он быть не может
      * по дефолту 17
      * */
-    return zoomLevel > 17 ? `src/assets/icons_enum/mini_icons/${image_status}.svg` : `src/assets/icons_enum/${image_status}.svg`
+    return zoomLevel > 17 ? `src/assets/icons_enum/mini_icons/${image_status}${status}.svg` : `src/assets/icons_enum/${image_status}.svg`
   }, [zoomLevel])
 
   const createEquipIcon = useCallback(() => {

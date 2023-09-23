@@ -7,41 +7,38 @@ import MarkerClusterGroup from 'react-leaflet-markercluster'
 import { useSelector } from 'react-redux'
 import { getAllEquipmentSelector, getDrawingPolygonModeSelector } from '../../../../../redux/selectors/mapSelectors'
 import MapEquipmentsCircles from './MapEquipmentsCircles'
+import { webSocketServices } from '../../../../../api/sockets'
+import { EquipEventsSocket, EquipEventsSocketData, EquipmentSocketData } from '../../../../../redux/slices/mapSlice'
 
 type Props = {}
 
-export type EquipmentSocketData = {
-  imei: string,
-  lat: string,
-  lon: string,
-  datetime: string,
-  direction: number,
-  speed: number,
-  fuel: number
-}
 const MapEquipments: React.FC<Props> = () => {
   const drawingPolygonMode = useSelector(getDrawingPolygonModeSelector)
   const equipList = useSelector(getAllEquipmentSelector)
 
   const [equipmentCoordinates, setEquipmentCoordinates] = useState<EquipmentSocketData[]>([])
+  const [equipStatusArr, setEquipStatusArr] = useState<EquipEventsSocketData>([])
 
-  useEffect(() => {
-    const ws = new WebSocket('ws://myhectare.ru:8765/')
-
-    ws.onmessage = (message) => {
-      const data = JSON.parse(message.data)
-      if (!data) return
-      console.log('Координаты тракотра:', data)
-
-      if (drawingPolygonMode) return ws.close()
-
-      setEquipmentCoordinates(prevState => {
-        return [...prevState.filter((item) => item.imei !== data.imei), data]
-      })
+  const equipCoordsSocketHandler = (data: EquipmentSocketData) => {
+    console.log('новые координаты трактора:', data)
+    if (drawingPolygonMode) {
+      webSocketServices.equipCoordsSocket.disconnect()
+      return
     }
+    setEquipmentCoordinates((prevState) => [...prevState.filter((item) => item.imei !== data.imei), data])
+  }
 
+  const equipEventsSocketHandler = (data: EquipEventsSocket) => {
+    console.log('новые данные по ивентам тракторов:', data)
+    setEquipStatusArr(data.data)
+  }
+
+  useEffect(() => { //todo почему блять два сокета а не 1 для работы с оборудованиями??? въебать бэкендерам.
+    webSocketServices.equipCoordsSocket.connect(equipCoordsSocketHandler)
+    webSocketServices.equipEventsSocket.connect(equipEventsSocketHandler)
     return () => {
-      ws.close()
+      webSocketServices.equipCoordsSocket.disconnect()
+      webSocketServices.equipEventsSocket.disconnect()
     }
   }, [drawingPolygonMode])
 
@@ -59,8 +56,7 @@ const MapEquipments: React.FC<Props> = () => {
           image_status,
           imei,
           last_coord,
-          fuel,
-          radius
+          fuel
         }: Equip) => {
           //костыльно подтягиваем данные бека под нужные нам
           const lastCoords = last_coord
@@ -70,6 +66,7 @@ const MapEquipments: React.FC<Props> = () => {
             }
             : undefined
           const wsDataForEquip: any = equipmentCoordinates.find(equip => equip.imei === imei)
+          const equipStatus = equipStatusArr.find(e => e.imei === imei)?.status
 
           if (!lastCoords && !wsDataForEquip) return
 
@@ -85,6 +82,7 @@ const MapEquipments: React.FC<Props> = () => {
               fuel={wsDataForEquip?.fuel || fuel || null}
               direction={wsDataForEquip?.direction || last_coord?.direction}
               lastUpdDtt={last_coord?.last_upd_ts || ''}
+              status={equipStatus}
             />
           )
         })}

@@ -315,3 +315,25 @@ export type EditPolygonData = {
   polygonId: number,
   newOption: { name: string } | { coords: [number, number][][] } | { sequence: string }
 }
+
+export type EquipmentSocketData = {
+  imei: string,
+  lat: string,
+  lon: string,
+  datetime: string,
+  direction: number,
+  speed: number,
+  fuel: number
+}
+
+export type EquipEventsSocket = {
+  data: EquipEventsSocketData
+}
+
+export type EquipEventsSocketData = Array<{
+  imei: string
+  status: EquipStatus
+  last_active: number
+}>
+
+export type EquipStatus = 'Idle' | 'Active' | 'Offline'
