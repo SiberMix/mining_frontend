@@ -1,3 +1,5 @@
+import { EquipStatus } from '../redux/slices/mapSlice'
+
 export type Equip = {
   equip_type: string,
   id: number,
@@ -14,6 +16,7 @@ export type Equip = {
     direction: number,
     last_upd_ts: string
   } | null
+  last_status: null | EquipStatus
   radius: null | number
 };
 

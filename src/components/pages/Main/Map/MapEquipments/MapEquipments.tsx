@@ -30,7 +30,17 @@ const MapEquipments: React.FC<Props> = () => {
 
   const equipEventsSocketHandler = (data: EquipEventsSocket) => {
     console.log('новые данные по ивентам тракторов:', data)
-    setEquipStatusArr(data.data)
+    data.data.forEach((newData) => {
+      const dataIndex = equipStatusArr.findIndex((item) => item.imei === newData.imei)
+
+      if (dataIndex !== -1) {
+        const updatedDataList = [...equipStatusArr]
+        updatedDataList[dataIndex] = newData
+        setEquipStatusArr(updatedDataList)
+      } else {
+        setEquipStatusArr((prevDataList) => [...prevDataList, newData])
+      }
+    })
   }
 
   useEffect(() => { //todo почему блять два сокета а не 1 для работы с оборудованиями??? въебать бэкендерам.
@@ -56,7 +66,8 @@ const MapEquipments: React.FC<Props> = () => {
           image_status,
           imei,
           last_coord,
-          fuel
+          fuel,
+          last_status
         }: Equip) => {
           //костыльно подтягиваем данные бека под нужные нам
           const lastCoords = last_coord
@@ -66,7 +77,7 @@ const MapEquipments: React.FC<Props> = () => {
             }
             : undefined
           const wsDataForEquip: any = equipmentCoordinates.find(equip => equip.imei === imei)
-          const equipStatus = equipStatusArr.find(e => e.imei === imei)?.status
+          const equipSocketStatus = equipStatusArr.find(e => e.imei === imei)?.status
 
           if (!lastCoords && !wsDataForEquip) return
 
@@ -82,7 +93,7 @@ const MapEquipments: React.FC<Props> = () => {
               fuel={wsDataForEquip?.fuel || fuel || null}
               direction={wsDataForEquip?.direction || last_coord?.direction}
               lastUpdDtt={last_coord?.last_upd_ts || ''}
-              status={equipStatus}
+              status={equipSocketStatus || last_status || 'Offline'}
             />
           )
         })}

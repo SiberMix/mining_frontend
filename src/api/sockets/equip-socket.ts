@@ -3,5 +3,5 @@ import { EquipEventsSocket, EquipmentSocketData } from '../../redux/slices/mapSl
 
 export const equipSockets = {
   equipCoordsSocket: new SocketManager<EquipmentSocketData>('ws://myhectare.ru:8765/'),
-  equipEventsSocket: new SocketManager<EquipEventsSocket>('ws://myhectare.ru:8002/ws/event_serv/new_demo_base/')
+  equipEventsSocket: new SocketManager<EquipEventsSocket>('ws://myhectare.ru:8002/ws/event_serv/demobase/')
 }

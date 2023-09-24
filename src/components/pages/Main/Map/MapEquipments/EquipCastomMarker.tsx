@@ -18,7 +18,7 @@ type Props = {
   fuel: number,
   direction: number,
   lastUpdDtt: string
-  status?: EquipStatus
+  status: EquipStatus
 }
 
 const EquipCastomMarker: React.FC<Props> = ({
@@ -31,7 +31,7 @@ const EquipCastomMarker: React.FC<Props> = ({
   fuel,
   direction,
   lastUpdDtt,
-  status = 'Offline'
+  status
 }) => {
 
   const map = useMap()
@@ -60,7 +60,7 @@ const EquipCastomMarker: React.FC<Props> = ({
     return L.divIcon({
       className: 'custom-marker-icon',
       iconSize: [50, 50],
-      html: `<img 
+      html: `<img
                 style='
                 transform: rotate(${zoomLevel > 17 ? direction : 0}deg); 
                 width: 50px; 
