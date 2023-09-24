@@ -57,9 +57,18 @@ const EquipCastomMarker: React.FC<Props> = ({
   }, [zoomLevel, status, image_status])
 
   const createEquipIcon = useCallback(() => {
-    return L.icon({
-      iconUrl: imagePath,
-      iconSize: [50, 50]
+    return L.divIcon({
+      className: 'custom-marker-icon',
+      iconSize: [50, 50],
+      html: `<img 
+                style='
+                transform: rotate(${zoomLevel > 17 ? direction : 0}deg); 
+                width: 50px; 
+                height: 50px;
+                '
+                alt='${equip_name}' 
+                src='${imagePath}' 
+              />`
     })
   }, [imagePath, direction])
 
