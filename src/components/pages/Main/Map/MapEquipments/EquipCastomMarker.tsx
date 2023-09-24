@@ -53,22 +53,13 @@ const EquipCastomMarker: React.FC<Props> = ({
      * если нужно отключить то меняем с 17 на 18. Больше 18 он быть не может
      * по дефолту 17
      * */
-    return zoomLevel > 17 ? `src/assets/icons_enum/mini_icons/${image_status}${status}.svg` : `src/assets/icons_enum/${image_status}.svg`
-  }, [zoomLevel])
+    return 'src/assets/icons_enum/' + (zoomLevel > 17 ? 'mini_icons/' : '') + `${image_status}${status}.svg`
+  }, [zoomLevel, status, image_status])
 
   const createEquipIcon = useCallback(() => {
-    return L.divIcon({
-      className: 'custom-marker-icon',
-      iconSize: [60, 60],
-      html: `<img 
-                style='
-                transform: rotate(${zoomLevel > 17 ? direction : 0}deg); 
-                width: 60px; 
-                height: 60px;
-                '
-                alt='${equip_name}' 
-                src='${imagePath}' 
-              />`
+    return L.icon({
+      iconUrl: imagePath,
+      iconSize: [50, 50]
     })
   }, [imagePath, direction])
 
