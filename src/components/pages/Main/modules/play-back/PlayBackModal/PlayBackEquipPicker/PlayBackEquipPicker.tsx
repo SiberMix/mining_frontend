@@ -59,7 +59,7 @@ const PlayBackEquipPicker: React.FC<Props> = ({
                 avatar={
                   <div className='PlayBackAddModal__equippicker-header'>
                     <Avatar className='PlayBackAddModal__equippicker-avatar'
-                            src={`src/assets/icons_enum/${equip.image_status}.svg`}
+                            src={`src/assets/icons_enum/main_icons/${equip.image_status}.svg`}
                             shape={'square'}
                     />
                     <div className='PlayBackAddModal__equippicker-colorline'

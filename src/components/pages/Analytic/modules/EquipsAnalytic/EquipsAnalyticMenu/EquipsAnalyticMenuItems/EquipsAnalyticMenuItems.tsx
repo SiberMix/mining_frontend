@@ -67,7 +67,7 @@ const EquipsAnalyticMenuItems = () => {
               />
               <img
                 className='equipsAnalyticMenu-container-item-icon'
-                src={`/src/assets/icons_enum/${equip.image_status}.svg`}
+                src={`/src/assets/icons_enum/main_icons/${equip.image_status}.svg`}
                 alt={equip.equip_name + ' icon'}
               />
               <span>

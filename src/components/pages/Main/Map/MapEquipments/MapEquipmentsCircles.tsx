@@ -3,7 +3,7 @@ import { Equip } from '../../../../../types/equip'
 import { Circle } from 'react-leaflet'
 import { useSelector } from 'react-redux'
 import { getAllEquipmentSelector, getZoomLevelSelector } from '../../../../../redux/selectors/mapSelectors'
-import { EquipmentSocketData } from './MapEquipments'
+import { EquipmentSocketData } from '../../../../../redux/slices/mapSlice'
 
 type Props = {
   equipmentCoordinates: EquipmentSocketData[]
@@ -40,10 +40,10 @@ const MapEquipmentsCircles: React.FC<Props> = ({ equipmentCoordinates }) => {
             center={wsDataForEquip || lastCoords}
             radius={radius as number} //убрали все случаи null чуть выше
             pathOptions={{
-              color: '#ffffff', // Цвет границы круга
+              color: 'tomato', // Цвет границы круга
               fillColor: 'transparent', // Прозрачный цвет заливки
               fillOpacity: 0, // Прозрачность заливки
-              weight: 1 // Толщина границы в пикселях
+              weight: 2 // Толщина границы в пикселях
             }}
           />
         )

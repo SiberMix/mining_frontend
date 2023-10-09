@@ -53,7 +53,7 @@ const EquipmentsComponent: React.FC<Props> = () => {
             <Icon
               src={
                 new URL(
-                  `../../../../../../assets/icons_enum/${equip.image_status}.svg`,
+                  `../../../../../../assets/icons_enum/main_icons/${equip.image_status}.svg`,
                   import.meta.url
                 ).href
               }

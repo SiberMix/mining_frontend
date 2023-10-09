@@ -117,7 +117,7 @@ const AddEquipmentModal: React.FC<Props> = ({ equips }) => {
 
   const images: string[] = []
 
-  Object.values(import.meta.glob('../../../../../../assets/icons_enum/*.svg', { eager: true }))
+  Object.values(import.meta.glob('../../../../../../assets/icons_enum/main_icons/*.svg', { eager: true }))
     .forEach(({ default: path }: any) => {
       const url = new URL(path, import.meta.url)
       images.push(url.pathname)
