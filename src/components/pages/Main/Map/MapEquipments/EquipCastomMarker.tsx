@@ -85,7 +85,7 @@ const EquipCastomMarker: React.FC<Props> = ({
 
   useEffect(() => {
     let timeout: NodeJS.Timeout
-    if (status === 'Offline') {
+    if (status === 'Offline' || status === 'Idle') {
       timeout = setTimeout(() => {
         const timeNotActive = moment()
           .valueOf() / 1000 - +lastUpdDtt
@@ -98,6 +98,13 @@ const EquipCastomMarker: React.FC<Props> = ({
           seconds: duration.seconds()
         })
       }, 1000)
+    } else {
+      setTimeEquipIsNotActive({
+        days: 0,
+        hours: 0,
+        minutes: 0,
+        seconds: 0
+      })
     }
     return () => {
       clearTimeout(timeout)
