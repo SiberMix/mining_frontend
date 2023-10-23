@@ -1,0 +1,33 @@
+.EquipPreviewRightSide {
+  background-color: #2C2C2C !important;
+  color: #909090;
+
+  p {
+    //width: 75%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1em 0;
+    font-size: 14px;
+  }
+
+  &-info {
+
+    &_name {
+      text-transform: uppercase;
+      color: #ffffff;
+    }
+  }
+
+  .ant-drawer-title {
+    color: #909090;
+  }
+
+  .ant-drawer-close {
+    color: #6B6B6B;
+
+    &:hover {
+      color: #909090;
+    }
+  }
+}

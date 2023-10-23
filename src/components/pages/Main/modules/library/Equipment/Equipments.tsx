@@ -1,26 +1,28 @@
 import s from './Equipments.module.scss'
 import * as cn from 'classnames'
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import '/src/style/equipments.css'
 import EditBox from '/src/assets/icons/edit.svg'
 
 import SVG from 'react-inlinesvg'
 import GeoBox from '/src/assets/icons/GPS-navigate.svg'
-import AddEquipmentModal from './EquipmentAddModal'
+import AddEquipmentModal from './EquipmentAddModal/EquipmentAddModal'
 import { deleteEquipment, setEditedEquipment, setEquipmentFlyTo } from '../../../../../../redux/slices/mapSlice'
 import { useAppDispatch } from '../../../../../../redux/store'
 import { useSelector } from 'react-redux'
 import { getAllEquipmentSelector } from '../../../../../../redux/selectors/mapSelectors'
 import { setAddModalVisible } from '../../../../../../redux/slices/optionalEquipmentSlice'
 import DeleteOption from '../../../../../common/DeleteOption/DeleteOption'
+import { EquipPreviewRightSide } from './EquipPreviewRightSide/EquipPreviewRightSide'
+import { MoreInfo } from '../../../../../../style/styled-components/MoreInfo'
 
 type Props = {}
 
 const EquipmentsComponent: React.FC<Props> = () => {
-
   const dispatch = useAppDispatch()
   const equips = useSelector(getAllEquipmentSelector)
+  const [openInfoForEquipByIMEI, setIOpenInfoForEquipByIMEI] = useState<number | null>(null)
 
   const editItemHandler = async (id: number) => {
     dispatch(setEditedEquipment(id))
@@ -79,6 +81,11 @@ const EquipmentsComponent: React.FC<Props> = () => {
               </p>
             </div>
             <div className={cn(s.geoDiv)}>
+              <MoreInfo
+                color={'#6C6C6C'}
+                styledmargin={'0 3px 0 0'}
+                onClick={() => setIOpenInfoForEquipByIMEI(+equip.imei)}
+              />
               <img
                 className={cn(s.edit)}
                 onClick={() => editItemHandler(equip.id)}
@@ -93,13 +100,16 @@ const EquipmentsComponent: React.FC<Props> = () => {
                 popConfirmTitle={'Вы хотите удалить оборудование?'}
                 title={'Удалить оборудование'}
               />
+              <EquipPreviewRightSide
+                equip={equip}
+                isOpen={openInfoForEquipByIMEI === +equip.imei}
+                onClose={() => setIOpenInfoForEquipByIMEI(null)}
+              />
             </div>
           </div>
         </div>
       ))}
-      <AddEquipmentModal
-        equips={equips}
-      />
+      <AddEquipmentModal equips={equips} />
     </div>
   )
 }

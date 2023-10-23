@@ -327,13 +327,15 @@ export type EquipmentSocketData = {
 }
 
 export type EquipEventsSocket = {
-  data: EquipEventsSocketData
+  data: EquipEventsSocketDataArr
 }
 
-export type EquipEventsSocketData = Array<{
+export type EquipEventsSocketDataArr = Array<EquipEventsSocketData>
+
+export type EquipEventsSocketData = {
   imei: string
   status: EquipStatus
   last_active: number
-}>
+}
 
 export type EquipStatus = 'Idle' | 'Active' | 'Offline'

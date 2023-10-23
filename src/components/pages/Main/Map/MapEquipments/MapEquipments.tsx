@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux'
 import { getAllEquipmentSelector, getDrawingPolygonModeSelector } from '../../../../../redux/selectors/mapSelectors'
 import MapEquipmentsCircles from './MapEquipmentsCircles'
 import { webSocketServices } from '../../../../../api/sockets'
-import { EquipEventsSocket, EquipEventsSocketData, EquipmentSocketData } from '../../../../../redux/slices/mapSlice'
+import { EquipEventsSocket, EquipEventsSocketDataArr, EquipmentSocketData } from '../../../../../redux/slices/mapSlice'
 
 type Props = {}
 
@@ -17,7 +17,7 @@ const MapEquipments: React.FC<Props> = () => {
   const equipList = useSelector(getAllEquipmentSelector)
 
   const [equipmentCoordinates, setEquipmentCoordinates] = useState<EquipmentSocketData[]>([])
-  const [equipStatusArr, setEquipStatusArr] = useState<EquipEventsSocketData>([])
+  const [equipStatusArr, setEquipStatusArr] = useState<EquipEventsSocketDataArr>([])
 
   const equipCoordsSocketHandler = (data: EquipmentSocketData) => {
     console.log('новые координаты трактора:', data)

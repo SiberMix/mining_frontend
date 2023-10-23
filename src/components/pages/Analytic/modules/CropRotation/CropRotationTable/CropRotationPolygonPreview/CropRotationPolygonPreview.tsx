@@ -3,8 +3,7 @@ import React, { useState } from 'react'
 import PolygonCanvas from '../../../../../Main/modules/polygons/PolygonCanvas/PolygonCanvas'
 import { Polygon } from '../../../../../../../types'
 import PolygonDrawerPreview from '../../CropRotationList/PolygonDrawerPreview/PolygonDrawerPreview'
-import { InfoCircleOutlined } from '@ant-design/icons'
-import styled from 'styled-components'
+import { MoreInfo } from '../../../../../../../style/styled-components/MoreInfo'
 
 type Props = {
   polygon: Polygon
@@ -46,15 +45,5 @@ const CropRotationPolygonPreview: React.FC<Props> = ({
     </>
   )
 }
-
-const MoreInfo = styled(InfoCircleOutlined)`
-  cursor: pointer;
-  color: #28b6fe;
-  transition: color .2s;
-
-  &:hover {
-    color: #ffffff;
-  }
-`
 
 export default CropRotationPolygonPreview

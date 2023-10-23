@@ -3,12 +3,12 @@ import axios from 'axios'
 /**
  * Таймаут ожидания ответа (мс)
  */
-const REQUEST_TIMEOUT = 8000
+// const REQUEST_TIMEOUT = 8000
 const SUPER_REQUEST_TIMEOUT = 16000
 
 const axiosInstance = axios.create({
-  baseURL: 'http://myhectare.ru:8000/api/v1',
-  timeout: REQUEST_TIMEOUT,
+  baseURL: import.meta.env.VITE_BASE_SIDE_URL,
+  timeout: SUPER_REQUEST_TIMEOUT,
   headers: {
     'Content-Type': 'application/json'
   }
@@ -28,7 +28,7 @@ axiosInstance.interceptors.request.use(
 )
 
 const axiosInstanceWithoutV1 = axios.create({
-  baseURL: 'http://myhectare.ru:8001/api/v1/',
+  baseURL: import.meta.env.VITE_ANALYTIC_SIDE_URL,
   // timeout: SUPER_REQUEST_TIMEOUT,
   headers: {
     'Content-Type': 'application/json'
