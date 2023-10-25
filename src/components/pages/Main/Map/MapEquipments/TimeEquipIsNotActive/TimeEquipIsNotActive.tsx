@@ -1,15 +1,22 @@
 import { useEffect, useState } from 'react'
 import moment from 'moment'
 import { EquipStatus } from '../../../../../../redux/slices/mapSlice'
+import classNames from 'classnames'
 
 type Props = {
   lastUpdDtt: string
   status: EquipStatus
+  wrapperClassName?: classNames.Argument | classNames.ArgumentArray
+  mainTextClassName?: classNames.Argument | classNames.ArgumentArray
+  subTextClassName?: classNames.Argument | classNames.ArgumentArray
 }
 
 export const TimeEquipIsNotActive = ({
   lastUpdDtt,
-  status
+  status,
+  mainTextClassName,
+  subTextClassName,
+  wrapperClassName
 }: Props) => {
   const initialTimeNotActive = moment()
     .valueOf() / 1000 - +lastUpdDtt
@@ -48,14 +55,17 @@ export const TimeEquipIsNotActive = ({
   }, [timeEquipIsNotActive])
 
   return (
-    <div>
-      {
-        `Оборудование не активно:
-         ${timeEquipIsNotActive.days} дней.
+    <div className={classNames(wrapperClassName)}>
+      <span className={classNames(mainTextClassName)}>
+        Оборудование не активно:
+      </span>
+      <span className={classNames(subTextClassName)}>
+        {` ${timeEquipIsNotActive.days}д.
          ${timeEquipIsNotActive.hours}ч.
          ${timeEquipIsNotActive.minutes}м. 
          ${timeEquipIsNotActive.seconds}сек.`
-      }
+        }
+      </span>
     </div>
   )
 }

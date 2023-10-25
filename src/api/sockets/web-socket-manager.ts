@@ -16,11 +16,11 @@ export class SocketManager<T> {
     this.socket = new WebSocket(this.address)
 
     this.socket.onopen = () => {
-      console.log(`Подключение к сокету с адресом: ${this.address}`)
+      console.log('Подключен сокет')
     }
 
     this.socket.onclose = (event) => {
-      console.log(`Отключение от сокета с адресом: ${this.address}`)
+      console.log('Отключение от сокета')
       if (!event.wasClean && callback) {
         // Если соединение было разорвано из-за ошибки, попробовать переподключиться через 3 секунды
         setTimeout(() => this.connect(callback), 3000)

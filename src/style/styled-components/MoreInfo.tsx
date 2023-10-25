@@ -14,7 +14,7 @@ export const MoreInfo = styled(InfoCircleOutlined)<Props>`
   margin: ${({ styledmargin }) => styledmargin ? styledmargin : ''};
   cursor: pointer;
   color: ${({ color }) => color ? color : '#28b6fe'};
-  transition: color .2s;
+  transition: color .3s;
 
   &:hover {
     color: ${({ activeColor }) => activeColor ? activeColor : '#ffffff'};

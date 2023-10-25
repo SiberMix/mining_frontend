@@ -90,7 +90,7 @@ const mapSlice = createSlice({
       state.addInternalPolygonMode = action.payload
     },
     setEquipmentCoordinatesWebSocket: (state: MapInitialState, action) => {
-      console.log('новые координаты трактора:', action.payload)
+      // console.log('новые координаты трактора:', action.payload)
       state.equipmentCoordinatesWebSocket = [
         ...state.equipmentCoordinatesWebSocket.filter((item) => {
           return item.imei !== action.payload.imei
@@ -99,7 +99,7 @@ const mapSlice = createSlice({
       ]
     },
     equipStatusArrWebSocket: (state: MapInitialState, action) => {
-      console.log('новые данные по ивентам тракторов:', action.payload)
+      // console.log('новые данные по ивентам тракторов:', action.payload)
       action.payload.data.forEach((newData: EquipEventsSocketData) => {
         const dataIndex = state.equipStatusArrWebSocket.findIndex((item) => item.imei === newData.imei)
 
