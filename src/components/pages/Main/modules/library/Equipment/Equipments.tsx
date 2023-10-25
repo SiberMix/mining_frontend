@@ -82,8 +82,8 @@ const EquipmentsComponent: React.FC<Props> = () => {
             </div>
             <div className={cn(s.geoDiv)}>
               <MoreInfo
-                color={'#6C6C6C'}
-                styledmargin={'0 3px 0 0'}
+                color='#6C6C6C'
+                styledmargin='0 3px 0 0'
                 onClick={() => setIOpenInfoForEquipByIMEI(+equip.imei)}
               />
               <img

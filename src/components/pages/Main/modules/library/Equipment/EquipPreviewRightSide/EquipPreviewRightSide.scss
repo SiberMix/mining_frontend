@@ -2,8 +2,8 @@
   background-color: #2C2C2C !important;
   color: #909090;
 
-  p {
-    //width: 75%;
+  p,
+  .timer-wrapper {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -12,10 +12,17 @@
   }
 
   &-info {
+    text-align: right;
 
     &_name {
       text-transform: uppercase;
       color: #ffffff;
+    }
+
+    &_img {
+      width: 30%;
+      height: auto;
+      padding: 10px;
     }
   }
 

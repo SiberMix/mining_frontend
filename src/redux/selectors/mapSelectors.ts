@@ -1,111 +1,17 @@
 import type { RootState } from '../store'
-import { createSelector } from '@reduxjs/toolkit'
 
-const getAllPolygons = (state: RootState) => {
-  return state.mapReducer.polygonsList
-}
-export const getAllPolygonsSelector = createSelector(
-  getAllPolygons,
-  (polygons) => {
-    return polygons
-  }
-)
-const getAllEquipment = (state: RootState) => {
-  return state.mapReducer.equipmentList
-}
-export const getAllEquipmentSelector = createSelector(
-  getAllEquipment,
-  (equip) => {
-    return equip
-  }
-)
-const getPolygonFlyTo = (state: RootState) => {
-  return state.mapReducer.polygonFlyTo
-}
-export const getPolygonFlyToSelector = createSelector(
-  getPolygonFlyTo,
-  (polygonFlyTo) => {
-    return polygonFlyTo
-  }
-)
-const getEquipmentFlyTo = (state: RootState) => {
-  return state.mapReducer.equipmentFlyTo
-}
-export const getEquipmentFlyToSelector = createSelector(
-  getEquipmentFlyTo,
-  (equipmentFlyTo) => {
-    return equipmentFlyTo
-  }
-)
-const getDrawingPolygonMode = (state: RootState) => {
-  return state.mapReducer.drawingPolygonMode
-}
-export const getDrawingPolygonModeSelector = createSelector(
-  getDrawingPolygonMode,
-  (drawingPolygonMode) => {
-    return drawingPolygonMode
-  }
-)
-const getShowAddNewPolygonModal = (state: RootState) => {
-  return state.mapReducer.showAddNewPolygonModal
-}
-export const getShowAddNewPolygonModalSelector = createSelector(
-  getShowAddNewPolygonModal,
-  (showAddNewPolygonModal) => {
-    return showAddNewPolygonModal
-  }
-)
-const getEditedPolygon = (state: RootState) => {
-  return state.mapReducer.editedPolygon
-}
-export const getEditedPolygonSelector = createSelector(
-  getEditedPolygon,
-  (editedPolygon) => {
-    return editedPolygon
-  }
-)
-const getNewPolygonCoords = (state: RootState) => {
-  return state.mapReducer.newPolygonCoords
-}
-export const getNewPolygonCoordsSelector = createSelector(
-  getNewPolygonCoords,
-  (newPolygonCoords) => {
-    return newPolygonCoords
-  }
-)
-const getSelectedPolygonId = (state: RootState) => {
-  return state.mapReducer.selectedPolygonId
-}
-export const getSelectedPolygonIdSelector = createSelector(
-  getSelectedPolygonId,
-  (selectedPolygonId) => {
-    return selectedPolygonId
-  }
-)
-const getEditeEquipment = (state: RootState) => {
-  return state.mapReducer.editedEquipment
-}
-export const getEditeEquipmentSelector = createSelector(
-  getEditeEquipment,
-  (editedEquipment) => {
-    return editedEquipment
-  }
-)
-const getAddInternalPolygonMode = (state: RootState) => {
-  return state.mapReducer.addInternalPolygonMode
-}
-export const getAddInternalPolygonModeSelector = createSelector(
-  getAddInternalPolygonMode,
-  (addInternalPolygonMode) => {
-    return addInternalPolygonMode
-  }
-)
-const getZoomLevel = (state: RootState) => {
-  return state.mapReducer.zoomLevel
-}
-export const getZoomLevelSelector = createSelector(
-  getZoomLevel,
-  (zoomLevel) => {
-    return zoomLevel
-  }
-)
+export const getAllPolygonsSelector = (state: RootState) => state.mapReducer.polygonsList
+export const getAllEquipmentSelector = (state: RootState) => state.mapReducer.equipmentList
+export const getPolygonFlyToSelector = (state: RootState) => state.mapReducer.polygonFlyTo
+export const getEquipmentFlyToSelector = (state: RootState) => state.mapReducer.equipmentFlyTo
+export const getDrawingPolygonModeSelector = (state: RootState) => state.mapReducer.drawingPolygonMode
+export const getShowAddNewPolygonModalSelector = (state: RootState) => state.mapReducer.showAddNewPolygonModal
+export const getEditedPolygonSelector = (state: RootState) => state.mapReducer.editedPolygon
+export const getNewPolygonCoordsSelector = (state: RootState) => state.mapReducer.newPolygonCoords
+export const getSelectedPolygonIdSelector = (state: RootState) => state.mapReducer.selectedPolygonId
+export const getEditeEquipmentSelector = (state: RootState) => state.mapReducer.editedEquipment
+export const getAddInternalPolygonModeSelector = (state: RootState) => state.mapReducer.addInternalPolygonMode
+export const getZoomLevelSelector = (state: RootState) => state.mapReducer.zoomLevel
+export const getEquipmentCoordinatesWebSocket = (state: RootState) => state.mapReducer.equipmentCoordinatesWebSocket
+export const getEquipStatusArrWebSocket = (state: RootState) => state.mapReducer.equipStatusArrWebSocket
+

@@ -18,6 +18,8 @@ type MapInitialState = {
   editedPolygon: Polygon | undefined,
   selectedPolygonId: number | undefined,
   addInternalPolygonMode: boolean
+  equipmentCoordinatesWebSocket: EquipmentSocketData[]
+  equipStatusArrWebSocket: EquipEventsSocketDataArr
 }
 
 const mapInitialState: MapInitialState = {
@@ -32,7 +34,9 @@ const mapInitialState: MapInitialState = {
   editedPolygon: undefined,
   editedEquipment: null,
   selectedPolygonId: undefined,
-  addInternalPolygonMode: false
+  addInternalPolygonMode: false,
+  equipmentCoordinatesWebSocket: [],
+  equipStatusArrWebSocket: []
 }
 
 const mapSlice = createSlice({
@@ -84,6 +88,29 @@ const mapSlice = createSlice({
     },
     setAddInternalPolygonMode: (state: MapInitialState, action) => {
       state.addInternalPolygonMode = action.payload
+    },
+    setEquipmentCoordinatesWebSocket: (state: MapInitialState, action) => {
+      // console.log('новые координаты трактора:', action.payload)
+      state.equipmentCoordinatesWebSocket = [
+        ...state.equipmentCoordinatesWebSocket.filter((item) => {
+          return item.imei !== action.payload.imei
+        }),
+        action.payload
+      ]
+    },
+    equipStatusArrWebSocket: (state: MapInitialState, action) => {
+      // console.log('новые данные по ивентам тракторов:', action.payload)
+      action.payload.data.forEach((newData: EquipEventsSocketData) => {
+        const dataIndex = state.equipStatusArrWebSocket.findIndex((item) => item.imei === newData.imei)
+
+        if (dataIndex !== -1) {
+          const updatedDataList = [...state.equipStatusArrWebSocket]
+          updatedDataList[dataIndex] = newData
+          state.equipStatusArrWebSocket = updatedDataList
+        } else {
+          state.equipStatusArrWebSocket = [...state.equipStatusArrWebSocket, newData]
+        }
+      })
     }
   },
   extraReducers: (builder) => {
@@ -281,7 +308,9 @@ export const {
   setSelectedPolygon,
   removeSelectedPolygon,
   setEditedEquipment,
-  setAddInternalPolygonMode
+  setAddInternalPolygonMode,
+  setEquipmentCoordinatesWebSocket,
+  equipStatusArrWebSocket
 } = actions
 
 export default reducer
