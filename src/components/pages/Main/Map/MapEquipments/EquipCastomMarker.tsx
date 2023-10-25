@@ -1,13 +1,13 @@
 import './EquipCastomMarker.scss'
 import L from 'leaflet'
 import { Marker, Popup, useMap } from 'react-leaflet'
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo } from 'react'
 import { useAppDispatch } from '../../../../../redux/store'
 import { useSelector } from 'react-redux'
 import { getEquipmentFlyToSelector, getZoomLevelSelector } from '../../../../../redux/selectors/mapSelectors'
 import { EquipStatus, setEquipmentFlyTo } from '../../../../../redux/slices/mapSlice'
 import { getUsingEquipmentOptionsSelector } from '../../../../../redux/selectors/settingsSelector'
-import moment from 'moment'
+import { TimeEquipIsNotActive } from './TimeEquipIsNotActive/TimeEquipIsNotActive'
 
 type Props = {
   coordsData: { lat: string, lon: string },
@@ -51,7 +51,7 @@ const EquipCastomMarker: React.FC<Props> = ({
 
   const imagePath = useMemo(() => {
     /**
-     * если нужно отключить то меняем с 17 на 18. Больше 18 он быть не может
+     * если нужно отключить - то меняем с 17 на 18. Больше 18 он быть не может
      * по дефолту 17
      * */
     return 'src/assets/icons_enum/' + (zoomLevel > 17 ? 'mini_icons/' : 'equips_events/') + `${image_status}${status}.svg`
@@ -72,44 +72,6 @@ const EquipCastomMarker: React.FC<Props> = ({
               />`
     })
   }, [imagePath, direction])
-
-  /**
-   * таймер простоя техники без дела
-   * */
-  const [timeEquipIsNotActive, setTimeEquipIsNotActive] = useState({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0
-  })
-
-  useEffect(() => {
-    let timeout: NodeJS.Timeout
-    if (status === 'Offline' || status === 'Idle') {
-      timeout = setTimeout(() => {
-        const timeNotActive = moment()
-          .valueOf() / 1000 - +lastUpdDtt
-
-        const duration = moment.duration(timeNotActive, 'seconds')
-        setTimeEquipIsNotActive({
-          days: Math.floor(duration.asDays()),
-          hours: duration.hours(),
-          minutes: duration.minutes(),
-          seconds: duration.seconds()
-        })
-      }, 1000)
-    } else {
-      setTimeEquipIsNotActive({
-        days: 0,
-        hours: 0,
-        minutes: 0,
-        seconds: 0
-      })
-    }
-    return () => {
-      clearTimeout(timeout)
-    }
-  }, [status, timeEquipIsNotActive])
 
   return (
     <Marker
@@ -140,18 +102,7 @@ const EquipCastomMarker: React.FC<Props> = ({
           {stateEquipmentOptions['Последняя активность'] ? `Последняя активность: ${new Date(+lastUpdDtt * 1000)}` : null}
         </div>
         {
-          Object.values(timeEquipIsNotActive)
-            .some(value => value > 0)
-            ? <div>
-              {
-                `Оборудование не активно:
-               Дней: ${timeEquipIsNotActive.days}
-               Часов: ${timeEquipIsNotActive.hours}
-               Минут: ${timeEquipIsNotActive.minutes}
-               Секунд: ${timeEquipIsNotActive.seconds}`
-              }
-            </div>
-            : null
+          (status === 'Offline' || status === 'Idle') && <TimeEquipIsNotActive lastUpdDtt={lastUpdDtt} status={status} />
         }
       </Popup>
     </Marker>

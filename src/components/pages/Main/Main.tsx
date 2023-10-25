@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import MainLayout from './MainLayout/MainLayout'
 import SidebarContainer from './Sidebar/SidebarContainer'
 import Map from './Map/Map'
-import { getAllEquipment, getAllPolygons } from '../../../redux/slices/mapSlice'
+import { EquipEventsSocket, EquipmentSocketData, equipStatusArrWebSocket, getAllEquipment, getAllPolygons, setEquipmentCoordinatesWebSocket } from '../../../redux/slices/mapSlice'
 import { useAppDispatch } from '../../../redux/store'
 import { getAllFields } from '../../../redux/slices/fieldSlice'
 import BasePreloader from '../../common/BasePreloader/BasePreloader'
@@ -11,38 +11,69 @@ import { getEquipsModelsList, getTrailerList, getTypesList } from '../../../redu
 import PolygonListAddModal from './modules/polygons/PolygonList/PolygonListAddModal'
 import { getAllPlaybacks } from '../../../redux/slices/playBackSlice'
 import { toast } from 'react-toastify'
+import { webSocketServices } from '../../../api/sockets'
 
 const MainPage = () => {
   const dispatch = useAppDispatch()
 
-  const [load, setLoad] = useState(true)
+  const [isLoad, setIsLoad] = useState(false)
+  //fixme костыль для срабатывания initialLoading только 1 раз
+  const [isMounted, setIsMounted] = useState(false)
+
+  /**
+   * Подгружаем всю первоначальную информацию
+   * */
+  const initialLoading = async () => {
+    try {
+      await toast.promise(Promise.all([
+        dispatch(getAllFields()),
+        dispatch(getAllPolygons()),
+        dispatch(getAllEquipment()),
+        dispatch(getTypesList()),
+        dispatch(getEquipsModelsList()),
+        dispatch(getTrailerList()),
+        dispatch(getAllPlaybacks())
+      ]), {
+        pending: 'Загружаем информацию с сервера...',
+        success: 'Информация успешно загружена',
+        error: 'Произошла ошибка при загрузке информации'
+      })
+
+      setIsLoad(true)
+    } catch (error) {
+      console.error('Произошла ошибка при загрузке данных:', error)
+    }
+  }
 
   useEffect(() => {
+    if (isMounted) {
+      initialLoading()
+    } else { //fixme костыль для срабатывания initialLoading только 1 раз
+      setIsMounted(true)
+    }
+  }, [isMounted])
 
-    (async () => {
-      try {
-        await toast.promise(Promise.all([
-          dispatch(getAllFields()),
-          dispatch(getAllPolygons()),
-          dispatch(getAllEquipment()),
-          dispatch(getTypesList()),
-          dispatch(getEquipsModelsList()),
-          dispatch(getTrailerList()),
-          dispatch(getAllPlaybacks())
-        ]), {
-          pending: 'Загружаем информацию с сервера...',
-          success: 'Информация успешно загружена',
-          error: 'Произошла ошибка при загрузке информации'
-        })
+  /**
+   * Подключаем веб сокеты для оборудования
+   * */
+  const equipCoordsSocketHandler = (data: EquipmentSocketData) => {
+    dispatch(setEquipmentCoordinatesWebSocket(data))
+  }
 
-        setLoad(false)
-        //todo сделать уведомление
-        console.log('Информация загружена')
-      } catch (error) {
-        console.error('Произошла ошибка при загрузке данных:', error)
-      }
-    })()
-  }, [])
+  const equipEventsSocketHandler = (data: EquipEventsSocket) => {
+    dispatch(equipStatusArrWebSocket(data))
+  }
+
+  useEffect(() => { //todo почему блять два сокета а не 1 для работы с оборудованиями??? въебать бэкендерам.
+    if (isLoad) {
+      webSocketServices.equipCoordsSocket.connect(equipCoordsSocketHandler)
+      webSocketServices.equipEventsSocket.connect(equipEventsSocketHandler)
+    }
+    return () => {
+      webSocketServices.equipCoordsSocket.disconnect()
+      webSocketServices.equipEventsSocket.disconnect()
+    }
+  }, [isLoad])
 
   return (
     <div style={{
@@ -50,15 +81,16 @@ const MainPage = () => {
       height: '100vh'
     }}
     >
-      {load
-        ? <BasePreloader />
-        : (
+      {isLoad
+        ? (
           <MainLayout>
             <SidebarContainer />
             <Map />
             <PolygonListAddModal />
           </MainLayout>
-        )}
+        )
+        : <BasePreloader />
+      }
     </div>
   )
 }
