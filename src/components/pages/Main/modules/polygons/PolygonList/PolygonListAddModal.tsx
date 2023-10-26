@@ -18,13 +18,13 @@ const PolygonListAddModal = () => {
 
   const [polygonName, setPolygonName] = useState('')
   const { Option } = Select
-  const [polygonCulture, setPolygonCulture] = useState<string>(fieldsList[0].name)
+  const [polygonCulture, setPolygonCulture] = useState<string>(fieldsList[0]?.name)
   const [messageApi, contextHolder] = message.useMessage()
 
   const handleCancel = () => {
     dispatch(setShowAddNewPolygonModal(false))
     setPolygonName('')
-    setPolygonCulture(fieldsList[0].name)
+    setPolygonCulture(fieldsList[0]?.name)
   }
 
   async function handleOk() {
@@ -43,7 +43,7 @@ const PolygonListAddModal = () => {
         sequence: polygonCulture
       }))
       setPolygonName('')
-      setPolygonCulture(fieldsList[0].name)
+      setPolygonCulture(fieldsList[0]?.name)
     }
   }
 
@@ -73,11 +73,11 @@ const PolygonListAddModal = () => {
             <Option
               //antd не дает стилизовать по другому выпадающее меню
               style={{ backgroundColor: '#565656' }}
-              key={field.id}
-              value={field.name}
+              key={field?.id}
+              value={field?.name}
             >
               <div className='polygonListAddModalSelect-textDiv'>
-                {field.name}
+                {field?.name}
                 <div className='mini-line' />
               </div>
             </Option>
