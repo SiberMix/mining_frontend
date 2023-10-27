@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import MainLayout from './MainLayout/MainLayout'
 import SidebarContainer from './Sidebar/SidebarContainer'
 import Map from './Map/Map'
-import { EquipEventsSocket, EquipmentSocketData, equipStatusArrWebSocket, getAllEquipment, getAllPolygons, setEquipmentCoordinatesWebSocket } from '../../../redux/slices/mapSlice'
+import { EquipEventsSocket, EquipmentSocketData, getAllEquipment, getAllPolygons, setEquipmentCoordinatesWebSocket, setEquipStatusArrWebSocket } from '../../../redux/slices/mapSlice'
 import { useAppDispatch } from '../../../redux/store'
 import { getAllFields } from '../../../redux/slices/fieldSlice'
 import BasePreloader from '../../common/BasePreloader/BasePreloader'
@@ -61,7 +61,7 @@ const MainPage = () => {
   }
 
   const equipEventsSocketHandler = (data: EquipEventsSocket) => {
-    dispatch(equipStatusArrWebSocket(data))
+    dispatch(setEquipStatusArrWebSocket(data))
   }
 
   useEffect(() => { //todo почему блять два сокета а не 1 для работы с оборудованиями??? въебать бэкендерам.

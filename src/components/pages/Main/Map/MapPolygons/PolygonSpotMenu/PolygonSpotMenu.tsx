@@ -40,7 +40,6 @@ const PolygonSpotMenu: React.FC<Props> = ({
     if (isErrorInPolygonData) return
 
     if (editedPolygon) {
-      console.log(polygonCoords)
       dispatch(putEditPolygon({
         polygonId: +editedPolygon.id,
         newOption: { coords: polygonCoords }

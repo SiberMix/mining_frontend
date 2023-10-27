@@ -47,8 +47,8 @@ const PolygonList: React.FC<{
   const deleteHandler = async (id: string | number) => {
     try {
       dispatch(deletePolygon(+id))
-    } catch (e) {
-      console.log(e)
+    } catch (error) {
+      console.log(error)
     }
   }
 

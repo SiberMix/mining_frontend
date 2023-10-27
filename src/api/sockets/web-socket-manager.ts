@@ -19,21 +19,21 @@ export class SocketManager<T> {
       console.log('Подключен сокет')
     }
 
-    this.socket.onclose = (event) => {
-      console.log('Отключение от сокета')
-      if (!event.wasClean && callback) {
-        // Если соединение было разорвано из-за ошибки, попробовать переподключиться через 3 секунды
-        setTimeout(() => this.connect(callback), 3000)
-      }
-    }
+    // this.socket.onclose = (event) => {
+    //   console.log('Отключение от сокета')
+    //   if (!event.wasClean && callback) {
+    //     // Если соединение было разорвано из-за ошибки, попробовать переподключиться через 3 секунды
+    //     setTimeout(() => this.connect(callback), 3000)
+    //   }
+    // }
 
-    this.socket.onerror = (error) => {
-      console.error('Произошла ошибка в сокете:', error)
-      if (callback) {
-        // Если соединение было разорвано из-за ошибки, попробовать переподключиться через 3 секунды
-        setTimeout(() => this.connect(callback), 3000)
-      }
-    }
+    // this.socket.onerror = (error) => {
+    //   console.error('Произошла ошибка в сокете:', error)
+    //   if (callback) {
+    //     // Если соединение было разорвано из-за ошибки, попробовать переподключиться через 3 секунды
+    //     setTimeout(() => this.connect(callback), 3000)
+    //   }
+    // }
 
     this.socket.onmessage = (event) => {
       const data = JSON.parse(event.data)
@@ -47,7 +47,7 @@ export class SocketManager<T> {
     if (this.socket) {
       this.socket.close()
       this.socket = null
-      console.log(`сокет с адресом ${this.address} отключен`)
+      console.log(`сокет с адресом отключен`)
     }
   }
 }
