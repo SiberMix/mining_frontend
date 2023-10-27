@@ -346,13 +346,20 @@ export type EditPolygonData = {
 }
 
 export type EquipmentSocketData = {
-  imei: string,
-  lat: string,
-  lon: string,
-  datetime: string,
-  direction: number,
-  speed: number,
-  fuel: number
+  imei: string
+  lat: number
+  lon: number
+  date_time: number
+  type: number
+  speed: number
+  direction: number
+  bat: number
+  fuel_s: number | null
+  fuel_s_second: number | null
+  ignition: number
+  sensor: number
+  reserve: string
+  created_at: number
 }
 
 export type EquipEventsSocket = {

@@ -39,7 +39,7 @@ const MapEquipments: React.FC<Props> = () => {
               lon: last_coord.lon
             }
             : undefined
-          const wsDataForEquip: any = equipmentCoordinates.find(equip => equip.imei === imei)
+          const wsDataForEquip = equipmentCoordinates.find(equip => equip.imei === imei)
           const equipSocketStatus = equipStatusArr.find(e => e.imei === imei)?.status
 
           if (!lastCoords && !wsDataForEquip) return
@@ -47,14 +47,15 @@ const MapEquipments: React.FC<Props> = () => {
           return (
             <EquipCastomMarker
               key={imei}
-              coordsData={wsDataForEquip || lastCoords}
+              coordsData={wsDataForEquip || lastCoords as any}
               equip_name={equip_name}
               gosnomer={gosnomer}
               image_status={image_status}
               imei={imei}
               speed={wsDataForEquip?.speed || 0}
-              fuel={wsDataForEquip?.fuel || fuel || null}
-              direction={wsDataForEquip?.direction || last_coord?.direction}
+              fuel_s={wsDataForEquip?.fuel_s || fuel || null}
+              fuel_s_second={wsDataForEquip?.fuel_s_second || fuel || null}
+              direction={wsDataForEquip?.direction || last_coord?.direction || 0}
               lastUpdDtt={last_coord?.last_upd_ts || ''}
               status={equipSocketStatus || last_status || 'Offline'}
             />

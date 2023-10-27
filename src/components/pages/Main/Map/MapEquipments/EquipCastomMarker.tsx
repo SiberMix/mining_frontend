@@ -16,7 +16,8 @@ type Props = {
   imei: string,
   gosnomer: string,
   speed: number,
-  fuel: number,
+  fuel_s: number | null
+  fuel_s_second: number | null
   direction: number,
   lastUpdDtt: string
   status: EquipStatus
@@ -29,7 +30,8 @@ const EquipCastomMarker: React.FC<Props> = ({
   imei,
   gosnomer,
   speed,
-  fuel,
+  fuel_s,
+  fuel_s_second,
   direction,
   lastUpdDtt,
   status
@@ -93,11 +95,18 @@ const EquipCastomMarker: React.FC<Props> = ({
         </div>
         <div>
           {
-            fuel === null
-              ? stateEquipmentOptions['Уровень топлива'] ? 'Уровень топлива: данные не зарегистрированы' : null
-              : stateEquipmentOptions['Уровень топлива'] ? `Уровень топлива: ${fuel} л` : null
+            fuel_s === null
+              ? stateEquipmentOptions['Уровень топлива'] ? 'Уровень топлива первого бака: данные не зарегистрированы' : null
+              : stateEquipmentOptions['Уровень топлива'] ? `Уровень топлива первого бака: ${fuel_s} л` : null
           }
         </div>
+        {/*<div>*/}
+        {/*  {*/}
+        {/*    fuel_s_second === null*/}
+        {/*      ? stateEquipmentOptions['Уровень топлива'] ? 'Уровень топлива второго бака: данные не зарегистрированы' : null*/}
+        {/*      : stateEquipmentOptions['Уровень топлива'] ? `Уровень топлива второго бака: ${fuel_s_second} л` : null*/}
+        {/*  }*/}
+        {/*</div>*/}
         <div>
           {stateEquipmentOptions['Последняя активность'] ? `Последняя активность: ${new Date(+lastUpdDtt * 1000)}` : null}
         </div>
