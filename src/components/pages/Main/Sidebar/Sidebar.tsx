@@ -23,6 +23,7 @@ import { setToken } from '../../../../redux/slices/authSlice'
 import { Link, useNavigate } from 'react-router-dom'
 import { BarChartOutlined } from '@ant-design/icons'
 import { message } from 'antd'
+import { removeShowingPlayback } from '../../../../redux/slices/playBackSlice'
 
 const Sidebar: React.FC<PropsWithChildren> = () => {
   const dispatch = useAppDispatch()
@@ -101,6 +102,7 @@ const Sidebar: React.FC<PropsWithChildren> = () => {
         <div>
           <Link
             to='/analytics'
+            onClick={() => dispatch(removeShowingPlayback(null))} //тут просто обнуляем то, что нам не нужно в аналитике
           >
             <BarChartOutlined
               className={s.icon}

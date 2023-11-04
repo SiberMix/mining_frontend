@@ -2,26 +2,53 @@ import './MapPlayback.scss'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Circle, Polyline, Popup } from 'react-leaflet'
-import { getPlaybacksDataSelector, getShowingPlaybacksSelector } from '../../../../../redux/selectors/playbackSelectors'
+import { getPlaybacksDataSelector, getShowingPlaybackSelector } from '../../../../../redux/selectors/playbackSelectors'
 import { CurrentPlaybackData } from '../../../../../redux/slices/playBackSlice'
 import { LatLngExpression } from 'leaflet'
+import { MapPlaybackSpeedController } from './subComponents/MapPlaybackSpeedController/MapPlaybackSpeedController'
 
 const MapPlayback = () => {
   const playbacksData = useSelector(getPlaybacksDataSelector)
-  const showingPlaybacks = useSelector(getShowingPlaybacksSelector)
+  const showingPlayback = useSelector(getShowingPlaybackSelector)
 
   const [playbackDataWithFilter, setPlaybackDataWithFilter] = useState<CurrentPlaybackData | undefined>(undefined)
   const [playbackDataWithDaley, setPlaybackDataWithDaley] = useState<LatLngExpression[]>([])
   const [cordsIndexForDaley, setCordsIndexForDaley] = useState(0)
+  const [prevPlayback, setPrevPlayback] = useState(showingPlayback)
+  const [isPlayerPaused, setIsPlayerPaused] = useState(false)
+  const [playerSpeed, setPlayerSpeed] = useState(10)
+
+  const toggleIsPlayerPaused = () => {
+    setIsPlayerPaused(prev => !prev)
+  }
+
+  const resetDrawingPlaybackData = () => {
+    setPlaybackDataWithDaley([])
+    setCordsIndexForDaley(0)
+    setPlayerSpeed(10)
+    setIsPlayerPaused(false)
+  }
 
   useEffect(() => {
-    const filteredPlaybackData = playbacksData.find(playback => showingPlaybacks === playback.id)
+    const filteredPlaybackData = playbacksData.find(playback => showingPlayback === playback.id)
     setPlaybackDataWithFilter(filteredPlaybackData)
-  }, [playbacksData, showingPlaybacks])
+  }, [playbacksData, showingPlayback])
 
   useEffect(() => {
+    //обнуляем массив координат, если у нас переключили плейбек
+    if (prevPlayback !== showingPlayback) {
+      resetDrawingPlaybackData()
+      setPrevPlayback(showingPlayback)
+    }
+
+    //ставим плеер на паузу
+    if (isPlayerPaused) {
+      return
+    }
+
+    // сама работа отрисовки плейбека через таймер
     let timeout: NodeJS.Timeout
-    if (showingPlaybacks !== null && playbackDataWithFilter?.equipments_data.length === 1) {//проверка на то, точно ли у нас 1 техника в плейбэке, которую нужно отрисовать
+    if (showingPlayback !== null && playbackDataWithFilter?.equipments_data.length === 1) {//проверка на то, точно ли у нас 1 техника в плейбэке, которую нужно отрисовать
       timeout = setTimeout(() => {
         const imeiDataForDaley = playbackDataWithFilter?.equipments_data[0].imei_data
 
@@ -33,18 +60,20 @@ const MapPlayback = () => {
 
         setPlaybackDataWithDaley(prev => [...prev, [newCoordsForSingleLine.lat, newCoordsForSingleLine.lon]])
         setCordsIndexForDaley(prevState => prevState + 1)
-      }, 5)
+      }, playerSpeed)
 
-    } else { //Сброс всех данных массива при выключении плейбека
+    } else { //Сброс всех данных массива и индекса нужных координат, при выключении плейбека
       if (playbackDataWithDaley.length > 0) {
-        setPlaybackDataWithDaley([])
+        resetDrawingPlaybackData()
       }
     }
 
     return () => {
       clearTimeout(timeout)
     }
-  }, [showingPlaybacks, playbackDataWithDaley, playbackDataWithFilter])
+  }, [showingPlayback, playbackDataWithDaley, playbackDataWithFilter, playerSpeed, isPlayerPaused])
+
+  console.log('MapPlayback rerender')
 
   return (
     <>
@@ -52,11 +81,9 @@ const MapPlayback = () => {
         playbackDataWithFilter?.equipments_data.map(equipData => {
 
           //проверка на то что техника одна
-          const cords = playbackDataWithFilter?.equipments_data.length === 1 ? playbackDataWithDaley : equipData.imei_data.map(e => [+e.lat, +e.lon]) as LatLngExpression[]
-          console.log('playbackDataWithDaley', playbackDataWithDaley)
-          // const cords = equipData.imei_data.map(e => [+e.lat, +e.lon]) as LatLngExpression[]
-
-          console.log('cords.length', cords.length)
+          const cords = playbackDataWithFilter?.equipments_data.length === 1
+            ? playbackDataWithDaley
+            : equipData.imei_data.map(e => [+e.lat, +e.lon]) as LatLngExpression[]
 
           return (
             <Polyline
@@ -85,6 +112,16 @@ const MapPlayback = () => {
               fillOpacity: 1, // Прозрачность заливки
               weight: 10 // Толщина границы в пикселях
             }}
+          />
+          : null
+      }
+      {
+        playbackDataWithFilter?.equipments_data.length === 1
+        && !(playbackDataWithFilter?.equipments_data[0].imei_data?.length - 1 <= cordsIndexForDaley) //плейбек еще проигрывается
+          ? <MapPlaybackSpeedController
+            isPlayerPaused={isPlayerPaused}
+            toggleIsPlayerPaused={toggleIsPlayerPaused}
+            setPlayerSpeed={setPlayerSpeed}
           />
           : null
       }

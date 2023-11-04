@@ -32,6 +32,7 @@
     "react-inlinesvg": "^3.0.2",
     "react-is": "^18.2.0",
     "react-leaflet": "3.2.5",
+    "react-leaflet-custom-control": "1.2.2",
     "react-leaflet-markercluster": "^3.0.0-rc1",
     "react-redux": "^8.0.7",
     "react-router-dom": "^6.13.0",

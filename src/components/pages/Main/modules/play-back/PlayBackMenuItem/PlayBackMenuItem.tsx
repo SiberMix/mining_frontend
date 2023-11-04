@@ -5,8 +5,9 @@ import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons'
 import { useSelector } from 'react-redux'
 import { getAllEquipmentSelector } from '../../../../../../redux/selectors/mapSelectors'
 import { addShowingPlayback, CurrentPlaybackData, deletePlayback, removeShowingPlayback, setEditedPlayback } from '../../../../../../redux/slices/playBackSlice'
-import { RootState, useAppDispatch } from '../../../../../../redux/store'
+import { useAppDispatch } from '../../../../../../redux/store'
 import DeleteOption from '../../../../../common/DeleteOption/DeleteOption'
+import { getShowingPlaybackSelector } from '../../../../../../redux/selectors/playbackSelectors'
 
 type Props = {
   itemPlaybackData: CurrentPlaybackData
@@ -16,7 +17,7 @@ const PlayBackMenuItem: React.FC<Props> = ({
   itemPlaybackData
 }) => {
   const dispatch = useAppDispatch()
-  const showingPlaybacks = useSelector((state: RootState) => state.playBackReducer.showingPlaybacks)
+  const showingPlaybacks = useSelector(getShowingPlaybackSelector)
   const watchingEquips = useSelector(getAllEquipmentSelector)
     .filter(equip => (itemPlaybackData.equipment.some(e => equip.id === e)))
     .map(filteredEquip => filteredEquip.equip_name)
@@ -58,7 +59,6 @@ const PlayBackMenuItem: React.FC<Props> = ({
           style={{ backgroundColor: itemPlaybackData.color }}
         />
         {
-          // showingPlaybacks.some(s => s === itemPlaybackData.id)
           showingPlaybacks === itemPlaybackData.id
             ? <EyeOutlined
               className='PlayBackMenuItem__icons-item'

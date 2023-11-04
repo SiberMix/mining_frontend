@@ -5,14 +5,14 @@ import { toast } from 'react-toastify'
 type PlayBackSliceInitialState = {
   playbacksData: CurrentPlaybackData[]
   isOpenPlayBackAddModal: boolean
-  showingPlaybacks: number | null
+  showingPlayback: number | null
   editedPlayback: CurrentPlaybackData | null
 }
 
 const playBackSliceInitialState: PlayBackSliceInitialState = {
   playbacksData: [],
   isOpenPlayBackAddModal: false,
-  showingPlaybacks: null,
+  showingPlayback: null,
   editedPlayback: null
 }
 
@@ -24,10 +24,10 @@ const playbackSlice = createSlice({
       state.isOpenPlayBackAddModal = action.payload
     },
     addShowingPlayback: (state: PlayBackSliceInitialState, action) => {
-      state.showingPlaybacks = action.payload
+      state.showingPlayback = action.payload
     },
     removeShowingPlayback: (state: PlayBackSliceInitialState, action) => {
-      state.showingPlaybacks = null
+      state.showingPlayback = null
     },
     setEditedPlayback: (state: PlayBackSliceInitialState, action) => {
       state.editedPlayback = action.payload
@@ -50,7 +50,7 @@ const playbackSlice = createSlice({
         })
       })
       .addCase(deletePlayback.fulfilled, (state: PlayBackSliceInitialState, action) => {
-        state.showingPlaybacks = null
+        state.showingPlayback = null
         state.playbacksData = state.playbacksData.filter(playback => playback.id !== action.payload.id)
       })
       .addDefaultCase(() => {
