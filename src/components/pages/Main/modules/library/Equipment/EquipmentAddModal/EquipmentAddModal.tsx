@@ -117,11 +117,13 @@ const AddEquipmentModal: React.FC<Props> = ({ equips }) => {
 
   const images: string[] = []
 
-  Object.values(import.meta.glob('../../../../../../assets/icons_enum/main_icons/*.svg', { eager: true }))
+  Object.values(import.meta.glob('../../../../../../../assets/icons_enum/main_icons/*.svg', { eager: true }))
     .forEach(({ default: path }: any) => {
       const url = new URL(path, import.meta.url)
       images.push(url.pathname)
     })
+
+  console.log('images', images)
 
   return (
     <Modal
@@ -206,15 +208,19 @@ const AddEquipmentModal: React.FC<Props> = ({ equips }) => {
         />
         {radius !== null ? `${radius}м` : 'выкл'}
       </div>
-      <CustomSlider
-        value={radius ?? 10}
-        onChange={setRadius}
-        min={1}
-        max={30}
-        trackStyle={{ backgroundColor: '#565656' }}
-        isRadiusDisabled={radius !== null}
-        tipFormatter={(num) => `${num}м`}
-      />
+      {
+        radius
+          ? <CustomSlider
+            value={radius ?? 10}
+            onChange={setRadius}
+            min={1}
+            max={30}
+            trackStyle={{ backgroundColor: '#565656' }}
+            isRadiusDisabled={radius !== null}
+            tipFormatter={(num) => `${num}м`}
+          />
+          : null
+      }
       <div className='imagesList'>
         {images.map((item, index) => (
           <label
