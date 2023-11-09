@@ -12,6 +12,7 @@ import PolygonListAddModal from './modules/polygons/PolygonList/PolygonListAddMo
 import { getAllPlaybacks } from '../../../redux/slices/playBackSlice'
 import { toast } from 'react-toastify'
 import { webSocketServices } from '../../../api/sockets'
+import { axiosInstance } from '../../../api/abstract'
 
 const MainPage = () => {
   const dispatch = useAppDispatch()
@@ -19,6 +20,8 @@ const MainPage = () => {
   const [isLoad, setIsLoad] = useState(false)
   //fixme костыль для срабатывания initialLoading только 1 раз
   const [isMounted, setIsMounted] = useState(false)
+  //fixme костыльное сохранение адреса сокета ивентов
+  const [crutchWS, setCrutchWS] = useState<URL | null>(null)
 
   /**
    * Подгружаем всю первоначальную информацию
@@ -38,6 +41,13 @@ const MainPage = () => {
         success: 'Информация успешно загружена',
         error: 'Произошла ошибка при загрузке информации'
       })
+
+      /**
+       * Костыльное получение анала сокета
+       * */
+      const crutchWayForWS = await axiosInstance.get('http://myhectare.ru:8000/api/v1/get_ws/')
+      console.log('crutchWayForWS.data', crutchWayForWS.data)
+      setCrutchWS(crutchWayForWS.data)
 
       setIsLoad(true)
     } catch (error) {
@@ -65,13 +75,26 @@ const MainPage = () => {
   }
 
   useEffect(() => { //todo почему блять два сокета а не 1 для работы с оборудованиями??? въебать бэкендерам.
+    let superMegaCrutchWebSocket: WebSocket //fixme создание ебанутого сокета
+
     if (isLoad) {
       webSocketServices.equipCoordsSocket.connect(equipCoordsSocketHandler)
-      webSocketServices.equipEventsSocket.connect(equipEventsSocketHandler)
+
+      if (crutchWS) { //fixme подключение ебанутого сокета
+        superMegaCrutchWebSocket = new WebSocket(crutchWS)
+
+        superMegaCrutchWebSocket.onmessage = (message) => {
+          const data: EquipEventsSocket = JSON.parse(message.data)
+          if (!data) return
+          equipEventsSocketHandler(data)
+        }
+      }
+      // webSocketServices.equipEventsSocket.connect(equipEventsSocketHandler) todo как можно быстрей, чтоб не стало поздно
     }
     return () => {
       webSocketServices.equipCoordsSocket.disconnect()
-      webSocketServices.equipEventsSocket.disconnect()
+      superMegaCrutchWebSocket?.close()
+      // webSocketServices.equipEventsSocket.disconnect() todo как можно быстрей, чтоб не стало поздно
     }
   }, [isLoad])
 
