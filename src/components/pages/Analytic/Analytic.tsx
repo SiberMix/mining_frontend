@@ -23,8 +23,8 @@ const Analytic = () => {
         ])
 
         setLoad(false)
-        // navigate('/analytics/equipments')
-        navigate('/analytics/crop_rotation')
+        navigate('/analytics/equipments')
+        // navigate('/analytics/crop_rotation')
       } catch (error) {
         console.error('Произошла ошибка при загрузке данных:', error)
       }
