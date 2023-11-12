@@ -54,10 +54,11 @@ const MapEquipments: React.FC<Props> = () => {
               imei={imei}
               speed={wsDataForEquip?.speed || 0}
               fuel_s={wsDataForEquip?.fuel_s || fuel || null}
-              fuel_s_second={wsDataForEquip?.fuel_s_second || fuel || null}
+              fuel_s_second={wsDataForEquip?.fuel_s_second || null}
               direction={wsDataForEquip?.direction || last_coord?.direction || 0}
               lastUpdDtt={last_coord?.last_upd_ts || ''}
               status={equipSocketStatus || last_status || 'Offline'}
+              ignition={wsDataForEquip?.ignition}
             />
           )
         })}

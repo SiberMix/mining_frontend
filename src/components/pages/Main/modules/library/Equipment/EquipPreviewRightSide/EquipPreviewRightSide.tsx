@@ -34,10 +34,22 @@ export const EquipPreviewRightSide: React.FC<Props> = memo(({
   const equipmentCoordinates = useSelector(getEquipmentCoordinatesWebSocket)
   const equipStatusArr = useSelector(getEquipStatusArrWebSocket)
 
-  const wsDataForEquip: any = equipmentCoordinates.find(equip => equip.imei === imei)
+  const wsDataForEquip = equipmentCoordinates.find(equip => equip.imei === imei)
   const equipSocketStatus = equipStatusArr.find(e => e.imei === imei)?.status
 
   const equipStatus = equipSocketStatus || last_status || 'Offline'
+
+  console.log('wsDataForEquip', wsDataForEquip)
+
+  const fuelFromFirstAndSec = () => {
+    if (wsDataForEquip?.fuel_s === null && wsDataForEquip.fuel_s_second == null) {
+      return 'Данные не зарегистрированы'
+    }
+    const fuelFirst = wsDataForEquip?.fuel_s || fuel || 0
+    const fuelSecond = wsDataForEquip?.fuel_s_second || 0
+
+    return fuelFirst + fuelSecond
+  }
 
   return (
     <Drawer
@@ -85,11 +97,15 @@ export const EquipPreviewRightSide: React.FC<Props> = memo(({
       </p>
       <p>
         <span className='EquipPreviewRightSide-info_name'>Топливо:</span>
-        <span className='EquipPreviewRightSide-info'>{wsDataForEquip?.fuel || fuel || 'Нет информации'}</span>
+        <span className='EquipPreviewRightSide-info'>{fuelFromFirstAndSec()}</span>
       </p>
       <p>
-        <span className='EquipPreviewRightSide-info_name'>Скорость: </span>
+        <span className='EquipPreviewRightSide-info_name'>Скорость:</span>
         <span className='EquipPreviewRightSide-info'>{wsDataForEquip?.speed || 0} км/ч</span>
+      </p>
+      <p>
+        <span className='EquipPreviewRightSide-info_name'>Зажигание:</span>
+        <span className='EquipPreviewRightSide-info'>{wsDataForEquip?.ignition ? 'Вкл.' : 'Выкл.'}</span>
       </p>
       {
         (equipStatus === 'Offline' || equipStatus === 'Idle') &&

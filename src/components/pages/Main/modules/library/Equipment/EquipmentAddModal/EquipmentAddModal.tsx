@@ -123,8 +123,6 @@ const AddEquipmentModal: React.FC<Props> = ({ equips }) => {
       images.push(url.pathname)
     })
 
-  console.log('images', images)
-
   return (
     <Modal
       title={!!editedEquipment ? 'Редактировать оборудование' : 'Добавить оборудование'}

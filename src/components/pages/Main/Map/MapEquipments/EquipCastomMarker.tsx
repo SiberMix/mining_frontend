@@ -21,6 +21,7 @@ type Props = {
   direction: number,
   lastUpdDtt: string
   status: EquipStatus
+  ignition: number | undefined
 }
 
 const EquipCastomMarker: React.FC<Props> = ({
@@ -34,7 +35,8 @@ const EquipCastomMarker: React.FC<Props> = ({
   fuel_s_second,
   direction,
   lastUpdDtt,
-  status
+  status,
+  ignition
 }) => {
 
   const map = useMap()
@@ -75,6 +77,16 @@ const EquipCastomMarker: React.FC<Props> = ({
     })
   }, [imagePath, direction])
 
+  const fuelFromFirstAndSec = () => {
+    if (fuel_s === null && fuel_s_second == null) {
+      return 'Уровень топлива: данные не зарегистрированы'
+    }
+    const fuelFirst = fuel_s || 0
+    const fuelSecond = fuel_s_second || 0
+
+    return `Уровень топлива: ${fuelFirst + fuelSecond}`
+  }
+
   return (
     <Marker
       position={[+coordsData.lat, +coordsData.lon]}
@@ -94,21 +106,13 @@ const EquipCastomMarker: React.FC<Props> = ({
           {stateEquipmentOptions['Скорость'] ? `Скорость: ${speed} км/ч` : null}
         </div>
         <div>
-          {
-            fuel_s === null
-              ? stateEquipmentOptions['Уровень топлива'] ? 'Уровень топлива первого бака: данные не зарегистрированы' : null
-              : stateEquipmentOptions['Уровень топлива'] ? `Уровень топлива первого бака: ${fuel_s} л` : null
-          }
+          {stateEquipmentOptions['Уровень топлива'] ? fuelFromFirstAndSec() : null}
         </div>
-        {/*<div>*/}
-        {/*  {*/}
-        {/*    fuel_s_second === null*/}
-        {/*      ? stateEquipmentOptions['Уровень топлива'] ? 'Уровень топлива второго бака: данные не зарегистрированы' : null*/}
-        {/*      : stateEquipmentOptions['Уровень топлива'] ? `Уровень топлива второго бака: ${fuel_s_second} л` : null*/}
-        {/*  }*/}
-        {/*</div>*/}
         <div>
           {stateEquipmentOptions['Последняя активность'] ? `Последняя активность: ${new Date(+lastUpdDtt * 1000)}` : null}
+        </div>
+        <div>
+          {`Зажигание: ${ignition ? 'Вкл.' : 'Выкл.'}`}
         </div>
         {
           (status === 'Offline' || status === 'Idle') && <TimeEquipIsNotActive lastUpdDtt={lastUpdDtt} status={status} />
