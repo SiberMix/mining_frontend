@@ -12,12 +12,13 @@
     top: 50%;
     right: -8px;
     transform: translate(100%, -50%);
-    padding: 0 10px 0 3px;
+    padding: 0 5px 0 3px;
     width: auto;
     height: 15px;
     background-color: #ffffff;
     color: black;
     font-size: 10px;
+    white-space: nowrap;
 
     &::before {
       content: '';
