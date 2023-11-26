@@ -2,22 +2,31 @@
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended"
   ],
   "plugins": [
     "react",
     "import-newlines",
-    "@typescript-eslint"
+    "@typescript-eslint",
+    "prettier",
+    "simple-import-sort"
   ],
   "rules": {
-    "no-unused-vars": "off", // handled by typescript rule
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
+    "react/no-unescaped-entities": "off",
+    "prettier/prettier": "off",
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
+    "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": "warn",
     "no-console": "warn",
     "no-empty-pattern": "warn",
     "no-extra-boolean-cast": "warn",
     "no-constant-condition": "warn",
     "no-invalid-this": "warn",
-    "quotes": ["warn", "single"],
+    "quotes": ["warn", "double"],
     "jsx-quotes": ["warn", "prefer-double"],
     "semi": ["warn", "never"],
     "indent": ["warn", 2, {
@@ -140,4 +149,5 @@
         "requireLast": false
       }
     }]
-  }}
+  }
+}

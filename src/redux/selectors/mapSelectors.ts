@@ -12,6 +12,7 @@ export const getSelectedPolygonIdSelector = (state: RootState) => state.mapReduc
 export const getEditeEquipmentSelector = (state: RootState) => state.mapReducer.editedEquipment
 export const getAddInternalPolygonModeSelector = (state: RootState) => state.mapReducer.addInternalPolygonMode
 export const getZoomLevelSelector = (state: RootState) => state.mapReducer.zoomLevel
-export const getEquipmentCoordinatesWebSocket = (state: RootState) => state.mapReducer.equipmentCoordinatesWebSocket
-export const getEquipStatusArrWebSocket = (state: RootState) => state.mapReducer.equipStatusArrWebSocket
+export const getEquipmentCoordinatesWebSocketSelector = (state: RootState) => state.mapReducer.equipmentCoordinatesWebSocket
+export const getEquipStatusArrWebSocketSelector = (state: RootState) => state.mapReducer.equipStatusArrWebSocket
+export const getShowRightSideEquipInfoImeiSelector = (state: RootState) => state.mapReducer.showRightSideEquipInfoImei
 

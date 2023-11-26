@@ -19,7 +19,8 @@ type MapInitialState = {
   selectedPolygonId: number | undefined,
   addInternalPolygonMode: boolean
   equipmentCoordinatesWebSocket: EquipmentSocketData[]
-  equipStatusArrWebSocket: EquipEventsSocketDataArr
+  equipStatusArrWebSocket: EquipEventsSocketDataArr,
+  showRightSideEquipInfoImei: number | null
 }
 
 const mapInitialState: MapInitialState = {
@@ -36,7 +37,8 @@ const mapInitialState: MapInitialState = {
   selectedPolygonId: undefined,
   addInternalPolygonMode: false,
   equipmentCoordinatesWebSocket: [],
-  equipStatusArrWebSocket: []
+  equipStatusArrWebSocket: [],
+  showRightSideEquipInfoImei: null
 }
 
 const mapSlice = createSlice({
@@ -111,6 +113,9 @@ const mapSlice = createSlice({
           state.equipStatusArrWebSocket = [...state.equipStatusArrWebSocket, newData]
         }
       })
+    },
+    setShowRightSideEquipInfo: (state: MapInitialState, action) => {
+      state.showRightSideEquipInfoImei = action.payload
     }
   },
   extraReducers: (builder) => {
@@ -310,7 +315,8 @@ export const {
   setEditedEquipment,
   setAddInternalPolygonMode,
   setEquipmentCoordinatesWebSocket,
-  setEquipStatusArrWebSocket
+  setEquipStatusArrWebSocket,
+  setShowRightSideEquipInfo
 } = actions
 
 export default reducer

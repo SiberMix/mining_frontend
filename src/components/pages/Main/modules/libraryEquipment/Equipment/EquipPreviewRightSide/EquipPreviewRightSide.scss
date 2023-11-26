@@ -1,0 +1,52 @@
+.EquipPreviewRightSide {
+  background-color: #2C2C2C !important;
+  color: #909090;
+
+  p,
+  .timer-wrapper {
+    display: flex;
+    align-items: flex-end;
+    margin: 1em 0;
+    font-size: 14px;
+  }
+
+  &__info {
+    word-break: break-word;
+    text-align: left;
+
+    &__name {
+      width: auto;
+      align-self: flex-start;
+      margin-right: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    &__img {
+      width: 30%;
+      height: auto;
+      padding: 10px;
+    }
+
+    &__grid-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      row-gap: 10px;
+      column-gap: 30px;
+      align-items: flex-start;
+    }
+  }
+
+  .ant-drawer-title {
+    color: #909090;
+  }
+
+  .ant-drawer-close {
+    color: #6B6B6B;
+
+    &:hover {
+      color: #909090;
+    }
+  }
+}

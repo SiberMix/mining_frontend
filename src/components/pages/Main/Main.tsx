@@ -1,18 +1,39 @@
-import './styles.scss'
-import React, { useEffect, useState } from 'react'
-import MainLayout from './MainLayout/MainLayout'
-import SidebarContainer from './Sidebar/SidebarContainer'
-import Map from './Map/Map'
-import { EquipEventsSocket, EquipmentSocketData, getAllEquipment, getAllPolygons, setEquipmentCoordinatesWebSocket, setEquipStatusArrWebSocket } from '../../../redux/slices/mapSlice'
-import { useAppDispatch } from '../../../redux/store'
-import { getAllFields } from '../../../redux/slices/fieldSlice'
-import BasePreloader from '../../common/BasePreloader/BasePreloader'
-import { getEquipsModelsList, getTrailerList, getTypesList } from '../../../redux/slices/optionalEquipmentSlice'
-import PolygonListAddModal from './modules/polygons/PolygonList/PolygonListAddModal'
-import { getAllPlaybacks } from '../../../redux/slices/playBackSlice'
-import { toast } from 'react-toastify'
-import { webSocketServices } from '../../../api/sockets'
-import { axiosInstance } from '../../../api/abstract'
+import "./styles.scss"
+
+import React, {
+  useEffect,
+  useState
+} from "react"
+import { toast } from "react-toastify"
+
+import { axiosInstance } from "../../../api/abstract"
+import { webSocketServices } from "../../../api/sockets"
+import { getAllFields } from "../../../redux/slices/fieldSlice"
+import type {
+  EquipEventsSocket,
+  EquipmentSocketData
+} from "../../../redux/slices/mapSlice"
+import {
+  getAllEquipment,
+  getAllPolygons,
+  setEquipmentCoordinatesWebSocket,
+  setEquipStatusArrWebSocket
+} from "../../../redux/slices/mapSlice"
+import {
+  getEquipsModelsList,
+  getTrailerList,
+  getTypesList
+} from "../../../redux/slices/optionalEquipmentSlice"
+import { getAllPlaybacks } from "../../../redux/slices/playBackSlice"
+import { useAppDispatch } from "../../../redux/store"
+import BasePreloader from "../../common/BasePreloader/BasePreloader"
+import MainLayout from "./MainLayout/MainLayout"
+import Map from "./Map/Map"
+import {
+  EquipPreviewRightSide
+} from "./modules/libraryEquipment/Equipment/EquipPreviewRightSide/EquipPreviewRightSide"
+import PolygonListAddModal from "./modules/polygons/PolygonList/PolygonListAddModal"
+import SidebarContainer from "./Sidebar/SidebarContainer"
 
 const MainPage = () => {
   const dispatch = useAppDispatch()
@@ -37,21 +58,21 @@ const MainPage = () => {
         dispatch(getTrailerList()),
         dispatch(getAllPlaybacks())
       ]), {
-        pending: 'Загружаем информацию с сервера...',
-        success: 'Информация успешно загружена',
-        error: 'Произошла ошибка при загрузке информации'
+        pending: "Загружаем информацию с сервера...",
+        success: "Информация успешно загружена",
+        error: "Произошла ошибка при загрузке информации"
       })
 
       /**
        * Костыльное получение анала сокета
        * */
-      const crutchWayForWS = await axiosInstance.get('http://myhectare.ru:8000/api/v1/get_ws/')
-      console.log('crutchWayForWS.data', crutchWayForWS.data)
+      const crutchWayForWS = await axiosInstance.get("http://myhectare.ru:8000/api/v1/get_ws/")
+      // console.log('crutchWayForWS.data', crutchWayForWS.data)
       setCrutchWS(crutchWayForWS.data)
 
       setIsLoad(true)
     } catch (error) {
-      console.error('Произошла ошибка при загрузке данных:', error)
+      console.error("Произошла ошибка при загрузке данных:", error)
     }
   }
 
@@ -100,8 +121,8 @@ const MainPage = () => {
 
   return (
     <div style={{
-      position: 'relative',
-      height: '100vh'
+      position: "relative",
+      height: "100vh"
     }}
     >
       {isLoad
@@ -110,6 +131,7 @@ const MainPage = () => {
             <SidebarContainer />
             <Map />
             <PolygonListAddModal />
+            <EquipPreviewRightSide />
           </MainLayout>
         )
         : <BasePreloader />

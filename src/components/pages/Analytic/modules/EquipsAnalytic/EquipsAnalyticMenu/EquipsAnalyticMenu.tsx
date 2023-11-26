@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react'
 import { Button, ConfigProvider, DatePicker, message, Segmented } from 'antd'
 import EquipsAnalyticMenuItems from './EquipsAnalyticMenuItems/EquipsAnalyticMenuItems'
 import { useAppDispatch } from '../../../../../../redux/store'
-import { ChartType, getEquipsAnalyticThunk, resetEquipsAnalyticThunk, setChartType, setScheduleType, setTsEnd, setTsStart } from '../../../../../../redux/slices/EquipsAnalyticSlice'
+import { getEquipsAnalyticThunk, resetEquipsAnalyticThunk, ScheduleType, setChartType, setScheduleType, setTsEnd, setTsStart } from '../../../../../../redux/slices/EquipsAnalyticSlice'
 import { useSelector } from 'react-redux'
-import { getChartType, getIsLoadingSelector, getPikedEquipsIdSelector, getScheduleTypeSelector } from '../../../../../../redux/selectors/equipsAnalyticSlectors'
+import { getChartTypeSelector, getIsLoadingSelector, getPikedEquipsIdSelector, getScheduleTypeSelector } from '../../../../../../redux/selectors/equipsAnalyticSlectors'
 import dayjs from 'dayjs'
 import 'dayjs/locale/ru'
 import locale from 'antd/locale/ru_RU'
@@ -19,7 +19,7 @@ const EquipsAnalyticMenu = () => {
   const pikedEquipsId = useSelector(getPikedEquipsIdSelector)
   const isLoading = useSelector(getIsLoadingSelector)
   const scheduleType = useSelector(getScheduleTypeSelector)
-  const chartType = useSelector(getChartType)
+  const chartType = useSelector(getChartTypeSelector)
   const [period, setPeriod] = useState<Period>('День')
 
   /*
@@ -115,7 +115,7 @@ const EquipsAnalyticMenu = () => {
         <Segmented
           options={['Скорость', 'Топливо']}
           value={scheduleType}
-          onChange={(value) => dispatch(setScheduleType(value as ChartType))}
+          onChange={(value) => dispatch(setScheduleType(value as ScheduleType))}
         />
         <div className='equipsAnalyticMenu-title'>
           Тип данных

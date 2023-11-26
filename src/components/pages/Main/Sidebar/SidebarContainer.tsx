@@ -1,7 +1,7 @@
 import './SidebarContainerCSSTransition.scss'
 import React from 'react'
 import PolygonList from '../modules/polygons/PolygonList/PolygonList'
-import LibraryList from '../modules/library/LibraryList/LibraryList'
+import LibraryList from '../modules/libraryEquipment/LibraryList/LibraryList'
 import FieldList from '../modules/field/FieldList/FieldList'
 import Sidebar from './Sidebar'
 import { CSSTransition, SwitchTransition } from 'react-transition-group'

@@ -5,20 +5,20 @@ import { RootState } from '../store'
 import { getRandomColor } from '../../utils/getRandomColor/getRandomColor'
 
 type EquipAnalyticSliceInitialState = {
-  chartType: 'AVG' | 'MEDIAN'
-  equipsData: EquipsData | undefined
+  chartType: ChartType
+  equipsDataForCharts: EquipsDataForCharts | undefined
   tsStart: number
   tsEnd: number
   pikedEquips: PickedEquip[]
   equipsUsingInDiagrams: PickedEquip[]
-  scheduleType: ChartType
+  scheduleType: ScheduleType
   isLoading: boolean
 }
-export type ChartType = 'Скорость' | 'Тип'
+export type ScheduleType = 'Скорость' | 'Тип'
 
 const equipAnalyticSliceInitialState: EquipAnalyticSliceInitialState = {
   chartType: 'AVG',
-  equipsData: undefined,
+  equipsDataForCharts: undefined,
   tsStart: 0,
   tsEnd: 0,
   pikedEquips: [],
@@ -57,7 +57,7 @@ const equipAnalyticSlice = createSlice({
       })
       .addCase(getEquipsAnalyticThunk.fulfilled, (state: EquipAnalyticSliceInitialState, action) => {
         state.isLoading = false
-        state.equipsData = action.payload.data
+        state.equipsDataForCharts = action.payload.data
         state.equipsUsingInDiagrams = state.pikedEquips
       })
       .addCase(resetEquipsAnalyticThunk.pending, (state: EquipAnalyticSliceInitialState) => {
@@ -68,7 +68,7 @@ const equipAnalyticSlice = createSlice({
       })
       .addCase(resetEquipsAnalyticThunk.fulfilled, (state: EquipAnalyticSliceInitialState, action) => {
         state.isLoading = false
-        state.equipsData = action.payload.data
+        state.equipsDataForCharts = action.payload.data
         state.equipsUsingInDiagrams = state.pikedEquips
       })
       .addDefaultCase(() => {
@@ -140,27 +140,29 @@ export const {
 
 export default reducer
 
+export type ChartType = 'AVG' | 'MEDIAN'
+
 export type PickedEquip = {
   equipsId: number
   equipColor: string
 }
-export type EquipsData = {
+export type EquipsDataForCharts = {
   time_range: {
     'ts_from': number,
     'ts_to': number
   },
-  data: EquipsDataData[]
+  data: OneEquipDataForChartsData[]
 }
-export type EquipsDataData = {
+export type OneEquipDataForChartsData = {
   id: number
   imei_str: string
   imei_data: EquipsDataImeiData[]
 }
 export type EquipsDataImeiData = {
   timestamp: string
-  avg_speed: number
-  avg_fuel: number
-  median_speed: number
-  median_fuel: number
+  avg_speed: number | null
+  avg_fuel: number | null
+  median_speed: number | null
+  median_fuel: number | null
 }
 

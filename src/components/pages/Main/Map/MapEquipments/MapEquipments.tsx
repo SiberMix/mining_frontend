@@ -1,19 +1,25 @@
-import React from 'react'
-import type { Equip } from '../../../../../types/equip'
-import EquipCastomMarker from './EquipCastomMarker'
 // импорты для кластеров
-import 'react-leaflet-markercluster/dist/styles.min.css'
-import MarkerClusterGroup from 'react-leaflet-markercluster'
-import { useSelector } from 'react-redux'
-import { getAllEquipmentSelector, getEquipmentCoordinatesWebSocket, getEquipStatusArrWebSocket } from '../../../../../redux/selectors/mapSelectors'
-import MapEquipmentsCircles from './MapEquipmentsCircles'
+import "react-leaflet-markercluster/dist/styles.min.css"
+
+import React from "react"
+import MarkerClusterGroup from "react-leaflet-markercluster"
+import { useSelector } from "react-redux"
+
+import {
+  getAllEquipmentSelector,
+  getEquipmentCoordinatesWebSocketSelector,
+  getEquipStatusArrWebSocketSelector
+} from "../../../../../redux/selectors/mapSelectors"
+import type { Equip } from "../../../../../types/equip"
+import EquipCastomMarker from "./EquipCastomMarker"
+import MapEquipmentsCircles from "./MapEquipmentsCircles"
 
 type Props = {}
 
 const MapEquipments: React.FC<Props> = () => {
   const equipList = useSelector(getAllEquipmentSelector)
-  const equipmentCoordinates = useSelector(getEquipmentCoordinatesWebSocket)
-  const equipStatusArr = useSelector(getEquipStatusArrWebSocket)
+  const equipmentCoordinates = useSelector(getEquipmentCoordinatesWebSocketSelector)
+  const equipStatusArr = useSelector(getEquipStatusArrWebSocketSelector)
 
   return (
     <>
@@ -25,11 +31,9 @@ const MapEquipments: React.FC<Props> = () => {
       >
         {equipList.map(({
           equip_name,
-          gosnomer,
           image_status,
           imei,
           last_coord,
-          fuel,
           last_status
         }: Equip) => {
           //костыльно подтягиваем данные бека под нужные нам
@@ -49,16 +53,10 @@ const MapEquipments: React.FC<Props> = () => {
               key={imei}
               coordsData={wsDataForEquip || lastCoords as any}
               equip_name={equip_name}
-              gosnomer={gosnomer}
               image_status={image_status}
               imei={imei}
-              speed={wsDataForEquip?.speed || 0}
-              fuel_s={wsDataForEquip?.fuel_s || fuel || null}
-              fuel_s_second={wsDataForEquip?.fuel_s_second || null}
               direction={wsDataForEquip?.direction || last_coord?.direction || 0}
-              lastUpdDtt={last_coord?.last_upd_ts || ''}
-              status={equipSocketStatus || last_status || 'Offline'}
-              ignition={wsDataForEquip?.ignition}
+              status={equipSocketStatus || last_status || "Offline"}
             />
           )
         })}

@@ -6,7 +6,7 @@ type Props = {
   title: string,
   series: {
     name: string,
-    data: number[]
+    data: (number | null)[]
   }[]
   categories: string[]
   colors: string[]
@@ -53,7 +53,6 @@ const EquipsAnalyticDiagram: React.FC<Props> = ({
         show: true
       }
     },
-    colors: [...colors],
     dataLabels: {
       enabled: false //подпись точек
     },
@@ -73,9 +72,6 @@ const EquipsAnalyticDiagram: React.FC<Props> = ({
         return val + ' : ' + opts.w.globals.series[opts.seriesIndex][opts.dataPointIndex] + ''
       }
     },
-    xaxis: {
-      categories: categories
-    },
     grid: {
       borderColor: '#6B6B6B', //это свойство для цвета вертикальных линий на графике
       xaxis: {
@@ -88,7 +84,12 @@ const EquipsAnalyticDiagram: React.FC<Props> = ({
           show: false
         }
       }
-    }
+    },
+    //здесь передаются данные по категориям и цветам которые у нас есть=
+    xaxis: {
+      categories: categories
+    },
+    colors: [...colors]
   }
 
   return (

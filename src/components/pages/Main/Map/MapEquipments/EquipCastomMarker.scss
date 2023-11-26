@@ -1,3 +1,33 @@
 .leaflet-popup {
   transition: none !important;
 }
+
+.custom-marker-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__equip-name {
+    position: absolute;
+    top: 50%;
+    right: -8px;
+    transform: translate(100%, -50%);
+    padding: 0 10px 0 3px;
+    width: auto;
+    height: 15px;
+    background-color: #ffffff;
+    color: black;
+    font-size: 10px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: -8px;
+      top: 50%;
+      transform: translateY(calc(-50% - 0.5px));
+      border-top: 8px solid transparent;
+      border-bottom: 8px solid transparent;
+      border-right: 9px solid #ffffff; /* Измени цвет границы на нужный */
+    }
+  }
+}
