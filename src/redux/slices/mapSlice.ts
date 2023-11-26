@@ -1,12 +1,16 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { mapService } from '../../api/map'
-import type { Polygon } from '../../types'
-import type { Equip } from '../../types/equip'
-import { setAddModalVisible } from './optionalEquipmentSlice'
-import { toast } from 'react-toastify'
+import {
+  createAsyncThunk,
+  createSlice
+} from "@reduxjs/toolkit"
+import { toast } from "react-toastify"
+
+import { mapService } from "../../api/map"
+import type { Polygon } from "../../types"
+import type { Equip } from "../../types/equip"
+import { setAddModalVisible } from "./optionalEquipmentSlice"
 
 type MapInitialState = {
-  zoomLevel: number
+  zoomLevel: number,
   polygonsList: Polygon[],
   equipmentList: Equip[],
   editedEquipment: Equip | null,
@@ -17,8 +21,8 @@ type MapInitialState = {
   newPolygonCoords: [number, number][][],
   editedPolygon: Polygon | undefined,
   selectedPolygonId: number | undefined,
-  addInternalPolygonMode: boolean
-  equipmentCoordinatesWebSocket: EquipmentSocketData[]
+  addInternalPolygonMode: boolean,
+  equipmentCoordinatesWebSocket: EquipmentSocketData[],
   equipStatusArrWebSocket: EquipEventsSocketDataArr,
   showRightSideEquipInfoImei: number | null
 }
@@ -42,7 +46,7 @@ const mapInitialState: MapInitialState = {
 }
 
 const mapSlice = createSlice({
-  name: 'map',
+  name: "map",
   initialState: mapInitialState,
   reducers: {
     setZoomLevel: (state: MapInitialState, action) => {
@@ -153,9 +157,12 @@ const mapSlice = createSlice({
         state.equipmentList = [...state.equipmentList, action.payload.data]
       })
       .addCase(putEditEquipment.fulfilled, (state: MapInitialState, action) => {
-        state.equipmentList.map(equip => equip.id === action.payload.id
-          ? action.payload
-          : equip)
+        state.equipmentList = state.equipmentList.map(equip => {
+          if (equip.id === action.payload.id) {
+            return action.payload
+          }
+          return equip
+        })
       })
       .addCase(deleteEquipment.fulfilled, (state: MapInitialState, action) => {
         state.equipmentList = state.equipmentList.filter(equip => equip.id !== action.payload.equipmentId)
@@ -166,26 +173,26 @@ const mapSlice = createSlice({
 })
 
 export const getAllPolygons = createAsyncThunk(
-  'map/getAllPolygonsThunk',
+  "map/getAllPolygonsThunk",
   () => {
     return mapService.getPolygons()
   }
 )
 export const getAllEquipment = createAsyncThunk(
-  'map/getAllEquipmentThunk',
+  "map/getAllEquipmentThunk",
   () => {
     return mapService.getEquips()
   }
 )
 export const postNewEquipment = createAsyncThunk(
-  'map/postNewEquipmentThunk',
-  async (data: Omit<EquipForPost, 'id'>, thunkAPI) => {
+  "map/postNewEquipmentThunk",
+  async (data: Omit<EquipForPost, "id">, thunkAPI) => {
     const response = await toast.promise(
       mapService.addNewEquip(data),
       {
-        pending: 'Добавление нового оборудования...',
-        success: 'Новое оборудование успешно добавлено',
-        error: 'Ошибка при добавлении нового оборудования'
+        pending: "Добавление нового оборудования...",
+        success: "Новое оборудование успешно добавлено",
+        error: "Ошибка при добавлении нового оборудования"
       }
     )
 
@@ -196,7 +203,7 @@ export const postNewEquipment = createAsyncThunk(
 )
 
 export const putEditEquipment = createAsyncThunk(
-  'map/editEquipmentThunk',
+  "map/editEquipmentThunk",
   async ({
     id,
     ...data
@@ -204,24 +211,20 @@ export const putEditEquipment = createAsyncThunk(
     const response = await toast.promise(
       mapService.editEquip({ id, ...data }),
       {
-        pending: 'Редактирование оборудования...',
-        success: 'Оборудование успешно отредактировано',
-        error: 'Ошибка при редактировании оборудования'
+        pending: "Редактирование оборудования...",
+        success: "Оборудование успешно отредактировано",
+        error: "Ошибка при редактировании оборудования"
       }
     )
 
     thunkAPI.dispatch(setAddModalVisible(false))
 
-    return {
-      id,
-      ...data,
-      response
-    }
+    return response
   }
 )
 
 export const deleteEquipment = createAsyncThunk(
-  'map/deleteEquipmentThunk',
+  "map/deleteEquipmentThunk",
   async (id: number, thunkAPI) => {
     const response = await mapService.deleteEquip(id)
     thunkAPI.dispatch(setAddModalVisible(false))
@@ -232,7 +235,7 @@ export const deleteEquipment = createAsyncThunk(
   }
 )
 export const postNewPolygon = createAsyncThunk(
-  'map/postNewPolygonThunk',
+  "map/postNewPolygonThunk",
   ({
     coords,
     name,
@@ -247,15 +250,15 @@ export const postNewPolygon = createAsyncThunk(
         sequence
       }),
       {
-        pending: 'Добавление нового полигона...',
-        success: 'Новый полигон успешно добавлен',
-        error: 'Ошибка при добавлении нового полигона'
+        pending: "Добавление нового полигона...",
+        success: "Новый полигон успешно добавлен",
+        error: "Ошибка при добавлении нового полигона"
       }
     )
   }
 )
 export const putEditPolygon = createAsyncThunk(
-  'map/editPolygonThunk',
+  "map/editPolygonThunk",
   async ({
     polygonId,
     newOption
@@ -266,9 +269,9 @@ export const putEditPolygon = createAsyncThunk(
         newOption
       }),
       {
-        pending: 'Редактирование полигона...',
-        success: 'Полигон успешно отредактирован',
-        error: 'Ошибка при редактировании полигона'
+        pending: "Редактирование полигона...",
+        success: "Полигон успешно отредактирован",
+        error: "Ошибка при редактировании полигона"
       }
     )
 
@@ -279,14 +282,14 @@ export const putEditPolygon = createAsyncThunk(
   }
 )
 export const deletePolygon = createAsyncThunk(
-  'map/deletePolygonThunk',
+  "map/deletePolygonThunk",
   async (id: number) => {
     const response = await toast.promise(
       mapService.removePolygonById(id),
       {
-        pending: 'Удаление полигона...',
-        success: 'Полигон успешно удален',
-        error: 'Ошибка при удалении полигона'
+        pending: "Удаление полигона...",
+        success: "Полигон успешно удален",
+        error: "Ошибка при удалении полигона"
       }
     )
 
@@ -322,12 +325,12 @@ export const {
 export default reducer
 
 export type EquipForPost = {
-  equip_name: string
-  gosnomer: string
-  equip_type?: string
-  equip_model?: string
-  image_status: string
-  imei: string
+  equip_name: string,
+  gosnomer: string,
+  equip_type?: string,
+  equip_model?: string,
+  image_status: string,
+  imei: string,
   radius: number | null
 }
 export type EquipForPut = {
@@ -337,7 +340,7 @@ export type EquipForPut = {
   equip_type?: string,
   equip_model?: string,
   image_status: string,
-  imei: string
+  imei: string,
   radius: number | null
 }
 export type PostNewPolygonData = {
@@ -352,19 +355,19 @@ export type EditPolygonData = {
 }
 
 export type EquipmentSocketData = {
-  imei: string
-  lat: number
-  lon: number
-  date_time: number
-  type: number
-  speed: number
-  direction: number
-  bat: number
-  fuel_s: number | null
-  fuel_s_second: number | null
-  ignition: number
-  sensor: number
-  reserve: string
+  imei: string,
+  lat: number,
+  lon: number,
+  date_time: number,
+  type: number,
+  speed: number,
+  direction: number,
+  bat: number,
+  fuel_s: number | null,
+  fuel_s_second: number | null,
+  ignition: number,
+  sensor: number,
+  reserve: string,
   created_at: number
 }
 
@@ -375,9 +378,9 @@ export type EquipEventsSocket = {
 export type EquipEventsSocketDataArr = Array<EquipEventsSocketData>
 
 export type EquipEventsSocketData = {
-  imei: string
-  status: EquipStatus
+  imei: string,
+  status: EquipStatus,
   last_active: number
 }
 
-export type EquipStatus = 'Idle' | 'Active' | 'Offline'
+export type EquipStatus = "Idle" | "Active" | "Offline"

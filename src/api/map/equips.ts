@@ -1,85 +1,56 @@
-import type { Equip, EquipModal, EquipType } from '../../types/equip'
-import { axiosInstance } from '../abstract'
-import type { EquipForPost, EquipForPut } from '../../redux/slices/mapSlice'
+import type {
+  EquipForPost,
+  EquipForPut
+} from "../../redux/slices/mapSlice"
+import type {
+  Equip,
+  EquipModal,
+  EquipType
+} from "../../types/equip"
+import { axiosInstance } from "../abstract"
 
 export const equipsService = {
-  /*
-  * Получаем список оборудования с именем через API
-  * */
   getEquips: () => {
-    return axiosInstance.get<Equip[]>('/equips/')
+    return axiosInstance.get<Equip[]>("/equips/")
   },
-  /*
-  * Добавление новой техники
-  * */
   addNewEquip: (params: EquipForPost) => {
-    return axiosInstance.post<Equip>('/equips/', params)
+    return axiosInstance.post<Equip>("/equips/", params)
   },
-  /*
-  * Редактирование техники
-  * */
-  editEquip: ({
+  editEquip: async ({
     id,
     ...params
   }: EquipForPut) => {
-    return axiosInstance.put<EquipModal>(`/equips/${id}/`, params)
+    const response = await axiosInstance.put<Equip>(`/equips/${id}/`, params)
+    return response.data
   },
-  /*
-  * Удаление техники
-  * */
   deleteEquip: (id: number) => {
     return axiosInstance.delete(`/equips/${id}/`)
   },
-  /*
-  * Получение всех типов техники
-  * */
   getEquipTypes: () => {
-    return axiosInstance.get<EquipType[]>('/equipstype/')
+    return axiosInstance.get<EquipType[]>("/equipstype/")
   },
-  /*
-  * Удаление типа техники
-  * */
   deleteEquipType: (id: number) => {
     return axiosInstance.delete(`/equipstype/${id}/`)
   },
-  /*
-  * Добавление нового типа техники
-  * */
   addNewEquipType: (newEquipType: any) => {
-    return axiosInstance.post('/equipstype/', newEquipType)
+    return axiosInstance.post("/equipstype/", newEquipType)
   },
-  /*
-  * Удаление типа техники
-  * */
   editEquipType: async (id: number, newData: any) => {
-
     return axiosInstance.put(`/equipstype/${id}/`, newData)
   },
-  /*
-  * Получает полный список моделей техники
-  * */
   getEquipsModelsList: () => {
-    return axiosInstance.get('/equipsmodel/')
+    return axiosInstance.get("/equipsmodel/")
   },
-  /*
-  * Добавление новой модели техники
-  * */
   addNewEquipsModel: (params: {
     description: string,
     length: string,
     width: string
   }) => {
-    return axiosInstance.post('/equipsmodel/', params)
+    return axiosInstance.post("/equipsmodel/", params)
   },
-  /*
-  * Удаление модели техники
-  * */
   deleteEquipsModel: (id: number) => {
     return axiosInstance.delete(`/equipsmodel/${id}/`)
   },
-  /*
-  * Редактирование модели техники
-  * */
   editEquipsModel: ({
     id,
     ...newParams
