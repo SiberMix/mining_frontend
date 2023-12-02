@@ -40,8 +40,6 @@ const EquipsAnalyticDiagrams = () => {
     chartKey: chartType === "AVG" ? "avg_fuel" : "median_fuel"
   })
 
-  console.log("speedSeries", speedSeries)
-
   return (
     <div className="fieldsAnalyticDiagrams">
       {
