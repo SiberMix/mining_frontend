@@ -1,99 +1,90 @@
-import { ChartType, EquipsDataForCharts, OneEquipDataForChartsData } from '../../../../../../../redux/slices/EquipsAnalyticSlice'
-import { Equip } from '../../../../../../../types/equip'
+import type {
+  EquipsDataForCharts,
+  OneEquipDataForChartsData,
+  PickedEquip
+} from "../../../../../../../redux/slices/EquipsAnalyticSlice"
+import type { Equip } from "../../../../../../../types/equip"
+import type {
+  EquipsAnalyticDiagramSeriesType
+} from "../EquipsAnalyticDiagram/EquipsAnalyticDiagram"
 
 type CreateSpeedCategoriesAndSpeedSeriesType = {
-  equipsDataForCharts: EquipsDataForCharts | undefined
-  allEquips: Equip[]
-  chartType: ChartType
+  equipsDataForCharts: EquipsDataForCharts | undefined,
+  allEquips: Equip[],
+  chartKey: keyof Omit<OneEquipDataForChartsData, keyof OmitOneEquipDataForChartsData>
 }
 
-export const createSpeedCategoriesAndSpeedSeries = ({
+type OmitOneEquipDataForChartsData = {
+  id: number,
+  imei_str: string
+}
+
+export const getDataForChart = ({
   equipsDataForCharts,
   allEquips,
-  chartType
-}: CreateSpeedCategoriesAndSpeedSeriesType) => {
+  chartKey
+}: CreateSpeedCategoriesAndSpeedSeriesType): [(string | number)[], EquipsAnalyticDiagramSeriesType[]] => {
+  if (!equipsDataForCharts) return [[], []]
 
-  let speedCategories: number[] = []
-  const speedSeries = equipsDataForCharts?.data
-    .map((equip: OneEquipDataForChartsData) => {
-      const equipName = allEquips.find(e => e.id === equip.id)?.equip_name || 'Ошибка'
-      const equipData = [...equip.imei_data] //создаем копию массива
-        .sort((a, b) => +a.timestamp - +b.timestamp)
-        .map(imeiData => {
+  const [dates, result] = Object.entries(equipsDataForCharts)
+    .reduce(
+      ([datesAcc, resultAcc], [date, equipData]) => {
 
-          //создаем категории простым push, и так же отфильтровываем массив, чтоб не повторять даты
-          if (!speedCategories.includes(+imeiData.timestamp)) {
-            speedCategories.push(+imeiData.timestamp)
-          }
+        // пробегаем по всем данным за день, и закидываем в нужный объект в аккумуляторе
+        equipData.forEach(equipDataObj => {
 
-          //забираем нужную скорость avg || median
-          const currentSpeed = chartType === 'AVG' ? imeiData.avg_speed : imeiData.median_speed
+          //просто данные из дня, по нужному ключу например avg_speed
+          const chartDayDataForKey = equipDataObj[chartKey]
+          // индекс объекта в котором нужный id
+          const objIndexById = resultAcc.findIndex(resultAccObj => resultAccObj.id === equipDataObj.id)
 
-          if (currentSpeed === null) {
-            return null //возможно нужно высчитывать промежуточный (средний) результат между предыдущим и след, для ровного графика
+          if (objIndexById !== -1) {
+            // Если объект с таким id уже существует, добавляем данные
+            resultAcc[objIndexById].data.push(chartDayDataForKey)
           } else {
-            return Number(currentSpeed.toFixed(2))
+            // Если объекта с таким id еще нет, создаем новый
+            resultAcc.push({
+              id: equipDataObj.id,
+              name: allEquips.find(e => e.id === equipDataObj.id)?.equip_name || "Ошибка",
+              data: [chartDayDataForKey]
+            })
           }
         })
-      return {
-        name: equipName,
-        data: equipData
-      }
-    })
 
-  return {
-    speedCategories,
-    speedSeries
-  }
+        //не отходя от дела формируем массив дней
+        datesAcc.push(date)
+
+        //возвращаем измененные данные дней и данных
+        return [datesAcc, resultAcc]
+      },
+      [[], []] as [(string | number)[], EquipsAnalyticDiagramSeriesType[]]
+    )
+
+  return [dates, result]
 }
 
-export const createFuelCategoriesAndFuelSeries = ({
-  equipsDataForCharts,
-  allEquips,
-  chartType
-}: CreateSpeedCategoriesAndSpeedSeriesType) => {
-  let fuelCategories: number[] = []
-  const fuelSeries = equipsDataForCharts?.data
-    .map((equip: OneEquipDataForChartsData) => {
-      const equipName = allEquips.find(e => e.id === equip.id)?.equip_name || 'Ошибка'
-      const equipData = equip.imei_data.map(imeiData => {
-        //создаем категории простым push, и так же отфильтровываем массив, чтоб не повторять даты
-        if (!fuelCategories.includes(+imeiData.timestamp)) {
-          fuelCategories.push(+imeiData.timestamp)
-        }
-
-        //забираем нужное топливо avg || median
-        const currentFuel = chartType === 'AVG' ? imeiData.avg_fuel : imeiData.median_fuel
-
-        if (currentFuel === null) {
-          return null //возможно нужно высчитывать промежуточный (средний) результат между предыдущим и след, для ровного графика
-        } else {
-          return Number(currentFuel.toFixed(2))
-        }
-      })
-      return {
-        name: equipName,
-        data: equipData
-      }
-    })
-
-  return {
-    fuelCategories,
-    fuelSeries
-  }
-}
-
-export const createTextCategories = (numCategories: number[]) => {
+export const createTextCategories = (numCategories: (number | string)[]) => {
   return numCategories.map(num => {
-    const dateObj = new Date(num * 1000)
+    const dateObj = new Date(+num * 1000)
     // Опции форматирования даты
-    const options: { day: 'numeric', month: 'short' } = {
-      day: 'numeric',
-      month: 'short'
+    const options: { day: "numeric", month: "short" } = {
+      day: "numeric",
+      month: "short"
     }
     // Получаем объект. DateTimeFormat с указанной локалью и опциями форматирования
-    const dateFormatter = new Intl.DateTimeFormat('ru-RU', options)
+    const dateFormatter = new Intl.DateTimeFormat("ru-RU", options)
     // Получаем строку с отформатированной датой
     return dateFormatter.format(dateObj)
+  })
+}
+
+export const createColorsForCharts = (chartData: EquipsAnalyticDiagramSeriesType[], equipColorsUsingInDiagrams: PickedEquip[]) => {
+  return chartData.map(chartDataObj => {
+    const findUsingEquip = equipColorsUsingInDiagrams.find(usingEquip => usingEquip.equipsId === chartDataObj.id)
+
+    if (findUsingEquip) {
+      return findUsingEquip.equipColor
+    }
+    return "red"
   })
 }

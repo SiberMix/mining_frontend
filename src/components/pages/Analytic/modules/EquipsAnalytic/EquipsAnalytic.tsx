@@ -1,10 +1,11 @@
-import './EquipsAnalytic.scss'
-import EquipsAnalyticMenu from './EquipsAnalyticMenu/EquipsAnalyticMenu'
-import EquipsAnalyticDiagrams from './EquipsAnalyticDiagrams/EquipsAnalyticDiagrams'
+import "./EquipsAnalytic.scss"
+
+import EquipsAnalyticDiagrams from "./EquipsAnalyticDiagrams/EquipsAnalyticDiagrams"
+import EquipsAnalyticMenu from "./EquipsAnalyticMenu/EquipsAnalyticMenu"
 
 const EquipsAnalytic = () => {
   return (
-    <div className='equips-analytic-wrapper'>
+    <div className="equips-analytic-wrapper">
       <EquipsAnalyticDiagrams />
       <EquipsAnalyticMenu />
     </div>

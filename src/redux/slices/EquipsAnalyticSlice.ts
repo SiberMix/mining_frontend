@@ -1,34 +1,38 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { toast } from 'react-toastify'
-import { analyticService } from '../../api/analytic'
-import { RootState } from '../store'
-import { getRandomColor } from '../../utils/getRandomColor/getRandomColor'
+import {
+  createAsyncThunk,
+  createSlice
+} from "@reduxjs/toolkit"
+import { toast } from "react-toastify"
+
+import { analyticService } from "../../api/analytic"
+import { getRandomColor } from "../../utils/getRandomColor/getRandomColor"
+import type { RootState } from "../store"
 
 type EquipAnalyticSliceInitialState = {
-  chartType: ChartType
-  equipsDataForCharts: EquipsDataForCharts | undefined
-  tsStart: number
-  tsEnd: number
-  pikedEquips: PickedEquip[]
-  equipsUsingInDiagrams: PickedEquip[]
-  scheduleType: ScheduleType
+  chartType: ChartType,
+  equipsDataForCharts: EquipsDataForCharts | undefined,
+  tsStart: number,
+  tsEnd: number,
+  pikedEquips: PickedEquip[],
+  equipColorsUsingInDiagrams: PickedEquip[],
+  scheduleType: ScheduleType,
   isLoading: boolean
 }
-export type ScheduleType = 'Скорость' | 'Тип'
+export type ScheduleType = "Скорость" | "Тип"
 
 const equipAnalyticSliceInitialState: EquipAnalyticSliceInitialState = {
-  chartType: 'AVG',
+  chartType: "AVG",
   equipsDataForCharts: undefined,
   tsStart: 0,
   tsEnd: 0,
   pikedEquips: [],
-  equipsUsingInDiagrams: [],
-  scheduleType: 'Скорость',
+  equipColorsUsingInDiagrams: [],
+  scheduleType: "Скорость",
   isLoading: false
 }
 
 const equipAnalyticSlice = createSlice({
-  name: 'equipAnalytic',
+  name: "equipAnalytic",
   initialState: equipAnalyticSliceInitialState,
   reducers: {
     setTsStart: (state: EquipAnalyticSliceInitialState, action) => {
@@ -58,7 +62,7 @@ const equipAnalyticSlice = createSlice({
       .addCase(getEquipsAnalyticThunk.fulfilled, (state: EquipAnalyticSliceInitialState, action) => {
         state.isLoading = false
         state.equipsDataForCharts = action.payload.data
-        state.equipsUsingInDiagrams = state.pikedEquips
+        state.equipColorsUsingInDiagrams = state.pikedEquips
       })
       .addCase(resetEquipsAnalyticThunk.pending, (state: EquipAnalyticSliceInitialState) => {
         state.isLoading = true
@@ -69,7 +73,7 @@ const equipAnalyticSlice = createSlice({
       .addCase(resetEquipsAnalyticThunk.fulfilled, (state: EquipAnalyticSliceInitialState, action) => {
         state.isLoading = false
         state.equipsDataForCharts = action.payload.data
-        state.equipsUsingInDiagrams = state.pikedEquips
+        state.equipColorsUsingInDiagrams = state.pikedEquips
       })
       .addDefaultCase(() => {
       })
@@ -77,7 +81,7 @@ const equipAnalyticSlice = createSlice({
 })
 
 export const getEquipsAnalyticThunk = createAsyncThunk(
-  'equipAnalytic/getEquipsAnalyticThunk',
+  "equipAnalytic/getEquipsAnalyticThunk",
   (_, thunkAPI) => {
     const {
       tsStart,
@@ -91,14 +95,14 @@ export const getEquipsAnalyticThunk = createAsyncThunk(
       ts_end: tsEnd,
       imei_ids: equipsId
     }), {
-      pending: 'Подгружаю статистику техники',
-      success: 'Статистика техники успешно загружена',
-      error: 'Ошибка при сборе статистики'
+      pending: "Подгружаю статистику техники",
+      success: "Статистика техники успешно загружена",
+      error: "Ошибка при сборе статистики"
     })
   }
 )
 export const resetEquipsAnalyticThunk = createAsyncThunk(
-  'equipAnalytic/resetEquipsAnalyticThunk',
+  "equipAnalytic/resetEquipsAnalyticThunk",
   (_, thunkAPI) => {
     const { equipmentList } = (thunkAPI.getState() as RootState).mapReducer
     const dispatch = thunkAPI.dispatch
@@ -106,8 +110,8 @@ export const resetEquipsAnalyticThunk = createAsyncThunk(
     const dayAgo = now - 24 * 60 * 60 * 1000
     dispatch(setTsEnd(now))
     dispatch(setTsStart(dayAgo))
-    dispatch(setScheduleType('Скорость'))
-    dispatch(setChartType('AVG'))
+    dispatch(setScheduleType("Скорость"))
+    dispatch(setChartType("AVG"))
     dispatch(setPikedEquips([{
       equipsId: equipmentList[0].id,
       equipColor: getRandomColor()
@@ -118,9 +122,9 @@ export const resetEquipsAnalyticThunk = createAsyncThunk(
       ts_end: now,
       imei_ids: [equipmentList[0].id]
     }), {
-      pending: 'Сбрасываю фильтры, пожалуйста подождите',
-      success: 'Сброс прошел успешно',
-      error: 'Ошибка при сбросе фильтров'
+      pending: "Сбрасываю фильтры, пожалуйста подождите",
+      success: "Сброс прошел успешно",
+      error: "Ошибка при сбросе фильтров"
     })
   }
 )
@@ -140,29 +144,21 @@ export const {
 
 export default reducer
 
-export type ChartType = 'AVG' | 'MEDIAN'
+export type ChartType = "AVG" | "MEDIAN"
 
 export type PickedEquip = {
-  equipsId: number
+  equipsId: number,
   equipColor: string
 }
-export type EquipsDataForCharts = {
-  time_range: {
-    'ts_from': number,
-    'ts_to': number
-  },
-  data: OneEquipDataForChartsData[]
-}
+export type EquipsDataForCharts = Record<
+  string, //ключ - это дата в виде "1700784000"
+  OneEquipDataForChartsData[]>
+
 export type OneEquipDataForChartsData = {
-  id: number
-  imei_str: string
-  imei_data: EquipsDataImeiData[]
-}
-export type EquipsDataImeiData = {
-  timestamp: string
-  avg_speed: number | null
-  avg_fuel: number | null
-  median_speed: number | null
+  id: number,
+  imei_str: string,
+  avg_speed: number | null,
+  avg_fuel: number | null,
+  median_speed: number | null,
   median_fuel: number | null
 }
-

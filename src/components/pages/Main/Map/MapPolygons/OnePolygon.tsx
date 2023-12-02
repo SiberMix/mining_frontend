@@ -1,10 +1,22 @@
-import { Polygon, Popup, useMap } from 'react-leaflet'
-import React, { useEffect, useRef } from 'react'
-import type { Polygon as PolygonType } from '../../../../../types'
-import { useAppDispatch } from '../../../../../redux/store'
-import { useSelector } from 'react-redux'
-import { getPolygonFlyToSelector } from '../../../../../redux/selectors/mapSelectors'
-import { removeSelectedPolygon, setPolygonFlyTo, setSelectedPolygon } from '../../../../../redux/slices/mapSlice'
+import React, {
+  useEffect,
+  useRef
+} from "react"
+import {
+  Polygon,
+  Popup,
+  useMap
+} from "react-leaflet"
+import { useSelector } from "react-redux"
+
+import { getPolygonFlyToSelector } from "../../../../../redux/selectors/mapSelectors"
+import {
+  removeSelectedPolygon,
+  setPolygonFlyTo,
+  setSelectedPolygon
+} from "../../../../../redux/slices/mapSlice"
+import { useAppDispatch } from "../../../../../redux/store"
+import type { Polygon as PolygonType } from "../../../../../types"
 
 type Props = {
   polygon: PolygonType
@@ -30,14 +42,14 @@ const OnePolygon: React.FC<Props> = ({ polygon }) => {
   * выделение выбранного полигона в боковом меню
   * */
   useEffect(() => {
-    map.on('popupopen', (e) => {
+    map.on("popupopen", (e) => {
       // Приведение типов для доступа к _source
       const source = (e.popup as any)._source
       if (source === polygonRef.current) {
         dispatch(setSelectedPolygon(polygon.id))
       }
     })
-    map.on('popupclose', (e) => {
+    map.on("popupclose", (e) => {
       const source = (e.popup as any)._source
       if (source === polygonRef.current) {
         dispatch(removeSelectedPolygon())
@@ -45,12 +57,12 @@ const OnePolygon: React.FC<Props> = ({ polygon }) => {
     })
 
     return () => {
-      map.off('popupopen')
-      map.off('popupclose')
+      map.off("popupopen")
+      map.off("popupclose")
     }
   }, [])
 
-  const polygonColor = polygon.sequence === null ? '#FCD9D0' : polygon.sequence.color
+  const polygonColor = polygon.sequence === null ? "#FCD9D0" : polygon.sequence.color
 
   return (
     <Polygon
@@ -64,7 +76,7 @@ const OnePolygon: React.FC<Props> = ({ polygon }) => {
           {polygon.name}
         </div>
         <div>
-          {`Культура: ${polygon.sequence === null ? 'культура не выбрана' : polygon.sequence.name}`}
+          {`Культура: ${polygon.sequence === null ? "культура не выбрана" : polygon.sequence.name}`}
         </div>
         <div>
           {`Площадь полигона: ${(+polygon.square).toFixed(2)} Га`}
@@ -76,7 +88,7 @@ const OnePolygon: React.FC<Props> = ({ polygon }) => {
 
 const polygonDefaultStyleSettings = {
   fillOpacity: .63,
-  color: '#fff',
+  color: "#fff",
   opacity: .6,
   weight: 1
 }

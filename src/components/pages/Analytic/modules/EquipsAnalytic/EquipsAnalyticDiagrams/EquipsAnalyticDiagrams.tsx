@@ -5,21 +5,18 @@ import { useSelector } from "react-redux"
 
 import {
   getChartTypeSelector,
+  getEquipColorsUsingInDiagramsSelector,
   getEquipsDataForChartsSelector,
-  getEquipsUsingInDiagramsSelector,
   getIsLoadingSelector,
   getScheduleTypeSelector
 } from "../../../../../../redux/selectors/equipsAnalyticSlectors"
 import { getAllEquipmentSelector } from "../../../../../../redux/selectors/mapSelectors"
-import type {
-  OneEquipDataForChartsData,
-  PickedEquip
-} from "../../../../../../redux/slices/EquipsAnalyticSlice"
+import type { PickedEquip } from "../../../../../../redux/slices/EquipsAnalyticSlice"
 import BasePreloader from "../../../../../common/BasePreloader/BasePreloader"
 import {
-  createFuelCategoriesAndFuelSeries,
-  createSpeedCategoriesAndSpeedSeries,
-  createTextCategories
+  createColorsForCharts,
+  createTextCategories,
+  getDataForChart
 } from "./additionalFunctions/createDataForEquipAnalyticCharts"
 import EquipsAnalyticDiagram from "./EquipsAnalyticDiagram/EquipsAnalyticDiagram"
 
@@ -29,44 +26,24 @@ const EquipsAnalyticDiagrams = () => {
   const equipsDataForCharts = useSelector(getEquipsDataForChartsSelector)
   const scheduleType = useSelector(getScheduleTypeSelector)
   const chartType = useSelector(getChartTypeSelector)
-  const equipsUsingInDiagrams: PickedEquip[] = useSelector(getEquipsUsingInDiagramsSelector)
+  const equipColorsUsingInDiagrams: PickedEquip[] = useSelector(getEquipColorsUsingInDiagramsSelector)
 
-  const {
-    speedSeries,
-    speedCategories
-  } = createSpeedCategoriesAndSpeedSeries({
-    chartType,
+  const [speedCategories, speedSeries] = getDataForChart({
     allEquips,
-    equipsDataForCharts
+    equipsDataForCharts,
+    chartKey: chartType === "AVG" ? "avg_speed" : "median_speed"
   })
 
-  const {
-    fuelSeries,
-    fuelCategories
-  } = createFuelCategoriesAndFuelSeries({
-    chartType,
+  const [fuelCategories, fuelSeries] = getDataForChart({
     allEquips,
-    equipsDataForCharts
+    equipsDataForCharts,
+    chartKey: chartType === "AVG" ? "avg_fuel" : "median_fuel"
   })
 
-  const createColors = () => { //todo нужно привязать к измененным данным, а не к серверным
-    if (equipsDataForCharts) {
-      return equipsDataForCharts.data
-        .map((equip: OneEquipDataForChartsData) => {
-          const findUsingEquip = equipsUsingInDiagrams.find(usingEquip => usingEquip.equipsId === equip.id)
-          if (findUsingEquip !== undefined) {
-            return findUsingEquip.equipColor
-          }
-          return "red"
-
-        })
-    }
-    return []
-  }
+  console.log("speedSeries", speedSeries)
 
   return (
     <div className="fieldsAnalyticDiagrams">
-
       {
         isLoading
           ? (
@@ -76,17 +53,17 @@ const EquipsAnalyticDiagrams = () => {
             ? (
               <EquipsAnalyticDiagram
                 title="График скорости"
-                series={speedSeries || []}
+                series={speedSeries}
                 categories={createTextCategories(speedCategories)}
-                colors={createColors()}
+                colors={createColorsForCharts(speedSeries, equipColorsUsingInDiagrams)}
               />
             )
             : (
               <EquipsAnalyticDiagram
                 title="График уровня топлива"
-                series={fuelSeries || []}
+                series={fuelSeries}
                 categories={createTextCategories(fuelCategories)}
-                colors={createColors()}
+                colors={createColorsForCharts(fuelSeries, equipColorsUsingInDiagrams)}
               />
             )
       }
