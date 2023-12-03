@@ -56,11 +56,12 @@ const EquipsAnalyticDiagram: React.FC<Props> = ({
       }
     },
     dataLabels: {
-      enabled: false //подпись точек
+      enabled: true //подпись точек
     },
     stroke: {
       width: 3,
-      curve: "smooth",
+      curve: Array.from({ length: series.length })
+        .fill("smooth") as "smooth"[], //почему то простое указание "smooth" очень сильно корявит график
       lineCap: "round"
     },
     legend: {
@@ -69,10 +70,10 @@ const EquipsAnalyticDiagram: React.FC<Props> = ({
       offsetY: -15,
       itemMargin: {
         vertical: 20
-      },
-      tooltipHoverFormatter: function(val: any, opts: any) {
-        return val + " : " + opts.w.globals.series[opts.seriesIndex][opts.dataPointIndex] + ""
       }
+      // tooltipHoverFormatter: function(val: any, opts: any) { //ваще хз че это такое
+      //   return val + " : " + opts.w.globals.series[opts.seriesIndex][opts.dataPointIndex] + ""
+      // }
     },
     grid: {
       borderColor: "#6B6B6B", //это свойство для цвета вертикальных линий на графике

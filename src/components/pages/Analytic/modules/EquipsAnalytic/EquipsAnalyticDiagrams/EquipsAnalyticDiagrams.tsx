@@ -15,8 +15,8 @@ import type { PickedEquip } from "../../../../../../redux/slices/EquipsAnalyticS
 import BasePreloader from "../../../../../common/BasePreloader/BasePreloader"
 import {
   createColorsForCharts,
-  createTextCategories,
-  getDataForChart
+  createDataForChart,
+  createTextCategories
 } from "./additionalFunctions/createDataForEquipAnalyticCharts"
 import EquipsAnalyticDiagram from "./EquipsAnalyticDiagram/EquipsAnalyticDiagram"
 
@@ -28,17 +28,19 @@ const EquipsAnalyticDiagrams = () => {
   const chartType = useSelector(getChartTypeSelector)
   const equipColorsUsingInDiagrams: PickedEquip[] = useSelector(getEquipColorsUsingInDiagramsSelector)
 
-  const [speedCategories, speedSeries] = getDataForChart({
+  const [speedCategories, speedSeries] = createDataForChart({
     allEquips,
     equipsDataForCharts,
     chartKey: chartType === "AVG" ? "avg_speed" : "median_speed"
   })
 
-  const [fuelCategories, fuelSeries] = getDataForChart({
+  const [fuelCategories, fuelSeries] = createDataForChart({
     allEquips,
     equipsDataForCharts,
     chartKey: chartType === "AVG" ? "avg_fuel" : "median_fuel"
   })
+
+  console.log("fuelSeries", fuelSeries)
 
   return (
     <div className="fieldsAnalyticDiagrams">

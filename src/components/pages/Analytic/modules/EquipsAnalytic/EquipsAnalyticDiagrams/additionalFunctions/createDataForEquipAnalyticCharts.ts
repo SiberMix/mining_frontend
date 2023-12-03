@@ -19,7 +19,7 @@ type OmitOneEquipDataForChartsData = {
   imei_str: string
 }
 
-export const getDataForChart = ({
+export const createDataForChart = ({
   equipsDataForCharts,
   allEquips,
   chartKey
