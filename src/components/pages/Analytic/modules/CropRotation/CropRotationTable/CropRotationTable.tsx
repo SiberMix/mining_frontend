@@ -1,17 +1,38 @@
-import './CropRotationTable.scss'
-import React, { useEffect, useState } from 'react'
-import { Select, Table } from 'antd'
-import { Polygon } from '../../../../../../types'
-import CropRotationPolygonPreview from './CropRotationPolygonPreview/CropRotationPolygonPreview'
-import { useSelector } from 'react-redux'
-import { getAllPolygonsSelector } from '../../../../../../redux/selectors/mapSelectors'
-import { cropPolygon, CropRotationGroup, CropRotationGroupYear, editCropRotationGroupCultureThunk } from '../../../../../../redux/slices/cropRotationSlice'
-import { getAllFieldsSelector } from '../../../../../../redux/selectors/fieldsSelectors'
-import { getArrOfLoadingCulturesSelector, getCropRotationGroupsSelector, getIsLoadingCropRotation, getSelectedCropRotationGroupSelector } from '../../../../../../redux/selectors/cropRotationSelectors'
-import styled from 'styled-components'
-import { createBGColorForCustomSelect, getContrastColor } from '../helpfullFunctionsCropRotation'
-import { useAppDispatch } from '../../../../../../redux/store'
-import BasePreloader from '../../../../../common/BasePreloader/BasePreloader'
+import "./CropRotationTable.scss"
+
+import {
+  Select,
+  Table
+} from "antd"
+import React, {
+  useEffect,
+  useState
+} from "react"
+import { useSelector } from "react-redux"
+import styled from "styled-components"
+
+import {
+  getArrOfLoadingCulturesSelector,
+  getCropRotationGroupsSelector,
+  getIsLoadingCropRotation,
+  getSelectedCropRotationGroupSelector
+} from "../../../../../../redux/selectors/cropRotationSelectors"
+import { getAllFieldsSelector } from "../../../../../../redux/selectors/fieldsSelectors"
+import { getAllPolygonsSelector } from "../../../../../../redux/selectors/mapSelectors"
+import type {
+  cropPolygon,
+  CropRotationGroup,
+  CropRotationGroupYear
+} from "../../../../../../redux/slices/cropRotationSlice"
+import { editCropRotationGroupCultureThunk } from "../../../../../../redux/slices/cropRotationSlice"
+import { useAppDispatch } from "../../../../../../redux/store"
+import type { PolygonType } from "../../../../../../types"
+import BasePreloader from "../../../../../common/BasePreloader/BasePreloader"
+import {
+  createBGColorForCustomSelect,
+  getContrastColor
+} from "../helpfullFunctionsCropRotation"
+import CropRotationPolygonPreview from "./CropRotationPolygonPreview/CropRotationPolygonPreview"
 
 const CropRotationTable = () => {
   const dispatch = useAppDispatch()
@@ -52,69 +73,72 @@ const CropRotationTable = () => {
   }, [cropRotationGroups, selectedCropRotationGroup])
 
   return (
-    <div className='cropRotation-table-wrapper'>
+    <div className="cropRotation-table-wrapper">
       {
         isLoadingCropRotation
-          ? <BasePreloader position={'relative'} width={'100%'} height={'100%'} />
+          ? <BasePreloader
+            position="relative"
+            width="100%"
+            height="100%"
+          />
           : (
             <Table
-              className='cropRotation-table'
+              className="cropRotation-table"
               dataSource={tableData}
               pagination={false}
               bordered={true}
-              scroll={{ y: '92vh' }}
+              scroll={{ y: "92vh" }}
             >
               <Table.Column
-                title='Список полей'
-                dataIndex='name'
-                key='name'
-                render={(_, record: Polygon) => {
+                title="Список полей"
+                dataIndex="name"
+                key="name"
+                render={(_, record: PolygonType) => {
                   return (
                     <CropRotationPolygonPreview
                       polygon={record}
-                      key={'CropRotationPolygonPreview_' + record.name}
+                      key={"CropRotationPolygonPreview_" + record.name}
                     />
                   )
                 }}
               />
               {
                 yearsUsingGroup?.map((year) => (
-                    <Table.Column
-                      key={`sequence-${year}`}
-                      title={year.year}
-                      dataIndex='sequence'
-                      render={(_, record: Polygon) => {
-                        const culture = year.cropPolygons.find(p => p.id === record.id)?.culture
-                        const groupId = cropRotationGroups.find(group => group.id_group === selectedCropRotationGroup)?.id_group
-                        const isLoading = arrOfLoadingCultures.some(loadingCulture => loadingCulture.groupId === groupId
+                  <Table.Column
+                    key={`sequence-${year}`}
+                    title={year.year}
+                    dataIndex="sequence"
+                    render={(_, record: PolygonType) => {
+                      const culture = year.cropPolygons.find(p => p.id === record.id)?.culture
+                      const groupId = cropRotationGroups.find(group => group.id_group === selectedCropRotationGroup)?.id_group
+                      const isLoading = arrOfLoadingCultures.some(loadingCulture => loadingCulture.groupId === groupId
                           && loadingCulture.polygonId === +record.id
                           && loadingCulture.year === +year.year)
 
-                        return (
-                          <CustomSelect //styled-components down
-                            key={'CustomSelect_' + culture}
-                            backgroundColor={createBGColorForCustomSelect(culture, allFields)}
-                            disabled={isLoading}
-                            loading={isLoading}
-                            // defaultValue={culture ?? 'Не задано'}
-                            value={culture ?? 'Не задано'}
-                            dropdownStyle={customDropdownStyle}
-                            onChange={(value) => dispatch(editCropRotationGroupCultureThunk({
-                              cultureId: value as number,
-                              year: +year.year,
-                              polygonId: +record.id,
-                              groupId: groupId as number
-                            }))}
-                            options={allFields.map(field => ({
-                              value: field.id,
-                              label: field.name
-                            }))}
-                          />
-                        )
-                      }}
-                    />
-                  )
-                )
+                      return (
+                        <CustomSelect //styled-components down
+                          key={"CustomSelect_" + culture}
+                          backgroundColor={createBGColorForCustomSelect(culture, allFields)}
+                          disabled={isLoading}
+                          loading={isLoading}
+                          // defaultValue={culture ?? 'Не задано'}
+                          value={culture ?? "Не задано"}
+                          dropdownStyle={customDropdownStyle}
+                          onChange={(value) => dispatch(editCropRotationGroupCultureThunk({
+                            cultureId: value as number,
+                            year: +year.year,
+                            polygonId: +record.id,
+                            groupId: groupId as number
+                          }))}
+                          options={allFields.map(field => ({
+                            value: field.id,
+                            label: field.name
+                          }))}
+                        />
+                      )
+                    }}
+                  />
+                ))
               }
             </Table>
           )
@@ -124,7 +148,7 @@ const CropRotationTable = () => {
 }
 
 const customDropdownStyle = {
-  backgroundColor: '#565656'
+  backgroundColor: "#565656"
 }
 
 const CustomSelect = styled(Select)<{ backgroundColor?: string }>`
@@ -132,12 +156,12 @@ const CustomSelect = styled(Select)<{ backgroundColor?: string }>`
 
   .ant-select-selector {
     background-color: ${props => props.backgroundColor} !important;
-    color: ${props => getContrastColor(props.backgroundColor || 'red')} !important;
+    color: ${props => getContrastColor(props.backgroundColor || "red")} !important;
     border-color: #929292 !important;
   }
 
   .ant-select-arrow {
-    color: ${props => getContrastColor(props.backgroundColor || 'red')} !important;
+    color: ${props => getContrastColor(props.backgroundColor || "red")} !important;
   }
 `
 

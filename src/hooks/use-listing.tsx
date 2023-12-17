@@ -1,12 +1,16 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import { Table } from "antd"
+import type { ColumnsType } from "antd/es/table"
+import React, {
+  useEffect,
+  useMemo,
+  useState
+} from "react"
+import styled from "styled-components"
 
-import { responseStatus } from '../enums/api'
-import type { UseListingProps } from './use-listing.props'
-import { Table } from 'antd'
-import styled from 'styled-components'
-import type { ColumnsType } from 'antd/es/table'
-import EditBox from '/src/assets/icons/edit.svg'
-import DeleteOption from '../components/common/DeleteOption/DeleteOption'
+import EditBox from "/src/assets/icons/edit.svg"
+
+import DeleteOption from "../components/common/DeleteOption/DeleteOption"
+import type { UseListingProps } from "./use-listing.props"
 
 export const useListing = <Type extends { id: number }>({
   headerData = null,
@@ -77,7 +81,7 @@ export const useListing = <Type extends { id: number }>({
 
     const response = await deleteItemHandler(id)
 
-    if (response.status === responseStatus.SUCCESS) return response
+    if (response.status === "success") return response
 
     // snack.open(getErrorMessage(response, selectedLanguage), snackStatus.ERROR)
     return response
@@ -139,28 +143,28 @@ export const useListing = <Type extends { id: number }>({
     }))
 
     columns?.push({
-      title: 'Действия',
-      dataIndex: '',
-      key: 'x',
+      title: "Действия",
+      dataIndex: "",
+      key: "x",
       render: (value, record, index) => (
         <div>
           <Edit
             onClick={() => editItemHandler?.(record.id)}
             src={EditBox}
-            alt=''
-            title='Редактировать'
+            alt=""
+            title="Редактировать"
           />
           <DeleteOption
             onDelete={() => removeItem(record.id)}
-            title={'Удалить'}
-            popConfirmTitle={'Вы уверены, что хотите удалить?'}
-            popConfirmDescription={'Удалить'}
+            title="Удалить"
+            popConfirmTitle="Вы уверены, что хотите удалить?"
+            popConfirmDescription="Удалить"
             style={{
-              padding: '3px',
-              width: '20px',
-              height: '20px',
-              cursor: 'pointer',
-              alignItems: 'flex-end'
+              padding: "3px",
+              width: "20px",
+              height: "20px",
+              cursor: "pointer",
+              alignItems: "flex-end"
             }}
           />
         </div>
@@ -173,10 +177,10 @@ export const useListing = <Type extends { id: number }>({
       )
       : (
         <TableComponent
-          size='small'
-          scroll={{ x: '100%' }}
+          size="small"
+          scroll={{ x: "100%" }}
           loading={loading}
-          id='page-list-table'
+          id="page-list-table"
           //@ts-ignore
           columns={columns}
           dataSource={tableData}
@@ -205,86 +209,87 @@ export const useListing = <Type extends { id: number }>({
 }
 
 const TableComponent = styled(Table)`
-  border: none;
-  border-radius: 0;
-  margin-top: 20px;
+    border: none;
+    border-radius: 0;
+    margin-top: 20px;
 
-  * {
-    border-top-left-radius: 0 !important;
-    border-top-right-radius: 0 !important;
-  }
-
-  thead {
-    background: #232323 !important;
-  }
-
-  .ant-table-tbody > tr.ant-table-row:hover > td {
-    background: #565656 !important;
-  }
-
-  .ant-table-thead {
-    background: #232323;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-
-    & > tr > th {
-      border-bottom: 1px solid #323136;
-    }
-  }
-
-  .ant-table-thead > tr > th {
-    color: #fff;
-    background: #232323;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    border-right: 1px solid #323136;
-
-    &:last-child {
-      border-right: none;
+    * {
+        border-top-left-radius: 0 !important;
+        border-top-right-radius: 0 !important;
     }
 
-    &::before {
-      display: none;
+    thead {
+        background: #232323 !important;
     }
-  }
 
-  // do in dark theme
-  .ant-table-tbody > tr > td {
-    background: #232323;
-    color: #fff;
-    -webkit-tap-highlight-color: transparent;
-    -webkit-touch-callout: none;
-    user-select: none;
-  }
-
-  .ant-table-tbody {
-    border-spacing: 0 5px;
-
-    & > tr {
-      & > td {
-        border-bottom: 1px solid #323136;
-      }
-
+    .ant-table-tbody > tr.ant-table-row:hover > td {
+        background: #565656 !important;
     }
-  }
 
-  .ant-table-wrapper {
-    overflow-x: hidden !important;
-  }
+    .ant-table-thead {
+        background: #232323;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+
+        & > tr > th {
+            border-bottom: 1px solid #323136;
+        }
+    }
+
+    .ant-table-thead > tr > th {
+        color: #fff;
+        background: #232323;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        border-right: 1px solid #323136;
+
+        &:last-child {
+            border-right: none;
+        }
+
+        &::before {
+            display: none;
+        }
+    }
+
+    // do in dark theme
+
+    .ant-table-tbody > tr > td {
+        background: #232323;
+        color: #fff;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        user-select: none;
+    }
+
+    .ant-table-tbody {
+        border-spacing: 0 5px;
+
+        & > tr {
+            & > td {
+                border-bottom: 1px solid #323136;
+            }
+
+        }
+    }
+
+    .ant-table-wrapper {
+        overflow-x: hidden !important;
+    }
 
 `
 
 const Edit = styled.img`
-  padding: 3px;
+    padding: 3px;
 
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
 `
 
 const EmptyText = styled.div`
-  color: #fff;
-  font-size: 16px;
-  text-align: center;
-  padding: 20px;
+    color: #fff;
+    font-size: 16px;
+    text-align: center;
+    padding: 20px;
 `

@@ -1,12 +1,17 @@
-import React, { useEffect, useState } from 'react'
-import BasePreloader from '../../common/BasePreloader/BasePreloader'
-import AnalyticLayout from './MainLayout/AnalyticLayout'
-import AnalyticSidebarContainer from './AnalyticSidebar/AnalyticSidebarContainer'
-import { useNavigate } from 'react-router-dom'
-import AnalyticSidebar from './AnalyticSidebar/AnalyticSidebar'
-import { useAppDispatch } from '../../../redux/store'
-import { getAllPolygons } from '../../../redux/slices/mapSlice'
-import SettingsModal from '../Main/modules/settings/SettingsModal'
+import React, {
+  useEffect,
+  useState
+} from "react"
+import { useNavigate } from "react-router-dom"
+
+import { getAllPolygons } from "../../../redux/slices/mapSlice"
+import { useAppDispatch } from "../../../redux/store"
+import { RoutePath } from "../../../shared/consfigs/RouteConfig/RouteConfig"
+import BasePreloader from "../../common/BasePreloader/BasePreloader"
+import SettingsModal from "../Monitoring/modules/settings/SettingsModal"
+import AnalyticSidebar from "./AnalyticSidebar/AnalyticSidebar"
+import AnalyticSidebarContainer from "./AnalyticSidebar/AnalyticSidebarContainer"
+import AnalyticLayout from "./MainLayout/AnalyticLayout"
 
 const Analytic = () => {
   const dispatch = useAppDispatch()
@@ -23,18 +28,17 @@ const Analytic = () => {
         ])
 
         setLoad(false)
-        navigate('/analytics/equipments')
-        // navigate('/analytics/crop_rotation')
+        navigate(RoutePath.analytics_equipments)
       } catch (error) {
-        console.error('Произошла ошибка при загрузке данных:', error)
+        console.error("Произошла ошибка при загрузке данных:", error)
       }
     })()
   }, [])
 
   return (
     <div style={{
-      position: 'relative',
-      height: '100vh'
+      position: "relative",
+      height: "100vh"
     }}
     >
       {load

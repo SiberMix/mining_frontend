@@ -5,13 +5,13 @@ import {
 import { toast } from "react-toastify"
 
 import { mapService } from "../../api/map"
-import type { Polygon } from "../../types"
+import type { PolygonType } from "../../types"
 import type { Equip } from "../../types/equip"
 import { setAddModalVisible } from "./optionalEquipmentSlice"
 
 type MapInitialState = {
   zoomLevel: number,
-  polygonsList: Polygon[],
+  polygonsList: PolygonType[],
   equipmentList: Equip[],
   editedEquipment: Equip | null,
   polygonFlyTo: number | undefined,
@@ -19,7 +19,7 @@ type MapInitialState = {
   drawingPolygonMode: boolean,
   showAddNewPolygonModal: boolean,
   newPolygonCoords: [number, number][][],
-  editedPolygon: Polygon | undefined,
+  editedPolygon: PolygonType | undefined,
   selectedPolygonId: number | undefined,
   addInternalPolygonMode: boolean,
   equipmentCoordinatesWebSocket: EquipmentSocketData[],

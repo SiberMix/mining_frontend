@@ -1,15 +1,33 @@
-import type { FormEvent } from 'react'
-import React, { useState } from 'react'
-import CompanyLogo from '/src/assets/logo.png'
-import './Auth.modules.css'
-import { useAppDispatch } from '../../../redux/store'
-import { getToken } from '../../../redux/slices/authSlice'
+import "./Auth.modules.css"
+
+import type { FormEvent } from "react"
+import React, {
+  useEffect,
+  useState
+} from "react"
+import { useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom"
+
+import CompanyLogo from "/src/assets/logo.png"
+
+import { getTokenSelector } from "../../../redux/selectors/authSelectors"
+import { getToken } from "../../../redux/slices/authSlice"
+import { useAppDispatch } from "../../../redux/store"
+import { RoutePath } from "../../../shared/consfigs/RouteConfig/RouteConfig"
 
 const LoginPage = () => {
   const dispatch = useAppDispatch()
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
+  const token = useSelector(getTokenSelector)
+  const navigate = useNavigate()
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
+  const [error, setError] = useState("")
+
+  useEffect(() => {
+    if (token) {
+      navigate(RoutePath.monitoring)
+    }
+  }, [token])
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -20,45 +38,45 @@ const LoginPage = () => {
         password
       }))
     } catch {
-      setError('Ошибка сервера.')
+      setError("Ошибка сервера.")
     }
   }
 
   return (
-    <div className='root'>
+    <div className="root">
 
       <img
-        className='logo'
-        id='displayed'
-        alt='logo'
+        className="logo"
+        id="displayed"
+        alt="logo"
         src={CompanyLogo}
       />
       <form
-        className='form'
+        className="form"
         onSubmit={handleSubmit}
       >
         <input
-          className='input'
-          type='text'
+          className="input"
+          type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          placeholder='username'
+          placeholder="username"
         />
         <input
-          className='input'
-          type='password'
+          className="input"
+          type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          placeholder='password'
+          placeholder="password"
         />
         <button
-          className='button'
-          type='submit'
+          className="button"
+          type="submit"
         >
           ➤
         </button>
         {error
-          ? <div className='error'>
+          ? <div className="error">
             {error}
           </div>
           : null}

@@ -1,12 +1,14 @@
-import './CropRotationPolygonPreview.scss'
-import React, { useState } from 'react'
-import PolygonCanvas from '../../../../../Main/modules/polygons/PolygonCanvas/PolygonCanvas'
-import { Polygon } from '../../../../../../../types'
-import PolygonDrawerPreview from '../../CropRotationList/PolygonDrawerPreview/PolygonDrawerPreview'
-import { MoreInfo } from '../../../../../../../style/styled-components/MoreInfo'
+import "./CropRotationPolygonPreview.scss"
+
+import React, { useState } from "react"
+
+import { MoreInfo } from "../../../../../../../style/styled-components/MoreInfo"
+import type { PolygonType } from "../../../../../../../types"
+import PolygonCanvas from "../../../../../Monitoring/modules/polygons/PolygonCanvas/PolygonCanvas"
+import PolygonDrawerPreview from "../../CropRotationList/PolygonDrawerPreview/PolygonDrawerPreview"
 
 type Props = {
-  polygon: Polygon
+  polygon: PolygonType,
   onClick?: () => void
 }
 
@@ -28,10 +30,10 @@ const CropRotationPolygonPreview: React.FC<Props> = ({
   return (
     <>
       <div
-        className='CropRotationPolygonPreview'
+        className="CropRotationPolygonPreview"
         onClick={onClick}
       >
-        <div className='CropRotationPolygonPreview-name'>
+        <div className="CropRotationPolygonPreview-name">
           <PolygonCanvas polygon={polygon} />
           {polygon.name}
         </div>

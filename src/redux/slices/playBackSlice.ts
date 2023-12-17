@@ -1,11 +1,15 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { mapService } from '../../api/map'
-import { toast } from 'react-toastify'
+import {
+  createAsyncThunk,
+  createSlice
+} from "@reduxjs/toolkit"
+import { toast } from "react-toastify"
+
+import { mapService } from "../../api/map"
 
 type PlayBackSliceInitialState = {
-  playbacksData: CurrentPlaybackData[]
-  isOpenPlayBackAddModal: boolean
-  showingPlayback: number | null
+  playbacksData: CurrentPlaybackData[],
+  isOpenPlayBackAddModal: boolean,
+  showingPlayback: number | null,
   editedPlayback: CurrentPlaybackData | null
 }
 
@@ -17,7 +21,7 @@ const playBackSliceInitialState: PlayBackSliceInitialState = {
 }
 
 const playbackSlice = createSlice({
-  name: 'playback',
+  name: "playback",
   initialState: playBackSliceInitialState,
   reducers: {
     setIsOpenPlayBackAddModal: (state: PlayBackSliceInitialState, action) => {
@@ -59,31 +63,31 @@ const playbackSlice = createSlice({
 })
 
 export const getAllPlaybacks = createAsyncThunk(
-  'playback/getAllPlaybacks',
+  "playback/getAllPlaybacks",
   () => {
     return mapService.getPlayback()
   }
 )
 export const postNewPlayback = createAsyncThunk(
-  'playback/postNewPlayback',
+  "playback/postNewPlayback",
   (newPlaybackData: PlaybackPostData) => {
     return toast.promise(mapService.addNewPlayback(newPlaybackData), {
-      pending: 'Собираем новый плейбэк на сервере...',
-      success: 'Плэйбэк успешно собран',
-      error: 'Произошла ошибка при сборке плэйбэка'
+      pending: "Собираем новый плейбэк на сервере...",
+      success: "Плэйбэк успешно собран",
+      error: "Произошла ошибка при сборке плэйбэка"
     })
   }
 )
 export const editeNewPlayback = createAsyncThunk(
-  'playback/editeNewPlayback',
+  "playback/editeNewPlayback",
   async ({
     id,
     newPlaybackData
   }: PlaybackDataForEdit) => {
     const response = await toast.promise(mapService.updatePlayback(id, newPlaybackData), {
-      pending: 'Редактируем плейбэк на сервере...',
-      success: 'Плэйбэк успешно изменен',
-      error: 'Произошла ошибка при изменении плэйбэка'
+      pending: "Редактируем плейбэк на сервере...",
+      success: "Плэйбэк успешно изменен",
+      error: "Произошла ошибка при изменении плэйбэка"
     })
     return {
       id,
@@ -93,12 +97,12 @@ export const editeNewPlayback = createAsyncThunk(
   }
 )
 export const deletePlayback = createAsyncThunk(
-  'playback/deletePlayback',
+  "playback/deletePlayback",
   async (id: number) => {
     const response = await toast.promise(mapService.deletePlayback(id), {
-      pending: 'Удаляем плейбэк на сервере...',
-      success: 'Плэйбэк успешно удален',
-      error: 'Произошла ошибка при удалении плэйбэка'
+      pending: "Удаляем плейбэк на сервере...",
+      success: "Плэйбэк успешно удален",
+      error: "Произошла ошибка при удалении плэйбэка"
     })
 
     return {
@@ -123,14 +127,14 @@ export const {
 export default reducer
 
 export type CurrentPlaybackData = {
-  id: number
-  name: string
-  color: string
+  id: number,
+  name: string,
+  color: string,
   time_step: {
-    end: number
+    end: number,
     start: number
-  }
-  equipment: number[]
+  },
+  equipment: number[],
   equipments_data: EquipmentsData[]
 }
 
@@ -156,13 +160,13 @@ export type PlaybackDataForEdit = {
 export type EquipmentsData = {
   id: number,
   imei: string,
-  name: string
-  color: string
+  name: string,
+  color: string,
   imei_data: imeiData[]
 }
 
 export type imeiData = {
-  lat: number
-  lon: number
-  datetime: number
+  lat: number,
+  lon: number,
+  ts: number
 }

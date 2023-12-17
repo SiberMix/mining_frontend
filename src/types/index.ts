@@ -1,4 +1,4 @@
-export type Polygon = {
+export type PolygonType = {
   id: number | string,
   coords: [number, number][][],
   name: string,
