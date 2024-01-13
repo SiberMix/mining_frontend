@@ -60,7 +60,7 @@ const EquipCustomMarker: React.FC<Props> = ({
      * если нужно отключить - то меняем с 17 на 18. Больше 18 он быть не может
      * по дефолту 17
      * */
-    return "src/assets/icons_enum/" + (zoomLevel > 17 ? "mini_icons/" : "equips_events/") + `${image_status}${status}.svg`
+    return "srcOld/assets/icons_enum/" + (zoomLevel > 17 ? "mini_icons/" : "equips_events/") + `${image_status}${status}.svg`
   }, [zoomLevel, status, image_status])
 
   const createEquipIcon = useCallback(() => {
