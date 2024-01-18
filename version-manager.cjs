@@ -1,5 +1,8 @@
 /**
  * нужно только для контроля версий приложения
+ *
+ * Создает ветку на гитхабе для каждой версии
+ * Если ветка уже есть, то ничего не происподит и просто выпадает ошибка в консоль
  * */
 
 const pkg = require("./package.json")
@@ -17,7 +20,17 @@ module.exports = function(index, increment) {
 
   // Создаем новую ветку и добавляем все файлы
   const branchName = `version${pkg.version}`
-  execSync(`git checkout -b ${branchName}`)
-  execSync("git add .")
-  execSync(`git commit -m "Release version ${pkg.version}"`)
+  const remoteBranchCheckCommand = `git ls-remote --exit-code origin ${branchName}`
+
+  try {
+    execSync(remoteBranchCheckCommand)
+    console.error(`Branch '${branchName}' already exists on GitHub.`)
+  } catch (error) {
+    console.log(`Creating and pushing branch '${branchName}' to GitHub...`)
+    execSync(`git checkout -b ${branchName}`)
+    execSync("git add .")
+    execSync(`git commit -m "Release version ${pkg.version}"`)
+    execSync(`git push origin ${branchName}`)
+    console.log(`Branch '${branchName}' created and pushed to GitHub.`)
+  }
 }
