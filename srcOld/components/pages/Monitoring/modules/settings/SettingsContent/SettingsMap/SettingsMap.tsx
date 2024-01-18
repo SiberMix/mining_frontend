@@ -1,22 +1,15 @@
 import './SettingsMap.scss'
-import React from 'react'
-import SimpleSelect from '../../../../../../common/SimpleSelect/SimpleSelect'
-import { useSelector } from 'react-redux'
-import { useAppDispatch } from '../../../../../../../redux/store'
-import {
-  setBaseMapOptions,
-  setMapClickForNewBaseCoord,
-  setShowSettingsModal,
-  setZoomLevelOptions
-} from '../../../../../../../redux/slices/settingsSlice'
-import { setDrawingPolygonMode } from '../../../../../../../redux/slices/mapSlice'
-import {
-  getBaseCoordSelector,
-  getBaseMapOptionsSelector,
-  getZoomLevelOptionsSelector
-} from '../../../../../../../redux/selectors/settingsSelector'
 
-const baseMapOptions: Array<{value: string, label: string}> = [
+import React from 'react'
+import { useSelector } from 'react-redux'
+
+import { getBaseCoordSelector, getBaseMapOptionsSelector, getZoomLevelOptionsSelector } from '../../../../../../../redux/selectors/settingsSelector'
+import { setDrawingPolygonMode } from '../../../../../../../redux/slices/mapSlice'
+import { setBaseMapOptions, setMapClickForNewBaseCoord, setShowSettingsModal, setZoomLevelOptions } from '../../../../../../../redux/slices/settingsSlice'
+import { useAppDispatch } from '../../../../../../../redux/store'
+import SimpleSelect from '../../../../../../common/SimpleSelect/SimpleSelect'
+
+const baseMapOptions: Array<{ value: string, label: string }> = [
   {
     value: 'Google Map',
     label: 'Google Map'
@@ -34,7 +27,7 @@ const baseMapOptions: Array<{value: string, label: string}> = [
     label: '2gis Map'
   }
 ]
-const zoomLevelOptions: Array<{value: string, label: string}> = [
+const zoomLevelOptions: Array<{ value: string, label: string }> = [
   {
     value: '15',
     label: 'маленький'
@@ -72,38 +65,38 @@ const SettingsMap = () => {
   }
 
   return (
-    <div className="settingsMapWrapper">
-      <div className="settingsMap">
-        <div className="settingsMapSidebar">
-          <div className="settingsMapBaseCoord">
+    <div className='settingsMapWrapper'>
+      <div className='settingsMap'>
+        <div className='settingsMapSidebar'>
+          <div className='settingsMapBaseCoord'>
             <span>
               Базовая точка координат:
             </span>
             <button
-              className="settingsMapBaseCoordBtn"
+              className='settingsMapBaseCoordBtn'
               onClick={mapBaseCoordBtnHandler}
             >
               {`${baseCoord[0]}, ${baseCoord[1]}`}
             </button>
           </div>
-          <div className="settingsMapZoomLevel">
+          <div className='settingsMapZoomLevel'>
             <span>
               Зум при первой загрузке
             </span>
             <SimpleSelect
               options={zoomLevelOptions}
               initialValue={zoomInitialValue ? zoomInitialValue.label : 'произошла ошибка'}
-              handleOnChange={(value: string) => dispatch(setZoomLevelOptions(value))}
+              handleOnChange={(value: string | null) => dispatch(setZoomLevelOptions(value))}
             />
           </div>
-          <div className="settingsMapBaseMap">
+          <div className='settingsMapBaseMap'>
             <span>
               Изначальная карта
             </span>
             <SimpleSelect
               options={baseMapOptions}
               initialValue={stateBaseMapOptions}
-              handleOnChange={(value: string) => dispatch(setBaseMapOptions(value))}
+              handleOnChange={(value: string | null) => dispatch(setBaseMapOptions(value))}
             />
           </div>
         </div>

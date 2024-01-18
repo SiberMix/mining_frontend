@@ -1,4 +1,4 @@
-import { axiosInstance } from '../abstract'
+import { axiosInstance } from '~shared/api/axios-instance'
 
 export const croptableService = {
   /*

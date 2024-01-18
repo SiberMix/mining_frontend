@@ -1,15 +1,17 @@
 import './EquipmentAddModal.scss'
-import React, { useEffect, useState } from 'react'
+
 import { Checkbox, Input, message, Modal, Select, Slider, Switch } from 'antd'
-import styled from 'styled-components'
+import React, { useEffect, useState } from 'react'
 import SVG from 'react-inlinesvg'
-import { useAppDispatch } from '../../../../../../../redux/store'
 import { useSelector } from 'react-redux'
-import { getAddModalVisibleSelector, getOptionalEquipmentModelsListSelector, getOptionalEquipmentTypesListSelector } from '../../../../../../../redux/selectors/optionalEquipmentSelectors'
+import styled from 'styled-components'
+
 import { getEditeEquipmentSelector } from '../../../../../../../redux/selectors/mapSelectors'
-import type { Equip } from '../../../../../../../types/equip'
-import { setAddModalVisible } from '../../../../../../../redux/slices/optionalEquipmentSlice'
+import { getAddModalVisibleSelector, getOptionalEquipmentModelsListSelector, getOptionalEquipmentTypesListSelector } from '../../../../../../../redux/selectors/optionalEquipmentSelectors'
 import { postNewEquipment, putEditEquipment, setEditedEquipment } from '../../../../../../../redux/slices/mapSlice'
+import { setAddModalVisible } from '../../../../../../../redux/slices/optionalEquipmentSlice'
+import { useAppDispatch } from '../../../../../../../redux/store'
+import type { Equip } from '../../../../../../../types/equip'
 
 type Props = {
   equips: any
@@ -93,10 +95,10 @@ const AddEquipmentModal: React.FC<Props> = ({ equips }) => {
 
     if (editedEquipment) {
       dispatch(putEditEquipment({ id: editedEquipment.id, ...newDataForEquip }))
-      return
+
     } else {
       dispatch(postNewEquipment(newDataForEquip))
-      return
+
     }
   }
 
@@ -117,7 +119,7 @@ const AddEquipmentModal: React.FC<Props> = ({ equips }) => {
 
   const images: string[] = []
 
-  Object.values(import.meta.glob('../../../../../../../assets/icons_enum/main_icons/*.svg', { eager: true }))
+  Object.values(import.meta.glob('/src/shared/assets/icons_enum/main_icons/*.svg', { eager: true }))
     .forEach(({ default: path }: any) => {
       const url = new URL(path, import.meta.url)
       images.push(url.pathname)
@@ -125,7 +127,7 @@ const AddEquipmentModal: React.FC<Props> = ({ equips }) => {
 
   return (
     <Modal
-      title={!!editedEquipment ? 'Редактировать оборудование' : 'Добавить оборудование'}
+      title={editedEquipment ? 'Редактировать оборудование' : 'Добавить оборудование'}
       open={addVisibleModal}
       onOk={handleAdd}
       onCancel={onCancelHandler}
@@ -244,17 +246,17 @@ const AddEquipmentModal: React.FC<Props> = ({ equips }) => {
 export default AddEquipmentModal
 
 const CustomSlider = styled(Slider)<{ isRadiusDisabled: boolean }>`
-  width: ${({ isRadiusDisabled }) => isRadiusDisabled ? '80%' : '0'};
-  overflow: ${({ isRadiusDisabled }) => isRadiusDisabled ? '' : 'hidden'};
-  margin-top: 20px;
-  transition: width 1s, overflow .1s 1s;
+    width: ${({ isRadiusDisabled }) => isRadiusDisabled ? '80%' : '0'};
+    overflow: ${({ isRadiusDisabled }) => isRadiusDisabled ? '' : 'hidden'};
+    margin-top: 20px;
+    transition: width 1s, overflow .1s 1s;
 `
 
 const Icon = styled(SVG)`
-  height: 60px;
-  width: 60px;
+    height: 60px;
+    width: 60px;
 
-  path {
-    fill: #c5ef75;
-  }
+    path {
+        fill: #c5ef75;
+    }
 `

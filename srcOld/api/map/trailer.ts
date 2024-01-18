@@ -1,5 +1,6 @@
+import { axiosInstance } from '~shared/api/axios-instance'
+
 import type { EquipTrailer } from '../../types/equip'
-import { axiosInstance } from '../abstract'
 
 export const trailerService = {
   /*
@@ -17,7 +18,10 @@ export const trailerService = {
   /*
   * Редактирование одного типа растений
   * */
-  editTrailer: ({ id, ...params }: EquipTrailer) => {
+  editTrailer: ({
+    id,
+    ...params
+  }: EquipTrailer) => {
     return axiosInstance.put(`/trailer/${id}/`, params)
   },
   /*

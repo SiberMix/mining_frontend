@@ -1,4 +1,4 @@
-import { axiosInstanceWithoutV1 } from '../abstract'
+import { axiosInstanceWithoutV1 } from '~shared/api/axios-instance'
 
 const EquipsAnalytic = {
   getEquipsAnalytic: (data: { ts_start: number, ts_end: number, imei_ids: number[] }) => {

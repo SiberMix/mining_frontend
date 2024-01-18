@@ -1,18 +1,17 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import mapReducer from './slices/mapSlice'
-import sidebarReducer from './slices/sidebarSlice'
-import fieldsReducer from './slices/fieldSlice'
-import settingsReducer from './slices/settingsSlice'
-import optionalEquipmentReducer from './slices/optionalEquipmentSlice'
+import { useDispatch } from 'react-redux'
+
 import authReducer from './slices/authSlice'
-import playBackReducer from './slices/playBackSlice'
 import cropRotationReducer from './slices/cropRotationSlice'
 import equipAnalyticReducer from './slices/EquipsAnalyticSlice'
-import { useDispatch } from 'react-redux'
+import fieldsReducer from './slices/fieldSlice'
+import mapReducer from './slices/mapSlice'
+import optionalEquipmentReducer from './slices/optionalEquipmentSlice'
+import playBackReducer from './slices/playBackSlice'
+import settingsReducer from './slices/settingsSlice'
 
 const rootReducer = combineReducers({
   mapReducer,
-  sidebarReducer,
   fieldsReducer,
   settingsReducer,
   optionalEquipmentReducer,

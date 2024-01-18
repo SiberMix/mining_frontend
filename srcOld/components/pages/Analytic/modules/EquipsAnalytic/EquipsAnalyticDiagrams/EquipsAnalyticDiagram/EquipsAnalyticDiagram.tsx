@@ -1,6 +1,6 @@
-import type { ApexOptions } from "apexcharts"
-import React from "react"
-import ApexChart from "react-apexcharts"
+import type { ApexOptions } from 'apexcharts'
+import React from 'react'
+import ApexChart from 'react-apexcharts'
 
 type Props = {
   title: string,
@@ -22,32 +22,32 @@ const EquipsAnalyticDiagram: React.FC<Props> = ({
 }) => {
 
   //  TODO сделать функцию форматер, которая будет выводить все значения по срезу
-  // const customTooltipFormatter = (params: CustomTooltipFormatterParams): string => {
-  //   const dataPoint = params.series[params.seriesIndex].data[params.dataPointIndex]
+  // consts customTooltipFormatter = (params: CustomTooltipFormatterParams): string => {
+  //   consts dataPoint = params.series[params.seriesIndex].data[params.dataPointIndex]
   //   return `${params.series[params.seriesIndex].name}: ${dataPoint}`
   // }
 
   const options: ApexOptions = {
     title: {
       text: title,
-      align: "left"
+      align: 'left'
     },
     tooltip: {
       enabled: true,
-      theme: "dark"
+      theme: 'dark'
       // custom: customTooltipFormatter
     },
     chart: {
       animations: {
         enabled: true,
-        easing: "easeinout",
+        easing: 'easeinout',
         speed: 300, // Длительность анимации в миллисекундах
         animateGradually: {
           enabled: true,
           delay: 100 // Задержка перед стартом анимации
         }
       },
-      foreColor: "#6B6B6B", //цвета всех текстовых обозначений на графике
+      foreColor: '#6B6B6B', //цвета всех текстовых обозначений на графике
       zoom: {
         enabled: false
       },
@@ -61,12 +61,12 @@ const EquipsAnalyticDiagram: React.FC<Props> = ({
     stroke: {
       width: 3,
       curve: Array.from({ length: series.length })
-        .fill("smooth") as "smooth"[], //почему то простое указание "smooth" очень сильно корявит график
-      lineCap: "round"
+        .fill('smooth') as 'smooth'[], //почему то простое указание "smooth" очень сильно корявит график
+      lineCap: 'round'
     },
     legend: {
-      position: "top",
-      horizontalAlign: "right",
+      position: 'top',
+      horizontalAlign: 'right',
       offsetY: -15,
       itemMargin: {
         vertical: 20
@@ -76,7 +76,7 @@ const EquipsAnalyticDiagram: React.FC<Props> = ({
       // }
     },
     grid: {
-      borderColor: "#6B6B6B", //это свойство для цвета вертикальных линий на графике
+      borderColor: '#6B6B6B', //это свойство для цвета вертикальных линий на графике
       xaxis: {
         lines: {
           show: true
@@ -99,8 +99,8 @@ const EquipsAnalyticDiagram: React.FC<Props> = ({
     <ApexChart
       options={options}
       series={series}
-      width="100%"
-      height="100%"
+      width='100%'
+      height='100%'
     />
   )
 }

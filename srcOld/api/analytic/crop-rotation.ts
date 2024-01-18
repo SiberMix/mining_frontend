@@ -1,5 +1,6 @@
-import { axiosInstance } from '../abstract'
-import { EditCropRotationGroupCulture, PostCropRotationGroup } from '../../redux/slices/cropRotationSlice'
+import { axiosInstance } from '~shared/api/axios-instance'
+
+import type { EditCropRotationGroupCulture, PostCropRotationGroup } from '../../redux/slices/cropRotationSlice'
 
 export const CropRotation = {
   getCropRotationGroups: async () => {

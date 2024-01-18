@@ -1,14 +1,17 @@
 import './DeleteOption.scss'
-import React, { CSSProperties } from 'react'
-import TrashBox from '/src/assets/icons/delete.svg'
+
 import { Popconfirm } from 'antd'
+import type { CSSProperties } from 'react'
+import React from 'react'
+
+import TrashBox from '~shared/assets/icons/delete.svg'
 
 type Props = {
-  style?: CSSProperties
+  style?: CSSProperties,
   popConfirmTitle?: string,
   popConfirmDescription?: string,
   className?: string,
-  onDelete: () => void
+  onDelete: () => void,
   title?: string
 }
 

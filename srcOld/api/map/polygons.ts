@@ -1,4 +1,5 @@
-import { axiosInstance } from '../abstract'
+import { axiosInstance } from '~shared/api/axios-instance'
+
 import type { EditPolygonData } from '../../redux/slices/mapSlice'
 
 export const polygonsService = {
@@ -17,7 +18,10 @@ export const polygonsService = {
   /*
   * Редактируем данные о полигоне по айди
   * */
-  updatePolygonById: ({ polygonId, newOption }: EditPolygonData) => {
+  updatePolygonById: ({
+    polygonId,
+    newOption
+  }: EditPolygonData) => {
     return axiosInstance.put(`/polygons/${polygonId}/`, newOption)
   },
   /*

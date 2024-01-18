@@ -1,31 +1,21 @@
-import {
-  GlobalOutlined,
-  LineChartOutlined
-} from "@ant-design/icons"
-import * as cn from "classnames"
-import type { PropsWithChildren } from "react"
-import React from "react"
-import SVG from "react-inlinesvg"
-import {
-  NavLink,
-  useNavigate
-} from "react-router-dom"
-import styled from "styled-components"
+import { GlobalOutlined, LineChartOutlined } from '@ant-design/icons'
+import * as cn from 'classnames'
+import type { PropsWithChildren } from 'react'
+import React from 'react'
+import SVG from 'react-inlinesvg'
+import { NavLink, useNavigate } from 'react-router-dom'
+import styled from 'styled-components'
 
-import miniLogo from "/src/assets/hectareLogoOnly.png"
-import LogoutBtn from "/src/assets/icons/logout.svg"
-import Setting from "/src/assets/icons/settings.svg"
-import Calendar from "/src/assets/sevo/sevooborot.svg"
+import miniLogo from '~shared/assets/hectareLogoOnly.png'
+import LogoutBtn from '~shared/assets/icons/logout.svg'
+import Setting from '~shared/assets/icons/settings.svg'
+import Calendar from '~shared/assets/sevo/sevooborot.svg'
+import { RoutePath } from '~shared/config/route-config'
 
-import { setToken } from "../../../../redux/slices/authSlice"
-import {
-  setMapClickForNewBaseCoord,
-  setShowSettingsModal
-} from "../../../../redux/slices/settingsSlice"
-import { setOpenSidebarWindow } from "../../../../redux/slices/sidebarSlice"
-import { useAppDispatch } from "../../../../redux/store"
-import { RoutePath } from "../../../../shared/consfigs/RouteConfig/RouteConfig"
-import s from "./AnalyticSidebar.module.scss"
+import { setToken } from '../../../../redux/slices/authSlice'
+import { setMapClickForNewBaseCoord, setShowSettingsModal } from '../../../../redux/slices/settingsSlice'
+import { useAppDispatch } from '../../../../redux/store'
+import s from './AnalyticSidebar.module.scss'
 
 const AnalyticSidebar: React.FC<PropsWithChildren> = () => {
   const dispatch = useAppDispatch()
@@ -36,7 +26,7 @@ const AnalyticSidebar: React.FC<PropsWithChildren> = () => {
   * */
   const logout = () => {
     dispatch(setToken(null))
-    localStorage.removeItem("token")
+    localStorage.removeItem('token')
     navigate(RoutePath.auth)
   }
 
@@ -47,7 +37,7 @@ const AnalyticSidebar: React.FC<PropsWithChildren> = () => {
           <img
             className={cn(s.navImg)}
             src={miniLogo}
-            alt=""
+            alt=''
           />
           {/*<NavLink*/}
           {/*  to='/analytics/field'*/}
@@ -61,49 +51,48 @@ const AnalyticSidebar: React.FC<PropsWithChildren> = () => {
           {/*  )}*/}
           {/*</NavLink>*/}
           <NavLink
-            to="/analytics/equipments"
+            to='/analytics/equipments'
           >
             {({ isActive }) => (
               <LineChartOutlined
-                style={{ color: isActive ? "#28b6fe" : "" }}
+                style={{ color: isActive ? '#28b6fe' : '' }}
                 className={s.icon}
-                title="Аналитика"
+                title='Аналитика'
               />
             )}
           </NavLink>
           <NavLink
-            to="/analytics/crop_rotation"
+            to='/analytics/crop_rotation'
           >
             {({ isActive }) => (
               <Svg
                 src={Calendar}
-                title="Планирование"
-                active={isActive ? "open" : ""}
+                title='Планирование'
+                active={isActive ? 'open' : ''}
               />
             )}
           </NavLink>
         </div>
         <div>
           <NavLink
-            to="/monitoring"
+            to='/monitoring'
           >
             <GlobalOutlined
               className={s.icon}
-              title="Аналитика"
+              title='Аналитика'
             />
           </NavLink>
           <Svg
-            title="Настройки"
+            title='Настройки'
             src={Setting}
             onClick={() => {
-              dispatch(setOpenSidebarWindow(undefined))
               dispatch(setMapClickForNewBaseCoord(false))
               dispatch(setShowSettingsModal(true))
             }}
           />
           <Svg
-            title="Выход"
-            color="#b53f42"
+            title='Выход'
+            color='#b53f42'
             src={LogoutBtn}
             onClick={logout}
           />
@@ -126,12 +115,12 @@ const Svg = styled(SVG)<{ active?: string }>`
     }
 
     path {
-        fill: ${({ active }) => (!active ? "#fff" : "#28b6fe")};
+        fill: ${({ active }) => (!active ? '#fff' : '#28b6fe')};
     }
 
     &:hover {
         path {
-            fill: ${({ color }) => color || "#28b6fe"};
+            fill: ${({ color }) => color || '#28b6fe'};
         }
     }
 `

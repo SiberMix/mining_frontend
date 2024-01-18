@@ -1,0 +1,9 @@
+.AppVersion {
+  position: absolute;
+  font-size: 10px;
+  font-weight: 400;
+  bottom: 1px;
+  right: 3px;
+  color: var(--gray-very-dark);
+  z-index: 10000;
+}

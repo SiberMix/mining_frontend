@@ -1,26 +1,19 @@
-import { Dropdown } from "antd"
-import * as cn from "classnames"
-import React, { useState } from "react"
-import { useSelector } from "react-redux"
+import { Dropdown } from 'antd'
+import * as cn from 'classnames'
+import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
 
-import EditBox from "/src/assets/icons/edit.svg"
-import GeoBox from "/src/assets/icons/GPS-navigate.svg"
+import EditBox from '~shared/assets/icons/edit.svg'
+import GeoBox from '~shared/assets/icons/GPS-navigate.svg'
 
-import { getSelectedPolygonIdSelector } from "../../../../../../redux/selectors/mapSelectors"
-import {
-  putEditPolygon,
-  setEditedPolygon,
-  setPolygonFlyTo
-} from "../../../../../../redux/slices/mapSlice"
-import { useAppDispatch } from "../../../../../../redux/store"
-import type { PolygonType } from "../../../../../../types"
-import DeleteOption from "../../../../../common/DeleteOption/DeleteOption"
-import PolygonCanvas from "../PolygonCanvas/PolygonCanvas"
-import {
-  EditPolygonNameModal,
-  EditPolygonTypeModal
-} from "./PolygonEditModal"
-import s from "./PolygonPreview.module.scss"
+import { getSelectedPolygonIdSelector } from '../../../../../../redux/selectors/mapSelectors'
+import { putEditPolygon, setEditedPolygon, setPolygonFlyTo } from '../../../../../../redux/slices/mapSlice'
+import { useAppDispatch } from '../../../../../../redux/store'
+import type { PolygonType } from '../../../../../../types'
+import DeleteOption from '../../../../../common/DeleteOption/DeleteOption'
+import PolygonCanvas from '../PolygonCanvas/PolygonCanvas'
+import { EditPolygonNameModal, EditPolygonTypeModal } from './PolygonEditModal'
+import s from './PolygonPreview.module.scss'
 
 const PolygonPreview: React.FC<{
   polygon: PolygonType,
@@ -72,12 +65,12 @@ const PolygonPreview: React.FC<{
                 className={cn(s.geo)}
                 src={GeoBox}
                 onClick={() => dispatch(setPolygonFlyTo(+polygon.id))}
-                alt=""
-                title="Перейти к полигону на карте"
+                alt=''
+                title='Перейти к полигону на карте'
               />
             </div>
             <p className={cn(s.culture)}>
-              {polygon.sequence === null ? "культура не выбрана" : polygon.sequence.name}
+              {polygon.sequence === null ? 'культура не выбрана' : polygon.sequence.name}
             </p>
           </div>
         </div>
@@ -86,13 +79,13 @@ const PolygonPreview: React.FC<{
             menu={{
               items: [
                 {
-                  key: "1",
-                  label: "Редактировать полигон",
+                  key: '1',
+                  label: 'Редактировать полигон',
                   onClick: () => dispatch(setEditedPolygon(+polygon.id))
                 },
                 {
-                  key: "2",
-                  label: "Редактировать название",
+                  key: '2',
+                  label: 'Редактировать название',
                   onClick: toggleEditNameModal
                 }
                 // { todo вернуть редактирование полигона
@@ -106,16 +99,16 @@ const PolygonPreview: React.FC<{
             <img
               className={cn(s.edit)}
               src={EditBox}
-              alt=""
-              title="Редактировать полигон"
+              alt=''
+              title='Редактировать полигон'
             />
           </Dropdown>
           <DeleteOption
             onDelete={onDelete}
             className={cn(s.trash)}
-            title="Удалить полигон"
-            popConfirmTitle="Вы хотите удалить полигон?"
-            popConfirmDescription="Удалить полигон"
+            title='Удалить полигон'
+            popConfirmTitle='Вы хотите удалить полигон?'
+            popConfirmDescription='Удалить полигон'
           />
         </div>
       </div>
@@ -126,7 +119,7 @@ const PolygonPreview: React.FC<{
         onCancel={toggleEditNameModal}
       />
       <EditPolygonTypeModal
-        initialValue={polygon.sequence === null ? "" : polygon.sequence.name}
+        initialValue={polygon.sequence === null ? '' : polygon.sequence.name}
         visible={showEditTypeModal}
         onOk={handleChangeType}
         onCancel={toggleEditTypeModal}

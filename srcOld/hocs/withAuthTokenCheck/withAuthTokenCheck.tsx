@@ -1,12 +1,13 @@
-import type { ReactNode } from "react"
-import { useEffect } from "react"
-import { useSelector } from "react-redux"
-import { useNavigate } from "react-router-dom"
+import type { ReactNode } from 'react'
+import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
-import { getTokenSelector } from "../../redux/selectors/authSelectors"
-import { setToken } from "../../redux/slices/authSlice"
-import { useAppDispatch } from "../../redux/store"
-import { RoutePath } from "../../shared/consfigs/RouteConfig/RouteConfig"
+import { RoutePath } from '~shared/config/route-config'
+
+import { getTokenSelector } from '../../redux/selectors/authSelectors'
+import { setToken } from '../../redux/slices/authSlice'
+import { useAppDispatch } from '../../redux/store'
 
 type WithAuthCheckProps = {
   element: ReactNode
@@ -21,7 +22,7 @@ export const WithAuthCheck = ({ element }: WithAuthCheckProps) => {
     if (!token) {
       navigate(RoutePath.auth)
       dispatch(setToken(null))
-      localStorage.removeItem("token")
+      localStorage.removeItem('token')
     }
   }, [token])
 

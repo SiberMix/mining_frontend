@@ -19,12 +19,14 @@
     background-color: #1e1e1e; /* set the color of the thumb */
   }
 }
+
 .libraries {
   display: flex;
   flex-direction: column;
   flex: 1;
   min-width: 400px;
   border-right: 5px solid #1e1e1e;
+
   p {
     color: #fff;
     font-family: Helvetica, serif;
@@ -32,11 +34,12 @@
     margin: 5px;
   }
 }
+
 .noScrollBar {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 50px;
   overflow-y: scroll;
-  z-index: 2;
+  z-index: 100;
 }

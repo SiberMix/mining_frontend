@@ -1,16 +1,19 @@
 import './PolygonsListCSSTransition.scss'
-import s from './PolygonList.module.scss'
-import style from '../../field/FieldList/FieldList.module.scss'
+
 import * as cn from 'classnames'
 import React from 'react'
-import settingMap from '/src/assets/icons/equalizersoutline_114523.svg'
-import DownloadMap from '/src/assets/icons/download2.svg'
-import PolygonPreview from '../PolygonPreview/PolygonPreview'
 import { useSelector } from 'react-redux'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
+
+import DownloadMap from '~shared/assets/icons/download2.svg'
+import settingMap from '~shared/assets/icons/equalizersoutline_114523.svg'
+
 import { getAllPolygonsSelector, getDrawingPolygonModeSelector } from '../../../../../../redux/selectors/mapSelectors'
 import { deletePolygon, setDrawingPolygonMode } from '../../../../../../redux/slices/mapSlice'
 import { useAppDispatch } from '../../../../../../redux/store'
-import { CSSTransition, TransitionGroup } from 'react-transition-group'
+import style from '../../field/FieldList/FieldList.module.scss'
+import PolygonPreview from '../PolygonPreview/PolygonPreview'
+import s from './PolygonList.module.scss'
 
 const PolygonList: React.FC<{
   onPolygonOption?: (id: string | number) => void
@@ -84,7 +87,7 @@ const PolygonList: React.FC<{
           </div>
           : <>
             <span style={{ marginRight: '0.5rem' }}>
-                +
+              +
             </span>
             Добавить поле
           </>}

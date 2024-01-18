@@ -1,13 +1,17 @@
 import '../EquipsAnalyticMenu.scss'
-import React from 'react'
+
 import * as cn from 'classnames'
-import { useAppDispatch } from '../../../../../../../redux/store'
-import { Equip } from '../../../../../../../types/equip'
+import React from 'react'
 import { useSelector } from 'react-redux'
-import { getAllEquipmentSelector } from '../../../../../../../redux/selectors/mapSelectors'
+
+import { getRandomColor } from '~shared/lib/get-random-color'
+
 import { getPikedEquipsIdSelector } from '../../../../../../../redux/selectors/equipsAnalyticSlectors'
-import { getRandomColor } from '../../../../../../../utils/getRandomColor/getRandomColor'
-import { PickedEquip, setPikedEquips } from '../../../../../../../redux/slices/EquipsAnalyticSlice'
+import { getAllEquipmentSelector } from '../../../../../../../redux/selectors/mapSelectors'
+import type { PickedEquip } from '../../../../../../../redux/slices/EquipsAnalyticSlice'
+import { setPikedEquips } from '../../../../../../../redux/slices/EquipsAnalyticSlice'
+import { useAppDispatch } from '../../../../../../../redux/store'
+import type { Equip } from '../../../../../../../types/equip'
 
 const EquipsAnalyticMenuItems = () => {
 
@@ -67,7 +71,7 @@ const EquipsAnalyticMenuItems = () => {
               />
               <img
                 className='equipsAnalyticMenu-container-item-icon'
-                src={`/src/assets/icons_enum/main_icons/${equip.image_status}.svg`}
+                src={`/src/shared/assets/icons_enum/main_icons/${equip.image_status}.svg`}
                 alt={equip.equip_name + ' icon'}
               />
               <span>

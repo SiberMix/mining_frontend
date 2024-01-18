@@ -1,28 +1,15 @@
-import "./EquipCastomMarker.scss"
+import './EquipCastomMarker.scss'
 
-import L from "leaflet"
-import React, {
-  useCallback,
-  useEffect,
-  useMemo
-} from "react"
-import {
-  Marker,
-  useMap
-} from "react-leaflet"
-import { useSelector } from "react-redux"
+import L from 'leaflet'
+import React, { useCallback, useEffect, useMemo } from 'react'
+import { Marker, useMap } from 'react-leaflet'
+import { useSelector } from 'react-redux'
 
-import {
-  getEquipmentFlyToSelector,
-  getZoomLevelSelector
-} from "../../../../../../redux/selectors/mapSelectors"
-import type { EquipStatus } from "../../../../../../redux/slices/mapSlice"
-import {
-  setEquipmentFlyTo,
-  setShowRightSideEquipInfo
-} from "../../../../../../redux/slices/mapSlice"
-import { useAppDispatch } from "../../../../../../redux/store"
-import { createCustomMarkerHtml } from "./EquipCustomMarkerStyles"
+import { getEquipmentFlyToSelector, getZoomLevelSelector } from '../../../../../../redux/selectors/mapSelectors'
+import type { EquipStatus } from '../../../../../../redux/slices/mapSlice'
+import { setEquipmentFlyTo, setShowRightSideEquipInfo } from '../../../../../../redux/slices/mapSlice'
+import { useAppDispatch } from '../../../../../../redux/store'
+import { createCustomMarkerHtml } from './EquipCustomMarkerStyles'
 
 type Props = {
   coordsData: { lat: string, lon: string },
@@ -60,7 +47,7 @@ const EquipCustomMarker: React.FC<Props> = ({
      * если нужно отключить - то меняем с 17 на 18. Больше 18 он быть не может
      * по дефолту 17
      * */
-    return "srcOld/assets/icons_enum/" + (zoomLevel > 17 ? "mini_icons/" : "equips_events/") + `${image_status}${status}.svg`
+    return '/src/shared/assets/icons_enum/' + (zoomLevel > 17 ? 'mini_icons/' : 'equips_events/') + `${image_status}${status}.svg`
   }, [zoomLevel, status, image_status])
 
   const createEquipIcon = useCallback(() => {
@@ -72,7 +59,7 @@ const EquipCustomMarker: React.FC<Props> = ({
       equipName: equip_name
     })
     return L.divIcon({
-      className: "custom-marker-icon",
+      className: 'custom-marker-icon',
       iconSize: [50, 50],
       html: customMarkerHtml
     })

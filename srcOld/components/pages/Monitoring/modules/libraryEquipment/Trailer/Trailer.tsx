@@ -1,19 +1,15 @@
-import s from './Trailer.module.scss'
 import * as cn from 'classnames'
 import React, { useEffect } from 'react'
-import { useListing } from '../../../../../../hooks/use-listing'
-import type { EquipTrailer } from '../../../../../../types/equip'
-import AddTrailerModal from './TrailerAddModal'
 import { useSelector } from 'react-redux'
-import {
-  getOptionalEquipmentTrailerListSelector
-} from '../../../../../../redux/selectors/optionalEquipmentSelectors'
+
+import { useListing } from '~shared/hooks/use-listing/use-listing'
+
+import { getOptionalEquipmentTrailerListSelector } from '../../../../../../redux/selectors/optionalEquipmentSelectors'
+import { deleteTrailer, setAddModalVisible, setEditedTrailer } from '../../../../../../redux/slices/optionalEquipmentSlice'
 import { useAppDispatch } from '../../../../../../redux/store'
-import {
-  deleteTrailer,
-  setAddModalVisible,
-  setEditedTrailer
-} from '../../../../../../redux/slices/optionalEquipmentSlice'
+import type { EquipTrailer } from '../../../../../../types/equip'
+import s from './Trailer.module.scss'
+import AddTrailerModal from './TrailerAddModal'
 
 const EquipmentTrailersComponent = () => {
   const dispatch = useAppDispatch()
@@ -32,7 +28,10 @@ const EquipmentTrailersComponent = () => {
     dispatch(setAddModalVisible(true))
   }
 
-  const { tableBlock, refreshData } = useListing<EquipTrailer>({
+  const {
+    tableBlock,
+    refreshData
+  } = useListing<EquipTrailer>({
     columnNames: ['Название прицепа', 'Госномер'],
     mapTableData: (trailerList: any) => {
       return trailerList.map((item: any) => {

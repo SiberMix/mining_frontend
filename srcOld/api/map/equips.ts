@@ -1,20 +1,14 @@
-import type {
-  EquipForPost,
-  EquipForPut
-} from "../../redux/slices/mapSlice"
-import type {
-  Equip,
-  EquipModal,
-  EquipType
-} from "../../types/equip"
-import { axiosInstance } from "../abstract"
+import { axiosInstance } from '~shared/api/axios-instance'
+
+import type { EquipForPost, EquipForPut } from '../../redux/slices/mapSlice'
+import type { Equip, EquipModal, EquipType } from '../../types/equip'
 
 export const equipsService = {
   getEquips: () => {
-    return axiosInstance.get<Equip[]>("/equips/")
+    return axiosInstance.get<Equip[]>('/equips/')
   },
   addNewEquip: (params: EquipForPost) => {
-    return axiosInstance.post<Equip>("/equips/", params)
+    return axiosInstance.post<Equip>('/equips/', params)
   },
   editEquip: async ({
     id,
@@ -27,26 +21,26 @@ export const equipsService = {
     return axiosInstance.delete(`/equips/${id}/`)
   },
   getEquipTypes: () => {
-    return axiosInstance.get<EquipType[]>("/equipstype/")
+    return axiosInstance.get<EquipType[]>('/equipstype/')
   },
   deleteEquipType: (id: number) => {
     return axiosInstance.delete(`/equipstype/${id}/`)
   },
   addNewEquipType: (newEquipType: any) => {
-    return axiosInstance.post("/equipstype/", newEquipType)
+    return axiosInstance.post('/equipstype/', newEquipType)
   },
   editEquipType: async (id: number, newData: any) => {
     return axiosInstance.put(`/equipstype/${id}/`, newData)
   },
   getEquipsModelsList: () => {
-    return axiosInstance.get("/equipsmodel/")
+    return axiosInstance.get('/equipsmodel/')
   },
   addNewEquipsModel: (params: {
     description: string,
     length: string,
     width: string
   }) => {
-    return axiosInstance.post("/equipsmodel/", params)
+    return axiosInstance.post('/equipsmodel/', params)
   },
   deleteEquipsModel: (id: number) => {
     return axiosInstance.delete(`/equipsmodel/${id}/`)

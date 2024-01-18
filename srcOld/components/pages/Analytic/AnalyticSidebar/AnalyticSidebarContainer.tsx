@@ -1,18 +1,12 @@
 import './AnalyticSidebarContainerCSSTransition.scss'
+
 import React from 'react'
-import {
-  Outlet,
-  useLocation
-} from 'react-router-dom'
-import {
-  TransitionGroup,
-  CSSTransition
-} from 'react-transition-group'
+import { Outlet } from 'react-router-dom'
 
 type Props = {}
 
 const AnalyticSidebarContainer: React.FC<Props> = () => {
-  // const location = useLocation()
+  // consts location = useLocation()
 
   return (
     <>

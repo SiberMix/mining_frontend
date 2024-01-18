@@ -1,17 +1,20 @@
 import './PlayBackEquipPicker.scss'
+
 import { Avatar, Button, Card } from 'antd'
 import { Meta } from 'antd/lib/list/Item'
 import React from 'react'
 import { useSelector } from 'react-redux'
+
+import { getRandomColor } from '~shared/lib/get-random-color'
+
 import { getAllEquipmentSelector } from '../../../../../../../redux/selectors/mapSelectors'
-import { EquipmentData } from '../../../../../../../redux/slices/playBackSlice'
-import { getRandomColor } from '../../../../../../../utils/getRandomColor/getRandomColor'
+import type { EquipmentData } from '../../../../../../../redux/slices/playBackSlice'
 import { colors } from '../recomended-colors.json'
 
 type Props = {
-  selectedEquipment: EquipmentData[]
-  setSelectedEquipment: (equipArr: EquipmentData[]) => void
-  colorForThisEquip: number | null
+  selectedEquipment: EquipmentData[],
+  setSelectedEquipment: (equipArr: EquipmentData[]) => void,
+  colorForThisEquip: number | null,
   setColorForThisEquip: (equipId: number | null) => void
 }
 
@@ -51,23 +54,29 @@ const PlayBackEquipPicker: React.FC<Props> = ({
     <div className='PlayBackAddModal__equippicker'>
       {
         allEquipment.map(equip => (
-          <div className='PlayBackAddModal__equippicker-card-wrapper'
-               key={'PlayBackAddModal__equippicker_' + equip.id}
+          <div
+            className='PlayBackAddModal__equippicker-card-wrapper'
+            key={'PlayBackAddModal__equippicker_' + equip.id}
           >
-            <Card size={'small'} onClick={() => toggleEquipment(equip.id)}>
+            <Card
+              size='small'
+              onClick={() => toggleEquipment(equip.id)}
+            >
               <Meta
                 avatar={
                   <div className='PlayBackAddModal__equippicker-header'>
-                    <Avatar className='PlayBackAddModal__equippicker-avatar'
-                            src={`src/assets/icons_enum/main_icons/${equip.image_status}.svg`}
-                            shape={'square'}
+                    <Avatar
+                      className='PlayBackAddModal__equippicker-avatar'
+                      src={`/src/shared/assets/icons_enum/main_icons/${equip.image_status}.svg`}
+                      shape='square'
                     />
-                    <div className='PlayBackAddModal__equippicker-colorline'
-                         style={{
-                           backgroundColor:
-                             selectedEquipment.find(s => s.equip_id === equip.id)?.equip_color
-                             || ''
-                         }}
+                    <div
+                      className='PlayBackAddModal__equippicker-colorline'
+                      style={{
+                        backgroundColor:
+                          selectedEquipment.find(s => s.equip_id === equip.id)?.equip_color
+                          || ''
+                      }}
                     />
                   </div>
                 }
@@ -81,8 +90,9 @@ const PlayBackEquipPicker: React.FC<Props> = ({
                     {
                       selectedEquipment.find(s => s.equip_id === equip.id)
                         ? (
-                          <Button className='PlayBackAddModal__equippicker-options-btn'
-                                  onClick={(event: React.MouseEvent) => pickColorForThisEquip(event, equip.id)}
+                          <Button
+                            className='PlayBackAddModal__equippicker-options-btn'
+                            onClick={(event: React.MouseEvent) => pickColorForThisEquip(event, equip.id)}
                           >
                             {
                               colorForThisEquip === null
@@ -91,7 +101,8 @@ const PlayBackEquipPicker: React.FC<Props> = ({
                                 : 'Закрыть'
                             }
                           </Button>
-                        ) : null
+                        )
+                        : null
                     }
                   </div>
                 }

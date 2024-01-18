@@ -1,14 +1,16 @@
 import './SettingsGeneral.scss'
-import React from 'react'
-import SimpleSelect from '../../../../../../common/SimpleSelect/SimpleSelect'
-import { useAppDispatch } from '../../../../../../../redux/store'
-import { setStartMenuOptions } from '../../../../../../../redux/slices/settingsSlice'
-import { useSelector } from 'react-redux'
-import { getStartMenuOptionsSelector } from '../../../../../../../redux/selectors/settingsSelector'
 
-const startSidebarOptions: Array<{value: string, label: string}> = [
+import React from 'react'
+import { useSelector } from 'react-redux'
+
+import { getStartMenuOptionsSelector } from '../../../../../../../redux/selectors/settingsSelector'
+import { setStartMenuOptions } from '../../../../../../../redux/slices/settingsSlice'
+import { useAppDispatch } from '../../../../../../../redux/store'
+import SimpleSelect from '../../../../../../common/SimpleSelect/SimpleSelect'
+
+const startSidebarOptions: Array<{ value: string | null, label: string }> = [
   {
-    value: 'undefined',
+    value: null,
     label: 'Не выбрано'
   },
   {
@@ -39,16 +41,16 @@ const SettingsGeneral = () => {
   const initialStartSidebarOptions = startSidebarOptions.find(option => option.value === stateStartSidebarOptions)
 
   return (
-    <div className="settingsGeneralWrapper">
-      <div className="settingsGeneral">
-        <div className="settingsGeneralSidebar">
+    <div className='settingsGeneralWrapper'>
+      <div className='settingsGeneral'>
+        <div className='settingsGeneralSidebar'>
           <span>
-          Стартовая страница меню
+            Стартовая страница меню
           </span>
           <SimpleSelect
             options={startSidebarOptions}
             initialValue={initialStartSidebarOptions ? initialStartSidebarOptions.label : 'произошла ошибка'}
-            handleOnChange={(value: string) => dispatch(setStartMenuOptions(value))}
+            handleOnChange={(value: string | null) => dispatch(setStartMenuOptions(value))}
           />
         </div>
       </div>

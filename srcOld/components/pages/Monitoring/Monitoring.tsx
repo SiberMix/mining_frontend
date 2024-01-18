@@ -1,39 +1,23 @@
-import "./styles.scss"
+import './styles.scss'
 
-import React, {
-  useEffect,
-  useState
-} from "react"
-import { toast } from "react-toastify"
+import React, { useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
 
-import { axiosInstance } from "../../../api/abstract"
-import { webSocketServices } from "../../../api/sockets"
-import { getAllFields } from "../../../redux/slices/fieldSlice"
-import type {
-  EquipEventsSocket,
-  EquipmentSocketData
-} from "../../../redux/slices/mapSlice"
-import {
-  getAllEquipment,
-  getAllPolygons,
-  setEquipmentCoordinatesWebSocket,
-  setEquipStatusArrWebSocket
-} from "../../../redux/slices/mapSlice"
-import {
-  getEquipsModelsList,
-  getTrailerList,
-  getTypesList
-} from "../../../redux/slices/optionalEquipmentSlice"
-import { getAllPlaybacks } from "../../../redux/slices/playBackSlice"
-import { useAppDispatch } from "../../../redux/store"
-import BasePreloader from "../../common/BasePreloader/BasePreloader"
-import {
-  EquipPreviewRightSide
-} from "./modules/libraryEquipment/Equipment/EquipPreviewRightSide/EquipPreviewRightSide"
-import PolygonListAddModal from "./modules/polygons/PolygonList/PolygonListAddModal"
-import Map from "./subComponents/Map/Map"
-import MonitoringLayout from "./subComponents/MonitoringLayout/MonitoringLayout"
-import SidebarContainer from "./subComponents/Sidebar/SidebarContainer"
+import { axiosInstance } from '~shared/api/axios-instance'
+import { soket } from '~shared/api/socket'
+import SidebarContainer from '~widgets/navigation/ui/container/SidebarContainer'
+
+import { getAllFields } from '../../../redux/slices/fieldSlice'
+import type { EquipEventsSocket, EquipmentSocketData } from '../../../redux/slices/mapSlice'
+import { getAllEquipment, getAllPolygons, setEquipmentCoordinatesWebSocket, setEquipStatusArrWebSocket } from '../../../redux/slices/mapSlice'
+import { getEquipsModelsList, getTrailerList, getTypesList } from '../../../redux/slices/optionalEquipmentSlice'
+import { getAllPlaybacks } from '../../../redux/slices/playBackSlice'
+import { useAppDispatch } from '../../../redux/store'
+import BasePreloader from '../../common/BasePreloader/BasePreloader'
+import { EquipPreviewRightSide } from './modules/libraryEquipment/Equipment/EquipPreviewRightSide/EquipPreviewRightSide'
+import PolygonListAddModal from './modules/polygons/PolygonList/PolygonListAddModal'
+import Map from './subComponents/Map/Map'
+import MonitoringLayout from './subComponents/MonitoringLayout/MonitoringLayout'
 
 export const Monitoring = () => {
   const dispatch = useAppDispatch()
@@ -58,21 +42,21 @@ export const Monitoring = () => {
         dispatch(getTrailerList()),
         dispatch(getAllPlaybacks())
       ]), {
-        pending: "Загружаем информацию с сервера...",
-        success: "Информация успешно загружена",
-        error: "Произошла ошибка при загрузке информации"
+        pending: 'Загружаем информацию с сервера...',
+        success: 'Информация успешно загружена',
+        error: 'Произошла ошибка при загрузке информации'
       })
 
       /**
        * Костыльное получение анала сокета
        * */
-      const crutchWayForWS = await axiosInstance.get("http://myhectare.ru:8000/api/v1/get_ws/")
+      const crutchWayForWS = await axiosInstance.get('http://myhectare.ru:8000/api/v1/get_ws/')
       // console.log('crutchWayForWS.data', crutchWayForWS.data)
       setCrutchWS(crutchWayForWS.data)
 
       setIsLoad(true)
     } catch (error) {
-      console.error("Произошла ошибка при загрузке данных:", error)
+      console.error('Произошла ошибка при загрузке данных:', error)
     }
   }
 
@@ -99,7 +83,7 @@ export const Monitoring = () => {
     let superMegaCrutchWebSocket: WebSocket //fixme создание ебанутого сокета
 
     if (isLoad) {
-      webSocketServices.equipCoordsSocket.connect(equipCoordsSocketHandler)
+      soket.connect(equipCoordsSocketHandler)
 
       if (crutchWS) { //fixme подключение ебанутого сокета
         superMegaCrutchWebSocket = new WebSocket(crutchWS)
@@ -113,7 +97,7 @@ export const Monitoring = () => {
       // webSocketServices.equipEventsSocket.connect(equipEventsSocketHandler) todo как можно быстрей, чтоб не стало поздно
     }
     return () => {
-      webSocketServices.equipCoordsSocket.disconnect()
+      soket.disconnect()
       superMegaCrutchWebSocket?.close()
       // webSocketServices.equipEventsSocket.disconnect() todo как можно быстрей, чтоб не стало поздно
     }
@@ -121,8 +105,8 @@ export const Monitoring = () => {
 
   return (
     <div style={{
-      position: "relative",
-      height: "100vh"
+      position: 'relative',
+      height: '100vh'
     }}
     >
       {isLoad

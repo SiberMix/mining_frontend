@@ -1,0 +1,11 @@
+.SidebarFooter {
+  &-icon {
+    font-size: 23px;
+    margin-bottom: 30px;
+    color: #FFFFFF;
+
+    &:hover {
+      color: var(--blue);
+    }
+  }
+}

@@ -1,15 +1,12 @@
 import './SimpleSelect.scss'
+
 import * as cn from 'classnames'
-import React, {
-  useEffect,
-  useRef,
-  useState
-} from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 type Props = {
-  options: Array<{value: string, label: string}>,
+  options: Array<{ value: string | null, label: string }>,
   initialValue: string,
-  handleOnChange: (value: string) => void
+  handleOnChange: (value: string | null) => void
 }
 const SimpleSelect: React.FC<Props> = ({
   options,
@@ -22,7 +19,7 @@ const SimpleSelect: React.FC<Props> = ({
   /*
   * Функия для выбора нужного элемента
   * */
-  const selectOption = (option: {value: string, label: string}) => {
+  const selectOption = (option: { value: string | null, label: string }) => {
     setSelectedOption(option.label)
     handleOnChange(option.value)
     setIsOpen(false)
@@ -53,16 +50,16 @@ const SimpleSelect: React.FC<Props> = ({
       )}
       onClick={() => setIsOpen(!isOpen)}
     >
-      <div className="simple-select-selected-option">
+      <div className='simple-select-selected-option'>
         {selectedOption}
-        <div className="arrow" />
+        <div className='arrow' />
       </div>
       {isOpen
-        ? <div className="simple-options">
+        ? <div className='simple-options'>
           {options.map((option, index) => (
             <div
               key={index}
-              className="simple-option"
+              className='simple-option'
               onClick={() => selectOption(option)}
             >
               {option.label}

@@ -1,5 +1,6 @@
-import { axiosInstanceWithoutV1 } from '../abstract'
-import { CurrentPlaybackData, PlaybackPostData } from '../../redux/slices/playBackSlice'
+import { axiosInstanceWithoutV1 } from '~shared/api/axios-instance'
+
+import type { CurrentPlaybackData, PlaybackPostData } from '../../redux/slices/playBackSlice'
 
 export const playbackService = {
   /*

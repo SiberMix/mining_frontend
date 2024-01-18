@@ -1,20 +1,22 @@
-import s from './Equipments.module.scss'
+import '/srcOld/style/equipments.css'
+
 import * as cn from 'classnames'
 import React from 'react'
-import styled from 'styled-components'
-import '/src/style/equipments.css'
-import EditBox from '/src/assets/icons/edit.svg'
-
 import SVG from 'react-inlinesvg'
-import GeoBox from '/src/assets/icons/GPS-navigate.svg'
-import AddEquipmentModal from './EquipmentAddModal/EquipmentAddModal'
-import { deleteEquipment, setEditedEquipment, setEquipmentFlyTo, setShowRightSideEquipInfo } from '../../../../../../redux/slices/mapSlice'
-import { useAppDispatch } from '../../../../../../redux/store'
 import { useSelector } from 'react-redux'
+import styled from 'styled-components'
+
+import EditBox from '~shared/assets/icons/edit.svg'
+import GeoBox from '~shared/assets/icons/GPS-navigate.svg'
+
 import { getAllEquipmentSelector } from '../../../../../../redux/selectors/mapSelectors'
+import { deleteEquipment, setEditedEquipment, setEquipmentFlyTo, setShowRightSideEquipInfo } from '../../../../../../redux/slices/mapSlice'
 import { setAddModalVisible } from '../../../../../../redux/slices/optionalEquipmentSlice'
-import DeleteOption from '../../../../../common/DeleteOption/DeleteOption'
+import { useAppDispatch } from '../../../../../../redux/store'
 import { MoreInfo } from '../../../../../../style/styled-components/MoreInfo'
+import DeleteOption from '../../../../../common/DeleteOption/DeleteOption'
+import AddEquipmentModal from './EquipmentAddModal/EquipmentAddModal'
+import s from './Equipments.module.scss'
 
 type Props = {}
 
@@ -57,7 +59,7 @@ const EquipmentsComponent: React.FC<Props> = () => {
             <Icon
               src={
                 new URL(
-                  `../../../../../../assets/icons_enum/main_icons/${equip.image_status}.svg`,
+                  `/src/shared/assets/icons_enum/main_icons/${equip.image_status}.svg`,
                   import.meta.url
                 ).href
               }
@@ -98,9 +100,9 @@ const EquipmentsComponent: React.FC<Props> = () => {
               <DeleteOption
                 onDelete={() => deleteEquipmentHandler(equip.id)}
                 className={cn(s.trash)}
-                popConfirmDescription={'Удалить оборудование'}
-                popConfirmTitle={'Вы хотите удалить оборудование?'}
-                title={'Удалить оборудование'}
+                popConfirmDescription='Удалить оборудование'
+                popConfirmTitle='Вы хотите удалить оборудование?'
+                title='Удалить оборудование'
               />
             </div>
           </div>
@@ -114,12 +116,12 @@ const EquipmentsComponent: React.FC<Props> = () => {
 export default React.memo(EquipmentsComponent)
 
 const Icon = styled(SVG)`
-  height: 70px;
-  width: 70px;
-  margin-right: 20px;
-  cursor: pointer;
+    height: 70px;
+    width: 70px;
+    margin-right: 20px;
+    cursor: pointer;
 
-  path {
-    fill: #c5ef75;
-  }
+    path {
+        fill: #c5ef75;
+    }
 `

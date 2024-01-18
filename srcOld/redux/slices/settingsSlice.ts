@@ -1,7 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { toast } from 'react-toastify'
+
+import type { SidebarOpenWindow } from '~widgets/navigation/ui/container/SidebarContainer'
+
 import { settingsService } from '../../api/settings'
 import type { RootState } from '../store'
-import { toast } from 'react-toastify'
 
 type SettingsInitialState = {
   showSettingsModal: boolean,
@@ -16,7 +19,7 @@ const settingsInitialState: SettingsInitialState = {
   selectedSettingsWindow: 1,
   mapClickForNewBaseCoord: false,
   settings: {
-    startMenuOptions: 'undefined',
+    startMenuOptions: null,
     baseMapOptions: 'Google Map',
     zoomLevelOptions: '13',
     baseCoord: [54.925946, 82.775931],
@@ -30,7 +33,7 @@ const settingsInitialState: SettingsInitialState = {
     }
   },
   usingSettings: {
-    startMenuOptions: 'undefined',
+    startMenuOptions: null,
     baseMapOptions: 'Google Map',
     zoomLevelOptions: '13',
     baseCoord: [54.925946, 82.775931],
@@ -146,7 +149,7 @@ export const {
 export default reducer
 
 export type SettingsData = {
-  startMenuOptions: string,
+  startMenuOptions: SidebarOpenWindow,
   baseMapOptions: string,
   zoomLevelOptions: string,
   baseCoord: [number, number],

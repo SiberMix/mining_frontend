@@ -1,18 +1,13 @@
-import "./MapPlaybackSpeedController.scss"
+import './MapPlaybackSpeedController.scss'
 
-import {
-  CaretRightOutlined,
-  PauseOutlined,
-  RetweetOutlined
-} from "@ant-design/icons"
-import type { TabsProps } from "antd"
-import { Radio } from "antd"
-import { memo } from "react"
+import { CaretRightOutlined, PauseOutlined, RetweetOutlined } from '@ant-design/icons'
+import type { TabsProps } from 'antd'
+import { Radio } from 'antd'
+import { memo } from 'react'
 
-import { formatDate } from "../../../../../../../../shared/additionalFunctions/formateDate"
-import {
-  StyledButton
-} from "../../../../../../../../style/styled-components/StyledButton/StyledButton"
+import { formatDate } from '~shared/lib/format-date'
+
+import { StyledButton } from '../../../../../../../../style/styled-components/StyledButton/StyledButton'
 
 type Props = {
   playerSpeed: number,
@@ -45,14 +40,14 @@ export const MapPlaybackSpeedController = memo(({
   }
 
   return (
-    <div className="MapPlaybackSpeedController">
-      <div className="MapPlaybackSpeedController__controller">
+    <div className='MapPlaybackSpeedController'>
+      <div className='MapPlaybackSpeedController__controller'>
         <StyledButton
-          margin="0 2px"
+          margin='0 2px'
           onClick={buttonHandler}
-          bgc="#FFFFFF"
-          hoverbgc="#FFFFFF"
-          hovercolor="#565656"
+          bgc='#FFFFFF'
+          hoverbgc='#FFFFFF'
+          hovercolor='#565656'
         >
           {
             isPlaybackEnd
@@ -63,7 +58,7 @@ export const MapPlaybackSpeedController = memo(({
           }
         </StyledButton>
         <Radio.Group
-          className="MapPlaybackSpeedController__controller__radio"
+          className='MapPlaybackSpeedController__controller__radio'
           value={playerSpeed}
           onChange={(e) => setPlayerSpeed(e.target.value)}
         >
@@ -77,18 +72,18 @@ export const MapPlaybackSpeedController = memo(({
             x2
           </Radio.Button>
         </Radio.Group>
-        <div className="MapPlaybackSpeedController__controller__time">
+        <div className='MapPlaybackSpeedController__controller__time'>
           {`Время: ${formatDate(timeStamp)}`}
         </div>
       </div>
       {
         progressForProgressBar
-          ? <div className="MapPlaybackSpeedController__progressbar__wrapper">
+          ? <div className='MapPlaybackSpeedController__progressbar__wrapper'>
             <div
-              className="MapPlaybackSpeedController__progressbar"
-              style={{ width: progressForProgressBar + "%" }}
+              className='MapPlaybackSpeedController__progressbar'
+              style={{ width: progressForProgressBar + '%' }}
             >
-              {progressForProgressBar + "%"}
+              {progressForProgressBar + '%'}
             </div>
           </div>
           : null
@@ -97,20 +92,20 @@ export const MapPlaybackSpeedController = memo(({
   )
 })
 
-const items: TabsProps["items"] = [
+const items: TabsProps['items'] = [
   {
-    key: "1",
-    label: "Tab 1",
-    children: "Content of Tab Pane 1"
+    key: '1',
+    label: 'Tab 1',
+    children: 'Content of Tab Pane 1'
   },
   {
-    key: "2",
-    label: "Tab 2",
-    children: "Content of Tab Pane 2"
+    key: '2',
+    label: 'Tab 2',
+    children: 'Content of Tab Pane 2'
   },
   {
-    key: "3",
-    label: "Tab 3",
-    children: "Content of Tab Pane 3"
+    key: '3',
+    label: 'Tab 3',
+    children: 'Content of Tab Pane 3'
   }
 ]

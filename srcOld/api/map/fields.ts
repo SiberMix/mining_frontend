@@ -1,4 +1,4 @@
-import { axiosInstance } from '../abstract'
+import { axiosInstance } from '~shared/api/axios-instance'
 
 export const fieldsService = {
   /*
@@ -16,7 +16,10 @@ export const fieldsService = {
   /*
   * Редактирование поля
   * */
-  editField: ({ id, ...params }: any) => {
+  editField: ({
+    id,
+    ...params
+  }: any) => {
     return axiosInstance.put(`/fieldtype/${id}/`, params)
   },
   /*

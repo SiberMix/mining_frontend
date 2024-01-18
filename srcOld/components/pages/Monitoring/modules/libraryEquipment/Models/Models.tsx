@@ -1,13 +1,15 @@
-import s from './Models.module.scss'
 import * as cn from 'classnames'
 import React, { useEffect } from 'react'
-import { useListing } from '../../../../../../hooks/use-listing'
+import { useSelector } from 'react-redux'
+
+import { useListing } from '~shared/hooks/use-listing/use-listing'
+
+import { getOptionalEquipmentModelsListSelector } from '../../../../../../redux/selectors/optionalEquipmentSelectors'
+import { deleteModel, setAddModalVisible, setEditedModel } from '../../../../../../redux/slices/optionalEquipmentSlice'
+import { useAppDispatch } from '../../../../../../redux/store'
 import type { EquipModal } from '../../../../../../types/equip'
 import AddModelModal from './ModelAddModal'
-import { useSelector } from 'react-redux'
-import { getOptionalEquipmentModelsListSelector } from '../../../../../../redux/selectors/optionalEquipmentSelectors'
-import { useAppDispatch } from '../../../../../../redux/store'
-import { deleteModel, setAddModalVisible, setEditedModel } from '../../../../../../redux/slices/optionalEquipmentSlice'
+import s from './Models.module.scss'
 
 const EquipmentModelsComponent = () => {
   const dispatch = useAppDispatch()

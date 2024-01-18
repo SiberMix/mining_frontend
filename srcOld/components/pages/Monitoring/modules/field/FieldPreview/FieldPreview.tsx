@@ -1,19 +1,14 @@
-import s from './FieldPreview.module.scss'
 import * as cn from 'classnames'
-import React, {
-  useEffect,
-  useState
-} from 'react'
-import { useListing } from '../../../../../../hooks/use-listing'
-import AddPreviewModal from './PreviewAddModal'
-import { useAppDispatch } from '../../../../../../redux/store'
+import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
+
+import { useListing } from '~shared/hooks/use-listing/use-listing'
+
 import { getAllFieldsSelector } from '../../../../../../redux/selectors/fieldsSelectors'
-import {
-  deleteField,
-  setChangeFieldModal,
-  setVisibleAddFieldModal
-} from '../../../../../../redux/slices/fieldSlice'
+import { deleteField, setChangeFieldModal, setVisibleAddFieldModal } from '../../../../../../redux/slices/fieldSlice'
+import { useAppDispatch } from '../../../../../../redux/store'
+import s from './FieldPreview.module.scss'
+import AddPreviewModal from './PreviewAddModal'
 
 const EquipmentPreviewsComponent = () => {
   const dispatch = useAppDispatch()
@@ -29,7 +24,10 @@ const EquipmentPreviewsComponent = () => {
     }
   }
 
-  const { tableBlock, refreshData } = useListing({
+  const {
+    tableBlock,
+    refreshData
+  } = useListing({
     columnNames: ['Название поля', 'Цвет поля'],
     mapTableData: (fieldsList: any) => {
       return fieldsList.map((item: any) => {

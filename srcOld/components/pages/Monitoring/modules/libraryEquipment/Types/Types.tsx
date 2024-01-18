@@ -1,19 +1,15 @@
-import s from './Types.module.scss'
 import * as cn from 'classnames'
 import React, { useEffect } from 'react'
-import { useListing } from '../../../../../../hooks/use-listing'
-import type { EquipType } from '../../../../../../types/equip'
-import AddTypeModal from './TypesAddModal'
-import {
-  getOptionalEquipmentTypesListSelector
-} from '../../../../../../redux/selectors/optionalEquipmentSelectors'
 import { useSelector } from 'react-redux'
+
+import { useListing } from '~shared/hooks/use-listing/use-listing'
+
+import { getOptionalEquipmentTypesListSelector } from '../../../../../../redux/selectors/optionalEquipmentSelectors'
+import { deleteType, setAddModalVisible, setEditedType } from '../../../../../../redux/slices/optionalEquipmentSlice'
 import { useAppDispatch } from '../../../../../../redux/store'
-import {
-  deleteType,
-  setAddModalVisible,
-  setEditedType
-} from '../../../../../../redux/slices/optionalEquipmentSlice'
+import type { EquipType } from '../../../../../../types/equip'
+import s from './Types.module.scss'
+import AddTypeModal from './TypesAddModal'
 
 const EquipmentTypesComponent = () => {
   const dispatch = useAppDispatch()
@@ -32,7 +28,10 @@ const EquipmentTypesComponent = () => {
     dispatch(setAddModalVisible(true))
   }
 
-  const { tableBlock, refreshData } = useListing<EquipType>({
+  const {
+    tableBlock,
+    refreshData
+  } = useListing<EquipType>({
     columnNames: ['Название', 'Статус'],
     mapTableData: (typesList) => {
       return typesList.map((item) => ({

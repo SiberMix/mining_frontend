@@ -1,19 +1,22 @@
 import './PlayBackAddModal.scss'
-import React, { useEffect, useState } from 'react'
-import { RootState, useAppDispatch } from '../../../../../../redux/store'
-import { useSelector } from 'react-redux'
-import * as cn from 'classnames'
+
 import { Input, message, Modal } from 'antd'
-import { editeNewPlayback, setEditedPlayback } from '../../../../../../redux/slices/playBackSlice'
+import * as cn from 'classnames'
+import React, { useEffect, useState } from 'react'
 //@ts-ignore
 import { GithubPicker } from 'react-color'
+import { useSelector } from 'react-redux'
+
+import { editeNewPlayback, setEditedPlayback } from '../../../../../../redux/slices/playBackSlice'
+import type { RootState } from '../../../../../../redux/store'
+import { useAppDispatch } from '../../../../../../redux/store'
 
 const PlayBackEditModal = () => {
 
   const dispatch = useAppDispatch()
   const editedPlayback = useSelector((state: RootState) => state.playBackReducer.editedPlayback)
   const [name, setName] = useState('')
-  // const [color, setColor] = useState('')
+  // consts [color, setColor] = useState('')
 
   useEffect(() => {
     if (editedPlayback) {
