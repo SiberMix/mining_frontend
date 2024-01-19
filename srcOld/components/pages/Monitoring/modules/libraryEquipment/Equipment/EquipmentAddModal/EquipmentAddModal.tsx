@@ -8,10 +8,10 @@ import styled from 'styled-components'
 
 import { getEditeEquipmentSelector } from '../../../../../../../redux/selectors/mapSelectors'
 import { getAddModalVisibleSelector, getOptionalEquipmentModelsListSelector, getOptionalEquipmentTypesListSelector } from '../../../../../../../redux/selectors/optionalEquipmentSelectors'
+import type { Equip } from '../../../../../../../redux/slices/mapSlice'
 import { postNewEquipment, putEditEquipment, setEditedEquipment } from '../../../../../../../redux/slices/mapSlice'
 import { setAddModalVisible } from '../../../../../../../redux/slices/optionalEquipmentSlice'
 import { useAppDispatch } from '../../../../../../../redux/store'
-import type { Equip } from '../../../../../../../types/equip'
 
 type Props = {
   equips: any

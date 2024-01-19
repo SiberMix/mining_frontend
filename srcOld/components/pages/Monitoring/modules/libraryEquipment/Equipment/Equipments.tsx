@@ -8,12 +8,12 @@ import styled from 'styled-components'
 
 import EditBox from '~shared/assets/icons/edit.svg'
 import GeoBox from '~shared/assets/icons/GPS-navigate.svg'
+import { MoreInfo } from '~shared/ui/more-info'
 
 import { getAllEquipmentSelector } from '../../../../../../redux/selectors/mapSelectors'
 import { deleteEquipment, setEditedEquipment, setEquipmentFlyTo, setShowRightSideEquipInfo } from '../../../../../../redux/slices/mapSlice'
 import { setAddModalVisible } from '../../../../../../redux/slices/optionalEquipmentSlice'
 import { useAppDispatch } from '../../../../../../redux/store'
-import { MoreInfo } from '../../../../../../style/styled-components/MoreInfo'
 import DeleteOption from '../../../../../common/DeleteOption/DeleteOption'
 import AddEquipmentModal from './EquipmentAddModal/EquipmentAddModal'
 import s from './Equipments.module.scss'

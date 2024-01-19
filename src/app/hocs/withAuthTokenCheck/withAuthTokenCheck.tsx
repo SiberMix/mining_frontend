@@ -5,9 +5,9 @@ import { useNavigate } from 'react-router-dom'
 
 import { RoutePath } from '~shared/config/route-config'
 
-import { getTokenSelector } from '../../redux/selectors/authSelectors'
-import { setToken } from '../../redux/slices/authSlice'
-import { useAppDispatch } from '../../redux/store'
+import { getTokenSelector } from '../../../../srcOld/redux/selectors/authSelectors'
+import { setToken } from '../../../../srcOld/redux/slices/authSlice'
+import { useAppDispatch } from '../../../../srcOld/redux/store'
 
 type WithAuthCheckProps = {
   element: ReactNode

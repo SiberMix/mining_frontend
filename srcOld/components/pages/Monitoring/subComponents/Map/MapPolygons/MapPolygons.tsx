@@ -1,16 +1,13 @@
-import "leaflet-editable"
-import "leaflet-draw"
-import "leaflet-draw/dist/leaflet.draw.css"
+import 'leaflet-editable'
+import 'leaflet-draw'
+import 'leaflet-draw/dist/leaflet.draw.css'
 
-import React from "react"
-import { useSelector } from "react-redux"
+import React from 'react'
+import { useSelector } from 'react-redux'
 
-import {
-  getAllPolygonsSelector,
-  getEditedPolygonSelector
-} from "../../../../../../redux/selectors/mapSelectors"
-import type { PolygonType } from "../../../../../../types"
-import OnePolygon from "./OnePolygon"
+import { getAllPolygonsSelector, getEditedPolygonSelector } from '../../../../../../redux/selectors/mapSelectors'
+import type { PolygonType } from '../../../../../../redux/slices/mapSlice'
+import OnePolygon from './OnePolygon'
 
 type Props = {}
 

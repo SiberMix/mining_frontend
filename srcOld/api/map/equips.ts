@@ -1,7 +1,6 @@
 import { axiosInstance } from '~shared/api/axios-instance'
 
-import type { EquipForPost, EquipForPut } from '../../redux/slices/mapSlice'
-import type { Equip, EquipModal, EquipType } from '../../types/equip'
+import type { Equip, EquipForPost, EquipForPut, EquipModal, EquipType } from '../../redux/slices/mapSlice'
 
 export const equipsService = {
   getEquips: () => {

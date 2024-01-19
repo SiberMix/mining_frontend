@@ -10,8 +10,8 @@ import { getPikedEquipsIdSelector } from '../../../../../../../redux/selectors/e
 import { getAllEquipmentSelector } from '../../../../../../../redux/selectors/mapSelectors'
 import type { PickedEquip } from '../../../../../../../redux/slices/EquipsAnalyticSlice'
 import { setPikedEquips } from '../../../../../../../redux/slices/EquipsAnalyticSlice'
+import type { Equip } from '../../../../../../../redux/slices/mapSlice'
 import { useAppDispatch } from '../../../../../../../redux/store'
-import type { Equip } from '../../../../../../../types/equip'
 
 const EquipsAnalyticMenuItems = () => {
 

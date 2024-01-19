@@ -1,7 +1,10 @@
 .SidebarFooter {
+  display: flex;
+  flex-direction: column;
+
   &-icon {
     font-size: 23px;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
     color: #FFFFFF;
 
     &:hover {

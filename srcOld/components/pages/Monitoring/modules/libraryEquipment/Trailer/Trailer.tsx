@@ -5,9 +5,9 @@ import { useSelector } from 'react-redux'
 import { useListing } from '~shared/hooks/use-listing/use-listing'
 
 import { getOptionalEquipmentTrailerListSelector } from '../../../../../../redux/selectors/optionalEquipmentSelectors'
+import type { EquipTrailer } from '../../../../../../redux/slices/mapSlice'
 import { deleteTrailer, setAddModalVisible, setEditedTrailer } from '../../../../../../redux/slices/optionalEquipmentSlice'
 import { useAppDispatch } from '../../../../../../redux/store'
-import type { EquipTrailer } from '../../../../../../types/equip'
 import s from './Trailer.module.scss'
 import AddTrailerModal from './TrailerAddModal'
 

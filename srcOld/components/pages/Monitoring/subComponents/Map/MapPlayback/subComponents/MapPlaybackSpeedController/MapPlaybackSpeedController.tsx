@@ -6,8 +6,7 @@ import { Radio } from 'antd'
 import { memo } from 'react'
 
 import { formatDate } from '~shared/lib/format-date'
-
-import { StyledButton } from '../../../../../../../../style/styled-components/StyledButton/StyledButton'
+import { StyledButton } from '~shared/ui/button-styled'
 
 type Props = {
   playerSpeed: number,

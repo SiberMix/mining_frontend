@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react'
 
 import { getBoundingRect } from '~shared/lib/get-bounding-rect'
 
-import type { PolygonType } from '../../../../../../types'
+import type { PolygonType } from '../../../../../../redux/slices/mapSlice'
 import s from './PolygonCanvas.module.scss'
 
 const PolygonCanvas: React.FC<{ polygon: PolygonType }> = ({ polygon }) => {

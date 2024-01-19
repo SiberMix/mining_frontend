@@ -1,14 +1,17 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { mapService } from '../../api/map'
-import type { EquipModal, EquipTrailer, EquipType } from '../../types/equip'
 import { toast } from 'react-toastify'
+
+import type { NavbarOpenContent } from '~features/navbar'
+
+import { mapService } from '../../api/map'
+import type { EquipModal, EquipTrailer, EquipType } from './mapSlice'
 
 type Type = { id: number, description: string, status: boolean };
 type Model = { id: number, description: string, length: string, width: string };
 type Trailer = { id: number, trailer_name: string, gosnomer: string };
 
 type OptionalEquipmentInitialState = {
-  optionalEquipmentOpenWindow: SidebarOpenWindow,
+  optionalEquipmentOpenWindow: NavbarOpenContent,
   addModalVisible: boolean,
   editedType: Type | null,
   editedModel: Model | null,
@@ -33,7 +36,7 @@ const optionalEquipmentSlice = createSlice({
   name: 'optionalEquipment',
   initialState: optionalEquipmentInitialState,
   reducers: {
-    setOpenOptionalEquipmentWindow: (state: OptionalEquipmentInitialState, action: { type: string, payload: SidebarOpenWindow }) => {
+    setOpenOptionalEquipmentWindow: (state: OptionalEquipmentInitialState, action: { type: string, payload: NavbarOpenContent }) => {
       state.optionalEquipmentOpenWindow = action.payload
     },
     setAddModalVisible: (state: OptionalEquipmentInitialState, action) => {
@@ -354,5 +357,3 @@ export const {
 } = actions
 
 export default reducer
-
-export type SidebarOpenWindow = 'EquipmentList' | 'EquipmentTypeList' | 'EquipmentModelList' | 'TrailerModelList'

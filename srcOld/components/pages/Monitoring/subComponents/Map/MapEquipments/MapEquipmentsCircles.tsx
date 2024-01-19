@@ -1,13 +1,9 @@
-import React from "react"
-import { Circle } from "react-leaflet"
-import { useSelector } from "react-redux"
+import React from 'react'
+import { Circle } from 'react-leaflet'
+import { useSelector } from 'react-redux'
 
-import {
-  getAllEquipmentSelector,
-  getZoomLevelSelector
-} from "../../../../../../redux/selectors/mapSelectors"
-import type { EquipmentSocketData } from "../../../../../../redux/slices/mapSlice"
-import type { Equip } from "../../../../../../types/equip"
+import { getAllEquipmentSelector, getZoomLevelSelector } from '../../../../../../redux/selectors/mapSelectors'
+import type { Equip, EquipmentSocketData } from '../../../../../../redux/slices/mapSlice'
 
 type Props = {
   equipmentCoordinates: EquipmentSocketData[]
@@ -40,12 +36,12 @@ const MapEquipmentsCircles: React.FC<Props> = ({ equipmentCoordinates }) => {
 
         return (
           <Circle
-            key={"circle_" + imei}
+            key={'circle_' + imei}
             center={wsDataForEquip || lastCoords}
             radius={radius as number} //убрали все случаи null чуть выше
             pathOptions={{
-              color: "tomato", // Цвет границы круга
-              fillColor: "transparent", // Прозрачный цвет заливки
+              color: 'tomato', // Цвет границы круга
+              fillColor: 'transparent', // Прозрачный цвет заливки
               fillOpacity: 0, // Прозрачность заливки
               weight: 2 // Толщина границы в пикселях
             }}

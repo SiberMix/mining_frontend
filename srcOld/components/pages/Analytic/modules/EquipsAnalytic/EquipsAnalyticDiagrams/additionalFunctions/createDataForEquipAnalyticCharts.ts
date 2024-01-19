@@ -1,12 +1,6 @@
-import type {
-  EquipsDataForCharts,
-  OneEquipDataForChartsData,
-  PickedEquip
-} from "../../../../../../../redux/slices/EquipsAnalyticSlice"
-import type { Equip } from "../../../../../../../types/equip"
-import type {
-  EquipsAnalyticDiagramSeriesType
-} from "../EquipsAnalyticDiagram/EquipsAnalyticDiagram"
+import type { EquipsDataForCharts, OneEquipDataForChartsData, PickedEquip } from '../../../../../../../redux/slices/EquipsAnalyticSlice'
+import type { Equip } from '../../../../../../../redux/slices/mapSlice'
+import type { EquipsAnalyticDiagramSeriesType } from '../EquipsAnalyticDiagram/EquipsAnalyticDiagram'
 
 type CreateSpeedCategoriesAndSpeedSeriesType = {
   equipsDataForCharts: EquipsDataForCharts | undefined,
@@ -45,7 +39,7 @@ export const createDataForChart = ({
             // Если объекта с таким id еще нет, создаем новый
             resultAcc.push({
               id: equipDataObj.id,
-              name: allEquips.find(e => e.id === equipDataObj.id)?.equip_name || "Ошибка",
+              name: allEquips.find(e => e.id === equipDataObj.id)?.equip_name || 'Ошибка',
               data: [chartDayDataForKey]
             })
           }
@@ -67,12 +61,12 @@ export const createTextCategories = (numCategories: (number | string)[]) => {
   return numCategories.map(num => {
     const dateObj = new Date(+num * 1000)
     // Опции форматирования даты
-    const options: { day: "numeric", month: "short" } = {
-      day: "numeric",
-      month: "short"
+    const options: { day: 'numeric', month: 'short' } = {
+      day: 'numeric',
+      month: 'short'
     }
     // Получаем объект. DateTimeFormat с указанной локалью и опциями форматирования
-    const dateFormatter = new Intl.DateTimeFormat("ru-RU", options)
+    const dateFormatter = new Intl.DateTimeFormat('ru-RU', options)
     // Получаем строку с отформатированной датой
     return dateFormatter.format(dateObj)
   })
@@ -85,6 +79,6 @@ export const createColorsForCharts = (chartData: EquipsAnalyticDiagramSeriesType
     if (findUsingEquip) {
       return findUsingEquip.equipColor
     }
-    return "red"
+    return 'red'
   })
 }

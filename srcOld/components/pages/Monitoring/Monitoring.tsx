@@ -5,7 +5,7 @@ import { toast } from 'react-toastify'
 
 import { axiosInstance } from '~shared/api/axios-instance'
 import { soket } from '~shared/api/socket'
-import SidebarContainer from '~widgets/navigation/ui/container/SidebarContainer'
+import { Sidebar } from '~widgets/sidebar'
 
 import { getAllFields } from '../../../redux/slices/fieldSlice'
 import type { EquipEventsSocket, EquipmentSocketData } from '../../../redux/slices/mapSlice'
@@ -112,7 +112,7 @@ export const Monitoring = () => {
       {isLoad
         ? (
           <MonitoringLayout>
-            <SidebarContainer />
+            <Sidebar />
             <Map />
             <PolygonListAddModal />
             <EquipPreviewRightSide />

@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify'
 
-import type { SidebarOpenWindow } from '~widgets/navigation/ui/container/SidebarContainer'
+import type { NavbarOpenContent } from '~features/navbar'
 
 import { settingsService } from '../../api/settings'
 import type { RootState } from '../store'
@@ -149,7 +149,7 @@ export const {
 export default reducer
 
 export type SettingsData = {
-  startMenuOptions: SidebarOpenWindow,
+  startMenuOptions: NavbarOpenContent,
   baseMapOptions: string,
   zoomLevelOptions: string,
   baseCoord: [number, number],

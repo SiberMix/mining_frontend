@@ -4,11 +4,11 @@ import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { Route, Routes } from 'react-router-dom'
 
+import { WithAuthCheck } from '~app/hocs/withAuthTokenCheck/withAuthTokenCheck'
 import { routeConfig, RoutePath } from '~shared/config/route-config'
 import { AppVersion } from '~shared/ui/app-version'
 
 import Notifications from '../../srcOld/components/common/Notifications/Notifications'
-import { WithAuthCheck } from '../../srcOld/hocs/withAuthTokenCheck/withAuthTokenCheck'
 import { getTokenSelector } from '../../srcOld/redux/selectors/authSelectors'
 import { getSettings } from '../../srcOld/redux/slices/settingsSlice'
 import { useAppDispatch } from '../../srcOld/redux/store'
@@ -30,7 +30,7 @@ export const App: React.FC = () => {
           .map(route => {
             // Оборачиваем в проверку токена все страницы кроме логина
             const elementWithHOCs = route.path !== RoutePath.auth
-              ? <WithAuthCheck element={route.element} /> //todo исправиль ошибку, вообще хз откуда она тк работает все корректно именно в таком варианте
+              ? <WithAuthCheck element={route.element} />
               : route.element
 
             return (

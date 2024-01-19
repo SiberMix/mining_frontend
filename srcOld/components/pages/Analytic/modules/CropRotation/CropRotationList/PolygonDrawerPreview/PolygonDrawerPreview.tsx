@@ -1,14 +1,14 @@
-import "./PolygonDrawerPreview.scss"
+import './PolygonDrawerPreview.scss'
 
-import { Drawer } from "antd"
-import type { ApexOptions } from "apexcharts"
-import React from "react"
-import Chart from "react-apexcharts"
-import { useSelector } from "react-redux"
+import { Drawer } from 'antd'
+import type { ApexOptions } from 'apexcharts'
+import React from 'react'
+import Chart from 'react-apexcharts'
+import { useSelector } from 'react-redux'
 
-import { getAllPolygonsSelector } from "../../../../../../../redux/selectors/mapSelectors"
-import type { PolygonType } from "../../../../../../../types"
-import MiniMap from "../../../../../../common/MiniMap/MiniMap"
+import { getAllPolygonsSelector } from '../../../../../../../redux/selectors/mapSelectors'
+import type { PolygonType } from '../../../../../../../redux/slices/mapSlice'
+import MiniMap from '../../../../../../common/MiniMap/MiniMap'
 
 type Props = {
   isOpen: boolean,
@@ -25,7 +25,7 @@ const PolygonDrawerPreview: React.FC<Props> = ({
 
   const options: ApexOptions = {
     chart: {
-      type: "radialBar",
+      type: 'radialBar',
       offsetY: -20,
       sparkline: {
         enabled: true
@@ -36,14 +36,14 @@ const PolygonDrawerPreview: React.FC<Props> = ({
         startAngle: -90,
         endAngle: 90,
         track: {
-          background: "#e7e7e7",
-          strokeWidth: "97%",
+          background: '#e7e7e7',
+          strokeWidth: '97%',
           margin: 5, // margin is in pixels
           dropShadow: {
             enabled: true,
             top: 2,
             left: 0,
-            color: "#999",
+            color: '#999',
             opacity: 1,
             blur: 2
           }
@@ -54,8 +54,8 @@ const PolygonDrawerPreview: React.FC<Props> = ({
           },
           value: {
             offsetY: -2,
-            fontSize: "19px",
-            color: "#ffffff"
+            fontSize: '19px',
+            color: '#ffffff'
           }
         }
       }
@@ -63,7 +63,7 @@ const PolygonDrawerPreview: React.FC<Props> = ({
     colors: [polygon.sequence.color],
     fill: {
       gradient: {
-        shade: "light",
+        shade: 'light',
         shadeIntensity: 0.4,
         inverseColors: false,
         opacityFrom: 1,
@@ -81,64 +81,64 @@ const PolygonDrawerPreview: React.FC<Props> = ({
 
   return (
     <Drawer
-      className="polygonDrawerPreview"
-      title="Статичная информация по полигону"
-      placement="right"
+      className='polygonDrawerPreview'
+      title='Статичная информация по полигону'
+      placement='right'
       onClose={onClose}
       open={isOpen}
-      width="25%"
+      width='25%'
     >
-      <div className="polygonDrawerPreview-minimap">
+      <div className='polygonDrawerPreview-minimap'>
         <MiniMap polygon={polygon} />
       </div>
       <p>
-        <span className="polygonDrawerPreview-info_name">
-Название:
-          {" "}
+        <span className='polygonDrawerPreview-info_name'>
+          Название:
+          {' '}
         </span>
-        <span className="polygonDrawerPreview-info">
+        <span className='polygonDrawerPreview-info'>
           {polygon.name}
         </span>
       </p>
       <p>
-        <span className="polygonDrawerPreview-info_name">
-Статус активности:
-          {" "}
+        <span className='polygonDrawerPreview-info_name'>
+          Статус активности:
+          {' '}
         </span>
-        <span className="polygonDrawerPreview-info">
-          {polygon.activeStatus ? "Активно" : "Не активно"}
+        <span className='polygonDrawerPreview-info'>
+          {polygon.activeStatus ? 'Активно' : 'Не активно'}
         </span>
       </p>
       <p>
-        <span className="polygonDrawerPreview-info_name">
-Культура:
-          {" "}
+        <span className='polygonDrawerPreview-info_name'>
+          Культура:
+          {' '}
         </span>
-        <span className="polygonDrawerPreview-info">
+        <span className='polygonDrawerPreview-info'>
           {polygon.sequence.name}
         </span>
       </p>
       <p>
-        <span className="polygonDrawerPreview-info_name">
-Площадь:
-          {" "}
+        <span className='polygonDrawerPreview-info_name'>
+          Площадь:
+          {' '}
         </span>
-        <span className="polygonDrawerPreview-info">
+        <span className='polygonDrawerPreview-info'>
           {polygon.square}
-          {" "}
-га
+          {' '}
+          га
         </span>
       </p>
-      <div className="polygonDrawerPreview-info_chart">
-        <span className="polygonDrawerPreview-info_name">
-Процент от всей культуры:
-          {" "}
+      <div className='polygonDrawerPreview-info_chart'>
+        <span className='polygonDrawerPreview-info_name'>
+          Процент от всей культуры:
+          {' '}
         </span>
         <Chart
           options={options}
-          type="radialBar"
+          type='radialBar'
           series={[+percentOfSequence]}
-          width="100%"
+          width='100%'
           height={315}
         />
       </div>

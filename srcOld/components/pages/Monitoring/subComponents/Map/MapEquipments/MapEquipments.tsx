@@ -1,18 +1,14 @@
 // импорты для кластеров
-import "react-leaflet-markercluster/dist/styles.min.css"
+import 'react-leaflet-markercluster/dist/styles.min.css'
 
-import React from "react"
-import MarkerClusterGroup from "react-leaflet-markercluster"
-import { useSelector } from "react-redux"
+import React from 'react'
+import MarkerClusterGroup from 'react-leaflet-markercluster'
+import { useSelector } from 'react-redux'
 
-import {
-  getAllEquipmentSelector,
-  getEquipmentCoordinatesWebSocketSelector,
-  getEquipStatusArrWebSocketSelector
-} from "../../../../../../redux/selectors/mapSelectors"
-import type { Equip } from "../../../../../../types/equip"
-import EquipCastomMarker from "./EquipCastomMarker"
-import MapEquipmentsCircles from "./MapEquipmentsCircles"
+import { getAllEquipmentSelector, getEquipmentCoordinatesWebSocketSelector, getEquipStatusArrWebSocketSelector } from '../../../../../../redux/selectors/mapSelectors'
+import type { Equip } from '../../../../../../redux/slices/mapSlice'
+import EquipCastomMarker from './EquipCastomMarker'
+import MapEquipmentsCircles from './MapEquipmentsCircles'
 
 type Props = {}
 
@@ -56,7 +52,7 @@ const MapEquipments: React.FC<Props> = () => {
               image_status={image_status}
               imei={imei}
               direction={wsDataForEquip?.direction || last_coord?.direction || 0}
-              status={equipSocketStatus || last_status || "Offline"}
+              status={equipSocketStatus || last_status || 'Offline'}
             />
           )
         })}

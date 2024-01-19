@@ -4,22 +4,22 @@ import { BarChartOutlined } from '@ant-design/icons'
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
+import type { NavbarOpenContent } from '~features/navbar'
 import LogoutBtn from '~shared/assets/icons/logout.svg'
 import Setting from '~shared/assets/icons/settings.svg'
 import { RoutePath } from '~shared/config/route-config'
 import { Svg } from '~shared/ui/svg-styled'
-import type { SidebarOpenWindow } from '~widgets/navigation/ui/container/SidebarContainer'
 
-import { setToken } from '../../../../../srcOld/redux/slices/authSlice'
-import { removeShowingPlayback } from '../../../../../srcOld/redux/slices/playBackSlice'
-import { setMapClickForNewBaseCoord, setShowSettingsModal } from '../../../../../srcOld/redux/slices/settingsSlice'
-import { useAppDispatch } from '../../../../../srcOld/redux/store'
+import { setToken } from '../../../../srcOld/redux/slices/authSlice'
+import { removeShowingPlayback } from '../../../../srcOld/redux/slices/playBackSlice'
+import { setMapClickForNewBaseCoord, setShowSettingsModal } from '../../../../srcOld/redux/slices/settingsSlice'
+import { useAppDispatch } from '../../../../srcOld/redux/store'
 
-type Props = {
-  handleChangeSidebarContent: (sidebarContent: SidebarOpenWindow) => void
+type SidebarFooterProps = {
+  setSidebarOpenContent: (sidebarContent: NavbarOpenContent) => void
 }
 
-export const SidebarFooter = ({ handleChangeSidebarContent }: Props) => {
+export const SidebarFooter = ({ setSidebarOpenContent }: SidebarFooterProps) => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
@@ -30,7 +30,7 @@ export const SidebarFooter = ({ handleChangeSidebarContent }: Props) => {
   }
 
   return (
-    <div>
+    <div className='SidebarFooter'>
       <Link
         to='/analytics'
         onClick={() => dispatch(removeShowingPlayback(null))} //тут просто обнуляем то, что нам не нужно в аналитике
@@ -44,7 +44,7 @@ export const SidebarFooter = ({ handleChangeSidebarContent }: Props) => {
         title='Настройки'
         src={Setting}
         onClick={() => {
-          handleChangeSidebarContent(null)
+          setSidebarOpenContent(null)
           dispatch(setMapClickForNewBaseCoord(false))
           dispatch(setShowSettingsModal(true))
         }}

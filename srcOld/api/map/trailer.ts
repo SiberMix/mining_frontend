@@ -1,6 +1,6 @@
 import { axiosInstance } from '~shared/api/axios-instance'
 
-import type { EquipTrailer } from '../../types/equip'
+import type { EquipTrailer } from '../../redux/slices/mapSlice'
 
 export const trailerService = {
   /*

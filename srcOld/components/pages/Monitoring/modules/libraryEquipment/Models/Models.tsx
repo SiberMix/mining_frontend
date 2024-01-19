@@ -5,9 +5,9 @@ import { useSelector } from 'react-redux'
 import { useListing } from '~shared/hooks/use-listing/use-listing'
 
 import { getOptionalEquipmentModelsListSelector } from '../../../../../../redux/selectors/optionalEquipmentSelectors'
+import type { EquipModal } from '../../../../../../redux/slices/mapSlice'
 import { deleteModel, setAddModalVisible, setEditedModel } from '../../../../../../redux/slices/optionalEquipmentSlice'
 import { useAppDispatch } from '../../../../../../redux/store'
-import type { EquipModal } from '../../../../../../types/equip'
 import AddModelModal from './ModelAddModal'
 import s from './Models.module.scss'
 
