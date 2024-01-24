@@ -1,0 +1,50 @@
+.PolygonEditModal {
+
+  &-select {
+    background-color: var(--gray-300);
+    border: 1px solid var(--gray-100);
+  }
+
+  &-textDiv {
+    color: #FFFFFF;
+    transition: all .3s;
+
+    .mini-line {
+      width: 0;
+      height: 1px;
+      border-bottom: 1px solid #FFFFFF;
+      transition: width .3s;
+    }
+
+    &:hover {
+      .mini-line {
+        width: 100%;
+      }
+    }
+  }
+
+  .compact-picker {
+    background-color: var(--gray-300);
+    width: 300px !important;
+    border: 1px solid var(--gray-100);
+
+    input {
+      color: #FFFFFF !important;
+    }
+  }
+
+  .ant-select {
+    width: 80%;
+
+    &-selector {
+      margin: 10px 0;
+      width: 100% !important;
+      border: 1px solid var(--gray-100) !important;
+      background-color: var(--gray-300) !important;
+
+      .ant-select-arrow {
+        color: #FFFFFF !important;
+      }
+    }
+  }
+}

@@ -1,15 +1,18 @@
 import './CropRotationAddGroupModal.scss'
-import React, { useEffect, useState } from 'react'
+
 import { Button, Input, message, Modal } from 'antd'
-import * as cn from 'classnames'
-import { useAppDispatch } from '../../../../../../redux/store'
-import { postCropRotationGroupThunk, setEditedCropRotationGroup, setOpenCropRotationAddGroupModal } from '../../../../../../redux/slices/cropRotationSlice'
-import { useSelector } from 'react-redux'
-import { getAllPolygonsSelector } from '../../../../../../redux/selectors/mapSelectors'
-import CropRotationPolygonPreview from '../CropRotationTable/CropRotationPolygonPreview/CropRotationPolygonPreview'
-import TextArea from 'antd/es/input/TextArea'
 import Search from 'antd/es/input/Search'
+import TextArea from 'antd/es/input/TextArea'
+import * as cn from 'classnames'
+import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+
+import { PolygonPreviewCropRotation } from '~entities/polygon'
+
 import { getEditedCropRotationGroupSelector, getOpenCropRotationAddGroupModalSelector } from '../../../../../../redux/selectors/cropRotationSelectors'
+import { getAllPolygonsSelector } from '../../../../../../redux/selectors/mapSelectors'
+import { postCropRotationGroupThunk, setEditedCropRotationGroup, setOpenCropRotationAddGroupModal } from '../../../../../../redux/slices/cropRotationSlice'
+import { useAppDispatch } from '../../../../../../redux/store'
 
 const CropRotationAddGroupModal = () => {
   const editedCropRotationGroup = useSelector(getEditedCropRotationGroupSelector)
@@ -34,10 +37,8 @@ const CropRotationAddGroupModal = () => {
 
   useEffect(() => {
     if (search.length > 0) {
-      const filteredPolygons = allPolygons.filter(polygon =>
-        polygon.name.toLowerCase()
-          .includes(search.toLowerCase())
-      )
+      const filteredPolygons = allPolygons.filter(polygon => polygon.name.toLowerCase()
+        .includes(search.toLowerCase()))
       setAllPolygonsWithFilter(filteredPolygons)
     } else {
       setAllPolygonsWithFilter(allPolygons)
@@ -102,7 +103,7 @@ const CropRotationAddGroupModal = () => {
       open={openCropRotationAddGroupModal}
       onCancel={closeHandler}
       onOk={handleSubmit}
-      width={'50vw'}
+      width='50vw'
     >
       <div className='CropRotationAddGroupModal-wrapper'>
         <div style={{ width: '40%' }}>
@@ -117,7 +118,7 @@ const CropRotationAddGroupModal = () => {
               rows={4}
               value={description}
               maxLength={450}
-              placeholder={'Ваше описание группы'}
+              placeholder='Ваше описание группы'
               onChange={(e) => setDescription(e.target.value)}
             />
           </div>
@@ -141,7 +142,8 @@ const CropRotationAddGroupModal = () => {
               placeholder='Воспользуйтесь поиском'
               value={searchValue}
               onSearch={setSearch}
-              onChange={resetSearch} />
+              onChange={resetSearch}
+            />
           </div>
           <div className='CropRotationAddGroupModal-select'>
             {
@@ -150,8 +152,9 @@ const CropRotationAddGroupModal = () => {
                   <div
                     key={polygon.id}
                     className='CropRotationAddGroupModal-item'
-                    style={{ border: groupData.some(g => g === polygon.id) ? '1px solid #ffffff' : '' }}>
-                    <CropRotationPolygonPreview
+                    style={{ border: groupData.some(g => g === polygon.id) ? '1px solid #ffffff' : '' }}
+                  >
+                    <PolygonPreviewCropRotation
                       polygon={polygon}
                       onClick={() => togglePolygonInGroupData(+polygon.id)}
                     />

@@ -1,9 +1,16 @@
 import './Page404.scss'
 
+import { PageLayout } from '~shared/ui/page-layout'
+
 export const Page404 = () => {
   return (
-    <div className='PageNotFound'>
-      PageNotFound
-    </div>
+    <PageLayout
+      justifyContent='center'
+      alignItems='center'
+    >
+      <h1>
+        PageNotFound
+      </h1>
+    </PageLayout>
   )
 }

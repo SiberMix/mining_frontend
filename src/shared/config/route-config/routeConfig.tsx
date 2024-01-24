@@ -1,14 +1,14 @@
 import React from 'react'
 import type { RouteObject } from 'react-router-dom'
 
+import Analytic from '~pages/analytic/Analytic'
 import { Auth } from '~pages/auth'
+import Monitoring from '~pages/monitoring/Monitoring'
 import { Page404 } from '~pages/page404'
 
-import Analytic from '../../../../srcOld/components/pages/Analytic/Analytic'
 import CropRotation from '../../../../srcOld/components/pages/Analytic/modules/CropRotation/CropRotation'
 import EquipsAnalytic from '../../../../srcOld/components/pages/Analytic/modules/EquipsAnalytic/EquipsAnalytic'
 import FieldsAnalytic from '../../../../srcOld/components/pages/Analytic/modules/FieldsAnalytic/FieldsAnalytic'
-import { Monitoring } from '../../../../srcOld/components/pages/Monitoring/Monitoring'
 
 export enum AppRoutes {
   NOT_FOUND = 'not_found',

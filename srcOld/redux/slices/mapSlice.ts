@@ -390,7 +390,7 @@ export type PolygonType = {
     id: string,
     name: string,
     color: string
-  },
+  } | null,
   square: string
 };
 

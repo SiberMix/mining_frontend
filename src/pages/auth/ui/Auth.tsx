@@ -41,7 +41,6 @@ export const Auth = () => {
 
   return (
     <div className='root'>
-
       <img
         className='logo'
         id='displayed'

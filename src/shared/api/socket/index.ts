@@ -1,1 +1,1 @@
-export { soket } from './soket'
+export { soket } from './model/soket'

@@ -1,0 +1,46 @@
+.PolygonList {
+
+  .header {
+    border-radius: 3px;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 0.2px solid var(--gray-100);
+    padding-bottom: 0.3rem;
+
+    &Count {
+      color: #FFFFFF;
+      text-align: center;
+      font-size: 0.78rem;
+    }
+  }
+
+  .image {
+    cursor: pointer;
+    height: 20px;
+
+    padding: 5px;
+    width: 35px;
+
+    border-color: var(--gray-500);
+    background-color: var(--gray-500);
+    border-radius: 3px;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+  }
+
+  .addButton {
+    margin-top: 1rem;
+    padding: 0.5rem 0;
+    width: 100%;
+    background-color: var(--green-200);
+    cursor: pointer;
+    border: none;
+    border-radius: 3px;
+    color: var(--green-100);
+
+    font-size: 0.9rem;
+  }
+}

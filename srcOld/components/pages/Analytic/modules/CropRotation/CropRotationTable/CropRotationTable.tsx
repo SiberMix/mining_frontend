@@ -5,6 +5,8 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
+import { PolygonPreviewCropRotation } from '~entities/polygon'
+
 import { getArrOfLoadingCulturesSelector, getCropRotationGroupsSelector, getIsLoadingCropRotation, getSelectedCropRotationGroupSelector } from '../../../../../../redux/selectors/cropRotationSelectors'
 import { getAllFieldsSelector } from '../../../../../../redux/selectors/fieldsSelectors'
 import { getAllPolygonsSelector } from '../../../../../../redux/selectors/mapSelectors'
@@ -14,7 +16,6 @@ import type { PolygonType } from '../../../../../../redux/slices/mapSlice'
 import { useAppDispatch } from '../../../../../../redux/store'
 import BasePreloader from '../../../../../common/BasePreloader/BasePreloader'
 import { createBGColorForCustomSelect, getContrastColor } from '../helpfullFunctionsCropRotation'
-import CropRotationPolygonPreview from './CropRotationPolygonPreview/CropRotationPolygonPreview'
 
 const CropRotationTable = () => {
   const dispatch = useAppDispatch()
@@ -77,7 +78,7 @@ const CropRotationTable = () => {
                 key='name'
                 render={(_, record: PolygonType) => {
                   return (
-                    <CropRotationPolygonPreview
+                    <PolygonPreviewCropRotation
                       polygon={record}
                       key={'CropRotationPolygonPreview_' + record.name}
                     />

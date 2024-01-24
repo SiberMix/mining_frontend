@@ -20,7 +20,7 @@ const settingsInitialState: SettingsInitialState = {
   mapClickForNewBaseCoord: false,
   settings: {
     startMenuOptions: null,
-    baseMapOptions: 'Google Map',
+    baseMapOptions: 'Google MonitoringMap',
     zoomLevelOptions: '13',
     baseCoord: [54.925946, 82.775931],
     equipmentOptions: {
@@ -34,7 +34,7 @@ const settingsInitialState: SettingsInitialState = {
   },
   usingSettings: {
     startMenuOptions: null,
-    baseMapOptions: 'Google Map',
+    baseMapOptions: 'Google MonitoringMap',
     zoomLevelOptions: '13',
     baseCoord: [54.925946, 82.775931],
     equipmentOptions: {

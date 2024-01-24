@@ -1,9 +1,18 @@
+import type { CSSProperties } from 'react'
 import SVG from 'react-inlinesvg'
 import styled from 'styled-components'
 
-export const Svg = styled(SVG)<{ active?: string }>`
-    height: 20px;
-    width: 20px;
+type SvgProps = {
+  active?: string,
+  $height?: CSSProperties['height'],
+  $width?: CSSProperties['width'],
+  $color?: CSSProperties['color'],
+  activeColor?: CSSProperties['color']
+}
+
+export const Svg = styled(SVG)<SvgProps>`
+    height: ${({ $height }) => $height ? $height : '20px'};
+    width: ${({ $width }) => $width ? $width : '20px'};
     margin-bottom: 25px;
     cursor: pointer;
 
@@ -12,12 +21,19 @@ export const Svg = styled(SVG)<{ active?: string }>`
     }
 
     path {
-        fill: ${({ active }) => (!active ? '#fff' : '#28b6fe')};
+        fill: ${({
+    active,
+    $color,
+    activeColor
+  }) => active
+    ? activeColor || '#28b6fe'
+    : $color || '#fff'
+};
     }
 
     &:hover {
         path {
-            fill: ${({ color }) => color || '#28b6fe'};
+            fill: ${({ activeColor }) => activeColor || '#28b6fe'};
         }
     }
 `

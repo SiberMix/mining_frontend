@@ -48,6 +48,7 @@ export const Navbar = memo(({
           src
         }) => (
           <Svg
+            key={id}
             title={title}
             src={src}
             active={(sidebarOpenContent === id) ? 'open' : ''}

@@ -13,7 +13,7 @@ import { getTokenSelector } from '../../srcOld/redux/selectors/authSelectors'
 import { getSettings } from '../../srcOld/redux/slices/settingsSlice'
 import { useAppDispatch } from '../../srcOld/redux/store'
 
-export const App: React.FC = () => {
+const App: React.FC = () => {
   const dispatch = useAppDispatch()
   const token = useSelector(getTokenSelector)
 
@@ -54,3 +54,5 @@ export const App: React.FC = () => {
     </div>
   )
 }
+
+export default App

@@ -5,7 +5,7 @@ import React from 'react'
 import { MapContainer, Polygon } from 'react-leaflet'
 
 import type { PolygonType } from '../../../redux/slices/mapSlice'
-import MapViewSelect from '../../pages/Monitoring/subComponents/Map/MapViewSelect/MapViewSelect'
+import MapViewSelect from '../../pages/Monitoring/MonitoringMap/MapViewSelect/MapViewSelect'
 
 type Props = {
   polygon: PolygonType

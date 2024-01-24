@@ -61,9 +61,7 @@
     }
   },
   "include": [
-    "srcOld",
-    //todo убрать
-        "src"
+    "src"
   ],
   "references": [
     {

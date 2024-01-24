@@ -1,2 +1,2 @@
-export { axiosInstance } from './axiosInstance'
-export { axiosInstanceWithoutV1 } from './axiosInstanceWithoutV1'
+export { axiosInstance } from './model/axiosInstance'
+export { axiosInstanceWithoutV1 } from './model/axiosInstanceWithoutV1'
