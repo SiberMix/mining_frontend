@@ -1,8 +1,10 @@
 import './PolygonAddModal.scss'
 
-import { Input, message, Modal, Select } from 'antd'
+import { Input, message, Select } from 'antd'
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
+
+import { ModalStyled } from '~shared/ui/modal-styled'
 
 import { getAllFieldsSelector } from '../../../../../../srcOld/redux/selectors/fieldsSelectors'
 import { getAllPolygonsSelector, getNewPolygonCoordsSelector, getShowAddNewPolygonModalSelector } from '../../../../../../srcOld/redux/selectors/mapSelectors'
@@ -50,7 +52,7 @@ export const PolygonAddModal = () => {
   }
 
   return (
-    <Modal
+    <ModalStyled
       className='polygonAddModal'
       title='Добавить поле'
       open={showAddNewPolygonModal}
@@ -87,6 +89,6 @@ export const PolygonAddModal = () => {
         </Select>
       </Input.Group>
       {contextHolder}
-    </Modal>
+    </ModalStyled>
   )
 }

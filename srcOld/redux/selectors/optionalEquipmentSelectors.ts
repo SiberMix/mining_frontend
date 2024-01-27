@@ -1,15 +1,7 @@
-import type { RootState } from '../store'
 import { createSelector } from '@reduxjs/toolkit'
 
-const optionalEquipmentOpenWindow = (state: RootState) => {
-  return state.optionalEquipmentReducer.optionalEquipmentOpenWindow
-}
-export const optionalEquipmentOpenWindowSelector = createSelector(
-  optionalEquipmentOpenWindow,
-  (optionalEquipmentOpenWindow) => {
-    return optionalEquipmentOpenWindow
-  }
-)
+import type { RootState } from '../store'
+
 const getOptionalEquipmentTypesList = (state: RootState) => {
   return state.optionalEquipmentReducer.optionalEquipmentTypesList
 }

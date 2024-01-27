@@ -41,11 +41,11 @@ export const ModalStyled = styled(Modal)<ModalStyledProps>`
                 background-color: var(--gray-200);
 
                 &::-moz-placeholder {
-                    color: var(--gray-200);
+                    color: var(--gray-100);
                 }
 
                 &::-webkit-input-placeholder {
-                    color: var(--gray-200);
+                    color: var(--gray-100);
                 }
             }
         }

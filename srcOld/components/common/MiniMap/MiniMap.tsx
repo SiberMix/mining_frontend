@@ -4,8 +4,9 @@ import './MiniMap.scss'
 import React from 'react'
 import { MapContainer, Polygon } from 'react-leaflet'
 
+import { MapViewSelect } from '~features/map-view-select'
+
 import type { PolygonType } from '../../../redux/slices/mapSlice'
-import MapViewSelect from '../../pages/Monitoring/MonitoringMap/MapViewSelect/MapViewSelect'
 
 type Props = {
   polygon: PolygonType

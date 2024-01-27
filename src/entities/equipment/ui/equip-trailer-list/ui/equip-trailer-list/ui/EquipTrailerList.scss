@@ -1,0 +1,14 @@
+.EquipTrailerList {
+  padding: 4px 3px;
+
+  &__addButton {
+    padding: 0.5rem 0;
+    width: 100%;
+    background-color: var(--green-200);
+    cursor: pointer;
+    border: none;
+    border-radius: 3px;
+    color: var(--green-100);
+    font-size: 0.9rem;
+  }
+}

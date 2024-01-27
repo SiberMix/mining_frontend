@@ -1,6 +1,6 @@
 import './CropRotationAddGroupModal.scss'
 
-import { Button, Input, message, Modal } from 'antd'
+import { Button, Input, message } from 'antd'
 import Search from 'antd/es/input/Search'
 import TextArea from 'antd/es/input/TextArea'
 import * as cn from 'classnames'
@@ -8,6 +8,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
 import { PolygonPreviewCropRotation } from '~entities/polygon'
+import { ModalStyled } from '~shared/ui/modal-styled'
 
 import { getEditedCropRotationGroupSelector, getOpenCropRotationAddGroupModalSelector } from '../../../../../../redux/selectors/cropRotationSelectors'
 import { getAllPolygonsSelector } from '../../../../../../redux/selectors/mapSelectors'
@@ -90,7 +91,7 @@ const CropRotationAddGroupModal = () => {
   }
 
   return (
-    <Modal
+    <ModalStyled
       className={cn(
         'fieldPreviewModal',
         'CropRotationAddGroupModal'
@@ -166,7 +167,7 @@ const CropRotationAddGroupModal = () => {
         </div>
         {contextHolder}
       </div>
-    </Modal>
+    </ModalStyled>
   )
 }
 

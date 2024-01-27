@@ -1,0 +1,14 @@
+.EquipsTypesListModal {
+  .ant-switch {
+    background-color: var(--gray-700);
+
+    &-checked {
+      background-color: var(--gray-300);
+
+      &:hover {
+        color: var(--gray-100);
+        background-color: var(--gray-100) !important;
+      }
+    }
+  }
+}

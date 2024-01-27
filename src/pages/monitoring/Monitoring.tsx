@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 
+import { EquipPreviewRightSide } from '~entities/equipment'
 import { PolygonAddModal } from '~entities/polygon'
 import { axiosInstance } from '~shared/api/axios-instance'
 import { soket } from '~shared/api/socket'
 import { PageLayout } from '~shared/ui/page-layout'
+import { MonitoringMap } from '~widgets/monitoring-map'
 import { Settings } from '~widgets/settings'
 import { Sidebar } from '~widgets/sidebar'
 
 import BasePreloader from '../../../srcOld/components/common/BasePreloader/BasePreloader'
-import { EquipPreviewRightSide } from '../../../srcOld/components/pages/Monitoring/libraryEquipment/Equipment/EquipPreviewRightSide/EquipPreviewRightSide'
-import MonitoringMap from '../../../srcOld/components/pages/Monitoring/MonitoringMap/MonitoringMap'
 import { getAllFields } from '../../../srcOld/redux/slices/fieldSlice'
 import type { EquipEventsSocket, EquipmentSocketData } from '../../../srcOld/redux/slices/mapSlice'
 import { getAllEquipment, getAllPolygons, setEquipmentCoordinatesWebSocket, setEquipStatusArrWebSocket } from '../../../srcOld/redux/slices/mapSlice'

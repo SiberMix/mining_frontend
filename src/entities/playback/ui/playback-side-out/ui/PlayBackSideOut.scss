@@ -1,0 +1,30 @@
+.PlayBackSideOut {
+
+  &__header {
+    border-radius: 3px;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    border-bottom: .2px solid var(--gray-100);
+    padding: .5em;
+    font-size: 0.8em;
+    color: #FFFFFF;
+  }
+
+  &__btn-add {
+    margin-top: 1rem;
+    padding: 0.5rem 0;
+    width: 100%;
+    background-color: var(--green-200);
+    cursor: pointer;
+    border: none;
+    border-radius: 3px;
+    color: var(--green-100);
+    font-size: 0.9rem;
+  }
+
+  &__content {
+
+  }
+}

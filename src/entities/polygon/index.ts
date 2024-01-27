@@ -1,4 +1,4 @@
-export { PolygonList } from './ui /polygon-list'
+export { PolygonListSideOut } from './ui /polygon-list-side-out'
 export { PolygonPreviewCropRotation } from './ui /polygon-preview-crop-rotation'
 export { PolygonAddModal } from './ui /polygon-add-modal'
 export { PolygonPreview } from './ui /polygon-preview'

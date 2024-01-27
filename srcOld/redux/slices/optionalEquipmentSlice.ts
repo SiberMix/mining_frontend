@@ -1,8 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify'
 
-import type { NavbarOpenContent } from '~features/navbar'
-
 import { mapService } from '../../api/map'
 import type { EquipModal, EquipTrailer, EquipType } from './mapSlice'
 
@@ -11,7 +9,6 @@ type Model = { id: number, description: string, length: string, width: string };
 type Trailer = { id: number, trailer_name: string, gosnomer: string };
 
 type OptionalEquipmentInitialState = {
-  optionalEquipmentOpenWindow: NavbarOpenContent,
   addModalVisible: boolean,
   editedType: Type | null,
   editedModel: Model | null,
@@ -22,7 +19,6 @@ type OptionalEquipmentInitialState = {
 }
 
 const optionalEquipmentInitialState: OptionalEquipmentInitialState = {
-  optionalEquipmentOpenWindow: 'EquipmentList',
   editedType: null,
   editedModel: null,
   editedTrailer: null,
@@ -36,9 +32,6 @@ const optionalEquipmentSlice = createSlice({
   name: 'optionalEquipment',
   initialState: optionalEquipmentInitialState,
   reducers: {
-    setOpenOptionalEquipmentWindow: (state: OptionalEquipmentInitialState, action: { type: string, payload: NavbarOpenContent }) => {
-      state.optionalEquipmentOpenWindow = action.payload
-    },
     setAddModalVisible: (state: OptionalEquipmentInitialState, action) => {
       state.addModalVisible = action.payload
       if (action.payload === false) {
@@ -349,7 +342,6 @@ const {
 } = optionalEquipmentSlice
 
 export const {
-  setOpenOptionalEquipmentWindow,
   setAddModalVisible,
   setEditedType,
   setEditedModel,

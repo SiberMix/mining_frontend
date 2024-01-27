@@ -1,4 +1,4 @@
-import { colors } from '~shared/lib/get-random-color/consts/colors'
+import { colors } from '~shared/const/colors'
 
 export const getRandomColor = (usingColors?: string[]) => {
   const randomSeed = Date.now()
