@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 
 import { EquipPreviewRightSide } from '~entities/equipment'
-import { PolygonAddModal } from '~entities/polygon'
+import { monitoringConfig } from '~features/navbar'
 import { axiosInstance } from '~shared/api/axios-instance'
 import { soket } from '~shared/api/socket'
+import { BasePreloader } from '~shared/ui/base-preloader'
 import { PageLayout } from '~shared/ui/page-layout'
 import { MonitoringMap } from '~widgets/monitoring-map'
-import { Settings } from '~widgets/settings'
 import { Sidebar } from '~widgets/sidebar'
 
-import BasePreloader from '../../../srcOld/components/common/BasePreloader/BasePreloader'
+import { getUsingStartMenuOptionsSelector } from '../../../srcOld/redux/selectors/settingsSelector'
 import { getAllFields } from '../../../srcOld/redux/slices/fieldSlice'
 import type { EquipEventsSocket, EquipmentSocketData } from '../../../srcOld/redux/slices/mapSlice'
 import { getAllEquipment, getAllPolygons, setEquipmentCoordinatesWebSocket, setEquipStatusArrWebSocket } from '../../../srcOld/redux/slices/mapSlice'
@@ -21,6 +22,7 @@ import { useAppDispatch } from '../../../srcOld/redux/store'
 const Monitoring = () => {
   const dispatch = useAppDispatch()
 
+  const startMenuOptions = useSelector(getUsingStartMenuOptionsSelector)
   const [isLoading, setIsLoading] = useState(true)
   //fixme костыль для срабатывания initialLoading только 1 раз
   const [isMounted, setIsMounted] = useState(false)
@@ -29,6 +31,7 @@ const Monitoring = () => {
 
   /**
    * Подгружаем всю первоначальную информацию
+   * //todo вынести в отдельную функцию в карту
    * */
   const initialLoading = async () => {
     try {
@@ -112,11 +115,13 @@ const Monitoring = () => {
         ? <BasePreloader />
         : (
           <PageLayout>
-            <Sidebar />
+            <Sidebar
+              navbarConfig={monitoringConfig}
+              // defaultSidebarContent={startMenuOptions} //todo вернуть, + обнулить настройки под новые ключи
+              withAnimation={true}
+            />
             <MonitoringMap />
-            <PolygonAddModal />
             <EquipPreviewRightSide />
-            <Settings />
           </PageLayout>
         )
       }

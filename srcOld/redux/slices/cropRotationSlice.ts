@@ -1,15 +1,16 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { analyticService } from '../../api/analytic'
 import { toast } from 'react-toastify'
-import { RootState } from '../store'
+
+import { analyticService } from '../../api/analytic'
+import type { RootState } from '../store'
 
 type CropRotationSliceInitialState = {
-  openCropRotationAddGroupModal: boolean
-  cropRotationGroups: CropRotationGroup[]
-  selectedCropRotationGroup: number | null
-  editedCropRotationGroup: CropRotationGroup | undefined
-  isLoadingCropRotation: boolean
-  arrOfLoadingCultures: EditCropRotationGroupCulture[]
+  openCropRotationAddGroupModal: boolean,
+  cropRotationGroups: CropRotationGroup[],
+  selectedCropRotationGroup: number | null,
+  editedCropRotationGroup: CropRotationGroup | undefined,
+  isLoadingCropRotation: boolean,
+  arrOfLoadingCultures: EditCropRotationGroupCulture[],
   isLoadingCreationNewMainGroup: boolean
 }
 
@@ -156,12 +157,14 @@ export const postCropRotationGroupThunk = createAsyncThunk(
 export const deleteCropRotationGroupThunk = createAsyncThunk(
   'cropRotation/deleteCropRotationGroupsThunk',
   async (groupId: number) => {
-    const response = await toast.promise(analyticService.deleteCropRotationGroup(groupId),
+    const response = await toast.promise(
+      analyticService.deleteCropRotationGroup(groupId),
       {
         pending: 'Удаляю данные о группе с сервера',
         success: 'Группа успешно удалена',
         error: 'Произошла ошибка при удалении группы'
-      })
+      }
+    )
     return {
       response,
       groupId
@@ -195,13 +198,18 @@ export const editCropRotationGroupCultureThunk = createAsyncThunk(
 export const setMainCropRotationGroupThunk = createAsyncThunk(
   'cropRotation/setMainCropRotationGroup',
   async (groupId: number) => {
-    const response = await toast.promise(analyticService.setMainCropRotationGroup(groupId),
+    const response = await toast.promise(
+      analyticService.setMainCropRotationGroup(groupId),
       {
         pending: 'Применение выбранных культур',
         success: 'Культуры полей успешно применены',
         error: 'Произошла ошибка при применении культур'
-      })
-    return { response, groupId }
+      }
+    )
+    return {
+      response,
+      groupId
+    }
   }
 )
 
@@ -222,30 +230,30 @@ export default reducer
 
 export type PostCropRotationGroup = {
   groupName: string,
-  description: string
+  description: string,
   groupData: number[]
 }
 
 export type EditCropRotationGroupCulture = {
-  groupId: number
-  year: number
-  polygonId: number
+  groupId: number,
+  year: number,
+  polygonId: number,
   cultureId: number
 }
 
 export type CropRotationGroup = {
-  name: string
-  id_group: number
-  description: string
+  name: string,
+  id_group: number,
+  description: string,
   years: CropRotationGroupYear[]
 }
 
 export type CropRotationGroupYear = {
-  year: string
-  cropPolygons: cropPolygon[]
+  year: string,
+  cropPolygons: CropPolygon[]
 }
 
-export type cropPolygon = {
-  id: number
+export type CropPolygon = {
+  id: number,
   culture: string | null
 }

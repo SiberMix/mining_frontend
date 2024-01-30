@@ -5,18 +5,18 @@ import * as cn from 'classnames'
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 
-import { PolygonEditModal } from '~entities/polygon'
 import { ModalTypeEnum } from '~entities/polygon/ui /polygon-edit-modal/model/modal-type-enum'
 import { createEditModalInitialValue } from '~entities/polygon/ui /polygon-preview/helpers/create-edit-modal-initial-value'
 import EditBox from '~shared/assets/icons/edit.svg'
 import GeoBox from '~shared/assets/icons/GPS-navigate.svg'
+import { DeleteOption } from '~shared/ui/delete-option'
 import { PolygonCanvas } from '~shared/ui/polygon-canvas'
 
-import DeleteOption from '../../../../../../srcOld/components/common/DeleteOption/DeleteOption'
 import { getSelectedPolygonIdSelector } from '../../../../../../srcOld/redux/selectors/mapSelectors'
 import type { PolygonType } from '../../../../../../srcOld/redux/slices/mapSlice'
 import { putEditPolygon, setEditedPolygon, setPolygonFlyTo } from '../../../../../../srcOld/redux/slices/mapSlice'
 import { useAppDispatch } from '../../../../../../srcOld/redux/store'
+import { PolygonEditModal } from '../../polygon-edit-modal'
 
 export const PolygonPreview: React.FC<{
   polygon: PolygonType,

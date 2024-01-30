@@ -2,52 +2,57 @@ import './Sidebar.scss'
 import './SidebarCSSTransition.scss'
 
 import React, { memo, useState } from 'react'
-import { useSelector } from 'react-redux'
 import { CSSTransition, SwitchTransition } from 'react-transition-group'
 
-import { EquipmentSideOut } from '~entities/equipment'
-import { FieldListSideOut } from '~entities/field'
-import { PlayBackSideOut } from '~entities/playback'
-import { PolygonListSideOut } from '~entities/polygon'
-import type { NavbarOpenContent } from '~features/navbar'
+import type { AnalyticConfigEnum, ConfigObjType, MonitoringConfigEnum } from '~features/navbar'
 import { Navbar } from '~features/navbar'
+import { Settings } from '~features/settings'
 import { SidebarFooter } from '~features/sidebar-footer'
 
-import { getUsingStartMenuOptionsSelector } from '../../../../srcOld/redux/selectors/settingsSelector'
+type SidebarProps = {
+  navbarConfig: Record<MonitoringConfigEnum, ConfigObjType>
+    | Record<AnalyticConfigEnum, ConfigObjType>,
+  defaultSidebarContent?: any,
+  withAnimation?: boolean
+}
 
-export const Sidebar = memo(() => {
-  const startMenuOptions = useSelector(getUsingStartMenuOptionsSelector)
-  const [sidebarOpenContent, setSidebarOpenContent] = useState<NavbarOpenContent>(startMenuOptions)
+export const Sidebar = memo(({
+  defaultSidebarContent = null,
+  navbarConfig,
+  withAnimation
+}: SidebarProps) => {
+
+  const [sidebarOpenContent, setSidebarOpenContent] = useState(defaultSidebarContent)
 
   return (
     <>
       <aside className='Sidebar'>
         <Navbar
+          navbarConfig={navbarConfig}
           sidebarOpenContent={sidebarOpenContent}
           setSidebarOpenContent={setSidebarOpenContent}
         />
 
         <SidebarFooter setSidebarOpenContent={setSidebarOpenContent} />
+        <Settings />
       </aside>
-      <SwitchTransition mode='out-in'>
-        <CSSTransition
-          key={sidebarOpenContent}
-          classNames='sidebar-fade'
-          timeout={280}
-        >
-          {
-            sidebarOpenContent === 'PolygonList'
-              ? <PolygonListSideOut />
-              : sidebarOpenContent === 'EquipmentList'
-                ? <EquipmentSideOut />
-                : sidebarOpenContent === 'FieldList'
-                  ? <FieldListSideOut />
-                  : sidebarOpenContent === 'PlayBack'
-                    ? <PlayBackSideOut />
-                    : <></>
-          }
-        </CSSTransition>
-      </SwitchTransition>
+      {
+        withAnimation
+          ? <SwitchTransition mode='out-in'>
+            <CSSTransition
+              key={sidebarOpenContent}
+              classNames='sidebar-fade'
+              timeout={280}
+            >
+              {
+                sidebarOpenContent
+                  ? navbarConfig[sidebarOpenContent]?.component || <></>
+                  : <></>
+              }
+            </CSSTransition>
+          </SwitchTransition>
+          : sidebarOpenContent && navbarConfig[sidebarOpenContent]?.component || null
+      }
     </>
   )
 })

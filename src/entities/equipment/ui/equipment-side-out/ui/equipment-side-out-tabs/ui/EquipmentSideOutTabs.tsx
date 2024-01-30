@@ -23,6 +23,7 @@ export const EquipmentSideOutTabs = memo(({
           title
         }) => (
           <div
+            key={id}
             className={cn(
               'EquipmentSideOutTabs',
               { 'EquipmentSideOutTabs_active': activeTab === id }

@@ -6,20 +6,11 @@ import { Auth } from '~pages/auth'
 import Monitoring from '~pages/monitoring/Monitoring'
 import { Page404 } from '~pages/page404'
 
-import CropRotation from '../../../../srcOld/components/pages/Analytic/modules/CropRotation/CropRotation'
-import EquipsAnalytic from '../../../../srcOld/components/pages/Analytic/modules/EquipsAnalytic/EquipsAnalytic'
-import FieldsAnalytic from '../../../../srcOld/components/pages/Analytic/modules/FieldsAnalytic/FieldsAnalytic'
-
 export enum AppRoutes {
   NOT_FOUND = 'not_found',
-
   AUTH = 'auth',
   MONITORING = 'monitoring',
-
-  ANALYTICS = 'analytics',
-  ANALYTICS_FIELD = 'analytics_field',
-  ANALYTICS_EQUIPMENTS = 'analytics_equipments',
-  ANALYTICS_CROP_ROTATION = 'analytics_crop_rotation'
+  ANALYTICS = 'analytics'
 }
 
 export const RoutePath: Record<AppRoutes, string> = {
@@ -29,10 +20,7 @@ export const RoutePath: Record<AppRoutes, string> = {
 
   [AppRoutes.MONITORING]: '/monitoring',
 
-  [AppRoutes.ANALYTICS]: '/analytics',
-  [AppRoutes.ANALYTICS_FIELD]: '/analytics/field',
-  [AppRoutes.ANALYTICS_EQUIPMENTS]: '/analytics/equipments',
-  [AppRoutes.ANALYTICS_CROP_ROTATION]: '/analytics/crop_rotation'
+  [AppRoutes.ANALYTICS]: '/analytics'
 }
 
 export const routeConfig: RouteObject[] = [
@@ -50,20 +38,6 @@ export const routeConfig: RouteObject[] = [
   },
   {
     path: RoutePath.analytics,
-    element: <Analytic />,
-    children: [
-      {
-        path: RoutePath.analytics_field,
-        element: <FieldsAnalytic />
-      },
-      {
-        path: RoutePath.analytics_equipments,
-        element: <EquipsAnalytic />
-      },
-      {
-        path: RoutePath.analytics_crop_rotation,
-        element: <CropRotation />
-      }
-    ]
+    element: <Analytic />
   }
 ]

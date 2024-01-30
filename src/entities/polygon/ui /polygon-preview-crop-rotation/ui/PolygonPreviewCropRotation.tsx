@@ -2,10 +2,10 @@ import './PolygonPreviewCropRotation.scss'
 
 import React, { useState } from 'react'
 
+import { PolygonDrawerPreview } from '~entities/crop-rotation/ui/polygon-drawer-preview'
 import { MoreInfo } from '~shared/ui/more-info'
 import { PolygonCanvas } from '~shared/ui/polygon-canvas'
 
-import PolygonDrawerPreview from '../../../../../../srcOld/components/pages/Analytic/modules/CropRotation/CropRotationList/PolygonDrawerPreview/PolygonDrawerPreview'
 import type { PolygonType } from '../../../../../../srcOld/redux/slices/mapSlice'
 
 type Props = {

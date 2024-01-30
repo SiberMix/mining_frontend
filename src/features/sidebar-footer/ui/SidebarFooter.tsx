@@ -2,9 +2,10 @@ import './SidebarFooter.scss'
 
 import { BarChartOutlined } from '@ant-design/icons'
 import React from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 
-import type { NavbarOpenContent } from '~features/navbar'
+import type { MonitoringConfigEnum } from '~features/navbar'
+import { type AnalyticConfigEnum } from '~features/navbar'
 import LogoutBtn from '~shared/assets/icons/logout.svg'
 import Setting from '~shared/assets/icons/settings.svg'
 import { RoutePath } from '~shared/config/route-config'
@@ -16,12 +17,13 @@ import { setMapClickForNewBaseCoord, setShowSettingsModal } from '../../../../sr
 import { useAppDispatch } from '../../../../srcOld/redux/store'
 
 type SidebarFooterProps = {
-  setSidebarOpenContent: (sidebarContent: NavbarOpenContent) => void
+  setSidebarOpenContent: (sidebarContent: MonitoringConfigEnum | AnalyticConfigEnum | null) => void
 }
 
 export const SidebarFooter = ({ setSidebarOpenContent }: SidebarFooterProps) => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
+  const { pathname } = useLocation()
 
   const logout = () => {
     dispatch(setToken(null))

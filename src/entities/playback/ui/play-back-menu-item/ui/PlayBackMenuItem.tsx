@@ -5,8 +5,8 @@ import React, { memo } from 'react'
 import { useSelector } from 'react-redux'
 
 import EditBox from '~shared/assets/icons/edit.svg'
+import { DeleteOption } from '~shared/ui/delete-option'
 
-import DeleteOption from '../../../../../../srcOld/components/common/DeleteOption/DeleteOption'
 import { getAllEquipmentSelector } from '../../../../../../srcOld/redux/selectors/mapSelectors'
 import { getShowingPlaybackSelector } from '../../../../../../srcOld/redux/selectors/playbackSelectors'
 import type { CurrentPlaybackData } from '../../../../../../srcOld/redux/slices/playBackSlice'

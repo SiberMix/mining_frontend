@@ -8,9 +8,9 @@ import styled from 'styled-components'
 
 import EditBox from '~shared/assets/icons/edit.svg'
 import GeoBox from '~shared/assets/icons/GPS-navigate.svg'
+import { DeleteOption } from '~shared/ui/delete-option'
 import { MoreInfo } from '~shared/ui/more-info'
 
-import DeleteOption from '../../../../../../../../srcOld/components/common/DeleteOption/DeleteOption'
 import { getAllEquipmentSelector } from '../../../../../../../../srcOld/redux/selectors/mapSelectors'
 import { deleteEquipment, setEditedEquipment, setEquipmentFlyTo, setShowRightSideEquipInfo } from '../../../../../../../../srcOld/redux/slices/mapSlice'
 import { setAddModalVisible } from '../../../../../../../../srcOld/redux/slices/optionalEquipmentSlice'

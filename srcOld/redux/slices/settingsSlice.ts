@@ -1,9 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify'
 
-import type { NavbarOpenContent } from '~features/navbar'
+import { settingsService } from '~features/settings/api'
 
-import { settingsService } from '../../api/settings'
 import type { RootState } from '../store'
 
 type SettingsInitialState = {

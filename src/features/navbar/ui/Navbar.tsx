@@ -3,26 +3,28 @@ import './Navbar.scss'
 import { message } from 'antd'
 import React, { memo } from 'react'
 
-import type { NavbarOpenContent } from '~features/navbar'
-import { monitoringConfig } from '~features/navbar/consts/monitoring-config'
+import type { AnalyticConfigEnum } from '~features/navbar'
+import { type ConfigObjType, MonitoringConfigEnum } from '~features/navbar'
 import miniLogo from '~shared/assets/hectareLogoOnly.png'
 import { Svg } from '~shared/ui/svg-styled'
 
 type NavbarProps = {
-  sidebarOpenContent: NavbarOpenContent,
-  setSidebarOpenContent: (sidebarContent: NavbarOpenContent) => void
+  navbarConfig: Record<MonitoringConfigEnum | AnalyticConfigEnum, ConfigObjType>,
+  sidebarOpenContent: MonitoringConfigEnum | AnalyticConfigEnum | null,
+  setSidebarOpenContent: (sidebarContent: MonitoringConfigEnum | AnalyticConfigEnum | null) => void
 }
 
 export const Navbar = memo(({
+  navbarConfig,
   sidebarOpenContent,
   setSidebarOpenContent
 }: NavbarProps) => {
 
   const [messageApi, contextHolder] = message.useMessage()
 
-  const handleChangeSidebarContent = (openSidebarContent: NavbarOpenContent) => {
+  const handleChangeSidebarContent = (openSidebarContent: MonitoringConfigEnum) => {
     //замазали нераб. функц
-    if (openSidebarContent === 'Tasks') {
+    if (openSidebarContent === MonitoringConfigEnum.tasks) {
       messageApi.info('Данный функционал недоступен в демонстрационном режиме')
       return
     }
@@ -42,19 +44,22 @@ export const Navbar = memo(({
         alt='sidebarLogo'
       />
       {
-        monitoringConfig.map(({
-          id,
-          title,
-          src
-        }) => (
-          <Svg
-            key={id}
-            title={title}
-            src={src}
-            active={(sidebarOpenContent === id) ? 'open' : ''}
-            onClick={() => handleChangeSidebarContent(id)}
-          />
-        ))
+        Object.keys(navbarConfig)
+          .map((configKey) => {
+            const {
+              title,
+              iconSrc
+            } = navbarConfig[configKey as MonitoringConfigEnum]
+            return (
+              <Svg
+                key={configKey}
+                title={title}
+                src={iconSrc}
+                active={(sidebarOpenContent === configKey) ? 'open' : ''}
+                onClick={() => handleChangeSidebarContent(configKey as MonitoringConfigEnum)}
+              />
+            )
+          })
       }
       {contextHolder}
     </nav>

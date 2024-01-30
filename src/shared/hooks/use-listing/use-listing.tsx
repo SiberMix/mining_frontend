@@ -3,7 +3,8 @@ import type { ColumnsType } from 'antd/es/table'
 import React, { useEffect, useMemo, useState } from 'react'
 import styled from 'styled-components'
 
-import DeleteOption from '../../../../srcOld/components/common/DeleteOption/DeleteOption'
+import { DeleteOption } from '~shared/ui/delete-option'
+
 import EditBox from '../../assets/icons/edit.svg'
 
 export const useListing = <Type extends { id: number }>({
