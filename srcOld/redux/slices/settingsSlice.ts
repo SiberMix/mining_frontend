@@ -148,7 +148,7 @@ export const {
 export default reducer
 
 export type SettingsData = {
-  startMenuOptions: NavbarOpenContent,
+  startMenuOptions: unknown, //todo пофиксить эту дич, потому что она сейчас не работает
   baseMapOptions: string,
   zoomLevelOptions: string,
   baseCoord: [number, number],

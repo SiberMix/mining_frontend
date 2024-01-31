@@ -10,11 +10,9 @@ import { Settings } from '~features/settings'
 import { SidebarFooter } from '~features/sidebar-footer'
 
 type SidebarProps = {
-  navbarConfig: Record<MonitoringConfigEnum, ConfigObjType>
-    | Record<AnalyticConfigEnum, ConfigObjType>,
-  defaultSidebarContent?: any,
   withAnimation?: boolean
-}
+} & ({ navbarConfig: Record<MonitoringConfigEnum, ConfigObjType>, defaultSidebarContent?: MonitoringConfigEnum | null }
+  | { navbarConfig: Record<AnalyticConfigEnum, ConfigObjType>, defaultSidebarContent?: AnalyticConfigEnum | null })
 
 export const Sidebar = memo(({
   defaultSidebarContent = null,
@@ -46,12 +44,14 @@ export const Sidebar = memo(({
             >
               {
                 sidebarOpenContent
-                  ? navbarConfig[sidebarOpenContent]?.component || <></>
+                  //не получается нормально, быстро типизировать
+                  ? (navbarConfig as any)[sidebarOpenContent]?.component || <></>
                   : <></>
               }
             </CSSTransition>
           </SwitchTransition>
-          : sidebarOpenContent && navbarConfig[sidebarOpenContent]?.component || null
+          //не получается нормально, быстро типизировать
+          : sidebarOpenContent && (navbarConfig as any)[sidebarOpenContent]?.component || null
       }
     </>
   )

@@ -1,6 +1,6 @@
 import type React from 'react'
+import { SettingsMenuItem } from '../ui/SettingsMenu'
 
-import type { SettingsMenuItem } from '~widgets/settings/ui/settings-menu/ui/SettingsMenu'
 
 export function getSettingsMenuItem(
   label: React.ReactNode,

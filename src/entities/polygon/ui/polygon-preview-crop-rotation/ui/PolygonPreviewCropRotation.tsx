@@ -3,8 +3,8 @@ import './PolygonPreviewCropRotation.scss'
 import React, { useState } from 'react'
 
 import { PolygonDrawerPreview } from '~entities/crop-rotation/ui/polygon-drawer-preview'
+import { PolygonCanvas } from '~entities/polygon'
 import { MoreInfo } from '~shared/ui/more-info'
-import { PolygonCanvas } from '~shared/ui/polygon-canvas'
 
 import type { PolygonType } from '../../../../../../srcOld/redux/slices/mapSlice'
 

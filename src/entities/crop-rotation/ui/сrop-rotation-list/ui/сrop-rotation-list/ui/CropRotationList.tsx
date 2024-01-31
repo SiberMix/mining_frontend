@@ -3,6 +3,8 @@ import './CropRotationList.scss'
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
+import { SideOutLayout } from '~shared/ui/side-out-layout'
+
 import { getCropRotationGroupsSelector, getSelectedCropRotationGroupSelector } from '../../../../../../../../srcOld/redux/selectors/cropRotationSelectors'
 import { getAllPolygonsSelector } from '../../../../../../../../srcOld/redux/selectors/mapSelectors'
 import { setOpenCropRotationAddGroupModal, setSelectedCropRotationGroup } from '../../../../../../../../srcOld/redux/slices/cropRotationSlice'
@@ -22,7 +24,10 @@ export const CropRotationList = () => {
   }, [cropRotationGroups])
 
   return (
-    <div className='cropRotation-list'>
+    <SideOutLayout
+      position='relative'
+      className='cropRotation-list'
+    >
       <div className='cropRotation-list-total'>
         Севооборот (
         {cropRotationGroups.length}
@@ -49,6 +54,6 @@ export const CropRotationList = () => {
         }
       </div>
 
-    </div>
+    </SideOutLayout>
   )
 }

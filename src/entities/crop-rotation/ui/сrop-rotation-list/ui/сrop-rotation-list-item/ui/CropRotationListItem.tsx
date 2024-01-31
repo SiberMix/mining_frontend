@@ -89,7 +89,7 @@ export const CropRotationListItem = ({
                   !isLoadingCreationNewMainGroup && //Убираем иконку когда идет загрузка
                   <VerticalAlignBottomOutlined
                     className='cropRotation-list-item__icons-item'
-                    style={{ color: '#858585' }}
+                    style={{ color: 'var(--gray-100)' }}
                     onClick={chooseMainCropGroup}
                   />
                 )

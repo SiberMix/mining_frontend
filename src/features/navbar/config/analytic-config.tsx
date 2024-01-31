@@ -4,7 +4,7 @@ import { CropRotation } from '~entities/crop-rotation'
 import { EquipsAnalytic } from '~entities/equips-analytic'
 import { FieldsAnalytic } from '~entities/fields-analytic'
 import type { ConfigObjType } from '~features/navbar'
-import Equip from '~shared/assets/icons/harvester2.svg'
+import AnalyticEquip from '~shared/assets/icons/analytic-equip.svg'
 import Calendar from '~shared/assets/sevo/sevooborot.svg'
 
 export enum AnalyticConfigEnum {
@@ -21,7 +21,7 @@ export const analyticConfig: Record<AnalyticConfigEnum, ConfigObjType> = {
   },
   [AnalyticConfigEnum.analytics_equipments]: {
     title: 'Аналитика техники',
-    iconSrc: Equip,
+    iconSrc: AnalyticEquip,
     component: <EquipsAnalytic />
   },
   [AnalyticConfigEnum.analytics_crop_rotation]: {

@@ -5,9 +5,9 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
-import { SideOutLayout } from '~entities/side-out-layout'
 import DownloadMap from '~shared/assets/icons/download2.svg'
 import settingMap from '~shared/assets/icons/equalizersoutline_114523.svg'
+import { SideOutLayout } from '~shared/ui/side-out-layout'
 
 import { getAllPolygonsSelector, getDrawingPolygonModeSelector } from '../../../../../../srcOld/redux/selectors/mapSelectors'
 import { deletePolygon, setDrawingPolygonMode } from '../../../../../../srcOld/redux/slices/mapSlice'

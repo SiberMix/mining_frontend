@@ -37,7 +37,7 @@ export const EquipsAnalyticDiagram = memo(({
           delay: 100 // Задержка перед стартом анимации
         }
       },
-      foreColor: '#6B6B6B', //цвета всех текстовых обозначений на графике
+      foreColor: 'var(--gray-200)', //цвета всех текстовых обозначений на графике
       zoom: {
         enabled: false
       },
@@ -66,7 +66,7 @@ export const EquipsAnalyticDiagram = memo(({
       // }
     },
     grid: {
-      borderColor: '#6B6B6B', //это свойство для цвета вертикальных линий на графике
+      borderColor: 'var(--gray-200)', //это свойство для цвета вертикальных линий на графике
       xaxis: {
         lines: {
           show: true

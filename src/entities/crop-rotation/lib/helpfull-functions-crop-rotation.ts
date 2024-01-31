@@ -1,4 +1,4 @@
-import type { FieldType } from '../../../../../../redux/slices/fieldSlice'
+import type { FieldType } from '../../../../srcOld/redux/slices/fieldSlice'
 
 export const getContrastColor = (hexColor: string) => {
   // Преобразование цвета из HEX в RGB
@@ -10,7 +10,7 @@ export const getContrastColor = (hexColor: string) => {
   const brightness = (r * 299 + g * 587 + b * 114) / 1000
 
   // Возвращение белого цвета для темных фонов и черного для светлых
-  return brightness > 128 ? '#232325' : '#ffffff'
+  return brightness > 128 ? 'var(--gray-600)' : '#ffffff'
 }
 
 export const createBGColorForCustomSelect = (culture: string | null | undefined, allFields: FieldType[]) => {

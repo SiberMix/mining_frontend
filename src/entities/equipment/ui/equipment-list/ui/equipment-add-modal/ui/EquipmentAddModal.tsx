@@ -239,8 +239,8 @@ export const EquipmentAddModal = memo(({ equips }: EquipmentAddModalProps) => {
                 src={item}
                 $height='60px'
                 $width='60px'
-                $color='var(--green)'
-                activeColor='var(--green)'
+                $color='var(--green-100)'
+                activeColor='var(--green-100)'
               />
             </div>
           </label>

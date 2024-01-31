@@ -17,9 +17,9 @@ export const CropRotation = () => {
 
   return (
     <div className='cropRotation'>
-      <div className='cropRotation-menu'>
-        <CropRotationList />
-      </div>
+      {/*<div className='cropRotation-menu'>*/}
+      <CropRotationList />
+      {/*</div>*/}
       <CropRotationTable />
       <CropRotationAddGroupModal />
     </div>

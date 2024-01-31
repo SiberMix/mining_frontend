@@ -1,6 +1,5 @@
-import type { SettingsMenuItem } from '~widgets/settings/ui/settings-menu/ui/SettingsMenu'
-
 import { getSettingsMenuItem } from '../helpers/get-settings-menu-item'
+import type { SettingsMenuItem } from '../ui/SettingsMenu'
 
 export const settingsMenuItems: SettingsMenuItem[] = [
   getSettingsMenuItem('Общее', '1'),

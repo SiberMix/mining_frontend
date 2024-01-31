@@ -1,5 +1,5 @@
 .polygonDrawerPreview {
-  background-color: #2C2C2C !important;
+  background-color: var(--gray-500) !important;
   color: #909090;
 
   &-minimap {
@@ -34,14 +34,14 @@
   }
 
   .ant-drawer-title {
-    color: #909090;
+    color: var(--gray-100);
   }
 
   .ant-drawer-close {
-    color: #6B6B6B;
+    color: var(--gray-200);
 
     &:hover {
-      color: #909090;
+      color: var(--gray-100);
     }
   }
 }

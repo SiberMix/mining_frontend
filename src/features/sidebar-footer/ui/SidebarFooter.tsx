@@ -1,18 +1,17 @@
 import './SidebarFooter.scss'
 
-import { BarChartOutlined } from '@ant-design/icons'
 import React from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import type { MonitoringConfigEnum } from '~features/navbar'
 import { type AnalyticConfigEnum } from '~features/navbar'
+import { createNavigateBtn } from '~features/sidebar-footer/lib/create-navigate-btn'
 import LogoutBtn from '~shared/assets/icons/logout.svg'
 import Setting from '~shared/assets/icons/settings.svg'
 import { RoutePath } from '~shared/config/route-config'
 import { Svg } from '~shared/ui/svg-styled'
 
 import { setToken } from '../../../../srcOld/redux/slices/authSlice'
-import { removeShowingPlayback } from '../../../../srcOld/redux/slices/playBackSlice'
 import { setMapClickForNewBaseCoord, setShowSettingsModal } from '../../../../srcOld/redux/slices/settingsSlice'
 import { useAppDispatch } from '../../../../srcOld/redux/store'
 
@@ -33,15 +32,14 @@ export const SidebarFooter = ({ setSidebarOpenContent }: SidebarFooterProps) => 
 
   return (
     <div className='SidebarFooter'>
-      <Link
-        to='/analytics'
-        onClick={() => dispatch(removeShowingPlayback(null))} //тут просто обнуляем то, что нам не нужно в аналитике
-      >
-        <BarChartOutlined
-          className='SidebarFooter-icon'
-          title='Аналитика'
-        />
-      </Link>
+      {
+        createNavigateBtn({
+          pathname,
+          setSidebarOpenContent,
+          dispatch,
+          navigate
+        })
+      }
       <Svg
         title='Настройки'
         src={Setting}

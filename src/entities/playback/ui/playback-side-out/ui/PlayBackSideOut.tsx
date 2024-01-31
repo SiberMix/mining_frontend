@@ -3,7 +3,7 @@ import './PlayBackSideOut.scss'
 import React, { memo } from 'react'
 import { useSelector } from 'react-redux'
 
-import { SideOutLayout } from '~entities/side-out-layout'
+import { SideOutLayout } from '~shared/ui/side-out-layout'
 
 import { setIsOpenPlayBackAddModal } from '../../../../../../srcOld/redux/slices/playBackSlice'
 import type { RootState } from '../../../../../../srcOld/redux/store'

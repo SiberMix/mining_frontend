@@ -1,29 +1,29 @@
 .ant-popover {
   &-inner {
-    border: 1px solid #858585;
-    background-color: #2c2c2c !important;
+    border: 1px solid var(--gray-100);
+    background-color: var(--gray-500) !important;
   }
 
   &-arrow {
     &:before {
-      background-color: #6B6B6B !important;
+      background-color: var(--gray-200) !important;
     }
 
     &:after {
-      background-color: #6B6B6B !important;
+      background-color: var(--gray-200) !important;
     }
   }
 
   .ant-btn {
-    border: 1px solid #858585;
+    border: 1px solid var(--gray-100);
     color: #929292;
     background-color: #565656;
     transition: background-color, color .3s;
 
     &:hover {
       color: #ffffff !important; //в некоторых файлах почему то перебиваются стили
-      border: 1px solid #858585 !important; //и тут тоже
-      background-color: #858585 !important; //и тут тоже
+      border: 1px solid var(--gray-100) !important; //и тут тоже
+      background-color: var(--gray-100) !important; //и тут тоже
     }
   }
 }

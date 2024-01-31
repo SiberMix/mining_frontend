@@ -30,7 +30,7 @@ export const AngleCircleDiagram = memo(() => {
             show: true
           },
           value: {
-            color: '#2C2C2C',
+            color: 'var(--gray-500)',
             show: true
           }
         }

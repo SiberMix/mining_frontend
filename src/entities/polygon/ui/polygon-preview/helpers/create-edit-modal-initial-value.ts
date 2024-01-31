@@ -1,4 +1,4 @@
-import { ModalTypeEnum } from '~entities/polygon/ui /polygon-edit-modal/model/modal-type-enum'
+import { ModalTypeEnum } from '~entities/polygon/ui/polygon-edit-modal/model/modal-type-enum'
 
 import type { PolygonType } from '../../../../../../srcOld/redux/slices/mapSlice'
 

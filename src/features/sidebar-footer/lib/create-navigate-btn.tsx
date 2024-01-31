@@ -1,34 +1,61 @@
-import { RoutePath } from "~shared/config/route-config"
-import Setting from "~shared/assets/icons/settings.svg"
-import { setMapClickForNewBaseCoord, setShowSettingsModal } from "../../../../srcOld/redux/slices/settingsSlice"
-import { Svg } from "~shared/ui/svg-styled"
-import React from "react"
-import type { AnalyticConfigEnum, MonitoringConfigEnum } from "~features/navbar"
+import React from 'react'
+import type { NavigateFunction } from 'react-router/dist/lib/hooks'
 
-type CreateNavigateBtnType {
+import type { AnalyticConfigEnum, MonitoringConfigEnum } from '~features/navbar'
+import AnalyticSidebar from '~shared/assets/icons/analyс-sidebar.svg'
+import MonitoringSidebar from '~shared/assets/icons/monitoring-sidebar.svg'
+import { RoutePath } from '~shared/config/route-config'
+import { Svg } from '~shared/ui/svg-styled'
 
+import { removeShowingPlayback } from '../../../../srcOld/redux/slices/playBackSlice'
+import { setMapClickForNewBaseCoord } from '../../../../srcOld/redux/slices/settingsSlice'
+import type { AppDispatch } from '../../../../srcOld/redux/store'
+
+type CreateNavigateBtnType = {
+  pathname: string,
+  setSidebarOpenContent: (sidebarContent: MonitoringConfigEnum | AnalyticConfigEnum | null) => void,
+  dispatch: AppDispatch,
+  navigate: NavigateFunction
 }
 
-export const createNavigateBtn = (pathname: string, setSidebarOpenContent: (sidebarContent: MonitoringConfigEnum | AnalyticConfigEnum | null) => void) => {
+export const createNavigateBtn = ({
+  pathname,
+  dispatch,
+  setSidebarOpenContent,
+  navigate
+}: CreateNavigateBtnType) => {
   switch (pathname) {
-    case RoutePath.auth:
-      return null
     case RoutePath.monitoring:
       return (
         <Svg
-          title='Настройки'
-          src={Setting}
+          title='Аналитика'
+          src={AnalyticSidebar}
+          className='SidebarFooter-icon'
           onClick={() => {
+            navigate(RoutePath.analytics)
+            dispatch(removeShowingPlayback(null))
             setSidebarOpenContent(null)
-            dispatch(setMapClickForNewBaseCoord(false))
-            dispatch(setShowSettingsModal(true))
           }}
         />
       )
     case RoutePath.analytics:
+      return (
+        <Svg
+          title='Мониторинг'
+          className='SidebarFooter-icon'
+          src={MonitoringSidebar}
+          onClick={() => {
+            setSidebarOpenContent(null)
+            dispatch(setMapClickForNewBaseCoord(false))
+            navigate(RoutePath.monitoring)
+          }}
+        />
+      )
     case RoutePath.not_found:
-      return
-    default: return null
+    case RoutePath.auth:
+      return null
+    default:
+      return null
   }
 
 }

@@ -4,7 +4,7 @@ import './EquipmentSideOut.scss'
 import React, { memo, useCallback, useState } from 'react'
 import { CSSTransition, SwitchTransition } from 'react-transition-group'
 
-import { SideOutLayout } from '~entities/side-out-layout'
+import { SideOutLayout } from '~shared/ui/side-out-layout'
 
 import { EquipModelList } from '../../../../equip-model-list'
 import { EquipTrailerList } from '../../../../equip-trailer-list'

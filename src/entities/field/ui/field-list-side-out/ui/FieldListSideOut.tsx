@@ -1,4 +1,4 @@
-import { SideOutLayout } from '~entities/side-out-layout'
+import { SideOutLayout } from '~shared/ui/side-out-layout'
 
 import { FieldPreview } from '../../field-preview'
 

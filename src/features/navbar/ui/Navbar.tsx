@@ -9,7 +9,7 @@ import miniLogo from '~shared/assets/hectareLogoOnly.png'
 import { Svg } from '~shared/ui/svg-styled'
 
 type NavbarProps = {
-  navbarConfig: Record<MonitoringConfigEnum | AnalyticConfigEnum, ConfigObjType>,
+  navbarConfig: Record<MonitoringConfigEnum, ConfigObjType> | Record<AnalyticConfigEnum, ConfigObjType>,
   sidebarOpenContent: MonitoringConfigEnum | AnalyticConfigEnum | null,
   setSidebarOpenContent: (sidebarContent: MonitoringConfigEnum | AnalyticConfigEnum | null) => void
 }
@@ -49,7 +49,7 @@ export const Navbar = memo(({
             const {
               title,
               iconSrc
-            } = navbarConfig[configKey as MonitoringConfigEnum]
+            } = navbarConfig[configKey as keyof typeof navbarConfig]
             return (
               <Svg
                 key={configKey}
