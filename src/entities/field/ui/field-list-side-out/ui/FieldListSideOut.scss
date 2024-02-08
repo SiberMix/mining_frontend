@@ -1,0 +1,16 @@
+.FieldListSideOut {
+  .libraries {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 400px;
+    border-right: 5px solid var(--gray-700);
+
+    p {
+      color: #FFFFFF;
+      font-size: 0.78rem;
+      margin: 5px;
+    }
+  }
+}
+

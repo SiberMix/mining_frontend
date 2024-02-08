@@ -1,0 +1,180 @@
+.equipmentAddModal {
+  .ant-modal {
+    &-content {
+      border: 1px solid var(--gray-100);
+      background-color: var(--gray-500);
+    }
+
+    &-title {
+      color: var(--gray-100);
+    }
+
+    &-header {
+      background-color: inherit;
+      padding: 3px;
+      border-radius: 0;
+    }
+
+    &-close-x {
+      color: var(--gray-100);
+      transition: color .3s;
+
+      &:hover {
+        color: #FFFFFF;
+      }
+    }
+
+    &-body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      color: var(--gray-100);
+
+      .ant-input {
+        border: 1px solid var(--gray-100);
+        color: #ffffff;
+        background-color: var(--gray-200);
+
+        &::-moz-placeholder {
+          color: var(--gray-200);
+        }
+
+        &::-webkit-input-placeholder {
+          color: var(--gray-200);
+        }
+      }
+    }
+  }
+
+  .ant-btn {
+    border: 1px solid var(--gray-100);
+    color: var(--gray-100);
+    background-color: var(--gray-200);
+    transition: background-color, color .3s;
+
+    &:hover {
+      color: #FFFFFF;
+      border: 1px solid var(--gray-100);
+      background-color: var(--gray-100);
+    }
+  }
+
+  .ant-select {
+    width: 80%;
+
+    &-selector {
+      width: 100% !important;
+      border: 1px solid var(--gray-100) !important;
+      background-color: var(--gray-200) !important;
+
+      .ant-select-arrow {
+        color: #FFFFFF !important;
+      }
+    }
+  }
+
+  .ant-switch {
+    margin: 0 10px 0 10px;
+    background-color: var(--gray-600);
+
+    &-checked {
+      background-color: var(--gray-100);
+
+      &:hover {
+        color: var(--gray-100);
+        background-color: var(--gray-100) !important;
+      }
+    }
+  }
+
+  .ant-slider {
+
+    &:hover {
+      .ant-slider-handle::after {
+        box-shadow: 0 0 0 4px var(--gray-100);
+      }
+    }
+
+    &-handle {
+      &::after {
+        box-shadow: 0 0 0 2px var(--gray-100);
+      }
+
+      &:hover::after {
+        box-shadow: 0 0 0 4px var(--gray-100);
+      }
+
+      &:focus::after {
+        box-shadow: 0 0 0 4px var(--gray-100);
+      }
+    }
+  }
+}
+
+.equipmentAddModalSelect {
+  border: 1px solid var(--gray-100) !important;
+  background-color: var(--gray-200) !important;
+
+  &-textDiv {
+    color: #FFFFFF;
+    transition: all .3s;
+
+    .mini-line {
+      width: 0;
+      height: 1px;
+      border-bottom: 1px solid #FFFFFF;
+      transition: width .3s;
+    }
+
+    &:hover {
+      .mini-line {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.imagesList {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.imageField {
+  position: relative;
+
+  .equipmentImageSVG {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 7px;
+    transition: all 0.2s ease;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border: 1px solid inherit;
+      border-radius: inherit;
+      transition: border-color 0.2s ease;
+    }
+
+    &.active::before {
+      border: 1px solid #FFFFFF;
+    }
+
+    &:hover {
+      background-color: var(--gray-100);
+    }
+  }
+}
+

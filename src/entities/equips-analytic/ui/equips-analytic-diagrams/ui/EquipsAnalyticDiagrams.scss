@@ -1,0 +1,23 @@
+.fieldsAnalyticDiagrams {
+  height: 100%;
+  width: 100%;
+
+  &_centered {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    text {
+      font-size: 11px;
+      color: var(--gray-100)
+    }
+  }
+}
+
+.apexcharts-tooltip {
+  color: #ffffff;
+  padding: 8px;
+  border-radius: 4px;
+}

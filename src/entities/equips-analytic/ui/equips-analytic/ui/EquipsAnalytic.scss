@@ -1,0 +1,31 @@
+.EquipsAnalytic {
+  display: grid;
+  grid-template-columns: 6fr 5fr;
+  grid-template-rows: repeat(2, 1fr);
+  gap: 8px;
+  width: 100%;
+  height: 100%;
+  padding: 8px;
+  background-color: var(--gray-700);
+
+  &_menu,
+  &_charts,
+  &_report {
+    height: 100%;
+    width: 100%;
+    padding: 4px;
+    border-radius: 4px;
+    background-color: var(--gray-400);
+  }
+
+  &_menu {
+  }
+
+  &_charts {
+
+  }
+
+  &_report {
+    grid-row: 2 span;
+  }
+}

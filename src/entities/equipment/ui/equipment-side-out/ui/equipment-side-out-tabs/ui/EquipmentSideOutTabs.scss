@@ -1,0 +1,15 @@
+.EquipmentSideOutTabs {
+  margin-right: 0;
+  padding: 10px;
+  background-color: var(--gray-500);
+  cursor: pointer;
+  border: none;
+  border-radius: 3px;
+  color: #FFFFFF;
+  font-size: 0.9rem;
+
+  &_active {
+    color: var(--green-100);
+    background-color: var(--green-200);
+  }
+}

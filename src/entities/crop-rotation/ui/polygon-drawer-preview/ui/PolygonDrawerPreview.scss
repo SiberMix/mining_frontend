@@ -1,0 +1,47 @@
+.polygonDrawerPreview {
+  background-color: var(--gray-500) !important;
+  color: #909090;
+
+  &-minimap {
+    height: 50%;
+  }
+
+  p {
+    //width: 75%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1em 0;
+    font-size: 14px;
+  }
+
+  &-info {
+    //color: #ffffff;
+
+    &_name {
+      text-transform: uppercase;
+      color: #ffffff;
+    }
+
+    &_chart {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 2em 0;
+    }
+  }
+
+  .ant-drawer-title {
+    color: var(--gray-100);
+  }
+
+  .ant-drawer-close {
+    color: var(--gray-200);
+
+    &:hover {
+      color: var(--gray-100);
+    }
+  }
+}

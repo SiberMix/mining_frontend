@@ -1,0 +1,77 @@
+.PlayBackAddModal__equippicker {
+  margin-top: .7em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .5em .5em;
+  width: 100%;
+  height: 20em;
+  padding: 5px;
+  border: 2px solid var(--gray-100);
+  border-radius: 1em;
+  overflow-y: auto;
+
+  scrollbar-width: none; /* hide the scrollbar in Firefox */
+  -ms-overflow-style: none; /* hide the scrollbar in Edge and IE */
+
+  &::-webkit-scrollbar {
+    width: 0.5rem; /* set the width of the scrollbar */
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: var(--gray-500); /* set the color of the track */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--gray-700); /* set the color of the thumb */
+  }
+
+  &-card-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 8em;
+  }
+
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: .3em;
+  }
+
+  &-avatar {
+    border: 1px solid var(--gray-200);
+  }
+
+  &-colorline {
+    width: 60%;
+    height: 4px;
+    border-radius: 1em;
+  }
+
+  &-title {
+    font-weight: normal;
+    font-size: 12px;
+  }
+
+  &-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &-btn {
+      width: 100%;
+      font-size: 12px;
+    }
+  }
+
+  .ant-card {
+    width: 10em;
+    background-color: var(--gray-500);
+    color: #ffffff;
+    cursor: pointer;
+    transition: width .5s;
+  }
+}

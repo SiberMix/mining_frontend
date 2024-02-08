@@ -1,0 +1,27 @@
+.EquipmentSideOut {
+  &__libraries {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 400px;
+    border-right: 5px solid var(--gray-700);
+  }
+
+  &__header {
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 0.2px solid var(--gray-100);
+    padding: 16px;
+    color: #FFFFFF;
+
+    p {
+      text-align: center;
+
+      color: #FFFFFF;
+      font-size: 0.78rem;
+    }
+  }
+}
+

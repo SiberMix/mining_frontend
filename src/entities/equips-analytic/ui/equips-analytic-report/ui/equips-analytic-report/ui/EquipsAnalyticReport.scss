@@ -1,0 +1,58 @@
+.EquipsAnalyticReport {
+  height: 100%;
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 2vh;
+  background-color: var(--gray-400);
+  color: #FFFFFF;
+
+  /*добавляем скролл, если вдруг не влезло в экран, и прячем его стилями*/
+  overflow-y: scroll;
+  scrollbar-width: none; /* hide the scrollbar in Firefox */
+  -ms-overflow-style: none; /* hide the scrollbar in Edge and IE */
+
+  &::-webkit-scrollbar {
+    width: 0.5rem; /* set the width of the scrollbar */
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: var(--gray-500); /* set the color of the track */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--gray-700); /* set the color of the thumb */
+  }
+
+  &_centered {
+    justify-content: center;
+    align-items: center;
+  }
+
+  &_tabs {
+    .ant-tabs-nav {
+      margin: 0;
+    }
+  }
+
+  &_main-data,
+  &_refill {
+    width: 100%;
+    border: 1px solid var(--gray-200);
+    background-color: var(--gray-500);
+
+    th { //заголовок
+      padding: 5px 15px;
+      font-size: 18px;
+      font-weight: 400;
+      text-transform: uppercase;
+    }
+  }
+
+  &_chart {
+    min-height: 300px;
+  }
+}

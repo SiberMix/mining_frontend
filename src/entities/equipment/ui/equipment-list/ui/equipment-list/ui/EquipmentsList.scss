@@ -1,0 +1,85 @@
+.EquipmentList {
+  padding: 4px 3px;
+
+  .nameDiv {
+    display: flex;
+    flex-grow: 1;
+  }
+
+  .row {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+    padding-bottom: 10px;
+    color: #FFFFFF;
+  }
+
+  .trash {
+    padding: 3px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }
+
+  .geo {
+    padding-left: 3px;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+  }
+
+  .edit {
+    padding: 3px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }
+
+  .geoDiv {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-grow: 1;
+  }
+
+  .title {
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .culture {
+    color: var(--gray-100);
+    font-size: 14px;
+  }
+
+  .addButton {
+    padding: 0.5rem 0;
+    width: 100%;
+    background-color: var(--green-200);
+    cursor: pointer;
+    border: none;
+    border-radius: 3px;
+    color: var(--green-100);
+    font-size: 0.9rem;
+  }
+
+  .equipments {
+    padding: .5rem 0;
+    border-bottom: 0.2px solid var(--gray-100);
+
+    &Content {
+      padding-left: 10px;
+      display: flex;
+      align-items: center;
+      border-radius: 5px;
+      color: #FFFFFF;
+      transition: background-color .2s;
+
+      &:hover {
+        background-color: var(--gray-200);
+      }
+    }
+  }
+}

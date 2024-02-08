@@ -1,0 +1,8 @@
+.EquipsAnalyticReportTableRow {
+  border: 1px solid var(--gray-200);
+
+  td { //столбец в строке
+    padding: 5px 15px;
+    border: 1px solid var(--gray-200);
+  }
+}

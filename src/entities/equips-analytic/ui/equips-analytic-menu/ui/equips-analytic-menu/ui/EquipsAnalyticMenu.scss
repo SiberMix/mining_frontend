@@ -1,0 +1,96 @@
+.equipsAnalyticMenu {
+  height: 100%;
+  width: 100%;
+  padding: 15px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-items: flex-start;
+  gap: 20px;
+
+  .ant-segmented {
+    border: 1px solid var(--gray-200);
+    background-color: inherit;
+    color: var(--gray-100);
+
+    &-item {
+      &-selected {
+        background-color: var(--green-100);
+        color: var(--gray-100) !important;
+      }
+
+      &:hover {
+
+        color: var(--gray-100) !important;
+      }
+    }
+
+    &-thumb {
+      background-color: var(--green-100);
+    }
+  }
+
+  &-btn {
+    color: var(--green-100);
+    background-color: var(--green-200);
+    transition: background-color, color .3s;
+
+    &:hover {
+      color: var(--green-100) !important;
+      background-color: var(--green-200) !important;
+    }
+  }
+
+  &-timepicker {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--gray-100);
+    color: var(--gray-100);
+    background-color: var(--gray-300);
+    border-radius: 8px;
+    overflow: hidden;
+    //transition: width 2s, height 1s; /* Длительность анимации */
+
+    &__open {
+      width: 256px;
+      height: 34px;
+      transition: height .5s .5s, width .5s;
+    }
+
+    &__close {
+      border-color: var(--gray-600);
+      width: 0;
+      height: 0;
+      transition: height .5s, width .5s .5s, border 1ms 1s;
+    }
+
+    .ant-picker {
+      border: none;
+      background-color: var(--gray-200);
+
+      &-active-bar {
+        background-color: var(--green-100);
+      }
+    }
+
+    .anticon {
+      color: var(--gray-100);
+
+      &-close-circle {
+        color: var(--gray-100);
+        background-color: var(--gray-200);
+      }
+    }
+
+
+    .ant-picker-input {
+      input {
+        color: #ffffff !important;
+
+        &::placeholder {
+          color: rgb(255, 255, 255, .5);
+        }
+      }
+    }
+  }
+}

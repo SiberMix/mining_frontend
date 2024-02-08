@@ -1,0 +1,52 @@
+import React, { useEffect, useState } from 'react'
+
+import { analyticConfig, AnalyticConfigEnum } from '~features/navbar'
+import { BasePreloader } from '~shared/ui/base-preloader'
+import { PageLayout } from '~shared/ui/page-layout'
+import { Sidebar } from '~widgets/sidebar'
+
+import { getAllPolygons } from '../../srcOld/redux/slices/mapSlice'
+import { useAppDispatch } from '../../srcOld/redux/store'
+
+const Analytic = () => {
+  const dispatch = useAppDispatch()
+
+  const [load, setLoad] = useState(true)
+
+  useEffect(() => {
+
+    (async () => {
+      try {
+        await Promise.all([
+          dispatch(getAllPolygons())
+        ])
+
+        setLoad(false)
+      } catch (error) {
+        console.error('Произошла ошибка при загрузке данных:', error)
+      }
+    })()
+  }, [])
+
+  return (
+    <div style={{
+      position: 'relative',
+      height: '100vh'
+    }}
+    >
+      {load
+        ? <BasePreloader />
+        : (
+          <PageLayout>
+            <Sidebar
+              navbarConfig={analyticConfig}
+              defaultSidebarContent={AnalyticConfigEnum.analytics_equipments}
+              withAnimation={false}
+            />
+          </PageLayout>
+        )}
+    </div>
+  )
+}
+
+export default Analytic
