@@ -7,8 +7,8 @@ import { useSelector } from 'react-redux'
 
 import { getRandomColor } from '~shared/lib/get-random-color'
 
-import { getAllEquipmentSelector } from '../../../../../../srcOld/redux/selectors/mapSelectors'
-import type { EquipmentData } from '../../../../../../srcOld/redux/slices/playBackSlice'
+import { getAllEquipmentSelector } from '../../../../../srcOld/redux/selectors/mapSelectors'
+import type { EquipmentData } from '../../../../../srcOld/redux/slices/playBackSlice'
 
 type PlayBackEquipPickerProps = {
   selectedEquipment: EquipmentData[],

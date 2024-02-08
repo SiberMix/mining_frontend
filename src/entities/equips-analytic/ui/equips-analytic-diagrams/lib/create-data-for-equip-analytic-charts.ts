@@ -2,7 +2,7 @@ import dayjs from 'dayjs'
 
 import type { EquipsAnalyticDiagramSeriesType } from '~entities/diagrams/ui/equips-analytic-diagram'
 
-import type { Equip } from '../../../../../../srcOld/redux/slices/mapSlice'
+import type { Equip } from '../../../../../srcOld/redux/slices/mapSlice'
 import type { ChartData, EquipDataForChart, PickedEquip } from '../../../types'
 
 type CreateSpeedCategoriesAndSpeedSeriesType = {

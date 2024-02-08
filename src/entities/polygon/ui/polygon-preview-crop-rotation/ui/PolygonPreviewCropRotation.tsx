@@ -6,7 +6,7 @@ import { PolygonDrawerPreview } from '~entities/crop-rotation/ui/polygon-drawer-
 import { PolygonCanvas } from '~entities/polygon'
 import { MoreInfo } from '~shared/ui/more-info'
 
-import type { PolygonType } from '../../../../../../srcOld/redux/slices/mapSlice'
+import type { PolygonType } from '../../../../../srcOld/redux/slices/mapSlice'
 
 type Props = {
   polygon: PolygonType,

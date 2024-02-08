@@ -6,9 +6,9 @@ import { useSelector } from 'react-redux'
 
 import { ModalStyled } from '~shared/ui/modal-styled'
 
-import { getAddModalVisibleSelector, getEditedTrailerSelector } from '../../../../../../../../srcOld/redux/selectors/optionalEquipmentSelectors'
-import { addTrailer, editTrailer, setAddModalVisible } from '../../../../../../../../srcOld/redux/slices/optionalEquipmentSlice'
-import { useAppDispatch } from '../../../../../../../../srcOld/redux/store'
+import { getAddModalVisibleSelector, getEditedTrailerSelector } from '../../../../../../../srcOld/redux/selectors/optionalEquipmentSelectors'
+import { addTrailer, editTrailer, setAddModalVisible } from '../../../../../../../srcOld/redux/slices/optionalEquipmentSlice'
+import { useAppDispatch } from '../../../../../../../srcOld/redux/store'
 
 export const EquipTrailerListModal = () => {
   const dispatch = useAppDispatch()

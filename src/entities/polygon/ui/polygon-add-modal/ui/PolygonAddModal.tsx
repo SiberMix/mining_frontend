@@ -6,11 +6,11 @@ import { useSelector } from 'react-redux'
 
 import { ModalStyled } from '~shared/ui/modal-styled'
 
-import { getAllFieldsSelector } from '../../../../../../srcOld/redux/selectors/fieldsSelectors'
-import { getAllPolygonsSelector, getNewPolygonCoordsSelector, getShowAddNewPolygonModalSelector } from '../../../../../../srcOld/redux/selectors/mapSelectors'
-import type { FieldType } from '../../../../../../srcOld/redux/slices/fieldSlice'
-import { postNewPolygon, setShowAddNewPolygonModal } from '../../../../../../srcOld/redux/slices/mapSlice'
-import { useAppDispatch } from '../../../../../../srcOld/redux/store'
+import { getAllFieldsSelector } from '../../../../../srcOld/redux/selectors/fieldsSelectors'
+import { getAllPolygonsSelector, getNewPolygonCoordsSelector, getShowAddNewPolygonModalSelector } from '../../../../../srcOld/redux/selectors/mapSelectors'
+import type { FieldType } from '../../../../../srcOld/redux/slices/fieldSlice'
+import { postNewPolygon, setShowAddNewPolygonModal } from '../../../../../srcOld/redux/slices/mapSlice'
+import { useAppDispatch } from '../../../../../srcOld/redux/store'
 
 export const PolygonAddModal = () => {
   const dispatch = useAppDispatch()

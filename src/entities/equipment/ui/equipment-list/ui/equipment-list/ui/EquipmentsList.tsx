@@ -11,10 +11,10 @@ import GeoBox from '~shared/assets/icons/GPS-navigate.svg'
 import { DeleteOption } from '~shared/ui/delete-option'
 import { MoreInfo } from '~shared/ui/more-info'
 
-import { getAllEquipmentSelector } from '../../../../../../../../srcOld/redux/selectors/mapSelectors'
-import { deleteEquipment, setEditedEquipment, setEquipmentFlyTo, setShowRightSideEquipInfo } from '../../../../../../../../srcOld/redux/slices/mapSlice'
-import { setAddModalVisible } from '../../../../../../../../srcOld/redux/slices/optionalEquipmentSlice'
-import { useAppDispatch } from '../../../../../../../../srcOld/redux/store'
+import { getAllEquipmentSelector } from '../../../../../../../srcOld/redux/selectors/mapSelectors'
+import { deleteEquipment, setEditedEquipment, setEquipmentFlyTo, setShowRightSideEquipInfo } from '../../../../../../../srcOld/redux/slices/mapSlice'
+import { setAddModalVisible } from '../../../../../../../srcOld/redux/slices/optionalEquipmentSlice'
+import { useAppDispatch } from '../../../../../../../srcOld/redux/store'
 import { EquipmentAddModal } from '../../equipment-add-modal'
 
 export const EquipmentList = memo(() => {

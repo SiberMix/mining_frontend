@@ -8,9 +8,9 @@ import { useNavigate } from 'react-router-dom'
 import CompanyLogo from '~shared/assets/logo.png'
 import { RoutePath } from '~shared/config/route-config'
 
-import { getTokenSelector } from '../../../../srcOld/redux/selectors/authSelectors'
-import { getToken } from '../../../../srcOld/redux/slices/authSlice'
-import { useAppDispatch } from '../../../../srcOld/redux/store'
+import { getTokenSelector } from '../../../srcOld/redux/selectors/authSelectors'
+import { getToken } from '../../../srcOld/redux/slices/authSlice'
+import { useAppDispatch } from '../../../srcOld/redux/store'
 
 export const Auth = () => {
   const dispatch = useAppDispatch()

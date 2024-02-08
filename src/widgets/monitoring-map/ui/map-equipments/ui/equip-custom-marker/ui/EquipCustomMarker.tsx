@@ -5,10 +5,10 @@ import React, { memo, useCallback, useEffect, useMemo } from 'react'
 import { Marker, useMap } from 'react-leaflet'
 import { useSelector } from 'react-redux'
 
-import { getEquipmentFlyToSelector, getZoomLevelSelector } from '../../../../../../../../srcOld/redux/selectors/mapSelectors'
-import type { EquipStatus } from '../../../../../../../../srcOld/redux/slices/mapSlice'
-import { setEquipmentFlyTo, setShowRightSideEquipInfo } from '../../../../../../../../srcOld/redux/slices/mapSlice'
-import { useAppDispatch } from '../../../../../../../../srcOld/redux/store'
+import { getEquipmentFlyToSelector, getZoomLevelSelector } from '../../../../../../../srcOld/redux/selectors/mapSelectors'
+import type { EquipStatus } from '../../../../../../../srcOld/redux/slices/mapSlice'
+import { setEquipmentFlyTo, setShowRightSideEquipInfo } from '../../../../../../../srcOld/redux/slices/mapSlice'
+import { useAppDispatch } from '../../../../../../../srcOld/redux/store'
 import { createCustomMarkerHtml } from '../../../lib/create-custom-marker-html'
 
 type EquipCustomMarkerProps = {

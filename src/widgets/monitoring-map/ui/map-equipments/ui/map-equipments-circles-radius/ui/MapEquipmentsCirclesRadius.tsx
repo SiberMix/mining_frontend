@@ -2,8 +2,8 @@ import React, { memo } from 'react'
 import { Circle } from 'react-leaflet'
 import { useSelector } from 'react-redux'
 
-import { getAllEquipmentSelector, getZoomLevelSelector } from '../../../../../../../../srcOld/redux/selectors/mapSelectors'
-import type { Equip, EquipmentSocketData } from '../../../../../../../../srcOld/redux/slices/mapSlice'
+import { getAllEquipmentSelector, getZoomLevelSelector } from '../../../../../../../srcOld/redux/selectors/mapSelectors'
+import type { Equip, EquipmentSocketData } from '../../../../../../../srcOld/redux/slices/mapSlice'
 
 type MapEquipmentsCirclesProps = {
   equipmentCoordinates: EquipmentSocketData[]

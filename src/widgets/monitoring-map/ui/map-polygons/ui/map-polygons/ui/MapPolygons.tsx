@@ -5,8 +5,8 @@ import 'leaflet-draw/dist/leaflet.draw.css'
 import React, { memo } from 'react'
 import { useSelector } from 'react-redux'
 
-import { getAllPolygonsSelector, getEditedPolygonSelector } from '../../../../../../../../srcOld/redux/selectors/mapSelectors'
-import type { PolygonType } from '../../../../../../../../srcOld/redux/slices/mapSlice'
+import { getAllPolygonsSelector, getEditedPolygonSelector } from '../../../../../../../srcOld/redux/selectors/mapSelectors'
+import type { PolygonType } from '../../../../../../../srcOld/redux/slices/mapSlice'
 import { OnePolygon } from '../../one-polygon'
 
 export const MapPolygons = memo(() => {

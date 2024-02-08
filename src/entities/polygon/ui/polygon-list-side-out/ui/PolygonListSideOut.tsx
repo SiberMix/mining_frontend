@@ -9,9 +9,9 @@ import DownloadMap from '~shared/assets/icons/download2.svg'
 import settingMap from '~shared/assets/icons/equalizersoutline_114523.svg'
 import { SideOutLayout } from '~shared/ui/side-out-layout'
 
-import { getAllPolygonsSelector, getDrawingPolygonModeSelector } from '../../../../../../srcOld/redux/selectors/mapSelectors'
-import { deletePolygon, setDrawingPolygonMode } from '../../../../../../srcOld/redux/slices/mapSlice'
-import { useAppDispatch } from '../../../../../../srcOld/redux/store'
+import { getAllPolygonsSelector, getDrawingPolygonModeSelector } from '../../../../../srcOld/redux/selectors/mapSelectors'
+import { deletePolygon, setDrawingPolygonMode } from '../../../../../srcOld/redux/slices/mapSlice'
+import { useAppDispatch } from '../../../../../srcOld/redux/store'
 import { PolygonAddModal } from '../../polygon-add-modal'
 import { PolygonPreview } from '../../polygon-preview'
 

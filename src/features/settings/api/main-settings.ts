@@ -1,6 +1,6 @@
 import { axiosInstance } from '~shared/api/axios-instance'
 
-import type { SettingsData } from '../../../../srcOld/redux/slices/settingsSlice'
+import type { SettingsData } from '../../../srcOld/redux/slices/settingsSlice'
 
 export const mainSettings = {
   getSettings: (token: string) => {

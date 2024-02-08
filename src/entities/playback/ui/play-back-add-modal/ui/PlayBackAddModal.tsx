@@ -12,10 +12,10 @@ import { useSelector } from 'react-redux'
 import { colors } from '~shared/const/colors'
 import { ModalStyled } from '~shared/ui/modal-styled'
 
-import type { EquipmentData } from '../../../../../../srcOld/redux/slices/playBackSlice'
-import { postNewPlayback, setIsOpenPlayBackAddModal } from '../../../../../../srcOld/redux/slices/playBackSlice'
-import type { RootState } from '../../../../../../srcOld/redux/store'
-import { useAppDispatch } from '../../../../../../srcOld/redux/store'
+import type { EquipmentData } from '../../../../../srcOld/redux/slices/playBackSlice'
+import { postNewPlayback, setIsOpenPlayBackAddModal } from '../../../../../srcOld/redux/slices/playBackSlice'
+import type { RootState } from '../../../../../srcOld/redux/store'
+import { useAppDispatch } from '../../../../../srcOld/redux/store'
 import { PlayBackEquipPicker } from '../../play-back-equip-picker'
 
 export const PlayBackAddModal = () => {

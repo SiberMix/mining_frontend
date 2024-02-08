@@ -5,9 +5,9 @@ import { useSelector } from 'react-redux'
 
 import { CheckboxList } from '~shared/ui/checkbox-list'
 
-import { getEquipmentOptionsSelector } from '../../../../../../../../../../srcOld/redux/selectors/settingsSelector'
-import { setEquipmentOptions } from '../../../../../../../../../../srcOld/redux/slices/settingsSlice'
-import { useAppDispatch } from '../../../../../../../../../../srcOld/redux/store'
+import { getEquipmentOptionsSelector } from '../../../../../../../../../srcOld/redux/selectors/settingsSelector'
+import { setEquipmentOptions } from '../../../../../../../../../srcOld/redux/slices/settingsSlice'
+import { useAppDispatch } from '../../../../../../../../../srcOld/redux/store'
 
 export const SettingsEquipment = memo(() => {
   const dispatch = useAppDispatch()

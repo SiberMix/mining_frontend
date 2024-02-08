@@ -10,10 +10,10 @@ import { useSelector } from 'react-redux'
 import { PolygonPreviewCropRotation } from '~entities/polygon'
 import { ModalStyled } from '~shared/ui/modal-styled'
 
-import { getEditedCropRotationGroupSelector, getOpenCropRotationAddGroupModalSelector } from '../../../../../../srcOld/redux/selectors/cropRotationSelectors'
-import { getAllPolygonsSelector } from '../../../../../../srcOld/redux/selectors/mapSelectors'
-import { postCropRotationGroupThunk, setEditedCropRotationGroup, setOpenCropRotationAddGroupModal } from '../../../../../../srcOld/redux/slices/cropRotationSlice'
-import { useAppDispatch } from '../../../../../../srcOld/redux/store'
+import { getEditedCropRotationGroupSelector, getOpenCropRotationAddGroupModalSelector } from '../../../../../srcOld/redux/selectors/cropRotationSelectors'
+import { getAllPolygonsSelector } from '../../../../../srcOld/redux/selectors/mapSelectors'
+import { postCropRotationGroupThunk, setEditedCropRotationGroup, setOpenCropRotationAddGroupModal } from '../../../../../srcOld/redux/slices/cropRotationSlice'
+import { useAppDispatch } from '../../../../../srcOld/redux/store'
 
 export const CropRotationAddGroupModal = () => {
   const dispatch = useAppDispatch()

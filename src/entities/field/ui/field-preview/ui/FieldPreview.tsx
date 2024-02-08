@@ -5,9 +5,9 @@ import { useSelector } from 'react-redux'
 
 import { useListing } from '~shared/hooks/use-listing/use-listing'
 
-import { getAllFieldsSelector } from '../../../../../../srcOld/redux/selectors/fieldsSelectors'
-import { deleteField, setChangeFieldModal, setVisibleAddFieldModal } from '../../../../../../srcOld/redux/slices/fieldSlice'
-import { useAppDispatch } from '../../../../../../srcOld/redux/store'
+import { getAllFieldsSelector } from '../../../../../srcOld/redux/selectors/fieldsSelectors'
+import { deleteField, setChangeFieldModal, setVisibleAddFieldModal } from '../../../../../srcOld/redux/slices/fieldSlice'
+import { useAppDispatch } from '../../../../../srcOld/redux/store'
 import { FieldModal } from '../../field-modal'
 
 export const FieldPreview = () => {

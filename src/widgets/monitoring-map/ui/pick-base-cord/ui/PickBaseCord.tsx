@@ -5,9 +5,9 @@ import React, { memo, useCallback, useState } from 'react'
 import { Marker, useMapEvents } from 'react-leaflet'
 import { useSelector } from 'react-redux'
 
-import { getMapClickForNewBaseCoordSelector } from '../../../../../../srcOld/redux/selectors/settingsSelector'
-import { setBaseCoord, setMapClickForNewBaseCoord, setShowSettingsModal } from '../../../../../../srcOld/redux/slices/settingsSlice'
-import { useAppDispatch } from '../../../../../../srcOld/redux/store'
+import { getMapClickForNewBaseCoordSelector } from '../../../../../srcOld/redux/selectors/settingsSelector'
+import { setBaseCoord, setMapClickForNewBaseCoord, setShowSettingsModal } from '../../../../../srcOld/redux/slices/settingsSlice'
+import { useAppDispatch } from '../../../../../srcOld/redux/store'
 
 export const PickBaseCord = memo(() => {
   const dispatch = useAppDispatch()

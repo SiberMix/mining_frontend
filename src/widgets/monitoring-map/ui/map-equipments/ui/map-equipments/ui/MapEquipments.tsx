@@ -5,8 +5,8 @@ import React, { memo } from 'react'
 import MarkerClusterGroup from 'react-leaflet-markercluster'
 import { useSelector } from 'react-redux'
 
-import { getAllEquipmentSelector, getEquipmentCoordinatesWebSocketSelector, getEquipStatusArrWebSocketSelector } from '../../../../../../../../srcOld/redux/selectors/mapSelectors'
-import type { Equip } from '../../../../../../../../srcOld/redux/slices/mapSlice'
+import { getAllEquipmentSelector, getEquipmentCoordinatesWebSocketSelector, getEquipStatusArrWebSocketSelector } from '../../../../../../../srcOld/redux/selectors/mapSelectors'
+import type { Equip } from '../../../../../../../srcOld/redux/slices/mapSlice'
 import { EquipCustomMarker } from '../../equip-custom-marker'
 import { MapEquipmentsCirclesRadius } from '../../map-equipments-circles-radius'
 

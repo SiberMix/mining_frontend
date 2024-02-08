@@ -10,15 +10,10 @@ import { useSelector } from 'react-redux'
 import EditBox from '~shared/assets/icons/edit.svg'
 import { DeleteOption } from '~shared/ui/delete-option'
 
-import { getIsLoadingCreationNewMainGroupSelector } from '../../../../../../../../srcOld/redux/selectors/cropRotationSelectors'
-import type { CropRotationGroup } from '../../../../../../../../srcOld/redux/slices/cropRotationSlice'
-import {
-  deleteCropRotationGroupThunk,
-  setEditedCropRotationGroup,
-  setMainCropRotationGroupThunk,
-  setSelectedCropRotationGroup
-} from '../../../../../../../../srcOld/redux/slices/cropRotationSlice'
-import { useAppDispatch } from '../../../../../../../../srcOld/redux/store'
+import { getIsLoadingCreationNewMainGroupSelector } from '../../../../../../../srcOld/redux/selectors/cropRotationSelectors'
+import type { CropRotationGroup } from '../../../../../../../srcOld/redux/slices/cropRotationSlice'
+import { deleteCropRotationGroupThunk, setEditedCropRotationGroup, setMainCropRotationGroupThunk, setSelectedCropRotationGroup } from '../../../../../../../srcOld/redux/slices/cropRotationSlice'
+import { useAppDispatch } from '../../../../../../../srcOld/redux/store'
 
 type CropRotationListItemProps = {
   itemInfo: CropRotationGroup,

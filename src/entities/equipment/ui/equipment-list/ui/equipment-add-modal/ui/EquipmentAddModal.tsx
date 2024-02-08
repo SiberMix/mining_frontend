@@ -8,12 +8,12 @@ import styled from 'styled-components'
 import { ModalStyled } from '~shared/ui/modal-styled'
 import { Svg } from '~shared/ui/svg-styled'
 
-import { getEditeEquipmentSelector } from '../../../../../../../../srcOld/redux/selectors/mapSelectors'
-import { getAddModalVisibleSelector, getOptionalEquipmentModelsListSelector, getOptionalEquipmentTypesListSelector } from '../../../../../../../../srcOld/redux/selectors/optionalEquipmentSelectors'
-import type { Equip } from '../../../../../../../../srcOld/redux/slices/mapSlice'
-import { postNewEquipment, putEditEquipment, setEditedEquipment } from '../../../../../../../../srcOld/redux/slices/mapSlice'
-import { setAddModalVisible } from '../../../../../../../../srcOld/redux/slices/optionalEquipmentSlice'
-import { useAppDispatch } from '../../../../../../../../srcOld/redux/store'
+import { getEditeEquipmentSelector } from '../../../../../../../srcOld/redux/selectors/mapSelectors'
+import { getAddModalVisibleSelector, getOptionalEquipmentModelsListSelector, getOptionalEquipmentTypesListSelector } from '../../../../../../../srcOld/redux/selectors/optionalEquipmentSelectors'
+import type { Equip } from '../../../../../../../srcOld/redux/slices/mapSlice'
+import { postNewEquipment, putEditEquipment, setEditedEquipment } from '../../../../../../../srcOld/redux/slices/mapSlice'
+import { setAddModalVisible } from '../../../../../../../srcOld/redux/slices/optionalEquipmentSlice'
+import { useAppDispatch } from '../../../../../../../srcOld/redux/store'
 
 type EquipmentAddModalProps = {
   equips: any

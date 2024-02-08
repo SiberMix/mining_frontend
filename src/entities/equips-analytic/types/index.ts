@@ -1,4 +1,4 @@
-import type { Equip } from '../../../../srcOld/redux/slices/mapSlice'
+import type { Equip } from '../../../srcOld/redux/slices/mapSlice'
 
 export type StoreInitialValues = {
   isLoading: boolean,

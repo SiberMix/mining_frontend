@@ -14,13 +14,13 @@ import {
   getCropRotationGroupsSelector,
   getIsLoadingCropRotation,
   getSelectedCropRotationGroupSelector
-} from '../../../../../../srcOld/redux/selectors/cropRotationSelectors'
-import { getAllFieldsSelector } from '../../../../../../srcOld/redux/selectors/fieldsSelectors'
-import { getAllPolygonsSelector } from '../../../../../../srcOld/redux/selectors/mapSelectors'
-import type { CropPolygon, CropRotationGroup, CropRotationGroupYear } from '../../../../../../srcOld/redux/slices/cropRotationSlice'
-import { editCropRotationGroupCultureThunk } from '../../../../../../srcOld/redux/slices/cropRotationSlice'
-import type { PolygonType } from '../../../../../../srcOld/redux/slices/mapSlice'
-import { useAppDispatch } from '../../../../../../srcOld/redux/store'
+} from '../../../../../srcOld/redux/selectors/cropRotationSelectors'
+import { getAllFieldsSelector } from '../../../../../srcOld/redux/selectors/fieldsSelectors'
+import { getAllPolygonsSelector } from '../../../../../srcOld/redux/selectors/mapSelectors'
+import type { CropPolygon, CropRotationGroup, CropRotationGroupYear } from '../../../../../srcOld/redux/slices/cropRotationSlice'
+import { editCropRotationGroupCultureThunk } from '../../../../../srcOld/redux/slices/cropRotationSlice'
+import type { PolygonType } from '../../../../../srcOld/redux/slices/mapSlice'
+import { useAppDispatch } from '../../../../../srcOld/redux/store'
 import { customDropdownStyle } from '../const/custom-dropdown-style'
 
 export const CropRotationTable = () => {

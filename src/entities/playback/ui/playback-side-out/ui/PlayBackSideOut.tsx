@@ -5,9 +5,9 @@ import { useSelector } from 'react-redux'
 
 import { SideOutLayout } from '~shared/ui/side-out-layout'
 
-import { setIsOpenPlayBackAddModal } from '../../../../../../srcOld/redux/slices/playBackSlice'
-import type { RootState } from '../../../../../../srcOld/redux/store'
-import { useAppDispatch } from '../../../../../../srcOld/redux/store'
+import { setIsOpenPlayBackAddModal } from '../../../../../srcOld/redux/slices/playBackSlice'
+import type { RootState } from '../../../../../srcOld/redux/store'
+import { useAppDispatch } from '../../../../../srcOld/redux/store'
 import { PlayBackAddModal } from '../../play-back-add-modal'
 import { PlayBackEditModal } from '../../play-back-edit-modal'
 import { PlayBackMenuItem } from '../../play-back-menu-item'

@@ -8,9 +8,9 @@ import { useSelector } from 'react-redux'
 
 import { ModalStyled } from '~shared/ui/modal-styled'
 
-import { getEditedFieldSelector, getShowAddFieldModalSelector } from '../../../../../../srcOld/redux/selectors/fieldsSelectors'
-import { addField, changeField, setVisibleAddFieldModal } from '../../../../../../srcOld/redux/slices/fieldSlice'
-import { useAppDispatch } from '../../../../../../srcOld/redux/store'
+import { getEditedFieldSelector, getShowAddFieldModalSelector } from '../../../../../srcOld/redux/selectors/fieldsSelectors'
+import { addField, changeField, setVisibleAddFieldModal } from '../../../../../srcOld/redux/slices/fieldSlice'
+import { useAppDispatch } from '../../../../../srcOld/redux/store'
 
 export const FieldModal = () => {
   const dispatch = useAppDispatch()

@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux'
 
 import { MapViewSelect } from '~features/map-view-select'
 
-import { getUsingBaseCoordSelector, getUsingZoomLevelOptionsSelector } from '../../../../../../srcOld/redux/selectors/settingsSelector'
+import { getUsingBaseCoordSelector, getUsingZoomLevelOptionsSelector } from '../../../../../srcOld/redux/selectors/settingsSelector'
 import { MapEquipments } from '../../map-equipments'
 import { MapPlayback } from '../../map-playback'
 import { MapDrawingPolygon, MapPolygons } from '../../map-polygons'

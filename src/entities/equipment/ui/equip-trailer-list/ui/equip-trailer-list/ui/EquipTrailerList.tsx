@@ -5,10 +5,10 @@ import { useSelector } from 'react-redux'
 
 import { useListing } from '~shared/hooks/use-listing/use-listing'
 
-import { getOptionalEquipmentTrailerListSelector } from '../../../../../../../../srcOld/redux/selectors/optionalEquipmentSelectors'
-import type { EquipTrailer } from '../../../../../../../../srcOld/redux/slices/mapSlice'
-import { deleteTrailer, setAddModalVisible, setEditedTrailer } from '../../../../../../../../srcOld/redux/slices/optionalEquipmentSlice'
-import { useAppDispatch } from '../../../../../../../../srcOld/redux/store'
+import { getOptionalEquipmentTrailerListSelector } from '../../../../../../../srcOld/redux/selectors/optionalEquipmentSelectors'
+import type { EquipTrailer } from '../../../../../../../srcOld/redux/slices/mapSlice'
+import { deleteTrailer, setAddModalVisible, setEditedTrailer } from '../../../../../../../srcOld/redux/slices/optionalEquipmentSlice'
+import { useAppDispatch } from '../../../../../../../srcOld/redux/store'
 import { EquipTrailerListModal } from '../../equip-trailer-list-modal'
 
 export const EquipTrailerList = memo(() => {

@@ -5,12 +5,11 @@ import React, { memo } from 'react'
 import { Popup } from 'react-leaflet'
 import { useSelector } from 'react-redux'
 
-import type { AddPolygonCoords, EditPolygonCoords } from '~widgets/monitoring-map/ui/map-polygons/ui/map-drawing-polygon/ui/map-drawing-polygon/ui/MapDrawingPolygon'
-
-import { getAddInternalPolygonModeSelector } from '../../../../../../../../../../srcOld/redux/selectors/mapSelectors'
-import type { PolygonType } from '../../../../../../../../../../srcOld/redux/slices/mapSlice'
-import { putEditPolygon, setAddInternalPolygonMode, setDrawingPolygonMode, setNewPolygonCoords, setShowAddNewPolygonModal } from '../../../../../../../../../../srcOld/redux/slices/mapSlice'
-import { useAppDispatch } from '../../../../../../../../../../srcOld/redux/store'
+import { getAddInternalPolygonModeSelector } from '../../../../../../../../../srcOld/redux/selectors/mapSelectors'
+import type { PolygonType } from '../../../../../../../../../srcOld/redux/slices/mapSlice'
+import { putEditPolygon, setAddInternalPolygonMode, setDrawingPolygonMode, setNewPolygonCoords, setShowAddNewPolygonModal } from '../../../../../../../../../srcOld/redux/slices/mapSlice'
+import { useAppDispatch } from '../../../../../../../../../srcOld/redux/store'
+import type { AddPolygonCoords, EditPolygonCoords } from '../../map-drawing-polygon/ui/MapDrawingPolygon'
 
 type PolygonSpotMenuProps = {
   deletePolygonSpot: () => void,

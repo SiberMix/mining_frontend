@@ -9,9 +9,9 @@ import { routeConfig, RoutePath } from '~shared/config/route-config'
 import { AppVersion } from '~shared/ui/app-version'
 import { Notifications } from '~widgets/notifications'
 
-import { getTokenSelector } from '../../srcOld/redux/selectors/authSelectors'
-import { getSettings } from '../../srcOld/redux/slices/settingsSlice'
-import { useAppDispatch } from '../../srcOld/redux/store'
+import { getTokenSelector } from '../srcOld/redux/selectors/authSelectors'
+import { getSettings } from '../srcOld/redux/slices/settingsSlice'
+import { useAppDispatch } from '../srcOld/redux/store'
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch()

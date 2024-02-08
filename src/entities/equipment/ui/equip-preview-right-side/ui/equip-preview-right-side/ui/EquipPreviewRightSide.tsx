@@ -12,10 +12,10 @@ import {
   getEquipmentCoordinatesWebSocketSelector,
   getEquipStatusArrWebSocketSelector,
   getShowRightSideEquipInfoImeiSelector
-} from '../../../../../../../../srcOld/redux/selectors/mapSelectors'
-import { getUsingEquipmentOptionsSelector } from '../../../../../../../../srcOld/redux/selectors/settingsSelector'
-import { setShowRightSideEquipInfo } from '../../../../../../../../srcOld/redux/slices/mapSlice'
-import { useAppDispatch } from '../../../../../../../../srcOld/redux/store'
+} from '../../../../../../../srcOld/redux/selectors/mapSelectors'
+import { getUsingEquipmentOptionsSelector } from '../../../../../../../srcOld/redux/selectors/settingsSelector'
+import { setShowRightSideEquipInfo } from '../../../../../../../srcOld/redux/slices/mapSlice'
+import { useAppDispatch } from '../../../../../../../srcOld/redux/store'
 import { EquipPreviewRightSideInfoRow } from '../../equip-preview-right-side-row'
 
 export const EquipPreviewRightSide = memo(() => {

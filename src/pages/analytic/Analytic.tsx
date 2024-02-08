@@ -5,8 +5,8 @@ import { BasePreloader } from '~shared/ui/base-preloader'
 import { PageLayout } from '~shared/ui/page-layout'
 import { Sidebar } from '~widgets/sidebar'
 
-import { getAllPolygons } from '../../../srcOld/redux/slices/mapSlice'
-import { useAppDispatch } from '../../../srcOld/redux/store'
+import { getAllPolygons } from '../../srcOld/redux/slices/mapSlice'
+import { useAppDispatch } from '../../srcOld/redux/store'
 
 const Analytic = () => {
   const dispatch = useAppDispatch()

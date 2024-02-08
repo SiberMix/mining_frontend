@@ -5,10 +5,10 @@ import { useSelector } from 'react-redux'
 
 import { useListing } from '~shared/hooks/use-listing/use-listing'
 
-import { getOptionalEquipmentTypesListSelector } from '../../../../../../../../srcOld/redux/selectors/optionalEquipmentSelectors'
-import type { EquipType } from '../../../../../../../../srcOld/redux/slices/mapSlice'
-import { deleteType, setAddModalVisible, setEditedType } from '../../../../../../../../srcOld/redux/slices/optionalEquipmentSlice'
-import { useAppDispatch } from '../../../../../../../../srcOld/redux/store'
+import { getOptionalEquipmentTypesListSelector } from '../../../../../../../srcOld/redux/selectors/optionalEquipmentSelectors'
+import type { EquipType } from '../../../../../../../srcOld/redux/slices/mapSlice'
+import { deleteType, setAddModalVisible, setEditedType } from '../../../../../../../srcOld/redux/slices/optionalEquipmentSlice'
+import { useAppDispatch } from '../../../../../../../srcOld/redux/store'
 import { EquipsTypesListModal } from '../../equips-types-list-modal'
 
 export const EquipsTypesList = memo(() => {

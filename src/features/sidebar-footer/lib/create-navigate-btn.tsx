@@ -7,9 +7,9 @@ import MonitoringSidebar from '~shared/assets/icons/monitoring-sidebar.svg'
 import { RoutePath } from '~shared/config/route-config'
 import { Svg } from '~shared/ui/svg-styled'
 
-import { removeShowingPlayback } from '../../../../srcOld/redux/slices/playBackSlice'
-import { setMapClickForNewBaseCoord } from '../../../../srcOld/redux/slices/settingsSlice'
-import type { AppDispatch } from '../../../../srcOld/redux/store'
+import { removeShowingPlayback } from '../../../srcOld/redux/slices/playBackSlice'
+import { setMapClickForNewBaseCoord } from '../../../srcOld/redux/slices/settingsSlice'
+import type { AppDispatch } from '../../../srcOld/redux/store'
 
 type CreateNavigateBtnType = {
   pathname: string,

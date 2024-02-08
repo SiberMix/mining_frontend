@@ -5,10 +5,10 @@ import { useSelector } from 'react-redux'
 
 import { SimpleSelect } from '~shared/ui/simple-select'
 
-import { getBaseCoordSelector, getBaseMapOptionsSelector, getZoomLevelOptionsSelector } from '../../../../../../../../../../srcOld/redux/selectors/settingsSelector'
-import { setDrawingPolygonMode } from '../../../../../../../../../../srcOld/redux/slices/mapSlice'
-import { setBaseMapOptions, setMapClickForNewBaseCoord, setShowSettingsModal, setZoomLevelOptions } from '../../../../../../../../../../srcOld/redux/slices/settingsSlice'
-import { useAppDispatch } from '../../../../../../../../../../srcOld/redux/store'
+import { getBaseCoordSelector, getBaseMapOptionsSelector, getZoomLevelOptionsSelector } from '../../../../../../../../../srcOld/redux/selectors/settingsSelector'
+import { setDrawingPolygonMode } from '../../../../../../../../../srcOld/redux/slices/mapSlice'
+import { setBaseMapOptions, setMapClickForNewBaseCoord, setShowSettingsModal, setZoomLevelOptions } from '../../../../../../../../../srcOld/redux/slices/settingsSlice'
+import { useAppDispatch } from '../../../../../../../../../srcOld/redux/store'
 import { baseMapOptions } from '../const/base-map-options'
 import { zoomLevelOptions } from '../const/zoom-level-options'
 

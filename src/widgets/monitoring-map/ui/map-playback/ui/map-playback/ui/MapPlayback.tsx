@@ -5,8 +5,8 @@ import React, { memo, useEffect, useState } from 'react'
 import { Circle, Polyline, Popup } from 'react-leaflet'
 import { useSelector } from 'react-redux'
 
-import { getPlaybacksDataSelector, getShowingPlaybackSelector } from '../../../../../../../../srcOld/redux/selectors/playbackSelectors'
-import type { CurrentPlaybackData } from '../../../../../../../../srcOld/redux/slices/playBackSlice'
+import { getPlaybacksDataSelector, getShowingPlaybackSelector } from '../../../../../../../srcOld/redux/selectors/playbackSelectors'
+import type { CurrentPlaybackData } from '../../../../../../../srcOld/redux/slices/playBackSlice'
 import { MapPlaybackSpeedController } from '../../map-playback-speed-controller'
 
 export const MapPlayback = memo(() => {

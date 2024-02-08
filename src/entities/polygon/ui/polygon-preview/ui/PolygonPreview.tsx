@@ -6,17 +6,17 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 
 import { PolygonCanvas } from '~entities/polygon'
-import { ModalTypeEnum } from '~entities/polygon/ui/polygon-edit-modal/model/modal-type-enum'
-import { createEditModalInitialValue } from '~entities/polygon/ui/polygon-preview/helpers/create-edit-modal-initial-value'
 import EditBox from '~shared/assets/icons/edit.svg'
 import GeoBox from '~shared/assets/icons/GPS-navigate.svg'
 import { DeleteOption } from '~shared/ui/delete-option'
 
-import { getSelectedPolygonIdSelector } from '../../../../../../srcOld/redux/selectors/mapSelectors'
-import type { PolygonType } from '../../../../../../srcOld/redux/slices/mapSlice'
-import { putEditPolygon, setEditedPolygon, setPolygonFlyTo } from '../../../../../../srcOld/redux/slices/mapSlice'
-import { useAppDispatch } from '../../../../../../srcOld/redux/store'
+import { getSelectedPolygonIdSelector } from '../../../../../srcOld/redux/selectors/mapSelectors'
+import type { PolygonType } from '../../../../../srcOld/redux/slices/mapSlice'
+import { putEditPolygon, setEditedPolygon, setPolygonFlyTo } from '../../../../../srcOld/redux/slices/mapSlice'
+import { useAppDispatch } from '../../../../../srcOld/redux/store'
 import { PolygonEditModal } from '../../polygon-edit-modal'
+import { ModalTypeEnum } from '../../polygon-edit-modal/model/modal-type-enum'
+import { createEditModalInitialValue } from '../helpers'
 
 export const PolygonPreview: React.FC<{
   polygon: PolygonType,

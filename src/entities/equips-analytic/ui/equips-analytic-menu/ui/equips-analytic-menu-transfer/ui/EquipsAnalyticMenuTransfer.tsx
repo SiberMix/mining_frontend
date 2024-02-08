@@ -5,7 +5,7 @@ import { Transfer } from 'antd'
 
 import { useEquipAnalyticStore } from '~entities/equips-analytic/model'
 
-import type { Equip } from '../../../../../../../../srcOld/redux/slices/mapSlice'
+import type { Equip } from '../../../../../../../srcOld/redux/slices/mapSlice'
 
 type EquipsAnalyticMenuTransferProps = {
   value: number[],

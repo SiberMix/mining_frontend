@@ -173,11 +173,11 @@ export const EquipsAnalyticReport = memo(() => {
             <DefaultDiagram
               className='EquipsAnalyticReport_chart'
               title='График топлива'
-            // categories={categories}
-            // series={[{
-            //   name: equip?.equip_name,
-            //   data: seriesData
-            // }]}
+              categories={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+              series={[{
+                name: equip?.equip_name,
+                data: Array.from({ length: 10 }, () => Math.floor(Math.random() * 10) + 1)
+              }]}
             />
           </EquipsAnalyticReportTableRow>
         </tbody>

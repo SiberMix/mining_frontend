@@ -11,9 +11,9 @@ import Setting from '~shared/assets/icons/settings.svg'
 import { RoutePath } from '~shared/config/route-config'
 import { Svg } from '~shared/ui/svg-styled'
 
-import { setToken } from '../../../../srcOld/redux/slices/authSlice'
-import { setMapClickForNewBaseCoord, setShowSettingsModal } from '../../../../srcOld/redux/slices/settingsSlice'
-import { useAppDispatch } from '../../../../srcOld/redux/store'
+import { setToken } from '../../../srcOld/redux/slices/authSlice'
+import { setMapClickForNewBaseCoord, setShowSettingsModal } from '../../../srcOld/redux/slices/settingsSlice'
+import { useAppDispatch } from '../../../srcOld/redux/store'
 
 type SidebarFooterProps = {
   setSidebarOpenContent: (sidebarContent: MonitoringConfigEnum | AnalyticConfigEnum | null) => void

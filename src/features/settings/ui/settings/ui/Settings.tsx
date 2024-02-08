@@ -4,9 +4,9 @@ import { Modal } from 'antd'
 import React, { memo } from 'react'
 import { useSelector } from 'react-redux'
 
-import { getShowSettingsModalSelector } from '../../../../../../srcOld/redux/selectors/settingsSelector'
-import { postSettings, resetSettings, setShowSettingsModal } from '../../../../../../srcOld/redux/slices/settingsSlice'
-import { useAppDispatch } from '../../../../../../srcOld/redux/store'
+import { getShowSettingsModalSelector } from '../../../../../srcOld/redux/selectors/settingsSelector'
+import { postSettings, resetSettings, setShowSettingsModal } from '../../../../../srcOld/redux/slices/settingsSlice'
+import { useAppDispatch } from '../../../../../srcOld/redux/store'
 import { SettingsContentLayout } from '../../settings-content'
 import { SettingsMenu } from '../../settings-menu'
 

@@ -3,7 +3,7 @@ import './SettingsContentLayout.scss'
 import React, { memo } from 'react'
 import { useSelector } from 'react-redux'
 
-import { getSelectedSettingsWindowSelector } from '../../../../../../../../srcOld/redux/selectors/settingsSelector'
+import { getSelectedSettingsWindowSelector } from '../../../../../../../srcOld/redux/selectors/settingsSelector'
 import { SettingsEquipment, SettingsGeneral, SettingsMap, SettingsUser } from '../../settings-content-modules'
 
 export const SettingsContentLayout = memo(() => {

@@ -5,7 +5,7 @@ import { BrowserRouter } from 'react-router-dom'
 
 import App from '~app/App'
 
-import { store } from '../srcOld/redux/store'
+import { store } from './srcOld/redux/store'
 
 const rootElement = document.getElementById('root')
 render(

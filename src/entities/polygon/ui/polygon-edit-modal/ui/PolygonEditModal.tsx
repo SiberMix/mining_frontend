@@ -6,8 +6,8 @@ import { useSelector } from 'react-redux'
 
 import { ModalStyled } from '~shared/ui/modal-styled'
 
-import { getAllFieldsSelector } from '../../../../../../srcOld/redux/selectors/fieldsSelectors'
-import type { FieldType } from '../../../../../../srcOld/redux/slices/fieldSlice'
+import { getAllFieldsSelector } from '../../../../../srcOld/redux/selectors/fieldsSelectors'
+import type { FieldType } from '../../../../../srcOld/redux/slices/fieldSlice'
 import { ModalTypeEnum } from '../model/modal-type-enum'
 
 export const PolygonEditModal: React.FC<{

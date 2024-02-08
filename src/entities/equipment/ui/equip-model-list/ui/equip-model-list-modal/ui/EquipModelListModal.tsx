@@ -6,9 +6,9 @@ import { useSelector } from 'react-redux'
 
 import { ModalStyled } from '~shared/ui/modal-styled'
 
-import { getAddModalVisibleSelector, getEditedModelSelector } from '../../../../../../../../srcOld/redux/selectors/optionalEquipmentSelectors'
-import { addModel, editModel, setAddModalVisible } from '../../../../../../../../srcOld/redux/slices/optionalEquipmentSlice'
-import { useAppDispatch } from '../../../../../../../../srcOld/redux/store'
+import { getAddModalVisibleSelector, getEditedModelSelector } from '../../../../../../../srcOld/redux/selectors/optionalEquipmentSelectors'
+import { addModel, editModel, setAddModalVisible } from '../../../../../../../srcOld/redux/slices/optionalEquipmentSlice'
+import { useAppDispatch } from '../../../../../../../srcOld/redux/store'
 
 export const EquipModelListModal = memo(() => {
   const dispatch = useAppDispatch()

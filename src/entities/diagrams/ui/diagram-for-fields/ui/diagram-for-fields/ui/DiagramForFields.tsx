@@ -4,8 +4,8 @@ import { Badge, Col, Row } from 'antd'
 import React, { memo } from 'react'
 import { useSelector } from 'react-redux'
 
-import { getAllFieldsSelector } from '../../../../../../../../srcOld/redux/selectors/fieldsSelectors'
-import { getAllPolygonsSelector } from '../../../../../../../../srcOld/redux/selectors/mapSelectors'
+import { getAllFieldsSelector } from '../../../../../../../srcOld/redux/selectors/fieldsSelectors'
+import { getAllPolygonsSelector } from '../../../../../../../srcOld/redux/selectors/mapSelectors'
 import { DonutChartWidget } from '../../donut-chart-widget'
 
 export const DiagramForFields = memo(() => {

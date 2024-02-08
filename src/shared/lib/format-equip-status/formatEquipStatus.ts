@@ -1,4 +1,4 @@
-import type { EquipStatus } from '../../../../srcOld/redux/slices/mapSlice'
+import type { EquipStatus } from '../../../srcOld/redux/slices/mapSlice'
 
 export function formatEquipStatus(status: EquipStatus) {
   switch (status) {

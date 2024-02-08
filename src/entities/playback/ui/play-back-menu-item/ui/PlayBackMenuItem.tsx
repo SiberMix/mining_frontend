@@ -7,11 +7,11 @@ import { useSelector } from 'react-redux'
 import EditBox from '~shared/assets/icons/edit.svg'
 import { DeleteOption } from '~shared/ui/delete-option'
 
-import { getAllEquipmentSelector } from '../../../../../../srcOld/redux/selectors/mapSelectors'
-import { getShowingPlaybackSelector } from '../../../../../../srcOld/redux/selectors/playbackSelectors'
-import type { CurrentPlaybackData } from '../../../../../../srcOld/redux/slices/playBackSlice'
-import { addShowingPlayback, deletePlayback, removeShowingPlayback, setEditedPlayback } from '../../../../../../srcOld/redux/slices/playBackSlice'
-import { useAppDispatch } from '../../../../../../srcOld/redux/store'
+import { getAllEquipmentSelector } from '../../../../../srcOld/redux/selectors/mapSelectors'
+import { getShowingPlaybackSelector } from '../../../../../srcOld/redux/selectors/playbackSelectors'
+import type { CurrentPlaybackData } from '../../../../../srcOld/redux/slices/playBackSlice'
+import { addShowingPlayback, deletePlayback, removeShowingPlayback, setEditedPlayback } from '../../../../../srcOld/redux/slices/playBackSlice'
+import { useAppDispatch } from '../../../../../srcOld/redux/store'
 
 type PlayBackMenuItemProps = {
   itemPlaybackData: CurrentPlaybackData

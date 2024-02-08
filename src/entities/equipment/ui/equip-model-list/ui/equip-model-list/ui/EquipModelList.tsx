@@ -5,10 +5,10 @@ import { useSelector } from 'react-redux'
 
 import { useListing } from '~shared/hooks/use-listing/use-listing'
 
-import { getOptionalEquipmentModelsListSelector } from '../../../../../../../../srcOld/redux/selectors/optionalEquipmentSelectors'
-import type { EquipModal } from '../../../../../../../../srcOld/redux/slices/mapSlice'
-import { deleteModel, setAddModalVisible, setEditedModel } from '../../../../../../../../srcOld/redux/slices/optionalEquipmentSlice'
-import { useAppDispatch } from '../../../../../../../../srcOld/redux/store'
+import { getOptionalEquipmentModelsListSelector } from '../../../../../../../srcOld/redux/selectors/optionalEquipmentSelectors'
+import type { EquipModal } from '../../../../../../../srcOld/redux/slices/mapSlice'
+import { deleteModel, setAddModalVisible, setEditedModel } from '../../../../../../../srcOld/redux/slices/optionalEquipmentSlice'
+import { useAppDispatch } from '../../../../../../../srcOld/redux/store'
 import { EquipModelListModal } from '../../equip-model-list-modal'
 
 export const EquipModelList = memo(() => {

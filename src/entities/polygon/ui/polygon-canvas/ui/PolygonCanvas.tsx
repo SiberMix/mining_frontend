@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from 'react'
 
 import { getBoundingRect } from '~shared/lib/get-bounding-rect'
 
-import type { PolygonType } from '../../../../../../srcOld/redux/slices/mapSlice'
+import type { PolygonType } from '../../../../../srcOld/redux/slices/mapSlice'
 
 export const PolygonCanvas: React.FC<{ polygon: PolygonType }> = ({ polygon }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)

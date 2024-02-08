@@ -2,7 +2,7 @@ import React, { memo, useCallback, useEffect, useState } from 'react'
 import { Marker, Polygon, Polyline, useMap } from 'react-leaflet'
 import { useSelector } from 'react-redux'
 
-import { getAddInternalPolygonModeSelector, getDrawingPolygonModeSelector, getEditedPolygonSelector } from '../../../../../../../../../../srcOld/redux/selectors/mapSelectors'
+import { getAddInternalPolygonModeSelector, getDrawingPolygonModeSelector, getEditedPolygonSelector } from '../../../../../../../../../srcOld/redux/selectors/mapSelectors'
 import { polygonStyle } from '../../../const/polygon-style'
 import { polylineStyle } from '../../../const/polyline-style'
 import { PolygonSpotMenu } from '../../drawing-polygon-spot-menu'

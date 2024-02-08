@@ -5,9 +5,9 @@ import { useSelector } from 'react-redux'
 
 import { SimpleSelect } from '~shared/ui/simple-select'
 
-import { getStartMenuOptionsSelector } from '../../../../../../../../../../srcOld/redux/selectors/settingsSelector'
-import { setStartMenuOptions } from '../../../../../../../../../../srcOld/redux/slices/settingsSlice'
-import { useAppDispatch } from '../../../../../../../../../../srcOld/redux/store'
+import { getStartMenuOptionsSelector } from '../../../../../../../../../srcOld/redux/selectors/settingsSelector'
+import { setStartMenuOptions } from '../../../../../../../../../srcOld/redux/slices/settingsSlice'
+import { useAppDispatch } from '../../../../../../../../../srcOld/redux/store'
 import { startSidebarOptions } from '../const/start-sidebar-options'
 
 export const SettingsGeneral = memo(() => {

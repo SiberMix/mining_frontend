@@ -5,9 +5,9 @@ import { Menu } from 'antd'
 import React, { memo } from 'react'
 import { useSelector } from 'react-redux'
 
-import { getSelectedSettingsWindowSelector } from '../../../../../../srcOld/redux/selectors/settingsSelector'
-import { setSelectedSettingsWindow } from '../../../../../../srcOld/redux/slices/settingsSlice'
-import { useAppDispatch } from '../../../../../../srcOld/redux/store'
+import { getSelectedSettingsWindowSelector } from '../../../../../srcOld/redux/selectors/settingsSelector'
+import { setSelectedSettingsWindow } from '../../../../../srcOld/redux/slices/settingsSlice'
+import { useAppDispatch } from '../../../../../srcOld/redux/store'
 import { settingsMenuItems } from '../const/settings-menu-items'
 
 export type SettingsMenuItem = Required<MenuProps>['items'][number];
