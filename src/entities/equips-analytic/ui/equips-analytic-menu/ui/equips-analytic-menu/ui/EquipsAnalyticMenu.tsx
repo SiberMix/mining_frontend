@@ -3,181 +3,153 @@ import 'dayjs/locale/ru'
 
 import { Button, ConfigProvider, DatePicker, message, Segmented } from 'antd'
 import locale from 'antd/locale/ru_RU'
+import classNames from 'classnames'
 import dayjs from 'dayjs'
-import React, { memo, useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useFormik } from 'formik'
+import React, { memo, useEffect } from 'react'
 
-import { getChartTypeSelector, getIsLoadingSelector, getPikedEquipsIdSelector, getScheduleTypeSelector } from '../../../../../../../../srcOld/redux/selectors/equipsAnalyticSlectors'
-import type { ScheduleType } from '../../../../../../../../srcOld/redux/slices/EquipsAnalyticSlice'
-import { getEquipsAnalyticThunk, resetEquipsAnalyticThunk, setChartType, setScheduleType, setTsEnd, setTsStart } from '../../../../../../../../srcOld/redux/slices/EquipsAnalyticSlice'
-import { useAppDispatch } from '../../../../../../../../srcOld/redux/store'
-import { EquipsAnalyticMenuItems } from '../../equips-analytic-menu-items'
-
-const { RangePicker } = DatePicker
-
-type Period = 'День' | 'Неделя' | 'Месяц' | 'Свой вариант'
+import { createTimeStamp } from '../../../../../lib/create-time-stamp'
+import { useEquipAnalyticStore } from '../../../../../model'
+import type { FormikInitialValues, PeriodType } from '../../../../../types'
+import { EquipsAnalyticMenuItem } from '../../equips-analytic-menu-item'
+import { EquipsAnalyticMenuTransfer } from '../../equips-analytic-menu-transfer'
 
 export const EquipsAnalyticMenu = memo(() => {
-  const dispatch = useAppDispatch()
-  const pikedEquipsId = useSelector(getPikedEquipsIdSelector)
-  const isLoading = useSelector(getIsLoadingSelector)
-  const scheduleType = useSelector(getScheduleTypeSelector)
-  const chartType = useSelector(getChartTypeSelector)
-  const [period, setPeriod] = useState<Period>('День')
+  const isLoading = useEquipAnalyticStore(state => state.isLoading)
+  const getAllEquipList = useEquipAnalyticStore(state => state.getAllEquipList)
+  const getEquipsAnalyticData = useEquipAnalyticStore(state => state.getEquipsAnalyticData)
+  /** для initial values формика */
+  const scheduleType = useEquipAnalyticStore(state => state.scheduleType)
+  const chartType = useEquipAnalyticStore(state => state.chartType)
 
-  /*
-  * костыльная перерисовка датапикера, для сброса значений :D
-  * */
-  const [keyForReset, setKeyForReset] = useState(1)
   useEffect(() => {
-    setKeyForReset(Date.now())
-  }, [period])
-
-  //При первой загрузке сбрасываем все в 0
-  useEffect(() => {
-    dispatch(resetEquipsAnalyticThunk())
+    getAllEquipList()
   }, [])
 
-  useEffect(() => {
-    createTimeStamp()
-  }, [period])
+  /** функционал, для показа сообщений */
+  const [messageApi, messageHolder] = message.useMessage()
 
-  const createTimeStamp = () => {
-    const now = new Date().getTime() // Текущая временная метка
-
-    switch (period) {
-      case 'День':
-        // Определяем дату, соответствующую "дню назад"
-        const dayAgo = now - 24 * 60 * 60 * 1000
-        dispatch(setTsEnd(now))
-        dispatch(setTsStart(dayAgo))
-        break
-      case 'Неделя':
-        // Определяем дату, соответствующую "неделе назад"
-        const weekAgo = now - 7 * 24 * 60 * 60 * 1000
-        dispatch(setTsEnd(now))
-        dispatch(setTsStart(weekAgo))
-        break
-      case 'Месяц':
-        // Определяем дату, соответствующую "месяцу назад"
-        const monthAgo = new Date()
-        monthAgo.setMonth(monthAgo.getMonth() - 1)
-        const monthAgoTimestamp = monthAgo.getTime()
-        dispatch(setTsEnd(now))
-        dispatch(setTsStart(monthAgoTimestamp))
-        break
-      case 'Свой вариант':
-        // Ваша логика для обработки "Свой вариант"
-        break
-      default:
-        const dayAgoForDefault = now - 24 * 60 * 60 * 1000
-        dispatch(setTsEnd(now))
-        dispatch(setTsStart(dayAgoForDefault))
-    }
-  }
-
-  const [messageApi, contextHolder] = message.useMessage()
-  const getNewAnalyticData = () => {
-    if (pikedEquipsId.length === 0) {
+  /** Запрос на данные при сабмите */
+  const getNewAnalyticData = (values: FormikInitialValues) => {
+    if (values.pikedEquipsId.length < 1) {
       messageApi.info('Необходимо выбрать минимум одно оборудование')
     } else {
-      dispatch(getEquipsAnalyticThunk())
+      getEquipsAnalyticData(values)
     }
   }
 
-  const onChangeDate = (value: any) => {
-    if (value[0] !== null && value[1] !== null) {
-      const startDate = value[0].toDate()
-      const endDate = value[1].toDate()
-
-      dispatch(setTsEnd(endDate.getTime()))
-      dispatch(setTsStart(startDate.getTime()))
+  /** Формик */
+  const formik = useFormik<FormikInitialValues>({
+    initialValues: {
+      pikedEquipsId: [],
+      scheduleType: scheduleType,
+      chartType: chartType,
+      period: 'День',
+      time: {
+        start: createTimeStamp('День')?.start as number,
+        end: createTimeStamp('День')?.end as number
+      }
+    },
+    onSubmit: values => {
+      getNewAnalyticData(values)
     }
+  })
+
+  const onChangeRangeHandler = (rangeValue: null | (dayjs.Dayjs | null)[]) => {
+    if (rangeValue === null) return //проверка чтоб отъебался ts
+    formik.setFieldValue('time', {
+      start: rangeValue[0]?.valueOf(),
+      end: rangeValue[1]?.valueOf()
+    })
   }
-
-  const resetHandler = () => {
-    dispatch(resetEquipsAnalyticThunk())
-    setPeriod('День')
-  }
-
-  // Вычисляем дату на месяц назад с помощью Dayjs
-  const oneMonthAgo = dayjs()
-    .subtract(1, 'month')
-
-  // Преобразуем объекты Date в Dayjs
-  const defaultStartDate = dayjs(oneMonthAgo)
-  const defaultEndDate = dayjs()
 
   return (
-    <div className='equipsAnalyticMenu'>
-      <div className='equipsAnalyticMenu-btns_conatiner'>
-        <div className='equipsAnalyticMenu-title'>
-          Тип графика
-          <span>
-            Не требует повторной загрузки с сервера
-          </span>
-        </div>
+    <form className='equipsAnalyticMenu'>
+      <EquipsAnalyticMenuItem
+        title='Тип графика'
+        subTitle='Не требует повторной загрузки с сервера'
+      >
         <Segmented
+          name='scheduleType'
           options={['Скорость', 'Топливо']}
-          value={scheduleType}
-          onChange={(value) => dispatch(setScheduleType(value as ScheduleType))}
+          value={formik.values.scheduleType}
+          onChange={(value) => formik.setFieldValue('scheduleType', value)}
+          disabled={isLoading}
         />
-        <div className='equipsAnalyticMenu-title'>
-          Тип данных
-          <span>
-            Не требует повторной загрузки с сервера
-          </span>
-        </div>
+      </EquipsAnalyticMenuItem>
+
+      <EquipsAnalyticMenuItem
+        title='Тип данных'
+        subTitle='Не требует повторной загрузки с сервера'
+      >
         <Segmented
+          name='chartType'
           options={['AVG', 'MEDIAN']}
-          value={chartType}
-          onChange={(value) => dispatch(setChartType(value))}
+          value={formik.values.chartType}
+          onChange={(value) => formik.setFieldValue('chartType', value)}
+          disabled={isLoading}
         />
-        <div className='equipsAnalyticMenu-title'>
-          Временной отрезок
-        </div>
+      </EquipsAnalyticMenuItem>
+
+      <EquipsAnalyticMenuItem title='Временной отрезок'>
         <Segmented
+          name='period'
           options={['День', 'Неделя', 'Месяц', 'Свой вариант']}
-          value={period}
-          onChange={(value) => setPeriod(value as Period)}
+          value={formik.values.period}
+          onChange={(value) => {
+            formik.setFieldValue('period', value)
+            formik.setFieldValue('time', createTimeStamp(value as PeriodType))
+          }}
+          disabled={isLoading}
         />
         <div
-          className={`
-                equipsAnalyticMenu-timepicker 
-                ${period === 'Свой вариант' ? 'equipsAnalyticMenu-timepicker__open' : 'equipsAnalyticMenu-timepicker__close'}
-              `}
+          className={classNames(
+            'equipsAnalyticMenu-timepicker',
+            { 'equipsAnalyticMenu-timepicker__open': formik.values.period === 'Свой вариант' },
+            { 'equipsAnalyticMenu-timepicker__close': formik.values.period !== 'Свой вариант' }
+          )}
         >
-          <span style={{ display: period === 'Свой вариант' ? '' : 'none' }}>
+          <span style={{ display: formik.values.period === 'Свой вариант' ? '' : 'none' }}>
             <ConfigProvider locale={locale}>
-              <RangePicker
-                //костыльно перерисовываем компонент для сброса значений
-                key={`${keyForReset}`}
+              <DatePicker.RangePicker
+                name='time'
                 placeholder={['Начало', 'Конец']}
-                onChange={onChangeDate}
-                defaultPickerValue={[defaultStartDate, defaultEndDate]}
+                value={[dayjs(formik.values.time.start), dayjs(formik.values.time.end)]}
+                onChange={onChangeRangeHandler}
               />
             </ConfigProvider>
           </span>
         </div>
+      </EquipsAnalyticMenuItem>
+      <EquipsAnalyticMenuItem
+        gridColumn='2 / 3'
+        gridRow='1 / 3'
+      >
+        <EquipsAnalyticMenuTransfer
+          value={formik.values.pikedEquipsId}
+          onChange={(value) => formik.setFieldValue('pikedEquipsId', value)}
+        />
+      </EquipsAnalyticMenuItem>
+      <EquipsAnalyticMenuItem>
         <Button
+          itemType='submit'
           className='equipsAnalyticMenu-btn'
           type='primary'
           disabled={isLoading}
-          onClick={getNewAnalyticData}
+          onClick={formik.submitForm}
         >
           Загрузить статистику
         </Button>
         <Button
           className='equipsAnalyticMenu-btn'
           type='primary'
-          onClick={resetHandler}
+          onClick={() => formik.resetForm()}
           disabled={isLoading}
         >
           Сбросить
         </Button>
-      </div>
-      <EquipsAnalyticMenuItems />
-      {contextHolder}
-    </div>
+      </EquipsAnalyticMenuItem>
+      {messageHolder}
+    </form>
   )
 })

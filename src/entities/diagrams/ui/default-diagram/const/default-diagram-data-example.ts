@@ -1,5 +1,6 @@
-export const defaultDiagramDataExample = {
-  title: 'Пример простого графика',
+import type { ApexOptions } from 'apexcharts'
+
+export const defaultDiagramDataExample: { series: ApexOptions['series'], categories: string[] } = {
   series: [
     {
       name: 'Заглушка 1',

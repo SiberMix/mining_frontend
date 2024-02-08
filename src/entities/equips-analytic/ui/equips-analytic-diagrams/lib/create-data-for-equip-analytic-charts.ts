@@ -1,12 +1,14 @@
+import dayjs from 'dayjs'
+
 import type { EquipsAnalyticDiagramSeriesType } from '~entities/diagrams/ui/equips-analytic-diagram'
 
-import type { EquipsDataForCharts, OneEquipDataForChartsData, PickedEquip } from '../../../../../../srcOld/redux/slices/EquipsAnalyticSlice'
 import type { Equip } from '../../../../../../srcOld/redux/slices/mapSlice'
+import type { ChartData, EquipDataForChart, PickedEquip } from '../../../types'
 
 type CreateSpeedCategoriesAndSpeedSeriesType = {
-  equipsDataForCharts: EquipsDataForCharts | undefined,
-  allEquips: Equip[],
-  chartKey: keyof Omit<OneEquipDataForChartsData, keyof OmitOneEquipDataForChartsData>
+  chartData: ChartData | null,
+  allEquipList: Equip[],
+  chartKey: keyof Omit<EquipDataForChart, keyof OmitOneEquipDataForChartsData>
 }
 
 type OmitOneEquipDataForChartsData = {
@@ -15,13 +17,13 @@ type OmitOneEquipDataForChartsData = {
 }
 
 export const createDataForChart = ({
-  equipsDataForCharts,
-  allEquips,
+  chartData,
+  allEquipList,
   chartKey
 }: CreateSpeedCategoriesAndSpeedSeriesType): [(string | number)[], EquipsAnalyticDiagramSeriesType[]] => {
-  if (!equipsDataForCharts) return [[], []]
+  if (!chartData) return [[], []]
 
-  const [dates, result] = Object.entries(equipsDataForCharts)
+  const [dates, result] = Object.entries(chartData)
     .reduce(
       ([datesAcc, resultAcc], [date, equipData]) => {
 
@@ -40,7 +42,7 @@ export const createDataForChart = ({
             // Если объекта с таким id еще нет, создаем новый
             resultAcc.push({
               id: equipDataObj.id,
-              name: allEquips.find(e => e.id === equipDataObj.id)?.equip_name || 'Ошибка',
+              name: allEquipList.find(e => e.id === equipDataObj.id)?.equip_name || 'Ошибка',
               data: [chartDayDataForKey]
             })
           }
@@ -60,22 +62,21 @@ export const createDataForChart = ({
 
 export const createTextCategories = (numCategories: (number | string)[]) => {
   return numCategories.map(num => {
-    const dateObj = new Date(+num * 1000)
-    // Опции форматирования даты
-    const options: { day: 'numeric', month: 'short' } = {
+    const dateObj = dayjs.unix(+num) // Создаем объект dayjs из Unix timestamp
+
+    // Получаем объект. DateTimeFormat с указанной локалью и опциями форматирования
+    const dateFormatter = new Intl.DateTimeFormat('ru-RU', {
       day: 'numeric',
       month: 'short'
-    }
-    // Получаем объект. DateTimeFormat с указанной локалью и опциями форматирования
-    const dateFormatter = new Intl.DateTimeFormat('ru-RU', options)
+    })
     // Получаем строку с отформатированной датой
-    return dateFormatter.format(dateObj)
+    return dateFormatter.format(dateObj.toDate())
   })
 }
 
 export const createColorsForCharts = (chartData: EquipsAnalyticDiagramSeriesType[], equipColorsUsingInDiagrams: PickedEquip[]) => {
   return chartData.map(chartDataObj => {
-    const findUsingEquip = equipColorsUsingInDiagrams.find(usingEquip => usingEquip.equipsId === chartDataObj.id)
+    const findUsingEquip = equipColorsUsingInDiagrams.find(usingEquip => usingEquip.equipId === chartDataObj.id)
 
     if (findUsingEquip) {
       return findUsingEquip.equipColor

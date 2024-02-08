@@ -1,0 +1,56 @@
+.EquipsAnalyticMenuTransfer {
+
+  &__root {
+    height: 100%;
+    color: #FFFFFF;
+
+    // кнопка для добавления
+    .ant-btn {
+      background-color: var(--gray-200);
+
+      &:hover {
+        background-color: var(--gray-100) !important;
+      }
+    }
+  }
+
+  //шапка
+  .ant-transfer-list-header {
+    color: var(--gray-100);
+    background-color: var(--gray-300);
+  }
+
+  //выбранный контент
+  .ant-transfer-list-content-item-checked {
+    background-color: var(--gray-100);
+
+    &:hover {
+      background-color: var(--gray-100) !important;
+    }
+  }
+
+  //чекбоксы
+  .ant-checkbox {
+    &-inner {
+      background-color: var(--gray-700) !important;
+    }
+  }
+
+  //пагинация
+  .ant-pagination-simple-pager {
+    color: var(--gray-100);
+  }
+
+  //пагинация свг стрелочки
+  .ant-pagination-prev,
+  .ant-pagination-next {
+    path {
+      fill: var(--gray-100);
+    }
+  }
+
+  //пустой шаблон
+  .ant-transfer-list-body-not-found {
+    color: var(--gray-100);
+  }
+}

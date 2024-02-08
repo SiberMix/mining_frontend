@@ -123,7 +123,7 @@ const mapSlice = createSlice({
         state.polygonsList = action.payload.data
       })
       .addCase(getAllEquipment.fulfilled, (state: MapInitialState, action) => {
-        state.equipmentList = action.payload.data
+        state.equipmentList = action.payload
       })
       .addCase(postNewPolygon.fulfilled, (state: MapInitialState, action) => {
         state.polygonsList = [...state.polygonsList, action.payload.data]
@@ -176,7 +176,7 @@ export const getAllPolygons = createAsyncThunk(
 export const getAllEquipment = createAsyncThunk(
   'map/getAllEquipmentThunk',
   () => {
-    return mapService.getEquips()
+    return mapService.getAllEquips()
   }
 )
 export const postNewEquipment = createAsyncThunk(

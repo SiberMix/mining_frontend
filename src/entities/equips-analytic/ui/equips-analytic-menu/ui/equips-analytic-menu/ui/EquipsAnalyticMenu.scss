@@ -1,62 +1,42 @@
 .equipsAnalyticMenu {
-  height: 30%;
+  height: 100%;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: center;
+  padding: 15px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-items: flex-start;
+  gap: 20px;
 
-  &-btns_conatiner {
-    width: 100%;
-    border-top: 1px solid var(--gray-200);
-    border-bottom: 1px solid var(--gray-200);
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 25px;
+  .ant-segmented {
+    border: 1px solid var(--gray-200);
+    background-color: inherit;
+    color: var(--gray-100);
 
-    .ant-segmented {
-      border: 1px solid var(--gray-200);
-      background-color: inherit;
-      color: var(--gray-200);
-
-      &-item {
-        &-selected {
-          background-color: #C8FF63;
-          color: var(--gray-200) !important;
-        }
-
-        &:hover {
-          color: var(--gray-200) !important;
-        }
+    &-item {
+      &-selected {
+        background-color: var(--green-100);
+        color: var(--gray-100) !important;
       }
 
-      &-thumb {
-        background-color: #C8FF63;
+      &:hover {
+
+        color: var(--gray-100) !important;
       }
+    }
+
+    &-thumb {
+      background-color: var(--green-100);
     }
   }
 
   &-btn {
-    color: #C8FF63;
-    background-color: #434F2F;
+    color: var(--green-100);
+    background-color: var(--green-200);
     transition: background-color, color .3s;
 
     &:hover {
-      color: #C8FF63 !important;
-      background-color: #434F2F !important;
-    }
-  }
-
-  &-title {
-    display: flex;
-    flex-direction: column;
-    font-size: 17px;
-    color: var(--gray-200);
-
-    span {
-      font-size: 8px;
+      color: var(--green-100) !important;
+      background-color: var(--green-200) !important;
     }
   }
 
@@ -65,8 +45,8 @@
     justify-content: center;
     align-items: center;
     border: 1px solid var(--gray-100);
-    color: #929292;
-    background-color: #565656;
+    color: var(--gray-100);
+    background-color: var(--gray-300);
     border-radius: 8px;
     overflow: hidden;
     //transition: width 2s, height 1s; /* Длительность анимации */
@@ -86,19 +66,19 @@
 
     .ant-picker {
       border: none;
-      background-color: #565656;
+      background-color: var(--gray-200);
 
       &-active-bar {
-        background-color: #C8FF63;
+        background-color: var(--green-100);
       }
     }
 
     .anticon {
-      color: rgb(255, 255, 255, .5);
+      color: var(--gray-100);
 
       &-close-circle {
-        color: rgb(255, 255, 255, .5);
-        background-color: #565656;
+        color: var(--gray-100);
+        background-color: var(--gray-200);
       }
     }
 
@@ -111,88 +91,6 @@
           color: rgb(255, 255, 255, .5);
         }
       }
-    }
-  }
-
-  &-container {
-    padding: 10px;
-    //width: 500px;
-    width: calc(100vw - 76px);
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    overflow: auto;
-
-    scrollbar-width: none; /* hide the scrollbar in Firefox */
-    -ms-overflow-style: none; /* hide the scrollbar in Edge and IE */
-
-    &::-webkit-scrollbar {
-      width: 0.5rem; /* set the width of the scrollbar */
-    }
-
-    &::-webkit-scrollbar-track {
-      border-radius: 8px;
-      background-color: var(--gray-500); /* set the color of the track */
-    }
-
-    &::-webkit-scrollbar-thumb {
-      border-radius: 8px;
-      background-color: #ffffff; /* set the color of the thumb */
-    }
-
-    &-item {
-      position: relative;
-      height: 130px;
-      width: 150px;
-      padding: 10px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      background-color: var(--gray-700);
-      border: 1px solid var(--gray-200);
-      border-radius: 8px;
-      color: var(--gray-200);
-      transition: background-color .3s;
-      cursor: pointer;
-
-      &:hover {
-        color: #ffffff;
-        background-color: var(--gray-200);
-      }
-
-      span {
-        text-align: center;
-        margin: .3em 0;
-        //text-transform: uppercase;
-        font-size: 14px;
-      }
-
-      &-icon {
-        height: 40%;
-        width: 40%;
-      }
-
-      &-name {
-        text-align: center;
-        font-size: 14px;
-      }
-
-      &-color {
-        position: absolute;
-        height: 1em;
-        width: 1em;
-        top: 0;
-        right: 0;
-        border-radius: 100%;
-        transform: translate(-50%, 50%);
-      }
-    }
-
-    .selected {
-      border: 1px solid #FFFFFF;
-      background-color: var(--gray-200);
-      color: #FFFFFF;
     }
   }
 }

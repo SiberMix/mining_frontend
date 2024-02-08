@@ -9,7 +9,7 @@ export const FieldsAnalytic = memo(() => {
     <div className='fields-analytic-wrapper'>
       <div className='fields-analytic-wrapper-main'>
         <div className='fields-analytic-diagram-main'>
-          <DefaultDiagram />
+          <DefaultDiagram title='' />
           <div />
         </div>
       </div>

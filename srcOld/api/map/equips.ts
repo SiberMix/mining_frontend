@@ -3,8 +3,9 @@ import { axiosInstance } from '~shared/api/axios-instance'
 import type { Equip, EquipForPost, EquipForPut, EquipModal, EquipType } from '../../redux/slices/mapSlice'
 
 export const equipsService = {
-  getEquips: () => {
-    return axiosInstance.get<Equip[]>('/equips/')
+  getAllEquips: async (): Promise<Equip[]> => {
+    const response = await axiosInstance.get('/equips/')
+    return response.data
   },
   addNewEquip: (params: EquipForPost) => {
     return axiosInstance.post<Equip>('/equips/', params)
