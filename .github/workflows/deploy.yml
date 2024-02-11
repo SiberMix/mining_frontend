@@ -10,7 +10,7 @@ on:
 
 jobs:
   build_rafinad_dev:
-    name: FrontendProd
+    name: BackendProd
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
@@ -24,8 +24,8 @@ jobs:
         password: ${{ secrets.SERVER_PASSWORD }}
         port: ${{ secrets.SERVER_PORT }}
         script: |
-          cd /home/hectare/frontend
+          cd /home/hectare/hectare_backend
           git fetch
           git checkout main
           git reset --hard origin/main
-          docker restart hectare_frontend
+          docker restart hectare_backend
