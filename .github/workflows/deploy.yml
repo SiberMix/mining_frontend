@@ -26,6 +26,6 @@ jobs:
         script: |
           cd /home/hectare/frontend
           git fetch
-          git checkout dev
+          git checkout main
           git reset --hard origin/main
           docker restart hectare_frontend
