@@ -1,0 +1,29 @@
+name: AutoDeploy Frontend
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build_rafinad_dev:
+    name: FrontendProd
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Change directory to frontend
+      run: cd /home/hectare/frontend
+
+    - name: Git pull
+      run: |
+        git fetch
+        git checkout dev
+        git reset --hard origin/main
+
+    - name: Reload frontend
+      run: sudo -u hectare docker restart hectare_frontend
