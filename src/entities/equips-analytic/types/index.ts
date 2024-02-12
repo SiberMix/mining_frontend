@@ -84,3 +84,5 @@ export type FilterReportDataReturn = {
   from: number,
   to: number
 }
+
+export type ReportChartData = Record<string, { Fuel_S: null | number, Fuel_S2: number | null }>

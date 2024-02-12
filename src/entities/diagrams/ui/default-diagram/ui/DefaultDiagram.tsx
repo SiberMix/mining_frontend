@@ -1,6 +1,6 @@
 import type { ApexOptions } from 'apexcharts'
 import classNames from 'classnames'
-import React, { useMemo } from 'react'
+import React, { memo } from 'react'
 import ApexChart from 'react-apexcharts'
 
 import { createDefaultChartOptions } from '~entities/diagrams/lib'
@@ -14,26 +14,29 @@ type DefaultDiagramProps = {
   categories?: (string | number)[],
   className?: classNames.Value | classNames.ArgumentArray | classNames.Argument,
   colors?: string[],
-  isEmpty?: boolean
+  isEmpty?: boolean,
+  withGrid?: boolean,
+  withDataLabels?: boolean
 }
 
-export const DefaultDiagram = ({
+export const DefaultDiagram = memo(({
   series = defaultDiagramDataExample.series,
   title,
   categories,
   className,
   colors,
-  isEmpty
+  isEmpty,
+  withGrid,
+  withDataLabels
 }: DefaultDiagramProps) => {
 
-  const options: ApexOptions = useMemo(
-    () => createDefaultChartOptions({
-      title,
-      colors,
-      categories
-    }),
-    [title, colors, categories]
-  )
+  const options: ApexOptions = createDefaultChartOptions({
+    title,
+    colors,
+    categories,
+    withGrid,
+    withDataLabels
+  })
 
   return (
     <div className={classNames(className)}>
@@ -42,7 +45,7 @@ export const DefaultDiagram = ({
           ? <CustomEmpty
             className={className}
             description='Нет данных'
-            />
+          />
           : <ApexChart
             options={options}
             series={series}
@@ -52,4 +55,4 @@ export const DefaultDiagram = ({
       }
     </div>
   )
-}
+})
