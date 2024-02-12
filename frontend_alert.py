@@ -21,7 +21,7 @@ async def send_message_to_telegram(commit_author, commit_hash, commit_info, bran
     github_url = f'https://github.com/HectareSystem/hectare_frontend/commit/{commit_hash}'
 
     # Формируем текст сообщения с форматированием
-    message_text = f"[FRONTEND]<b>{commit_author}</b> выложил обновление в ветку <b>{branch_name}</b>.\n" \
+    message_text = f"[FRONTEND] <b>{commit_author}</b> выложил обновление в ветку <b>{branch_name}</b>.\n" \
                    f"Коммит: <a href='{github_url}'>{commit_hash}</a>\n\nКомментарий: <b>{commit_info}</b>"
 
     # Инициализируем бота и отправляем сообщение
