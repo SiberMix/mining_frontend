@@ -29,3 +29,4 @@ jobs:
           git checkout main
           git reset --hard origin/main
           docker restart hectare_frontend
+          python frontend_alert.py
