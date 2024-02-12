@@ -19,7 +19,7 @@ export function filterReportData({
   const reportDataKeys = Object.entries(reportData)
 
   return reportDataKeys.reduce((acc, [key, value]) => {
-    if (key === 'total') {
+    if (key === 'total' || key === 'from' || key === 'to') {
       //сори, я заебался типизировать
       (acc as any)[key] = value
     }

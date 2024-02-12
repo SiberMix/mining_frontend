@@ -8,12 +8,15 @@ type EquipsAnalyticEmptyProps = {
   description?: string
 }
 
-export const CustomEmpty = ({ className }: EquipsAnalyticEmptyProps) => {
+export const CustomEmpty = ({
+  className,
+  description = 'Информация не найдена'
+}: EquipsAnalyticEmptyProps) => {
   return (
     <Empty
       className={classNames(className, 'EquipsAnalyticEmpty')}
       description={<div className='EquipsAnalyticEmpty_description'>
-        Информация не найдена
+        {description}
       </div>}
     />
   )

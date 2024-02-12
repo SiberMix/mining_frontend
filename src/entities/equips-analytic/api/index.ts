@@ -29,5 +29,18 @@ export const equipsAnalytic = {
       equips_ids_list: pikedEquipsId
     })
     return response.data
+  },
+  getReportChartData: async ({
+    equip_id,
+    to,
+    from
+  }: { from: number, to: number, equip_id: number }) => {
+    const response = await axiosInstance.post('/reports/fuel_report-detail/', {
+      from,
+      to,
+      equip_id
+    })
+
+    return response.data
   }
 }

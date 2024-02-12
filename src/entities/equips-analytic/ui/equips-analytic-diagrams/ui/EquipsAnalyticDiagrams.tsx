@@ -31,9 +31,9 @@ export const EquipsAnalyticDiagrams = memo(() => {
   if (!isLoading && chartData === null || !speedSeries || speedSeries.length === 0) {
     return (<div className='fieldsAnalyticDiagrams fieldsAnalyticDiagrams_centered'>
       <CustomEmpty />
-      <text>
+      <p>
         Выберете другой временной промежуток
-      </text>
+      </p>
     </div>)
   }
 
