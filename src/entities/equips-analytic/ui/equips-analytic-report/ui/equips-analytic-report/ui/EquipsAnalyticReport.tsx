@@ -1,16 +1,21 @@
 import './EquipsAnalyticReport.scss'
 
-import React, { memo, useMemo, useRef, useState } from 'react'
+import React, { useMemo, useRef, useState } from 'react'
+import { useQuery } from 'react-query'
+import { toast } from 'react-toastify'
 
 import { DefaultDiagram } from '~entities/diagrams'
+import { formatDate } from '~shared/lib/format-date'
+import { BasePreloader } from '~shared/ui/base-preloader'
 import { CustomEmpty } from '~shared/ui/custom-empty'
 import { TabsStyled } from '~shared/ui/tabs-styled'
 
+import { equipsAnalytic } from '../../../../../api'
 import { useEquipAnalyticStore } from '../../../../../model'
 import { filterReportData } from '../../../lib'
 import { EquipsAnalyticReportTableRow } from '../../equips-analytic-report-table-row'
 
-export const EquipsAnalyticReport = memo(() => {
+export const EquipsAnalyticReport = () => {
   const allEquipList = useEquipAnalyticStore(state => state.allEquipList)
   const pikedEquip = useEquipAnalyticStore(state => state.pikedEquip)
   const reportData = useEquipAnalyticStore(state => state.reportData)
@@ -24,26 +29,52 @@ export const EquipsAnalyticReport = memo(() => {
     id: activeTabId || pikedEquip[0]?.equipId.toString()
   }), [activeTabId, allEquipList, reportData])
 
+  const {
+    isLoading: chartIsLoading,
+    data: chartData,
+    isError: chartIsError
+  } = useQuery(
+    ['equipsReportChartData', activeTabId],
+    () => equipsAnalytic.getReportChartData({
+      equip_id: Number(activeTabId) || pikedEquip[0]?.equipId,
+      from: reportData?.from || 0,
+      to: reportData?.to || 0
+    }),
+    {
+      keepPreviousData: false,
+      retry: false,
+      enabled: reportData !== null,
+      refetchOnWindowFocus: false
+    }
+  )
+
+  const {
+    series,
+    categories
+  } = useMemo(() => {
+    return Object.entries(chartData || {})
+      .reduce((acc, [key, value]) => {
+        const sum = (value.Fuel_S || 0) + (value.Fuel_S2 || 0)
+        acc.categories.push(key)
+        acc.series.push(sum)
+        return acc
+      }, {
+        series: [] as number[],
+        categories: [] as string[]
+      })
+  }, [chartData])
+
   const equip = useMemo(() => {
-    return allEquipList.find(e => e.id === Number(activeTabId))
-  }, [allEquipList, activeTabId])
-
-  // todo исправить входные данные
-  // const {
-  //   categories,
-  //   seriesData
-  // } = useMemo(() => formatForReportChart({
-  //   firstArr: reportDataFiltered?.fueling_count || null,
-  //   secondArr: reportDataFiltered?.total_refuel_fill || null
-  // }), [reportDataFiltered])
-
-  const onChangeTabs = (activeKey: string) => {
-    setActiveTabId(activeKey)
-  }
+    return allEquipList.find(e => e.id === (Number(activeTabId) || pikedEquip[0]?.equipId))
+  }, [allEquipList, activeTabId, reportData])
 
   const tabsWidth = refForWidth.current === null
     ? '300px'
     : refForWidth.current.offsetWidth - 40 + 'px' //40 -> padding
+
+  if (chartIsError) {
+    toast.error('Ошибка загрузки графика отчета')
+  }
 
   if (reportData === null) {
     return (
@@ -68,7 +99,7 @@ export const EquipsAnalyticReport = memo(() => {
         rootClassName='EquipsAnalyticReport_tabs'
         style={{ width: tabsWidth }} //динамически считаем ширину для пагинации в antd
         activeKey={activeTabId}
-        onChange={onChangeTabs}
+        onChange={(activeKey: string) => setActiveTabId(activeKey)}
         type='card'
         items={pikedEquip.map(equip => ({
           label: equip.equipName,
@@ -93,16 +124,9 @@ export const EquipsAnalyticReport = memo(() => {
           <EquipsAnalyticReportTableRow
             tdArr={['Гос. номер', equip?.gosnomer]}
           />
-          {/*todo убрать или добавить*/}
-          {/*<EquipsAnalyticReportTableRow*/}
-          {/*  tdArr={['Датчик', '{какие то данные}']}*/}
-          {/*/>*/}
-          {/*<EquipsAnalyticReportTableRow*/}
-          {/*  tdArr={['Период отчета', '{какие то данные}']}*/}
-          {/*/>*/}
-          {/*<EquipsAnalyticReportTableRow*/}
-          {/*  tdArr={['Пользователь', '{какие то данные}']}*/}
-          {/*/>*/}
+          <EquipsAnalyticReportTableRow
+            tdArr={['Период отчета', `${formatDate(reportData.from, true)} - ${formatDate(reportData.to, true)}`]}
+          />
         </tbody>
       </table>
       {/**
@@ -117,10 +141,6 @@ export const EquipsAnalyticReport = memo(() => {
           </tr>
         </thead>
         <tbody>
-          {/*todo убрать или добавить*/}
-          {/*<EquipsAnalyticReportTableRow*/}
-          {/*  tdArr={['Итоговый расход', '{какие то данные}', 'Расчетный расход', '{какие то данные}']}*/}
-          {/*/>*/}
           <EquipsAnalyticReportTableRow
             tdArr={['Пробег', reportDataFiltered?.distance, 'Средняя скорость', reportDataFiltered?.average_speed]}
           />
@@ -148,13 +168,6 @@ export const EquipsAnalyticReport = memo(() => {
                 ?.reduce((a, b) => a + b, 0)
             ]}
           />
-          {/*todo убрать или добавить*/}
-          {/*<EquipsAnalyticReportTableRow*/}
-          {/*  tdArr={['Средний расход на 100км', '{какие то данные}', 'Средний расход на 1 час работы двигателя', '{какие то данные}']}*/}
-          {/*/>*/}
-          {/*<EquipsAnalyticReportTableRow*/}
-          {/*  tdArr={['Расход доп потребителя', '{какие то данные}']}*/}
-          {/*/>*/}
         </tbody>
       </table>
       {/**
@@ -170,18 +183,29 @@ export const EquipsAnalyticReport = memo(() => {
         </thead>
         <tbody>
           <EquipsAnalyticReportTableRow>
-            <DefaultDiagram
-              className='EquipsAnalyticReport_chart'
-              title='График топлива'
-              categories={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
-              series={[{
-                name: equip?.equip_name,
-                data: Array.from({ length: 10 }, () => Math.floor(Math.random() * 10) + 1)
-              }]}
-            />
+            {
+              chartIsLoading
+                ? <BasePreloader
+                  position='relative'
+                  height='300px'
+                  />
+                : <DefaultDiagram
+                  className='EquipsAnalyticReport_chart'
+                  title='График топлива'
+                  categories={categories}
+                  series={[{
+                    name: equip?.equip_name,
+                    data: series
+                  }]}
+                  isEmpty={chartData === null}
+                  withDataLabels={false}
+                  withGrid={false}
+                  colors={['var(--green-100)']}
+                  />
+            }
           </EquipsAnalyticReportTableRow>
         </tbody>
       </table>
     </div>
   )
-})
+}

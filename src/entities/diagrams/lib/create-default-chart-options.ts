@@ -5,13 +5,17 @@ import { COLORS } from '../const/diagrams-colors'
 type CreateDefaultChartOptions = {
   title: string,
   categories?: (string | number)[],
-  colors?: string[]
+  colors?: string[],
+  withGrid?: boolean,
+  withDataLabels?: boolean
 }
 
 export function createDefaultChartOptions({
   title,
   categories,
-  colors = COLORS
+  colors = COLORS,
+  withGrid = true,
+  withDataLabels = true
 }: CreateDefaultChartOptions): ApexOptions {
   return {
     title: {
@@ -40,9 +44,11 @@ export function createDefaultChartOptions({
         show: true
       }
     },
-    dataLabels: {
-      enabled: true //подпись точек
-    },
+    dataLabels: withDataLabels
+      ? {
+        enabled: true //подпись точек
+      }
+      : {},
     stroke: {
       width: 3,
       curve: 'straight',
@@ -56,19 +62,21 @@ export function createDefaultChartOptions({
         vertical: 20
       }
     },
-    grid: {
-      borderColor: 'var(--gray-200)', //это свойство для цвета вертикальных линий на графике
-      xaxis: {
-        lines: {
-          show: true
-        }
-      },
-      yaxis: {
-        lines: {
-          show: false
+    grid: withGrid
+      ? {
+        borderColor: 'var(--gray-200)', //это свойство для цвета вертикальных линий на графике
+        xaxis: {
+          lines: {
+            show: true
+          }
+        },
+        yaxis: {
+          lines: {
+            show: false
+          }
         }
       }
-    },
+      : {},
     //здесь передаются данные по категориям и цветам которые у нас есть=
     xaxis: {
       categories: categories

@@ -62,7 +62,9 @@ export type ReportData = {
   total: {
     total_distance: number,
     total_speed_records_all: number
-  }
+  },
+  from: number,
+  to: number
 }
 //тупо копипаста
 export type FilterReportDataReturn = {
@@ -78,5 +80,9 @@ export type FilterReportDataReturn = {
   total: {
     total_distance: number,
     total_speed_records_all: number
-  }
+  },
+  from: number,
+  to: number
 }
+
+export type ReportChartData = Record<string, { Fuel_S: null | number, Fuel_S2: number | null }>

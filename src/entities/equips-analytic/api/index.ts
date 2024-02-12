@@ -1,6 +1,6 @@
 import { axiosInstance, axiosInstanceWithoutV1 } from '~shared/api/axios-instance'
 
-import type { ChartData, ReportData, Timestamp } from '../types'
+import type { ChartData, ReportChartData, ReportData, Timestamp } from '../types'
 
 export const equipsAnalytic = {
   getEquipsAnalytic: async ({
@@ -29,5 +29,18 @@ export const equipsAnalytic = {
       equips_ids_list: pikedEquipsId
     })
     return response.data
+  },
+  getReportChartData: async ({
+    equip_id,
+    to,
+    from
+  }: { from: number, to: number, equip_id: number }): Promise<ReportChartData> => {
+    const response = await axiosInstance.post('/reports/fuel_report-detail/', {
+      from,
+      to,
+      equip_id
+    })
+
+    return response.data.data
   }
 }

@@ -1,7 +1,7 @@
 {
   "name": "ya-map-misha",
   "private": true,
-  "version": "0.2.0",
+  "version": "0.2.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -37,6 +37,7 @@
     "react-inlinesvg": "^3.0.2",
     "react-leaflet": "3.2.5",
     "react-leaflet-markercluster": "^3.0.0-rc1",
+    "react-query": "^3.39.3",
     "react-redux": "^8.0.7",
     "react-router-dom": "^6.20.1",
     "react-toastify": "^9.1.3",
