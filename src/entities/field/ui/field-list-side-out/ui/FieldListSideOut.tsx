@@ -1,3 +1,5 @@
+import './FieldListSideOut.scss'
+
 import { SideOutLayout } from '~shared/ui/side-out-layout'
 
 import { FieldPreview } from '../../field-preview'
