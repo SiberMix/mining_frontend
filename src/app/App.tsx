@@ -32,7 +32,6 @@ const App: React.FC = () => {
             const elementWithHOCs = route.path !== RoutePath.auth
               ? <WithAuthCheck element={route.element} />
               : route.element
-
             return (
               <Route
                 key={route.path}
