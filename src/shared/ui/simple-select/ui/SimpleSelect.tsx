@@ -1,17 +1,22 @@
 import './SimpleSelect.scss'
 
-import * as cn from 'classnames'
+import cn from 'classnames'
+import type { ReactNode } from 'react'
 import React, { memo, useEffect, useRef, useState } from 'react'
 
 type SimpleSelectProps = {
+  label?: string,
   options: Array<{ value: string | null, label: string }>,
   initialValue: string,
-  handleOnChange: (value: string | null) => void
+  handleOnChange: (value: string | null) => void,
+  optionRender?: (value: string | null) => ReactNode
 }
 export const SimpleSelect = memo(({
+  label,
   options,
   initialValue,
-  handleOnChange
+  handleOnChange,
+  optionRender
 }: SimpleSelectProps) => {
   const [selectedOption, setSelectedOption] = useState(initialValue)
   const [isOpen, setIsOpen] = useState(false)
@@ -42,31 +47,44 @@ export const SimpleSelect = memo(({
   }, [])
 
   return (
-    <div
-      ref={wrapperRef}
-      className={cn(
-        'simple-select',
-        { open: isOpen }
-      )}
-      onClick={() => setIsOpen(!isOpen)}
-    >
-      <div className='simple-select-selected-option'>
-        {selectedOption}
-        <div className='arrow' />
-      </div>
-      {isOpen
-        ? <div className='simple-options'>
-          {options.map((option, index) => (
-            <div
-              key={index}
-              className='simple-option'
-              onClick={() => selectOption(option)}
-            >
-              {option.label}
-            </div>
-          ))}
+    <div className='simple-select-wrapper'>
+      {
+        label
+          ? <div className='simple-select-label'>
+            {label}
+          </div>
+          : null
+      }
+      <div
+        ref={wrapperRef}
+        className={cn(
+          'simple-select',
+          { open: isOpen }
+        )}
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <div className='simple-select-selected-option'>
+          {selectedOption}
+          <div className='arrow' />
         </div>
-        : null}
+        {isOpen
+          ? <div className='simple-options'>
+            {options.map((option, index) => (
+              <div
+                key={index}
+                className='simple-option'
+                onClick={() => selectOption(option)}
+              >
+                {
+                  optionRender
+                    ? optionRender(option.label)
+                    : option.label
+                }
+              </div>
+            ))}
+          </div>
+          : null}
+      </div>
     </div>
   )
 })

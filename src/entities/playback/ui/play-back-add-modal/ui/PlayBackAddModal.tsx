@@ -1,9 +1,8 @@
 import './PlayBackAddModal.scss'
 import 'dayjs/locale/ru'
 
-import { ConfigProvider, DatePicker, Input, message } from 'antd'
+import { DatePicker, Input, message } from 'antd'
 import { Collapse } from 'antd/lib'
-import locale from 'antd/locale/ru_RU'
 import React, { useEffect, useState } from 'react'
 //@ts-ignore
 import { GithubPicker } from 'react-color'
@@ -112,15 +111,13 @@ export const PlayBackAddModal = () => {
         Выберете временной интервал
       </span>
       <div className='PlayBackAddModal__datepicker'>
-        <ConfigProvider locale={locale}>
-          <DatePicker.RangePicker
-            //костыльно перерисовываем компонент для сброса значений
-            key={`${keyForReset}`}
-            showTime={{ format: 'HH:mm' }}
-            format='YYYY-MM-DD HH:mm'
-            onOk={onOkDate}
-          />
-        </ConfigProvider>
+        <DatePicker.RangePicker
+          //костыльно перерисовываем компонент для сброса значений
+          key={`${keyForReset}`}
+          showTime={{ format: 'HH:mm' }}
+          format='YYYY-MM-DD HH:mm'
+          onOk={onOkDate}
+        />
       </div>
       {
         colorForThisEquip

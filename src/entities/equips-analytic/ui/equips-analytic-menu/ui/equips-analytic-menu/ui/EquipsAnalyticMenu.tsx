@@ -1,8 +1,6 @@
 import './EquipsAnalyticMenu.scss'
-import 'dayjs/locale/ru'
 
-import { Button, ConfigProvider, DatePicker, message, Segmented } from 'antd'
-import locale from 'antd/locale/ru_RU'
+import { Button, DatePicker, message, Segmented } from 'antd'
 import classNames from 'classnames'
 import dayjs from 'dayjs'
 import { useFormik } from 'formik'
@@ -110,14 +108,12 @@ export const EquipsAnalyticMenu = memo(() => {
           )}
         >
           <span style={{ display: formik.values.period === 'Свой вариант' ? '' : 'none' }}>
-            <ConfigProvider locale={locale}>
-              <DatePicker.RangePicker
-                name='time'
-                placeholder={['Начало', 'Конец']}
-                value={[dayjs(formik.values.time.start), dayjs(formik.values.time.end)]}
-                onChange={onChangeRangeHandler}
-              />
-            </ConfigProvider>
+            <DatePicker.RangePicker
+              name='time'
+              placeholder={['Начало', 'Конец']}
+              value={[dayjs(formik.values.time.start), dayjs(formik.values.time.end)]}
+              onChange={onChangeRangeHandler}
+            />
           </span>
         </div>
       </EquipsAnalyticMenuItem>

@@ -3,7 +3,7 @@ import './CropRotationAddGroupModal.scss'
 import { Button, Input, message } from 'antd'
 import Search from 'antd/es/input/Search'
 import TextArea from 'antd/es/input/TextArea'
-import * as cn from 'classnames'
+import cn from 'classnames'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 

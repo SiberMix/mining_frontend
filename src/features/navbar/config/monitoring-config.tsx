@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { CalendarSideOut } from '~entities/calendar'
 import { EquipmentSideOut } from '~entities/equipment'
 import { FieldListSideOut } from '~entities/field'
 import { PlayBackSideOut } from '~entities/playback'
@@ -29,7 +30,7 @@ export const monitoringConfig: Record<MonitoringConfigEnum, ConfigObjType> = {
   [MonitoringConfigEnum.tasks]: {
     title: 'Задания',
     iconSrc: Job,
-    component: null
+    component: <CalendarSideOut />
   },
   [MonitoringConfigEnum.equipment_list]: {
     title: 'Оборудование',

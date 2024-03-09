@@ -1,3 +1,5 @@
+import { ConfigProvider } from 'antd'
+import locale from 'antd/locale/ru_RU'
 import React from 'react'
 import { render } from 'react-dom'
 import { QueryClientProvider } from 'react-query'
@@ -14,7 +16,9 @@ render(
   <Provider store={store}>
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <App />
+        <ConfigProvider locale={locale}>
+          <App />
+        </ConfigProvider>
       </BrowserRouter>
     </QueryClientProvider>
   </Provider>,

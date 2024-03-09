@@ -1,6 +1,6 @@
 import './EquipmentSideOutTabs.scss'
 
-import * as cn from 'classnames'
+import cn from 'classnames'
 import { memo } from 'react'
 
 import type { EquipmentSideOutTabsEnum } from '~entities/equipment/ui/equipment-side-out/ui/equipment-side-out-tabs/const/equipment-side-out-tabs'

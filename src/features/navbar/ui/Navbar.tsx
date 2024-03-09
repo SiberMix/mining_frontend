@@ -1,10 +1,9 @@
 import './Navbar.scss'
 
-import { message } from 'antd'
 import React, { memo } from 'react'
 
-import type { AnalyticConfigEnum } from '~features/navbar'
-import { type ConfigObjType, MonitoringConfigEnum } from '~features/navbar'
+import type { AnalyticConfigEnum, MonitoringConfigEnum } from '~features/navbar'
+import { type ConfigObjType } from '~features/navbar'
 import miniLogo from '~shared/assets/hectareLogoOnly.png'
 import { Svg } from '~shared/ui/svg-styled'
 
@@ -20,15 +19,7 @@ export const Navbar = memo(({
   setSidebarOpenContent
 }: NavbarProps) => {
 
-  const [messageApi, contextHolder] = message.useMessage()
-
   const handleChangeSidebarContent = (openSidebarContent: MonitoringConfigEnum) => {
-    //замазали нераб. функц
-    if (openSidebarContent === MonitoringConfigEnum.tasks) {
-      messageApi.info('Данный функционал недоступен в демонстрационном режиме')
-      return
-    }
-
     if (openSidebarContent === sidebarOpenContent) {
       setSidebarOpenContent(null)
     } else {
@@ -61,7 +52,6 @@ export const Navbar = memo(({
             )
           })
       }
-      {contextHolder}
     </nav>
   )
 })

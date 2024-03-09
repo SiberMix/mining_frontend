@@ -2,7 +2,8 @@ import type { CSSProperties } from 'react'
 import styled from 'styled-components'
 
 type SideOutLayoutProps = {
-  position?: CSSProperties['position']
+  position?: CSSProperties['position'],
+  $width?: CSSProperties['width']
 }
 
 export const SideOutLayout = styled.div<SideOutLayoutProps>`
@@ -21,7 +22,8 @@ export const SideOutLayout = styled.div<SideOutLayoutProps>`
     overflow-y: scroll;
     z-index: 10;
 
-    width: 410px;
+    width: ${({ $width }) => $width ? `calc(${$width} - 49px)` : '410px'};
+    //                                                                                  ^ убираем 49px сайдбара
     padding: 1px;
     background-color: var(--gray-600);
     border-width: 0.5px;
