@@ -3,7 +3,7 @@ import '~entities/crop-rotation/ui/сrop-rotation-list/ui/сrop-rotation-list/ui
 
 import { CheckCircleFilled, VerticalAlignBottomOutlined } from '@ant-design/icons'
 import { message } from 'antd'
-import * as cn from 'classnames'
+import cn from 'classnames'
 import React from 'react'
 import { useSelector } from 'react-redux'
 

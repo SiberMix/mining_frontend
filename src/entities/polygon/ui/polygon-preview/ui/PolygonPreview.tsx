@@ -1,7 +1,7 @@
 import './PolygonPreview.scss'
 
 import { Dropdown } from 'antd'
-import * as cn from 'classnames'
+import cn from 'classnames'
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 

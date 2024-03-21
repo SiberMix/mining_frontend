@@ -8,6 +8,14 @@
   cursor: pointer;
   font-size: 0.8rem;
 
+  &-wrapper {
+  }
+
+  &-label {
+    font-size: 10px;
+    font-weight: 300;
+  }
+
   .simple-select-selected-option {
     position: relative;
 
@@ -39,6 +47,7 @@
     width: 100%;
     background-color: #565656;
     color: #fff;
+    z-index: 1000;
 
     .simple-option {
       padding: 4px;
