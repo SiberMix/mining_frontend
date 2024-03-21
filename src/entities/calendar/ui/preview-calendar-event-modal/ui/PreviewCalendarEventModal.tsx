@@ -1,5 +1,6 @@
 import './PreviewCalendarEventModal.scss'
 
+import { message } from 'antd'
 import React from 'react'
 
 import { tasksCalendarStore } from '~entities/calendar/model'
@@ -26,6 +27,15 @@ export const PreviewCalendarEventModal = ({
     onCancel()
   }
 
+  //todo убрать эту заглушку
+
+  const [messageApi, contextHolder] = message.useMessage()
+
+  function alertMsg(e: React.MouseEvent<HTMLImageElement>) {
+    e.stopPropagation()
+    messageApi.info('Данный функционал находится в разработке и недоступен в демонстрационном режиме')
+  }
+
   return (
     <ModalStyled
       open={isOpen}
@@ -41,13 +51,14 @@ export const PreviewCalendarEventModal = ({
         <TaskModalRow arr={['Время начала задачи:', event?.start.toLocaleString()]} />
         <TaskModalRow arr={['Время окончания задачи:', event?.end.toLocaleString()]} />
         <div className='PreviewCalendarTaskModal_buttons'>
-          <StyledButton>
+          <StyledButton onClick={alertMsg}>
             Редактировать
           </StyledButton>
           <StyledButton onClick={deleteItem}>
             Удалить
           </StyledButton>
         </div>
+        {contextHolder}
       </div>
     </ModalStyled>
   )
