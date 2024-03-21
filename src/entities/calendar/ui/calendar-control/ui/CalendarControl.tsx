@@ -13,6 +13,7 @@ import { VIEW_OPTIONS } from '~entities/calendar/ui/calendar-control/const'
 import { StyledButton } from '~shared/ui/button-styled'
 
 import type { CalendarViewType } from '../../../types'
+import { CalendarTypeJobsControl } from '../../calendar-type-jobs/components'
 
 type CalendarControlProps = {
   view: CalendarViewType,
@@ -72,10 +73,7 @@ export const CalendarControl = memo(({
   }, [view, date])
 
   const dateText = useMemo(() => {
-    const momentDate = moment(date)
-    moment.locale('ru')
-
-    if (view === Views.DAY) return momentDate
+    if (view === Views.DAY) return moment(date)
       .format('dddd, MMMM DD')
     if (view === Views.WEEK) {
       const from = moment(date)
@@ -142,6 +140,7 @@ export const CalendarControl = memo(({
           ))
         }
       </Radio.Group>
+      <CalendarTypeJobsControl />
     </div>
   )
 })

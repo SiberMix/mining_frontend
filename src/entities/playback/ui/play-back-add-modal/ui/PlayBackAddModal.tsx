@@ -4,7 +4,6 @@ import 'dayjs/locale/ru'
 import { DatePicker, Input, message } from 'antd'
 import { Collapse } from 'antd/lib'
 import React, { useEffect, useState } from 'react'
-//@ts-ignore
 import { GithubPicker } from 'react-color'
 import { useSelector } from 'react-redux'
 

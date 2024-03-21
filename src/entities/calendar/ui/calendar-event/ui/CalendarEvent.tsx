@@ -13,11 +13,13 @@ export const CalendarEvent = ({ event }: CalendarEventProps) => {
     <div
       className='CalendarEvent'
       style={{
-        backgroundColor: event.color,
-        color: getContrastColor(event.color)
+        backgroundColor: event?.type_jobs?.color,
+        color: getContrastColor(event?.type_jobs?.color)
       }}
     >
-      {event.id}
+      <div>
+        {event.equip.equip_name.toUpperCase()}
+      </div>
     </div>
   )
 }

@@ -10,5 +10,5 @@ export const localizer = dateFnsLocalizer({
   parse,
   startOfWeek,
   getDay,
-  locales: { 'ru': ru }
+  locales: { ru }
 })

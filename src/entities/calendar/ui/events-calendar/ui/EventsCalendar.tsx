@@ -1,14 +1,13 @@
-import './TasksCalendar.scss'
+import './EventsCalendar.scss'
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.css'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 
 import type { EventProps } from 'react-big-calendar'
 import { Calendar } from 'react-big-calendar'
-import type { withDragAndDropProps } from 'react-big-calendar/lib/addons/dragAndDrop'
+import type { EventInteractionArgs, withDragAndDropProps } from 'react-big-calendar/lib/addons/dragAndDrop'
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
 
-import { tasksCalendarStore } from '~entities/calendar/model'
-
+import { tasksCalendarStore } from '../../../model'
 import type { CalendarEventItem, CalendarViewType } from '../../../types'
 import { CalendarEvent } from '../../calendar-event'
 import { localizer } from '../model/localizer'
@@ -19,33 +18,27 @@ type TasksCalendarProps = {
   setSelectedTask: (task: CalendarEventItem) => void
 }
 
-export const TasksCalendar = ({
+export const EventsCalendar = ({
   view,
   date,
   setSelectedTask
 }: TasksCalendarProps) => {
-  const events = tasksCalendarStore(state => state.tasks)
+  const events = tasksCalendarStore(state => state.events)
+  const isLoading = tasksCalendarStore(state => state.isLoading)
+  const editEventTime = tasksCalendarStore(state => state.editEventTime)
 
-  const onEventResize: withDragAndDropProps['onEventResize'] = data => {
+  const onEventEdite = (data: EventInteractionArgs<CalendarEventItem>) => {
     const {
-      event,
       start,
-      end
+      end,
+      event
     } = data
-    console.log('data', data)
 
-    //todo изменение размеров (времени) события
-  }
-
-  const onEventDrop: withDragAndDropProps['onEventDrop'] = data => {
-    const {
-      event,
-      start,
-      end
-    } = data
-    console.log('data', data)
-
-    //todo перетаскивание события dnd
+    editEventTime({
+      ...event,
+      start: new Date(start),
+      end: new Date(end)
+    })
   }
 
   const onDoubleClickEvent = (data: unknown) => {
@@ -69,10 +62,10 @@ export const TasksCalendar = ({
       date={date}
       events={events}
       components={components}
-      culture='ru'
+      // culture='ru' todo исправить ошибку, и начинать неделю с понедельника
       localizer={localizer}
-      onEventDrop={onEventDrop}
-      onEventResize={onEventResize}
+      onEventDrop={onEventEdite as withDragAndDropProps['onEventDrop']}
+      onEventResize={onEventEdite as withDragAndDropProps['onEventResize']}
       onDoubleClickEvent={onDoubleClickEvent}
       resizable
       toolbar={false}

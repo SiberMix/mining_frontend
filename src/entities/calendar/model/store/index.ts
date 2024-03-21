@@ -1,45 +1,139 @@
-import addHours from 'date-fns/addHours'
-import startOfHour from 'date-fns/startOfHour'
+import { toast } from 'react-toastify'
 import { create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
 
-import type { tasksStoreInitialValue } from '../../types'
+import { calendarApi } from '../../api'
+import type { CalendarEventItem, CalendarEventItemForPost, TasksStoreInitialValue, TypeJobType } from '../../types'
 
-const endOfHour = (date: Date): Date => addHours(startOfHour(date), -12)
-
-export const tasksCalendarStore = create<tasksStoreInitialValue>()(immer((set) => ({
+export const tasksCalendarStore = create<TasksStoreInitialValue>()(immer((set, get) => ({
   isLoading: true,
-  tasks: [
-    {
-      id: 1,
-      start: endOfHour(new Date()),
-      end: addHours(endOfHour(new Date()), 2),
-      description: 'сделать какую нибудь хуйню #2',
-      equipment: 1,
-      polygon: 1,
-      work_type: 1,
-      color: '#ccc'
-    },
-    {
-      id: 2,
-      start: addHours(endOfHour(new Date()), 5),
-      end: addHours(endOfHour(new Date()), 5.1),
-      description: 'сделать какую нибудь хуйню',
-      equipment: 1,
-      polygon: 1,
-      work_type: 1,
-      color: 'hotpink'
-    }
-  ],
-
-  getTasks: (from: Date, to: Date) => {
+  events: [],
+  typeJobs: [],
+  initialRequest: async () => {
     set({ isLoading: true })
-    //todo запрос на таски по временному отрезку
+    try {
+      const typeJobs = await calendarApi.getTypeJobs()
+      set({ typeJobs })
+    } catch (err) {
+      console.error(err)
+    } finally {
+      set({ isLoading: false })
+    }
   },
-  addTask: () => {
+  getEventsFromTo: async (from: Date, to: Date) => {
+    set({ isLoading: true })
+    console.log('Зпрос на events')
+    try {
+      const events = await calendarApi.getEvents(from, to)
+      set({
+        events: events.map(event => ({
+          ...event,
+          start: new Date(event.start),
+          end: new Date(event.end)
+        }))
+      })
+    } catch (err) {
+      console.error(err)
+    } finally {
+      set({ isLoading: false })
+    }
   },
-  editTask: () => {
+  addEvent: async (data: CalendarEventItemForPost) => {
+    try {
+      const event = await calendarApi.addNewEvent(data)
+      set((state) => ({
+        events: [...state.events, {
+          ...event,
+          start: new Date(event.start),
+          end: new Date(event.end)
+        }]
+      }))
+    } catch (err) {
+      console.error(err)
+    }
   },
-  deleteTask: () => {
+  editEvent: async (event: CalendarEventItem) => {
+    try {
+      await calendarApi.editEvent(event)
+      set((state) => ({
+        events: state.events.map(item => item.id === event.id ? event : item)
+      }))
+    } catch (err) {
+      console.error(err)
+    }
+  },
+  editEventTime: async (event: CalendarEventItem) => {
+    //сначала создаем копию старого события, чтоб было к чему откатиться
+    const oldEvent = get()
+      .events
+      .find(e => e.id === event.id)
+    const backupForEvent = structuredClone(oldEvent)//глубокое копирование
+    //сразу заменяем данные в state, и перемещаем событие
+    set((state) => ({
+      events: state.events.map(item => item.id === event.id ? event : item)
+    }))
+
+    try {
+      await calendarApi.editEvent({ //меняем данные о времени на сервере
+        id: event.id,
+        start: event.start,
+        end: event.end
+      } as any) //мне дико впадлу писать что может быть любой ключь из этого типа + id. Так что пусть будет any. Мне похуй
+    } catch (err) {
+      set((state) => ({ //в случае ошибки на сервере, откатываем данные о времени назад по бекапам
+        events: state.events.map(item => item.id === event.id ? backupForEvent : item)
+      }))
+      toast.error('Ошибка при изменении времени события!')
+      console.error(err)
+    }
+  },
+  removeEvent: async (id: number) => {
+    try {
+      await calendarApi.deleteEvent(id)
+      set((state) => ({
+        events: state.events.filter(item => item.id !== id)
+      }))
+    } catch (err) {
+      console.error(err)
+    }
+  },
+  addTypeJob: async (data: Omit<TypeJobType, 'id'>) => {
+    set({ isLoading: true })
+    try {
+      const typeJob = await calendarApi.postTypeJob(data)
+      set((state) => ({
+        typeJobs: [...state.typeJobs, typeJob]
+      }))
+    } catch (err) {
+      console.error(err)
+    } finally {
+      set({ isLoading: false })
+    }
+  },
+  editTypeJob: async (data: TypeJobType) => {
+    set({ isLoading: true })
+    try {
+      const typeJob = await calendarApi.editTypeJob(data)
+      set((state) => ({
+        typeJobs: state.typeJobs.map(item => item.id === typeJob.id ? typeJob : item)
+      }))
+    } catch (err) {
+      console.error(err)
+    } finally {
+      set({ isLoading: false })
+    }
+  },
+  deleteTypeJob: async (id: number) => {
+    set({ isLoading: true })
+    try {
+      await calendarApi.deleteTypeJob(id)
+      set((state) => ({
+        typeJobs: state.typeJobs.filter(item => item.id !== id)
+      }))
+    } catch (err) {
+      console.error(err)
+    } finally {
+      set({ isLoading: false })
+    }
   }
 })))

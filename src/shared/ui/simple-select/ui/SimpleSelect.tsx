@@ -6,10 +6,10 @@ import React, { memo, useEffect, useRef, useState } from 'react'
 
 type SimpleSelectProps = {
   label?: string,
-  options: Array<{ value: string | null, label: string }>,
+  options: Array<{ value: string | number | null, label: string }>,
   initialValue: string,
-  handleOnChange: (value: string | null) => void,
-  optionRender?: (value: string | null) => ReactNode
+  handleOnChange: (value: string | number | null) => void,
+  optionRender?: (value: string | number | null) => ReactNode
 }
 export const SimpleSelect = memo(({
   label,
@@ -21,10 +21,11 @@ export const SimpleSelect = memo(({
   const [selectedOption, setSelectedOption] = useState(initialValue)
   const [isOpen, setIsOpen] = useState(false)
   const wrapperRef = useRef<HTMLDivElement>(null)
+  const MAX_LENGTH = 17
   /*
   * Функия для выбора нужного элемента
   * */
-  const selectOption = (option: { value: string | null, label: string }) => {
+  const selectOption = (option: { value: string | number | null, label: string }) => {
     setSelectedOption(option.label)
     handleOnChange(option.value)
     setIsOpen(false)
@@ -51,7 +52,7 @@ export const SimpleSelect = memo(({
       {
         label
           ? <div className='simple-select-label'>
-            {label}
+            {label.slice(0, MAX_LENGTH)}
           </div>
           : null
       }
@@ -64,7 +65,7 @@ export const SimpleSelect = memo(({
         onClick={() => setIsOpen(!isOpen)}
       >
         <div className='simple-select-selected-option'>
-          {selectedOption}
+          {selectedOption.slice(0, MAX_LENGTH)}
           <div className='arrow' />
         </div>
         {isOpen
@@ -77,8 +78,8 @@ export const SimpleSelect = memo(({
               >
                 {
                   optionRender
-                    ? optionRender(option.label)
-                    : option.label
+                    ? optionRender(option.label.slice(0, MAX_LENGTH))
+                    : option.label.slice(0, MAX_LENGTH)
                 }
               </div>
             ))}

@@ -1,0 +1,19 @@
+.CalendarTypeJobsListItem {
+  width: 200px;
+  padding: 8px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  word-break: break-word;
+  transition: scale 300ms, border, box-shadow 200ms;
+
+  &:hover {
+    scale: 1.05;
+  }
+
+  &_selected {
+    border: 1px solid var(--green-100) !important;
+    box-shadow: 0 0 10px 5px var(--green-100);
+  }
+}

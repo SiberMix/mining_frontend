@@ -55,6 +55,7 @@
     "@types/node": "^20.11.0",
     "@types/react": "^18.0.27",
     "@types/react-big-calendar": "^1.8.9",
+    "@types/react-color": "^3.0.12",
     "@types/react-dom": "^18.2.18",
     "@types/react-leaflet-markercluster": "^3.0.1",
     "@types/styled-components": "^5.1.26",

@@ -1,0 +1,64 @@
+.CalendarTypeJobsRightSide {
+  width: 50%;
+  background-color: var(--gray-500) !important;
+  color: var(--gray-100);
+
+  .anticon-close {
+    svg {
+      path {
+        fill: var(--gray-200);
+      }
+    }
+
+    &:hover {
+      svg {
+        path {
+          fill: var(--gray-100);
+        }
+      }
+    }
+  }
+
+  &_collapse {
+    .ant-collapse-arrow {
+      svg {
+        path {
+          fill: var(--gray-200);
+        }
+      }
+
+      &:hover {
+        svg {
+          path {
+            fill: var(--gray-100);
+          }
+        }
+      }
+    }
+
+    .ant-collapse-header-text {
+      color: var(--gray-100);
+    }
+
+    .ant-collapse-content {
+      background-color: var(--gray-400);
+    }
+  }
+
+  &_list {
+    margin-top: 36px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  &_buttons {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+}
