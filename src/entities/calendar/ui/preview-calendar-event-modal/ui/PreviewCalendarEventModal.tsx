@@ -1,10 +1,10 @@
 import './PreviewCalendarEventModal.scss'
 
-import { message } from 'antd'
 import React from 'react'
 
 import { tasksCalendarStore } from '~entities/calendar/model'
 import { StyledButton } from '~shared/ui/button-styled'
+import { DeleteOption } from '~shared/ui/delete-option'
 import { ModalStyled } from '~shared/ui/modal-styled'
 
 import type { CalendarEventItem } from '../../../types'
@@ -12,28 +12,28 @@ import type { CalendarEventItem } from '../../../types'
 type PreviewCalendarTaskModalProps = {
   isOpen: boolean,
   onCancel: () => void,
-  event: CalendarEventItem | null
+  event: CalendarEventItem | null,
+  setIsAOpenAddModal: () => void
 }
 
 export const PreviewCalendarEventModal = ({
   isOpen,
   onCancel,
-  event
+  event,
+  setIsAOpenAddModal
 }: PreviewCalendarTaskModalProps) => {
   const removeEvent = tasksCalendarStore(state => state.removeEvent)
+  const setEventForEdit = tasksCalendarStore(state => state.setEventForEdit)
 
   const deleteItem = () => {
     removeEvent(event?.id!)
     onCancel()
   }
 
-  //todo убрать эту заглушку
-
-  const [messageApi, contextHolder] = message.useMessage()
-
-  function alertMsg(e: React.MouseEvent<HTMLImageElement>) {
-    e.stopPropagation()
-    messageApi.info('Данный функционал находится в разработке и недоступен в демонстрационном режиме')
+  const editItem = () => {
+    setEventForEdit(event)
+    setIsAOpenAddModal()
+    onCancel()
   }
 
   return (
@@ -47,18 +47,19 @@ export const PreviewCalendarEventModal = ({
         <TaskModalRow arr={['Полигон:', event?.polygon.name]} />
         <TaskModalRow arr={['Название техники:', event?.equip.equip_name]} />
         <TaskModalRow arr={['Описание:', event?.description]} />
-        <TaskModalRow arr={['Задача:', event?.type_jobs.name]} />
+        <TaskModalRow arr={['Задача:', event?.type_jobs?.name]} />
         <TaskModalRow arr={['Время начала задачи:', event?.start.toLocaleString()]} />
         <TaskModalRow arr={['Время окончания задачи:', event?.end.toLocaleString()]} />
         <div className='PreviewCalendarTaskModal_buttons'>
-          <StyledButton onClick={alertMsg}>
+          <StyledButton onClick={editItem}>
             Редактировать
           </StyledButton>
-          <StyledButton onClick={deleteItem}>
-            Удалить
-          </StyledButton>
+          <DeleteOption onDelete={deleteItem}>
+            <StyledButton>
+              Удалить
+            </StyledButton>
+          </DeleteOption>
         </div>
-        {contextHolder}
       </div>
     </ModalStyled>
   )

@@ -16,7 +16,8 @@
     }
 
     &-allday-cell { //на сколько понял, это события на целый день
-      display: none;
+      border-top: 1px solid var(--gray-100);
+      margin-top: 12px;
     }
 
     &-time-header-cell .rbc-today { //шапка даты активного дня

@@ -3,12 +3,13 @@ import type { Views } from 'react-big-calendar'
 export type TasksStoreInitialValue = {
   isLoading: boolean,
   events: CalendarEventItem[],
+  eventForEdit: CalendarEventItem | null,
   typeJobs: TypeJobType[],
+  setEventForEdit: (value: CalendarEventItem | null) => void,
   initialRequest: () => void,
   getEventsFromTo: (from: Date, to: Date) => void,
   addEvent: (data: CalendarEventItemForPost) => void,
-  editEvent: (data: CalendarEventItem) => void,
-  editEventTime: (data: CalendarEventItem) => void,
+  editEvent: (data: any) => void, //ну тут нихера не any, но мне лень ебаться с типами, потому что там можно пробросить любую часть от CalendarEventItemForPost
   removeEvent: (id: number) => void,
   addTypeJob: (data: Omit<TypeJobType, 'id'>) => void,
   editTypeJob: (data: TypeJobType) => void,
@@ -32,9 +33,10 @@ export type CalendarEventItem = {
     equip_name: string
   },
   type_jobs: {
+    id: number,
     name: string,
     color: string
-  }
+  } | null
 }
 
 export type CalendarEventItemForPost = {

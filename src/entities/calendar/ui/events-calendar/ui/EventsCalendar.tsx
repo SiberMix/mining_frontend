@@ -15,17 +15,19 @@ import { localizer } from '../model/localizer'
 type TasksCalendarProps = {
   view: CalendarViewType,
   date: Date,
-  setSelectedTask: (task: CalendarEventItem) => void
+  setSelectedTask: (task: CalendarEventItem) => void,
+  events: CalendarEventItem[],
+  isLoading: boolean
 }
 
 export const EventsCalendar = ({
   view,
   date,
-  setSelectedTask
+  setSelectedTask,
+  events,
+  isLoading
 }: TasksCalendarProps) => {
-  const events = tasksCalendarStore(state => state.events)
-  const isLoading = tasksCalendarStore(state => state.isLoading)
-  const editEventTime = tasksCalendarStore(state => state.editEventTime)
+  const editEvent = tasksCalendarStore(state => state.editEvent)
 
   const onEventEdite = (data: EventInteractionArgs<CalendarEventItem>) => {
     const {
@@ -34,8 +36,8 @@ export const EventsCalendar = ({
       event
     } = data
 
-    editEventTime({
-      ...event,
+    editEvent({
+      id: event.id,
       start: new Date(start),
       end: new Date(end)
     })

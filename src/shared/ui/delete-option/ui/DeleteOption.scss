@@ -28,11 +28,17 @@
   }
 }
 
-.ant-popconfirm-title {
-  color: #929292 !important;
-}
+.ant-popconfirm {
+  &-title {
+    color: #929292 !important;
+  }
 
-.ant-popconfirm-description {
-  color: #929292 !important;
-}
+  &-description {
+    margin-top: 0 !important;
+    color: #929292 !important;
+  }
 
+  &-message {
+    align-items: center !important;
+  }
+}

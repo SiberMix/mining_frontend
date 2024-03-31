@@ -5,11 +5,12 @@ import TextArea from 'antd/es/input/TextArea'
 import dayjs from 'dayjs'
 import { useFormik } from 'formik'
 import moment from 'moment'
+import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 
 import { tasksCalendarStore } from '~entities/calendar/model'
-import type { CalendarEventItemForPost } from '~entities/calendar/types'
+import type { CalendarEventItemForPost, TypeJobType } from '~entities/calendar/types'
 import { StyledButton } from '~shared/ui/button-styled'
 import { ModalStyled } from '~shared/ui/modal-styled'
 import { SimpleSelect } from '~shared/ui/simple-select'
@@ -19,66 +20,98 @@ import { getAllEquipmentSelector, getAllPolygonsSelector } from '../../../../../
 
 type AddCalendarTaskModalProps = {
   isOpen: boolean,
-  onCancel: () => void
+  onCancel: () => void,
+  typeJobs: TypeJobType[]
 }
 
 export const AddCalendarTaskModal = ({
   isOpen,
-  onCancel
+  onCancel,
+  typeJobs
 }: AddCalendarTaskModalProps) => {
-  const allPolygonsMapped = useSelector(getAllPolygonsSelector)
-    ?.map(item => ({ //oh sheet im sorry
+  //zustand
+  const addEvent = tasksCalendarStore(state => state.addEvent)
+  const editEvent = tasksCalendarStore(state => state.editEvent)
+  const eventForEdit = tasksCalendarStore(state => state.eventForEdit)
+  const setEventForEdit = tasksCalendarStore(state => state.setEventForEdit)
+  // redux
+  const allPolygonsMapped = useSelector(getAllPolygonsSelector) //todo при смене с redux на zustand, вынести выше по аналогии с typeJobs
+    ?.map(item => ({ //ou sheet im sorry
       value: item.id,
       label: item.name
     }))
-  const allEquipmentsMapped = useSelector(getAllEquipmentSelector)
-    ?.map(item => ({ //oh sheet im sorry
+  const allEquipmentsMapped = useSelector(getAllEquipmentSelector) //todo при смене с redux на zustand, вынести выше по аналогии с typeJobs
+    ?.map(item => ({ //ou sheet im sorry
       value: item.id,
       label: item.equip_name
     }))
-  const typeJobsMapped = tasksCalendarStore(state => state.typeJobs)
-    ?.map(item => ({ //oh sheet im sorry
-      value: item.id,
-      label: item.name
-    }))
-  const addEvent = tasksCalendarStore(state => state.addEvent)
 
-  const formikInitialValues: CalendarEventItemForPost = {
-    name: '',
-    equip: +allEquipmentsMapped[0]?.value,
-    start: moment()
-      .startOf('day')
-      .toDate(),
-    end: moment()
-      .endOf('day')
-      .toDate(),
-    polygon: +allPolygonsMapped[0]?.value,
-    type_jobs: +typeJobsMapped[0]?.value,
-    description: ''
-  }
+  // const
+  const typeJobsMapped = typeJobs?.map(item => ({
+    value: item.id,
+    label: item.name
+  }))
 
   const formik = useFormik({
-    initialValues: formikInitialValues,
+    initialValues: {
+      name: '',
+      start: moment()
+        .startOf('day')
+        .toDate(),
+      end: moment()
+        .endOf('day')
+        .toDate(),
+      equip: Number(allEquipmentsMapped?.at(0)?.value),
+      polygon: Number(allPolygonsMapped?.at(0)?.value),
+      type_jobs: Number(typeJobsMapped?.at(0)?.value),
+      description: ''
+    } as CalendarEventItemForPost,
     onSubmit: (values) => {
       if (values.name.length < 2) {
         toast.error('Название не может быть меньше 2х символов')
         return
       }
 
-      addEvent({
-        ...values,
-        start: dayjs(values.start)
-          .toDate(),
-        end: dayjs(values.end)
-          .toDate()
-      })
+      if (eventForEdit !== null) {
+        editEvent({
+          ...values,
+          id: eventForEdit.id,
+          polygon: values.polygon,
+          type_jobs: values.type_jobs,
+          start: dayjs(values.start)
+            .toDate(),
+          end: dayjs(values.end)
+            .toDate()
+        })
+      } else {
+        addEvent({
+          ...values,
+          start: dayjs(values.start)
+            .toDate(),
+          end: dayjs(values.end)
+            .toDate()
+        })
+      }
 
-      onCancel()
-      formik.resetForm()
+      closeHandler()
     }
   })
 
-  const onChange = (rangeValue: null | (dayjs.Dayjs | null)[]) => {
+  //todo редактирование событий после исправлений бека
+
+  useEffect(() => {
+    if (eventForEdit) {
+      formik.setFieldValue('name', eventForEdit.name)
+      formik.setFieldValue('start', eventForEdit.start)
+      formik.setFieldValue('end', eventForEdit.end)
+      formik.setFieldValue('equip', eventForEdit.equip.id)
+      formik.setFieldValue('polygon', eventForEdit.polygon.id)
+      formik.setFieldValue('type_jobs', eventForEdit.type_jobs?.id)
+      formik.setFieldValue('description', eventForEdit.description)
+    }
+  }, [eventForEdit])
+
+  const onChangeRangePicker = (rangeValue: null | (dayjs.Dayjs | null)[]) => {
     if (rangeValue && rangeValue[0]) {
       formik.setFieldValue('start', rangeValue[0])
     }
@@ -87,10 +120,17 @@ export const AddCalendarTaskModal = ({
     }
   }
 
+  const closeHandler = () => {
+    setEventForEdit(null)
+    formik.resetForm()
+    onCancel()
+  }
+
   return (
     <ModalStyled
       open={isOpen}
-      onCancel={onCancel}
+      onCancel={closeHandler}
+      title={eventForEdit ? 'Редактировать событие' : 'Добавить событие'}
       footer={null}
     >
       <form className='AddCalendarTaskModal'>
@@ -103,7 +143,7 @@ export const AddCalendarTaskModal = ({
           showTime={{ format: 'HH:mm' }}
           format='YYYY-MM-DD HH:mm'
           value={[dayjs(formik.values.start), dayjs(formik.values.end)]}
-          onChange={onChange}
+          onChange={onChangeRangePicker}
         />
         <div className='AddCalendarTaskModal_selectors'>
           <SimpleSelect
@@ -136,7 +176,7 @@ export const AddCalendarTaskModal = ({
         />
       </form>
       <StyledButton onClick={() => formik.handleSubmit()}>
-        Создать
+        {eventForEdit ? 'Сохранить' : 'Создать'}
       </StyledButton>
     </ModalStyled>
   )

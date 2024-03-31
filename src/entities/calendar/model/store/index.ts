@@ -8,6 +8,7 @@ import type { CalendarEventItem, CalendarEventItemForPost, TasksStoreInitialValu
 export const tasksCalendarStore = create<TasksStoreInitialValue>()(immer((set, get) => ({
   isLoading: true,
   events: [],
+  eventForEdit: null,
   typeJobs: [],
   initialRequest: async () => {
     set({ isLoading: true })
@@ -52,36 +53,26 @@ export const tasksCalendarStore = create<TasksStoreInitialValue>()(immer((set, g
       console.error(err)
     }
   },
-  editEvent: async (event: CalendarEventItem) => {
-    try {
-      await calendarApi.editEvent(event)
-      set((state) => ({
-        events: state.events.map(item => item.id === event.id ? event : item)
-      }))
-    } catch (err) {
-      console.error(err)
-    }
+  setEventForEdit: (eventForEdit: CalendarEventItem | null) => {
+    set({ eventForEdit })
   },
-  editEventTime: async (event: CalendarEventItem) => {
+  editEvent: async (editEventInfo: CalendarEventItem) => {
     //сначала создаем копию старого события, чтоб было к чему откатиться
     const oldEvent = get()
       .events
-      .find(e => e.id === event.id)
-    const backupForEvent = structuredClone(oldEvent)//глубокое копирование
+      .find(e => e.id === editEventInfo.id)
+    const eventBackup = structuredClone(oldEvent)//глубокое копирование
+    const newEvent = { ...eventBackup, ...editEventInfo }
     //сразу заменяем данные в state, и перемещаем событие
     set((state) => ({
-      events: state.events.map(item => item.id === event.id ? event : item)
+      events: state.events.map(item => item.id === editEventInfo.id ? newEvent : item)
     }))
 
     try {
-      await calendarApi.editEvent({ //меняем данные о времени на сервере
-        id: event.id,
-        start: event.start,
-        end: event.end
-      } as any) //мне дико впадлу писать что может быть любой ключь из этого типа + id. Так что пусть будет any. Мне похуй
+      await calendarApi.editEvent(editEventInfo)
     } catch (err) {
       set((state) => ({ //в случае ошибки на сервере, откатываем данные о времени назад по бекапам
-        events: state.events.map(item => item.id === event.id ? backupForEvent : item)
+        events: state.events.map(item => item.id === editEventInfo.id ? eventBackup : item)
       }))
       toast.error('Ошибка при изменении времени события!')
       console.error(err)

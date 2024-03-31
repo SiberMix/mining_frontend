@@ -1,26 +1,20 @@
 import './BasePreloader.scss'
 
+import type { CSSProperties } from 'react'
 import React, { memo } from 'react'
 
 type BasePreloaderProps = {
   position?: 'relative',
-  height?: string,
-  width?: string
+  height?: CSSProperties['height'],
+  width?: CSSProperties['width'],
+  opacity?: CSSProperties['opacity']
 }
 
-export const BasePreloader = memo(({
-  width,
-  height,
-  position
-}: BasePreloaderProps) => {
+export const BasePreloader = memo((props: BasePreloaderProps) => {
   return (
     <div
       className='loading'
-      style={{
-        position: position,
-        width: width,
-        height: height
-      }}
+      style={props}
     >
       <div className='loading-text'>
         <span className='loading-text-words'>

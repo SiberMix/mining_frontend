@@ -1,7 +1,8 @@
 import './DeleteOption.scss'
 
 import { Popconfirm } from 'antd'
-import type { CSSProperties } from 'react'
+import type { TooltipPlacement } from 'antd/es/tooltip'
+import type { CSSProperties, PropsWithChildren } from 'react'
 import React, { memo } from 'react'
 
 import TrashBox from '~shared/assets/icons/delete.svg'
@@ -12,35 +13,42 @@ type DeleteOptionProps = {
   popConfirmDescription?: string,
   className?: string,
   onDelete: () => void,
-  title?: string
-}
+  title?: string,
+  placement?: TooltipPlacement
+} & PropsWithChildren
 
 export const DeleteOption = memo(({
   onDelete,
   title,
   className,
   popConfirmTitle,
-  popConfirmDescription,
-  style
+  popConfirmDescription = 'Вы уверены?',
+  style,
+  placement = 'right',
+  children
 }: DeleteOptionProps) => {
 
   return (
     <Popconfirm
       className='deleteOption'
       title={popConfirmTitle}
-      placement='right'
+      placement={placement}
       description={popConfirmDescription}
       onConfirm={onDelete}
       okText='Да'
       cancelText='Нет'
     >
-      <img
-        style={style}
-        className={className}
-        src={TrashBox}
-        alt=''
-        title={title}
-      />
+      {
+        children
+          ? children
+          : <img
+            style={style}
+            className={className}
+            src={TrashBox}
+            alt=''
+            title={title}
+          />
+      }
     </Popconfirm>
   )
 })

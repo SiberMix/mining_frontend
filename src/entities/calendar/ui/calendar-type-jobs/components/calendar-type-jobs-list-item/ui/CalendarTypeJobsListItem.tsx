@@ -17,7 +17,6 @@ export const CalendarTypeJobsListItem = memo(({
   typeJob,
   onSelect
 }: CalendarTypeJobsListItemProps) => {
-  console.log('typeJob', typeJob)
   return (
     <div
       onClick={onSelect}
