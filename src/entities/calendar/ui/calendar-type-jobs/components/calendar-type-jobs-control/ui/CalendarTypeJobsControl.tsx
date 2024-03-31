@@ -4,7 +4,11 @@ import { StyledButton } from '~shared/ui/button-styled'
 
 import { CalendarTypeJobsRightSide } from '../../calendar-type-jobs-right-side'
 
-export const CalendarTypeJobsControl = () => {
+type CalendarTypeJobsLeftSideProps = {
+  disabled: boolean
+}
+
+export const CalendarTypeJobsControl = ({ disabled }: CalendarTypeJobsLeftSideProps) => {
   const [isOpenTypeJobs, setIsOpenTypeJobs] = useState(false)
 
   return (
@@ -13,6 +17,7 @@ export const CalendarTypeJobsControl = () => {
         width='auto'
         height='auto'
         onClick={setIsOpenTypeJobs.bind(null, true)}
+        disabled={disabled}
       >
         Работы
       </StyledButton>

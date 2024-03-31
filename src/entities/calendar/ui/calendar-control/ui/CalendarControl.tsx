@@ -16,6 +16,7 @@ import type { CalendarViewType } from '../../../types'
 import { CalendarTypeJobsControl } from '../../calendar-type-jobs/components'
 
 type CalendarControlProps = {
+  isLoading: boolean,
   view: CalendarViewType,
   setView: (view: CalendarViewType) => void,
   date: Date,
@@ -24,6 +25,7 @@ type CalendarControlProps = {
 }
 
 export const CalendarControl = memo(({
+  isLoading,
   view,
   setView,
   date,
@@ -99,6 +101,7 @@ export const CalendarControl = memo(({
         hoverbgc='var(--gray-400)'
         hovercolor='var(--green-100)'
         onClick={setIsOpenModal.bind(null, true)}
+        disabled={isLoading}
       >
         Создать задачу
       </StyledButton>
@@ -106,21 +109,29 @@ export const CalendarControl = memo(({
         width='auto'
         height='auto'
         onClick={() => setDate(new Date())}
+        disabled={isLoading}
       >
         Сегодня
       </StyledButton>
       <DatePicker
         value={datePicker}
         onChange={onChangeDate}
+        disabled={isLoading}
       />
       <div className='CalendarControl_buttons'>
-        <StyledButton onClick={onPrevClick}>
+        <StyledButton
+          onClick={onPrevClick}
+          disabled={isLoading}
+        >
           <ArrowLeftOutlined />
         </StyledButton>
         <div className='CalendarControl_buttons_value'>
           {dateText}
         </div>
-        <StyledButton onClick={onNextClick}>
+        <StyledButton
+          onClick={onNextClick}
+          disabled={isLoading}
+        >
           <ArrowRightOutlined />
         </StyledButton>
       </div>
@@ -128,6 +139,7 @@ export const CalendarControl = memo(({
         className='CalendarControl_radio'
         value={view}
         onChange={(e) => setView(e.target.value)}
+        disabled={isLoading}
       >
         {
           VIEW_OPTIONS.map((item) => (
@@ -140,7 +152,7 @@ export const CalendarControl = memo(({
           ))
         }
       </Radio.Group>
-      <CalendarTypeJobsControl />
+      <CalendarTypeJobsControl disabled={isLoading} />
     </div>
   )
 })

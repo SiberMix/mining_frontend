@@ -47,6 +47,7 @@ export const CalendarSideOut = () => {
     <SideOutLayout $width='100%'>
       {isLoading ? <BasePreloader opacity='0.8' /> : null}
       <CalendarControl
+        isLoading={isLoading}
         view={view}
         setView={setView}
         date={date}
