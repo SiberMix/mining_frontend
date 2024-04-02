@@ -1,4 +1,4 @@
-import { axiosInstance, axiosInstanceWithoutV1 } from '~shared/api/axios-instance'
+import { axiosInstance } from '~shared/api/axios-instance'
 
 import type { ChartData, ReportChartData, ReportData, Timestamp } from '../types'
 
@@ -10,7 +10,7 @@ export const equipsAnalytic = {
   }: { ts_start: number, ts_end: number, imei_ids: number[] }): Promise<ChartData> => {
 
     //пришлось округлять до с, потому что беку сложно
-    const response = await axiosInstanceWithoutV1.post('/tractors_avg_speed/', {
+    const response = await axiosInstance.post('/tractors_avg_speed/', {
       ts_start: Math.round(ts_start / 1000),
       ts_end: Math.round(ts_end / 1000),
       imei_ids

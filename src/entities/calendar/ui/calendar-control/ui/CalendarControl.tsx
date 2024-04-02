@@ -97,7 +97,6 @@ export const CalendarControl = memo(({
         width='auto'
         height='auto'
         bgc='var(--green-200)'
-        // color='var(--gray-100)'
         color='var(--green-100)'
         hoverbgc='var(--gray-400)'
         hovercolor='var(--green-100)'
