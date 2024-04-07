@@ -27,7 +27,7 @@ export const EventsCalendar = ({
   events,
   isLoading
 }: TasksCalendarProps) => {
-  const editEvent = tasksCalendarStore(state => state.editEvent)
+  const editEvent = tasksCalendarStore(state => state.editEventTime)
 
   const onEventEdite = (data: EventInteractionArgs<CalendarEventItem>) => {
     const {

@@ -56,7 +56,24 @@ export const tasksCalendarStore = create<TasksStoreInitialValue>()(immer((set, g
   setEventForEdit: (eventForEdit: CalendarEventItem | null) => {
     set({ eventForEdit })
   },
-  editEvent: async (editEventInfo: CalendarEventItem) => {
+  editEvent: async (data: any) => {
+    try {
+      const response = await calendarApi.editEvent(data)
+      set((state) => ({
+        events: state.events.map(item => item.id === response.id
+          ? {
+            ...response,
+            start: new Date(response.start),
+            end: new Date(response.end)
+          }
+          : item)
+      }))
+    } catch (err) {
+      toast.error('Ошибка при редактировании события!')
+      console.error(err)
+    }
+  },
+  editEventTime: async (editEventInfo: CalendarEventItem) => {
     //сначала создаем копию старого события, чтоб было к чему откатиться
     const oldEvent = get()
       .events

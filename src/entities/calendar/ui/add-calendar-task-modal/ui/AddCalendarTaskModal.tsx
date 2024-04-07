@@ -29,7 +29,7 @@ export const AddCalendarTaskModal = ({
   onCancel,
   typeJobs
 }: AddCalendarTaskModalProps) => {
-  //zustand
+  // zustand
   const addEvent = tasksCalendarStore(state => state.addEvent)
   const editEvent = tasksCalendarStore(state => state.editEvent)
   const eventForEdit = tasksCalendarStore(state => state.eventForEdit)
@@ -76,8 +76,9 @@ export const AddCalendarTaskModal = ({
         editEvent({
           ...values,
           id: eventForEdit.id,
-          polygon: values.polygon,
-          type_jobs: values.type_jobs,
+          polygon: { id: values.polygon },
+          equip: { id: values.equip },
+          type_jobs: { id: values.type_jobs },
           start: dayjs(values.start)
             .toDate(),
           end: dayjs(values.end)
