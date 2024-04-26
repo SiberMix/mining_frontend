@@ -48,7 +48,7 @@ export const SettingsMap = memo(() => {
             <SimpleSelect
               options={zoomLevelOptions}
               initialValue={zoomInitialValue ? zoomInitialValue.label : 'произошла ошибка'}
-              handleOnChange={(value: string | null) => dispatch(setZoomLevelOptions(value))}
+              handleOnChange={(value) => dispatch(setZoomLevelOptions(value))}
             />
           </div>
           <div className='settingsMapBaseMap'>
@@ -58,7 +58,7 @@ export const SettingsMap = memo(() => {
             <SimpleSelect
               options={baseMapOptions}
               initialValue={stateBaseMapOptions}
-              handleOnChange={(value: string | null) => dispatch(setBaseMapOptions(value))}
+              handleOnChange={(value) => dispatch(setBaseMapOptions(value))}
             />
           </div>
         </div>

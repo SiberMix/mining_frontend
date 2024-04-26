@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify'
 
-import { settingsService } from '~features/settings/api'
+import { settingsService } from '~widgets/settings/api'
 
 import type { RootState } from '../store'
 
@@ -148,7 +148,7 @@ export const {
 export default reducer
 
 export type SettingsData = {
-  startMenuOptions: unknown, //todo пофиксить эту дич, потому что она сейчас не работает
+  startMenuOptions: unknown, //todo пофиксить эту дичь, потому что она сейчас не работает
   baseMapOptions: string,
   zoomLevelOptions: string,
   baseCoord: [number, number],

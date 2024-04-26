@@ -9,6 +9,7 @@ import { routeConfig, RoutePath } from '~shared/config/route-config'
 import { AppVersion } from '~shared/ui/app-version'
 import { Header } from '~widgets/header'
 import { Notifications } from '~widgets/notifications'
+import { Settings } from '~widgets/settings'
 
 import { getTokenSelector } from '../srcOld/redux/selectors/authSelectors'
 import { getSettings } from '../srcOld/redux/slices/settingsSlice'
@@ -54,6 +55,7 @@ const App: React.FC = () => {
             )
           })}
       </Routes>
+      <Settings />
       <Notifications />
       <AppVersion />
     </div>

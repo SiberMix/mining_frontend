@@ -6,7 +6,6 @@ import { CSSTransition, SwitchTransition } from 'react-transition-group'
 
 import type { AnalyticConfigEnum, ConfigObjType, MonitoringConfigEnum } from '~features/navbar'
 import { Navbar } from '~features/navbar'
-import { Settings } from '~features/settings'
 import { SidebarFooter } from '~features/sidebar-footer'
 
 type SidebarProps = {
@@ -32,7 +31,6 @@ export const Sidebar = memo(({
         />
 
         <SidebarFooter setSidebarOpenContent={setSidebarOpenContent} />
-        <Settings />
       </aside>
       {
         withAnimation
