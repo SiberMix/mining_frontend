@@ -7,6 +7,7 @@ import { Route, Routes } from 'react-router-dom'
 import { WithAuthCheck } from '~app/hocs/withAuthTokenCheck/withAuthTokenCheck'
 import { routeConfig, RoutePath } from '~shared/config/route-config'
 import { AppVersion } from '~shared/ui/app-version'
+import { Header } from '~widgets/header'
 import { Notifications } from '~widgets/notifications'
 
 import { getTokenSelector } from '../srcOld/redux/selectors/authSelectors'
@@ -28,9 +29,13 @@ const App: React.FC = () => {
       <Routes>
         {Object.values(routeConfig)
           .map(route => {
-            // Оборачиваем в проверку токена все страницы кроме логина
-            const elementWithHOCs = route.path !== RoutePath.auth
-              ? <WithAuthCheck element={route.element} />
+            const isLoginPage = route.path !== RoutePath.auth
+
+            const elementWithHOCs = isLoginPage
+              ? (<>
+                <Header />
+                <WithAuthCheck element={route.element} />
+              </>)
               : route.element
 
             return (

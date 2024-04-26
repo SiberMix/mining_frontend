@@ -4,7 +4,6 @@ import React, { memo } from 'react'
 
 import type { AnalyticConfigEnum, MonitoringConfigEnum } from '~features/navbar'
 import { type ConfigObjType } from '~features/navbar'
-import miniLogo from '~shared/assets/hectareLogoOnly.png'
 import { Svg } from '~shared/ui/svg-styled'
 
 type NavbarProps = {
@@ -29,11 +28,6 @@ export const Navbar = memo(({
 
   return (
     <nav className='Navbar'>
-      <img
-        className='Navbar-img'
-        src={miniLogo}
-        alt='sidebarLogo'
-      />
       {
         Object.keys(navbarConfig)
           .map((configKey) => {

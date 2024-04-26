@@ -1,11 +1,11 @@
-import './DeleteOption.scss'
+import './index.scss'
 
 import { Popconfirm } from 'antd'
 import type { TooltipPlacement } from 'antd/es/tooltip'
 import type { CSSProperties, PropsWithChildren } from 'react'
 import React, { memo } from 'react'
 
-import TrashBox from '~shared/assets/icons/delete.svg'
+import TrashBox from '../assets/delete.svg'
 
 type DeleteOptionProps = {
   style?: CSSProperties,

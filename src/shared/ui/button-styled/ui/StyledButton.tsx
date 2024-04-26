@@ -12,11 +12,13 @@ type StyledButtonProps = {
   bgc?: CSSProperties['backgroundColor'],
   hoverbgc?: CSSProperties['backgroundColor'],
   color?: CSSProperties['color'],
-  hovercolor?: CSSProperties['color']
+  hovercolor?: CSSProperties['color'],
+  padding?: CSSProperties['padding']
 } & ButtonProps
 
 export const StyledButton = styled(Button)<StyledButtonProps>`
     margin: ${({ margin }) => margin ? margin : ''};
+    padding: ${({ padding }) => padding ? padding : ''};
 
     width: ${({ width }) => width ? width : '100%'};
     height: ${({ height }) => height ? height : '100%'};
@@ -25,7 +27,7 @@ export const StyledButton = styled(Button)<StyledButtonProps>`
 
     border: ${({ border }) => border ? border : '1px solid var(--gray-100)'};
 
-    background-color: ${({ bgc }) => bgc ? bgc : '#565656'};
+    background-color: ${({ bgc }) => bgc ? bgc : 'var(--gray-300)'};
 
     transition: background-color, color .3s;
 

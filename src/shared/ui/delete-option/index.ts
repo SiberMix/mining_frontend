@@ -1,1 +1,1 @@
-export { DeleteOption } from './ui/DeleteOption'
+export { DeleteOption } from './ui'

@@ -7,13 +7,14 @@ type SvgProps = {
   $height?: CSSProperties['height'],
   $width?: CSSProperties['width'],
   $color?: CSSProperties['color'],
-  activeColor?: CSSProperties['color']
+  activeColor?: CSSProperties['color'],
+  $margin?: CSSProperties['margin']
 }
 
 export const Svg = styled(SVG)<SvgProps>`
     height: ${({ $height }) => $height ? $height : '20px'};
     width: ${({ $width }) => $width ? $width : '20px'};
-    margin-bottom: 25px;
+    margin: ${({ $margin }) => $margin ? $margin : '0 0 25px'};
     cursor: pointer;
 
     &:last-child {

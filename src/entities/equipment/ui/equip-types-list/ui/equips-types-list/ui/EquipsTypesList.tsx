@@ -33,7 +33,7 @@ export const EquipsTypesList = memo(() => {
     refreshData
   } = useListing<EquipType>({
     columnNames: ['Название', 'Статус'],
-    mapTableData: (typesList: any) => { //todo suka any
+    mapTableData: (typesList: any) => {
       return typesList.map((item: any) => ({
         id: item.id,
         key: item.id,

@@ -1,11 +1,12 @@
 .Sidebar {
-  padding: 13px 0;
+  height: calc(100% - 40px);
+  padding: 13px 0 26px;
   width: 50px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   background-color: var(--gray-500);
-  box-shadow: 0 0 13px 0 rgba(0, 0, 0, 0.36);
+  box-shadow: 5px 5px 13px 0 rgba(0, 0, 0, 0.36);
   z-index: 100;
 }

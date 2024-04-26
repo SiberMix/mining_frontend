@@ -37,7 +37,9 @@ export const CalendarSideOut = () => {
     }
   }, [view, date])
 
-  useEffect(initialRequest, [])
+  useEffect(() => {
+    initialRequest()
+  }, [])
 
   useEffect(() => {
     getEventsFromTo(unixTimestamp.start, unixTimestamp.end)
