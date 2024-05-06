@@ -5,17 +5,17 @@ import moment from 'moment'
 import React, { memo, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
-import { formatEquipStatus } from '~shared/lib/format-equip-status'
-
 import {
   getAllEquipmentSelector,
   getEquipmentCoordinatesWebSocketSelector,
   getEquipStatusArrWebSocketSelector,
   getShowRightSideEquipInfoImeiSelector
-} from '../../../../../../../srcOld/redux/selectors/mapSelectors'
-import { getUsingEquipmentOptionsSelector } from '../../../../../../../srcOld/redux/selectors/settingsSelector'
-import { setShowRightSideEquipInfo } from '../../../../../../../srcOld/redux/slices/mapSlice'
-import { useAppDispatch } from '../../../../../../../srcOld/redux/store'
+} from '~processes/redux/selectors/mapSelectors'
+import { getUsingEquipmentOptionsSelector } from '~processes/redux/selectors/settingsSelector'
+import { setShowRightSideEquipInfo } from '~processes/redux/slices/mapSlice'
+import { useAppDispatch } from '~processes/redux/store'
+import { formatEquipStatus } from '~shared/lib/format-equip-status'
+
 import { EquipPreviewRightSideInfoRow } from '../../equip-preview-right-side-row'
 
 export const EquipPreviewRightSide = memo(() => {
@@ -103,7 +103,7 @@ export const EquipPreviewRightSide = memo(() => {
             className='EquipPreviewRightSide__info__img'
             src={`/src/shared/assets/icons_enum/equips_events/${showRightSideEquipInfo?.image_status}${equipStatus}.svg`}
             alt='EquipPreviewRightSide-icon'
-          />
+            />
           : null
       }
       <div className='EquipPreviewRightSide__info__grid-container'>

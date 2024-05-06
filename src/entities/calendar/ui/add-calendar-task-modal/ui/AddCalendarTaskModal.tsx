@@ -11,12 +11,11 @@ import { toast } from 'react-toastify'
 
 import { tasksCalendarStore } from '~entities/calendar/model'
 import type { CalendarEventItemForPost, TypeJobType } from '~entities/calendar/types'
+import { getAllEquipmentSelector, getAllPolygonsSelector } from '~processes/redux/selectors/mapSelectors'
 import { StyledButton } from '~shared/ui/button-styled'
 import { ModalStyled } from '~shared/ui/modal-styled'
 import { SimpleSelect } from '~shared/ui/simple-select'
 import { StyledInput } from '~shared/ui/styled-input'
-
-import { getAllEquipmentSelector, getAllPolygonsSelector } from '../../../../../srcOld/redux/selectors/mapSelectors'
 
 type AddCalendarTaskModalProps = {
   isOpen: boolean,

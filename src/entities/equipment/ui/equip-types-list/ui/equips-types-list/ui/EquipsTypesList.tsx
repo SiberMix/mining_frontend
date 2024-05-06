@@ -3,12 +3,12 @@ import './EquipsTypesList.scss'
 import { memo, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
+import { getOptionalEquipmentTypesListSelector } from '~processes/redux/selectors/optionalEquipmentSelectors'
+import type { EquipType } from '~processes/redux/slices/mapSlice'
+import { deleteType, setAddModalVisible, setEditedType } from '~processes/redux/slices/optionalEquipmentSlice'
+import { useAppDispatch } from '~processes/redux/store'
 import { useListing } from '~shared/hooks/use-listing/use-listing'
 
-import { getOptionalEquipmentTypesListSelector } from '../../../../../../../srcOld/redux/selectors/optionalEquipmentSelectors'
-import type { EquipType } from '../../../../../../../srcOld/redux/slices/mapSlice'
-import { deleteType, setAddModalVisible, setEditedType } from '../../../../../../../srcOld/redux/slices/optionalEquipmentSlice'
-import { useAppDispatch } from '../../../../../../../srcOld/redux/store'
 import { EquipsTypesListModal } from '../../equips-types-list-modal'
 
 export const EquipsTypesList = memo(() => {

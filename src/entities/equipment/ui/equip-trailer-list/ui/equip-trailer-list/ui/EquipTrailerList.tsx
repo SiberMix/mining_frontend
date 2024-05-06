@@ -3,12 +3,12 @@ import './EquipTrailerList.scss'
 import React, { memo, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
+import { getOptionalEquipmentTrailerListSelector } from '~processes/redux/selectors/optionalEquipmentSelectors'
+import type { EquipTrailer } from '~processes/redux/slices/mapSlice'
+import { deleteTrailer, setAddModalVisible, setEditedTrailer } from '~processes/redux/slices/optionalEquipmentSlice'
+import { useAppDispatch } from '~processes/redux/store'
 import { useListing } from '~shared/hooks/use-listing/use-listing'
 
-import { getOptionalEquipmentTrailerListSelector } from '../../../../../../../srcOld/redux/selectors/optionalEquipmentSelectors'
-import type { EquipTrailer } from '../../../../../../../srcOld/redux/slices/mapSlice'
-import { deleteTrailer, setAddModalVisible, setEditedTrailer } from '../../../../../../../srcOld/redux/slices/optionalEquipmentSlice'
-import { useAppDispatch } from '../../../../../../../srcOld/redux/store'
 import { EquipTrailerListModal } from '../../equip-trailer-list-modal'
 
 export const EquipTrailerList = memo(() => {

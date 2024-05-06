@@ -3,11 +3,11 @@ import './SettingsGeneral.scss'
 import React, { memo } from 'react'
 import { useSelector } from 'react-redux'
 
+import { getStartMenuOptionsSelector } from '~processes/redux/selectors/settingsSelector'
+import { setStartMenuOptions } from '~processes/redux/slices/settingsSlice'
+import { useAppDispatch } from '~processes/redux/store'
 import { SimpleSelect } from '~shared/ui/simple-select'
 
-import { getStartMenuOptionsSelector } from '../../../../../../../../../srcOld/redux/selectors/settingsSelector'
-import { setStartMenuOptions } from '../../../../../../../../../srcOld/redux/slices/settingsSlice'
-import { useAppDispatch } from '../../../../../../../../../srcOld/redux/store'
 import { startSidebarOptions } from '../const/start-sidebar-options'
 
 export const SettingsGeneral = memo(() => {
@@ -25,7 +25,7 @@ export const SettingsGeneral = memo(() => {
           <SimpleSelect
             options={startSidebarOptions}
             initialValue={initialStartSidebarOptions ? initialStartSidebarOptions.label : 'произошла ошибка'}
-            handleOnChange={(value: string | null) => dispatch(setStartMenuOptions(value))}
+            handleOnChange={(value) => dispatch(setStartMenuOptions(value))}
           />
         </div>
       </div>

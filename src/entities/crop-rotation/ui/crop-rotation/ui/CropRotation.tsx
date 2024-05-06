@@ -2,8 +2,9 @@ import './CropRotation.scss'
 
 import React, { useEffect } from 'react'
 
-import { getCropRotationGroupsThunk } from '../../../../../srcOld/redux/slices/cropRotationSlice'
-import { useAppDispatch } from '../../../../../srcOld/redux/store'
+import { getCropRotationGroupsThunk } from '~processes/redux/slices/cropRotationSlice'
+import { useAppDispatch } from '~processes/redux/store'
+
 import { CropRotationAddGroupModal } from '../../crop-rotation-add-group-modal'
 import { CropRotationTable } from '../../crop-rotation-table'
 import { CropRotationList } from '../../сrop-rotation-list'

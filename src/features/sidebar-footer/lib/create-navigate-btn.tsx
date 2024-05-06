@@ -2,14 +2,13 @@ import React from 'react'
 import type { NavigateFunction } from 'react-router/dist/lib/hooks'
 
 import type { AnalyticConfigEnum, MonitoringConfigEnum } from '~features/navbar'
+import { removeShowingPlayback } from '~processes/redux/slices/playBackSlice'
+import { setMapClickForNewBaseCoord } from '~processes/redux/slices/settingsSlice'
+import type { AppDispatch } from '~processes/redux/store'
 import AnalyticSidebar from '~shared/assets/icons/analyс-sidebar.svg'
 import MonitoringSidebar from '~shared/assets/icons/monitoring-sidebar.svg'
 import { RoutePath } from '~shared/config/route-config'
 import { Svg } from '~shared/ui/svg-styled'
-
-import { removeShowingPlayback } from '../../../srcOld/redux/slices/playBackSlice'
-import { setMapClickForNewBaseCoord } from '../../../srcOld/redux/slices/settingsSlice'
-import type { AppDispatch } from '../../../srcOld/redux/store'
 
 type CreateNavigateBtnType = {
   pathname: string,

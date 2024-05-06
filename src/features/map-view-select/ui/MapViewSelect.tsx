@@ -2,9 +2,9 @@ import React from 'react'
 import { LayersControl, TileLayer, useMap, useMapEvents } from 'react-leaflet'
 import { useSelector } from 'react-redux'
 
-import { getUsingBaseMapOptionsSelector } from '../../../srcOld/redux/selectors/settingsSelector'
-import { setZoomLevel } from '../../../srcOld/redux/slices/mapSlice'
-import { useAppDispatch } from '../../../srcOld/redux/store'
+import { getUsingBaseMapOptionsSelector } from '~processes/redux/selectors/settingsSelector'
+import { setZoomLevel } from '~processes/redux/slices/mapSlice'
+import { useAppDispatch } from '~processes/redux/store'
 
 export const MapViewSelect = () => {
   const dispatch = useAppDispatch()

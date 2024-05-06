@@ -3,6 +3,9 @@ import './Header.scss'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import { setToken } from '~processes/redux/slices/authSlice'
+import { setMapClickForNewBaseCoord, setShowSettingsModal } from '~processes/redux/slices/settingsSlice'
+import { useAppDispatch } from '~processes/redux/store'
 import miniLogo from '~shared/assets/hectareLogoOnly.png'
 import LogoutBtn from '~shared/assets/icons/logout.svg'
 import Setting from '~shared/assets/icons/settings.svg'
@@ -10,10 +13,6 @@ import { RoutePath } from '~shared/config/route-config'
 import { DeleteOption } from '~shared/ui/delete-option'
 import { Svg } from '~shared/ui/svg-styled'
 import { NotificationsCenter } from '~widgets/notifications'
-
-import { setToken } from '../../../srcOld/redux/slices/authSlice'
-import { setMapClickForNewBaseCoord, setShowSettingsModal } from '../../../srcOld/redux/slices/settingsSlice'
-import { useAppDispatch } from '../../../srcOld/redux/store'
 
 export const Header = () => {
   const dispatch = useAppDispatch()

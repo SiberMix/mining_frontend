@@ -6,8 +6,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import type { MonitoringConfigEnum } from '~features/navbar'
 import { type AnalyticConfigEnum } from '~features/navbar'
 import { createNavigateBtn } from '~features/sidebar-footer/lib/create-navigate-btn'
-
-import { useAppDispatch } from '../../../srcOld/redux/store'
+import { useAppDispatch } from '~processes/redux/store'
 
 type SidebarFooterProps = {
   setSidebarOpenContent: (sidebarContent: MonitoringConfigEnum | AnalyticConfigEnum | null) => void

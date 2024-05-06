@@ -5,10 +5,17 @@ import React, { memo } from 'react'
 import { Popup } from 'react-leaflet'
 import { useSelector } from 'react-redux'
 
-import { getAddInternalPolygonModeSelector } from '../../../../../../../../../srcOld/redux/selectors/mapSelectors'
-import type { PolygonType } from '../../../../../../../../../srcOld/redux/slices/mapSlice'
-import { putEditPolygon, setAddInternalPolygonMode, setDrawingPolygonMode, setNewPolygonCoords, setShowAddNewPolygonModal } from '../../../../../../../../../srcOld/redux/slices/mapSlice'
-import { useAppDispatch } from '../../../../../../../../../srcOld/redux/store'
+import { getAddInternalPolygonModeSelector } from '~processes/redux/selectors/mapSelectors'
+import type { PolygonType } from '~processes/redux/slices/mapSlice'
+import {
+  putEditPolygon,
+  setAddInternalPolygonMode,
+  setDrawingPolygonMode,
+  setNewPolygonCoords,
+  setShowAddNewPolygonModal
+} from '~processes/redux/slices/mapSlice'
+import { useAppDispatch } from '~processes/redux/store'
+
 import type { AddPolygonCoords, EditPolygonCoords } from '../../map-drawing-polygon/ui/MapDrawingPolygon'
 
 type PolygonSpotMenuProps = {

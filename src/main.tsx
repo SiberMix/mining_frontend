@@ -8,8 +8,7 @@ import { BrowserRouter } from 'react-router-dom'
 
 import App from '~app/App'
 import { queryClient } from '~app/model'
-
-import { store } from './srcOld/redux/store'
+import { store } from '~processes/redux/store'
 
 const container = document.getElementById('root')
 const root = createRoot(container!)

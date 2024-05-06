@@ -4,11 +4,13 @@ import { Input, Switch } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
+import {
+  getAddModalVisibleSelector,
+  getEditedTypeSelector
+} from '~processes/redux/selectors/optionalEquipmentSelectors'
+import { addType, editType, setAddModalVisible } from '~processes/redux/slices/optionalEquipmentSlice'
+import { useAppDispatch } from '~processes/redux/store'
 import { ModalStyled } from '~shared/ui/modal-styled'
-
-import { getAddModalVisibleSelector, getEditedTypeSelector } from '../../../../../../../srcOld/redux/selectors/optionalEquipmentSelectors'
-import { addType, editType, setAddModalVisible } from '../../../../../../../srcOld/redux/slices/optionalEquipmentSlice'
-import { useAppDispatch } from '../../../../../../../srcOld/redux/store'
 
 export const EquipsTypesListModal = () => {
   const dispatch = useAppDispatch()

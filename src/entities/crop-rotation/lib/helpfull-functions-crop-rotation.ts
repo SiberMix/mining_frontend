@@ -1,4 +1,4 @@
-import type { FieldType } from '../../../srcOld/redux/slices/fieldSlice'
+import type { FieldType } from '~processes/redux/slices/fieldSlice'
 
 export const getContrastColor = (hexColor: string) => {
   // Преобразование цвета из HEX в RGB

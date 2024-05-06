@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
 
 import { analyticConfig, AnalyticConfigEnum } from '~features/navbar'
+import { getAllPolygons } from '~processes/redux/slices/mapSlice'
+import { useAppDispatch } from '~processes/redux/store'
 import { BasePreloader } from '~shared/ui/base-preloader'
 import { PageLayout } from '~shared/ui/page-layout'
 import { Sidebar } from '~widgets/sidebar'
-
-import { getAllPolygons } from '../../srcOld/redux/slices/mapSlice'
-import { useAppDispatch } from '../../srcOld/redux/store'
 
 const Analytic = () => {
   const dispatch = useAppDispatch()

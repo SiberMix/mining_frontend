@@ -4,16 +4,15 @@ import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { Route, Routes } from 'react-router-dom'
 
-import { WithAuthCheck } from '~app/hocs/withAuthTokenCheck/withAuthTokenCheck'
+import { WithAuthCheck } from '~app/hocs/withAuthTokenCheck'
+import { getTokenSelector } from '~processes/redux/selectors/authSelectors'
+import { getSettings } from '~processes/redux/slices/settingsSlice'
+import { useAppDispatch } from '~processes/redux/store'
 import { routeConfig, RoutePath } from '~shared/config/route-config'
 import { AppVersion } from '~shared/ui/app-version'
 import { Header } from '~widgets/header'
 import { Notifications } from '~widgets/notifications'
 import { Settings } from '~widgets/settings'
-
-import { getTokenSelector } from '../srcOld/redux/selectors/authSelectors'
-import { getSettings } from '../srcOld/redux/slices/settingsSlice'
-import { useAppDispatch } from '../srcOld/redux/store'
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch()

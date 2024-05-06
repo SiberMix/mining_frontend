@@ -181,14 +181,7 @@
         "allowArrowFunctions": true
       }
     ],
-    "import-newlines/enforce": [
-      "warn",
-      {
-        "items": 1,
-        "max-len": 100,
-        "semi": false
-      }
-    ],
+    "import-newlines/enforce": "off", // включить после переписывани на fsd ["warn",{"items": 1,"max-len": 100,"semi": false}]
     "react/no-children-prop": "error",
     "react/jsx-curly-brace-presence": "warn",
     "react/jsx-curly-spacing": [
@@ -232,10 +225,11 @@
         "html": true
       }
     ],
-    "@typescript-eslint/no-duplicate-imports": "warn",
+    "@typescript-eslint/no-duplicate-imports": "off", // "warn" включить после переписывания на fsd
     "@typescript-eslint/no-shadow": "warn",
     "@typescript-eslint/consistent-type-imports": "warn",
     "@typescript-eslint/comma-dangle": "warn",
+    "@typescript-eslint/no-explicit-any": "warn",
     "@typescript-eslint/member-delimiter-style": [
       "warn",
       {

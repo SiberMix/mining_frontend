@@ -4,11 +4,10 @@ import { Input, message } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
+import { editeNewPlayback, setEditedPlayback } from '~processes/redux/slices/playBackSlice'
+import type { RootState } from '~processes/redux/store'
+import { useAppDispatch } from '~processes/redux/store'
 import { ModalStyled } from '~shared/ui/modal-styled'
-
-import { editeNewPlayback, setEditedPlayback } from '../../../../../srcOld/redux/slices/playBackSlice'
-import type { RootState } from '../../../../../srcOld/redux/store'
-import { useAppDispatch } from '../../../../../srcOld/redux/store'
 
 export const PlayBackEditModal = () => {
 

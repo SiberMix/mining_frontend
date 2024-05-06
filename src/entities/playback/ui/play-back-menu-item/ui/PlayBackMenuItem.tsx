@@ -4,14 +4,18 @@ import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons'
 import React, { memo } from 'react'
 import { useSelector } from 'react-redux'
 
+import { getAllEquipmentSelector } from '~processes/redux/selectors/mapSelectors'
+import { getShowingPlaybackSelector } from '~processes/redux/selectors/playbackSelectors'
+import type { CurrentPlaybackData } from '~processes/redux/slices/playBackSlice'
+import {
+  addShowingPlayback,
+  deletePlayback,
+  removeShowingPlayback,
+  setEditedPlayback
+} from '~processes/redux/slices/playBackSlice'
+import { useAppDispatch } from '~processes/redux/store'
 import EditBox from '~shared/assets/icons/edit.svg'
 import { DeleteOption } from '~shared/ui/delete-option'
-
-import { getAllEquipmentSelector } from '../../../../../srcOld/redux/selectors/mapSelectors'
-import { getShowingPlaybackSelector } from '../../../../../srcOld/redux/selectors/playbackSelectors'
-import type { CurrentPlaybackData } from '../../../../../srcOld/redux/slices/playBackSlice'
-import { addShowingPlayback, deletePlayback, removeShowingPlayback, setEditedPlayback } from '../../../../../srcOld/redux/slices/playBackSlice'
-import { useAppDispatch } from '../../../../../srcOld/redux/store'
 
 type PlayBackMenuItemProps = {
   itemPlaybackData: CurrentPlaybackData

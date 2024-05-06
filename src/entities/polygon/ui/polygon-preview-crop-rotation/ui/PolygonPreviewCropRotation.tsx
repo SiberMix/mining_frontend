@@ -4,9 +4,8 @@ import React, { useState } from 'react'
 
 import { PolygonDrawerPreview } from '~entities/crop-rotation/ui/polygon-drawer-preview'
 import { PolygonCanvas } from '~entities/polygon'
+import type { PolygonType } from '~processes/redux/slices/mapSlice'
 import { MoreInfo } from '~shared/ui/more-info'
-
-import type { PolygonType } from '../../../../../srcOld/redux/slices/mapSlice'
 
 type Props = {
   polygon: PolygonType,

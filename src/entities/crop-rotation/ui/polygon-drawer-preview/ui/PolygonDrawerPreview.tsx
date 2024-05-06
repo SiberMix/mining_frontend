@@ -5,11 +5,12 @@ import React from 'react'
 import Chart from 'react-apexcharts'
 import { useSelector } from 'react-redux'
 
-import { createPolygonPreviewOptions } from '~entities/crop-rotation/ui/polygon-drawer-preview/lib/create-polygon-preview-options'
+import {
+  createPolygonPreviewOptions
+} from '~entities/crop-rotation/ui/polygon-drawer-preview/lib/create-polygon-preview-options'
 import { MiniMap } from '~entities/mini-map'
-
-import { getAllPolygonsSelector } from '../../../../../srcOld/redux/selectors/mapSelectors'
-import type { PolygonType } from '../../../../../srcOld/redux/slices/mapSlice'
+import { getAllPolygonsSelector } from '~processes/redux/selectors/mapSelectors'
+import type { PolygonType } from '~processes/redux/slices/mapSlice'
 
 type PolygonDrawerPreviewProps = {
   isOpen: boolean,

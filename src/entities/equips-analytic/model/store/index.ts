@@ -3,10 +3,10 @@ import { create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
 
 import { equipsAnalytic } from '~entities/equips-analytic/api'
+import { equipsService } from '~processes/api/map/equips'
+import type { Equip } from '~processes/redux/slices/mapSlice'
 import { getRandomColor } from '~shared/lib/get-random-color'
 
-import { equipsService } from '../../../../srcOld/api/map/equips'
-import type { Equip } from '../../../../srcOld/redux/slices/mapSlice'
 import type { PickedEquip, StoreInitialValues } from '../../types'
 
 export const useEquipAnalyticStore = create<StoreInitialValues>()(immer((set) => ({

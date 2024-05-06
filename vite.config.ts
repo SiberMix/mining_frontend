@@ -8,6 +8,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '~app': path.resolve('src/app'),
+      '~processes': path.resolve('src/processes'),
       '~entities': path.resolve('src/entities'),
       '~features': path.resolve('src/features'),
       '~pages': path.resolve('src/pages'),

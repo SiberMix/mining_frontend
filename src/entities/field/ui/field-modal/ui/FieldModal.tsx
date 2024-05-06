@@ -2,15 +2,13 @@ import './FieldModal.scss'
 
 import { Input } from 'antd'
 import React, { useEffect, useState } from 'react'
-// @ts-ignore
 import { CompactPicker } from 'react-color'
 import { useSelector } from 'react-redux'
 
+import { getEditedFieldSelector, getShowAddFieldModalSelector } from '~processes/redux/selectors/fieldsSelectors'
+import { addField, changeField, setVisibleAddFieldModal } from '~processes/redux/slices/fieldSlice'
+import { useAppDispatch } from '~processes/redux/store'
 import { ModalStyled } from '~shared/ui/modal-styled'
-
-import { getEditedFieldSelector, getShowAddFieldModalSelector } from '../../../../../srcOld/redux/selectors/fieldsSelectors'
-import { addField, changeField, setVisibleAddFieldModal } from '../../../../../srcOld/redux/slices/fieldSlice'
-import { useAppDispatch } from '../../../../../srcOld/redux/store'
 
 export const FieldModal = () => {
   const dispatch = useAppDispatch()

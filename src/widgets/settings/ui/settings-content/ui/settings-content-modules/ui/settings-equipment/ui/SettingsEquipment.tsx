@@ -3,11 +3,10 @@ import './SettingsEquipment.scss'
 import React, { memo } from 'react'
 import { useSelector } from 'react-redux'
 
+import { getEquipmentOptionsSelector } from '~processes/redux/selectors/settingsSelector'
+import { setEquipmentOptions } from '~processes/redux/slices/settingsSlice'
+import { useAppDispatch } from '~processes/redux/store'
 import { CheckboxList } from '~shared/ui/checkbox-list'
-
-import { getEquipmentOptionsSelector } from '../../../../../../../../../srcOld/redux/selectors/settingsSelector'
-import { setEquipmentOptions } from '../../../../../../../../../srcOld/redux/slices/settingsSlice'
-import { useAppDispatch } from '../../../../../../../../../srcOld/redux/store'
 
 export const SettingsEquipment = memo(() => {
   const dispatch = useAppDispatch()

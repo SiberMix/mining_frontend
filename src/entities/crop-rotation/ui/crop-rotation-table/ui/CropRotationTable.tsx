@@ -5,22 +5,25 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
-import { createBGColorForCustomSelect, getContrastColor } from '~entities/crop-rotation/lib/helpfull-functions-crop-rotation'
+import {
+  createBGColorForCustomSelect,
+  getContrastColor
+} from '~entities/crop-rotation/lib/helpfull-functions-crop-rotation'
 import { PolygonPreviewCropRotation } from '~entities/polygon'
-import { BasePreloader } from '~shared/ui/base-preloader'
-
 import {
   getArrOfLoadingCulturesSelector,
   getCropRotationGroupsSelector,
   getIsLoadingCropRotation,
   getSelectedCropRotationGroupSelector
-} from '../../../../../srcOld/redux/selectors/cropRotationSelectors'
-import { getAllFieldsSelector } from '../../../../../srcOld/redux/selectors/fieldsSelectors'
-import { getAllPolygonsSelector } from '../../../../../srcOld/redux/selectors/mapSelectors'
-import type { CropPolygon, CropRotationGroup, CropRotationGroupYear } from '../../../../../srcOld/redux/slices/cropRotationSlice'
-import { editCropRotationGroupCultureThunk } from '../../../../../srcOld/redux/slices/cropRotationSlice'
-import type { PolygonType } from '../../../../../srcOld/redux/slices/mapSlice'
-import { useAppDispatch } from '../../../../../srcOld/redux/store'
+} from '~processes/redux/selectors/cropRotationSelectors'
+import { getAllFieldsSelector } from '~processes/redux/selectors/fieldsSelectors'
+import { getAllPolygonsSelector } from '~processes/redux/selectors/mapSelectors'
+import type { CropPolygon, CropRotationGroup, CropRotationGroupYear } from '~processes/redux/slices/cropRotationSlice'
+import { editCropRotationGroupCultureThunk } from '~processes/redux/slices/cropRotationSlice'
+import type { PolygonType } from '~processes/redux/slices/mapSlice'
+import { useAppDispatch } from '~processes/redux/store'
+import { BasePreloader } from '~shared/ui/base-preloader'
+
 import { customDropdownStyle } from '../const/custom-dropdown-style'
 
 export const CropRotationTable = () => {
@@ -69,7 +72,7 @@ export const CropRotationTable = () => {
             position='relative'
             width='100%'
             height='100%'
-          />
+            />
           : (
             <Table
               className='cropRotation-table'

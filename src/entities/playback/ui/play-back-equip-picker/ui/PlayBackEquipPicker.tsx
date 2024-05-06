@@ -5,10 +5,9 @@ import { Meta } from 'antd/lib/list/Item'
 import React, { memo } from 'react'
 import { useSelector } from 'react-redux'
 
+import { getAllEquipmentSelector } from '~processes/redux/selectors/mapSelectors'
+import type { EquipmentData } from '~processes/redux/slices/playBackSlice'
 import { getRandomColor } from '~shared/lib/get-random-color'
-
-import { getAllEquipmentSelector } from '../../../../../srcOld/redux/selectors/mapSelectors'
-import type { EquipmentData } from '../../../../../srcOld/redux/slices/playBackSlice'
 
 type PlayBackEquipPickerProps = {
   selectedEquipment: EquipmentData[],

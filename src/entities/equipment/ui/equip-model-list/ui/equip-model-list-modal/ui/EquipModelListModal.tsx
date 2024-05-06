@@ -4,11 +4,13 @@ import { Input } from 'antd'
 import React, { memo, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
+import {
+  getAddModalVisibleSelector,
+  getEditedModelSelector
+} from '~processes/redux/selectors/optionalEquipmentSelectors'
+import { addModel, editModel, setAddModalVisible } from '~processes/redux/slices/optionalEquipmentSlice'
+import { useAppDispatch } from '~processes/redux/store'
 import { ModalStyled } from '~shared/ui/modal-styled'
-
-import { getAddModalVisibleSelector, getEditedModelSelector } from '../../../../../../../srcOld/redux/selectors/optionalEquipmentSelectors'
-import { addModel, editModel, setAddModalVisible } from '../../../../../../../srcOld/redux/slices/optionalEquipmentSlice'
-import { useAppDispatch } from '../../../../../../../srcOld/redux/store'
 
 export const EquipModelListModal = memo(() => {
   const dispatch = useAppDispatch()

@@ -4,10 +4,10 @@ import { Input, Select } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
+import { getAllFieldsSelector } from '~processes/redux/selectors/fieldsSelectors'
+import type { FieldType } from '~processes/redux/slices/fieldSlice'
 import { ModalStyled } from '~shared/ui/modal-styled'
 
-import { getAllFieldsSelector } from '../../../../../srcOld/redux/selectors/fieldsSelectors'
-import type { FieldType } from '../../../../../srcOld/redux/slices/fieldSlice'
 import { ModalTypeEnum } from '../model/modal-type-enum'
 
 export const PolygonEditModal: React.FC<{

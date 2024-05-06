@@ -3,11 +3,11 @@ import './FieldPreview.scss'
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
+import { getAllFieldsSelector } from '~processes/redux/selectors/fieldsSelectors'
+import { deleteField, setChangeFieldModal, setVisibleAddFieldModal } from '~processes/redux/slices/fieldSlice'
+import { useAppDispatch } from '~processes/redux/store'
 import { useListing } from '~shared/hooks/use-listing/use-listing'
 
-import { getAllFieldsSelector } from '../../../../../srcOld/redux/selectors/fieldsSelectors'
-import { deleteField, setChangeFieldModal, setVisibleAddFieldModal } from '../../../../../srcOld/redux/slices/fieldSlice'
-import { useAppDispatch } from '../../../../../srcOld/redux/store'
 import { FieldModal } from '../../field-modal'
 
 export const FieldPreview = () => {

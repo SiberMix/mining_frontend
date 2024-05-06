@@ -4,8 +4,9 @@ import { Badge, Col, Row } from 'antd'
 import React, { memo } from 'react'
 import { useSelector } from 'react-redux'
 
-import { getAllFieldsSelector } from '../../../../../../../srcOld/redux/selectors/fieldsSelectors'
-import { getAllPolygonsSelector } from '../../../../../../../srcOld/redux/selectors/mapSelectors'
+import { getAllFieldsSelector } from '~processes/redux/selectors/fieldsSelectors'
+import { getAllPolygonsSelector } from '~processes/redux/selectors/mapSelectors'
+
 import { DonutChartWidget } from '../../donut-chart-widget'
 
 export const DiagramForFields = memo(() => {
@@ -15,7 +16,7 @@ export const DiagramForFields = memo(() => {
   const cultures = fields.map(field => field.name)
   const colors = fields.map(field => field.color)
 
-  const squares = cultures.map((culture, index) => {
+  const squares = cultures.map((culture) => {
     const squareOfCulture: number[] = []
     polygons.forEach(polygon => {
       if (polygon.sequence.name === culture) {

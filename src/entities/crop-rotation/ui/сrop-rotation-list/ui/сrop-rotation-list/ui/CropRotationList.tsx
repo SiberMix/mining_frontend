@@ -3,12 +3,18 @@ import './CropRotationList.scss'
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
+import {
+  getCropRotationGroupsSelector,
+  getSelectedCropRotationGroupSelector
+} from '~processes/redux/selectors/cropRotationSelectors'
+import { getAllPolygonsSelector } from '~processes/redux/selectors/mapSelectors'
+import {
+  setOpenCropRotationAddGroupModal,
+  setSelectedCropRotationGroup
+} from '~processes/redux/slices/cropRotationSlice'
+import { useAppDispatch } from '~processes/redux/store'
 import { SideOutLayout } from '~shared/ui/side-out-layout'
 
-import { getCropRotationGroupsSelector, getSelectedCropRotationGroupSelector } from '../../../../../../../srcOld/redux/selectors/cropRotationSelectors'
-import { getAllPolygonsSelector } from '../../../../../../../srcOld/redux/selectors/mapSelectors'
-import { setOpenCropRotationAddGroupModal, setSelectedCropRotationGroup } from '../../../../../../../srcOld/redux/slices/cropRotationSlice'
-import { useAppDispatch } from '../../../../../../../srcOld/redux/store'
 import { CropRotationListItem } from '../../сrop-rotation-list-item'
 
 export const CropRotationList = () => {

@@ -6,15 +6,20 @@ import SVG from 'react-inlinesvg'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
+import { getAllEquipmentSelector } from '~processes/redux/selectors/mapSelectors'
+import {
+  deleteEquipment,
+  setEditedEquipment,
+  setEquipmentFlyTo,
+  setShowRightSideEquipInfo
+} from '~processes/redux/slices/mapSlice'
+import { setAddModalVisible } from '~processes/redux/slices/optionalEquipmentSlice'
+import { useAppDispatch } from '~processes/redux/store'
 import EditBox from '~shared/assets/icons/edit.svg'
 import GeoBox from '~shared/assets/icons/GPS-navigate.svg'
 import { DeleteOption } from '~shared/ui/delete-option'
 import { MoreInfo } from '~shared/ui/more-info'
 
-import { getAllEquipmentSelector } from '../../../../../../../srcOld/redux/selectors/mapSelectors'
-import { deleteEquipment, setEditedEquipment, setEquipmentFlyTo, setShowRightSideEquipInfo } from '../../../../../../../srcOld/redux/slices/mapSlice'
-import { setAddModalVisible } from '../../../../../../../srcOld/redux/slices/optionalEquipmentSlice'
-import { useAppDispatch } from '../../../../../../../srcOld/redux/store'
 import { EquipmentAddModal } from '../../equipment-add-modal'
 
 export const EquipmentList = memo(() => {

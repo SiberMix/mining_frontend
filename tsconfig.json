@@ -28,6 +28,12 @@
       "~app/*": [
         "./app/*"
       ],
+      "~processes": [
+        "./processes"
+      ],
+      "~processes/*": [
+        "./processes/*"
+      ],
       "~pages": [
         "./pages"
       ],

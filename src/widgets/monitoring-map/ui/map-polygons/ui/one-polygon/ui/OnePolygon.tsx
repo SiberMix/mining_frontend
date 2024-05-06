@@ -2,10 +2,11 @@ import React, { memo, useEffect, useRef } from 'react'
 import { Polygon, Popup, useMap } from 'react-leaflet'
 import { useSelector } from 'react-redux'
 
-import { getPolygonFlyToSelector } from '../../../../../../../srcOld/redux/selectors/mapSelectors'
-import type { PolygonType } from '../../../../../../../srcOld/redux/slices/mapSlice'
-import { removeSelectedPolygon, setPolygonFlyTo, setSelectedPolygon } from '../../../../../../../srcOld/redux/slices/mapSlice'
-import { useAppDispatch } from '../../../../../../../srcOld/redux/store'
+import { getPolygonFlyToSelector } from '~processes/redux/selectors/mapSelectors'
+import type { PolygonType } from '~processes/redux/slices/mapSlice'
+import { removeSelectedPolygon, setPolygonFlyTo, setSelectedPolygon } from '~processes/redux/slices/mapSlice'
+import { useAppDispatch } from '~processes/redux/store'
+
 import { polygonDefaultStyleSettings } from '../const/polygon-default-style-settings'
 
 type OnePolygonProps = {

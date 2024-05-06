@@ -3,11 +3,10 @@ import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
+import { getTokenSelector } from '~processes/redux/selectors/authSelectors'
+import { setToken } from '~processes/redux/slices/authSlice'
+import { useAppDispatch } from '~processes/redux/store'
 import { RoutePath } from '~shared/config/route-config'
-
-import { getTokenSelector } from '../../../srcOld/redux/selectors/authSelectors'
-import { setToken } from '../../../srcOld/redux/slices/authSlice'
-import { useAppDispatch } from '../../../srcOld/redux/store'
 
 type WithAuthCheckProps = {
   element: ReactNode
@@ -24,7 +23,7 @@ export const WithAuthCheck = ({ element }: WithAuthCheckProps) => {
       dispatch(setToken(null))
       localStorage.removeItem('token')
     }
-  }, [token])
+  }, [token, dispatch, navigate])
 
   return token ? element : null
 }
