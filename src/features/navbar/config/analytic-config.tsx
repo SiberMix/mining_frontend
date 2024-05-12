@@ -2,23 +2,16 @@ import React from 'react'
 
 import { CropRotation } from '~entities/crop-rotation'
 import { EquipsAnalytic } from '~entities/equips-analytic'
-import { FieldsAnalytic } from '~entities/fields-analytic'
 import type { ConfigObjType } from '~features/navbar'
 import AnalyticEquip from '~shared/assets/icons/analytic-equip.svg'
 import Calendar from '~shared/assets/sevo/sevooborot.svg'
 
 export enum AnalyticConfigEnum {
-  analytics_field = 'analytics_field',
   analytics_equipments = 'analytics_equipments',
   analytics_crop_rotation = 'analytics_crop_rotation'
 }
 
 export const analyticConfig: Record<AnalyticConfigEnum, ConfigObjType> = {
-  [AnalyticConfigEnum.analytics_field]: {
-    title: 'Аналитика полей',
-    iconSrc: '',
-    component: <FieldsAnalytic />
-  },
   [AnalyticConfigEnum.analytics_equipments]: {
     title: 'Аналитика техники',
     iconSrc: AnalyticEquip,

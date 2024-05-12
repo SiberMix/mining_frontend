@@ -1,6 +1,5 @@
+import type { EditPolygonData } from '~processes/redux/slices/mapSlice'
 import { axiosInstance } from '~shared/api/axios-instance'
-
-import type { EditPolygonData } from '../../redux/slices/mapSlice'
 
 export const polygonsService = {
   /*

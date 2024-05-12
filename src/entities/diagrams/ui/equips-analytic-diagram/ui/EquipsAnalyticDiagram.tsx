@@ -28,7 +28,7 @@ export const EquipsAnalyticDiagram = memo(({
       colors,
       categories
     }),
-    [title, colors, categories, seriesWithoutNull]
+    [title, colors, categories]
   )
 
   return (

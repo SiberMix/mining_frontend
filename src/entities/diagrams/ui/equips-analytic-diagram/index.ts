@@ -1,2 +1,2 @@
 export { EquipsAnalyticDiagram } from './ui/EquipsAnalyticDiagram'
-export type { EquipsAnalyticDiagramSeriesType } from './types/equips-diagram-data-types'
+export type { EquipsAnalyticDiagramProps } from './types/equips-diagram-data-types'

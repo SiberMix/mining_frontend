@@ -1,6 +1,5 @@
+import type { Equip, EquipForPost, EquipForPut, EquipModal, EquipType } from '~processes/redux/slices/mapSlice'
 import { axiosInstance } from '~shared/api/axios-instance'
-
-import type { Equip, EquipForPost, EquipForPut, EquipModal, EquipType } from '../../redux/slices/mapSlice'
 
 export const equipsService = {
   getAllEquips: async (): Promise<Equip[]> => {

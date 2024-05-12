@@ -27,7 +27,7 @@ export const EquipsAnalyticReport = () => {
     reportData,
     allEquipList,
     id: activeTabId || pikedEquip[0]?.equipId.toString()
-  }), [activeTabId, allEquipList, reportData])
+  }), [activeTabId, allEquipList, pikedEquip, reportData])
 
   const {
     isLoading: chartIsLoading,
@@ -66,7 +66,7 @@ export const EquipsAnalyticReport = () => {
 
   const equip = useMemo(() => {
     return allEquipList.find(e => e.id === (Number(activeTabId) || pikedEquip[0]?.equipId))
-  }, [allEquipList, activeTabId, reportData])
+  }, [allEquipList, activeTabId, pikedEquip])
 
   const tabsWidth = refForWidth.current === null
     ? '300px'
@@ -184,24 +184,30 @@ export const EquipsAnalyticReport = () => {
         <tbody>
           <EquipsAnalyticReportTableRow>
             {
-              chartIsLoading
-                ? <BasePreloader
-                  position='relative'
-                  height='300px'
+              !chartIsLoading && equip
+                ? (
+                  <DefaultDiagram
+                    className='EquipsAnalyticReport_chart'
+                    title='График топлива'
+                    categories={categories}
+                    series={[
+                      {
+                        id: equip.id,
+                        name: equip.equip_name,
+                        data: series
+                      }]}
+                    isEmpty={chartData === null}
+                    withDataLabels={false}
+                    withGrid={false}
+                    colors={['var(--green-100)']}
                   />
-                : <DefaultDiagram
-                  className='EquipsAnalyticReport_chart'
-                  title='График топлива'
-                  categories={categories}
-                  series={[{
-                    name: equip?.equip_name,
-                    data: series
-                  }]}
-                  isEmpty={chartData === null}
-                  withDataLabels={false}
-                  withGrid={false}
-                  colors={['var(--green-100)']}
+                )
+                : (
+                  <BasePreloader
+                    position='relative'
+                    height='300px'
                   />
+                )
             }
           </EquipsAnalyticReportTableRow>
         </tbody>

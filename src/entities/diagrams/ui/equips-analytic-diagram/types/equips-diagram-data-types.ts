@@ -1,11 +1,8 @@
+import type { DiagramSeriesType } from '../../../types'
+
 export type EquipsAnalyticDiagramProps = {
   title: string,
-  series: EquipsAnalyticDiagramSeriesType[],
+  series: DiagramSeriesType[],
   categories: string[],
   colors: string[]
-}
-export type EquipsAnalyticDiagramSeriesType = {
-  name: string,
-  id: number | string,
-  data: (number | null)[]
 }

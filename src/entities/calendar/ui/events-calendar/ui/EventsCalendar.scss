@@ -1,6 +1,6 @@
 .TasksCalendar {
   background-color: var(--gray-400);
-  max-height: 93vh;
+  max-height: calc(93vh - 46px);
 
   .rbc {
     /*Общие стили для календаря*/

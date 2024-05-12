@@ -22,7 +22,7 @@ const App: React.FC = () => {
     if (token) {
       dispatch(getSettings(token))
     }
-  }, [token])
+  }, [dispatch, token])
 
   return (
     <div className='app'>
@@ -43,14 +43,15 @@ const App: React.FC = () => {
                 key={route.path}
                 path={route.path}
                 element={elementWithHOCs}
-                children={route.children?.map(childrenRoute => (
+              >
+                {route.children?.map(childrenRoute => (
                   <Route
                     key={childrenRoute.path}
                     path={childrenRoute.path}
                     element={<WithAuthCheck element={childrenRoute.element} />}
                   />
                 ))}
-              />
+              </Route>
             )
           })}
       </Routes>

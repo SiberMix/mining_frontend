@@ -176,7 +176,6 @@ export const useListing = <Type extends { id: number }>({
           scroll={{ x: '100%' }}
           loading={loading}
           id='page-list-table'
-          //@ts-ignore
           columns={columns}
           dataSource={tableData}
           pagination={false}
@@ -214,20 +213,20 @@ const TableComponent = styled(Table)`
     }
 
     thead {
-        background: #232323 !important;
+        background: var(--gray-600) !important;
     }
 
     .ant-table-tbody > tr.ant-table-row:hover > td {
-        background: #565656 !important;
+        background: var(--gray-400) !important;
     }
 
     .ant-table-thead {
-        background: #232323;
+        background: var(--gray-600);
         border-top-left-radius: 0;
         border-top-right-radius: 0;
 
         & > tr > th {
-            border-bottom: 1px solid #323136;
+            border-bottom: 1px solid var(--gray-400);
         }
     }
 
@@ -236,7 +235,7 @@ const TableComponent = styled(Table)`
         background: #232323;
         border-top-left-radius: 0;
         border-top-right-radius: 0;
-        border-right: 1px solid #323136;
+        border-right: 1px solid var(--gray-400);
 
         &:last-child {
             border-right: none;
@@ -250,7 +249,7 @@ const TableComponent = styled(Table)`
     // do in dark theme
 
     .ant-table-tbody > tr > td {
-        background: #232323;
+        background: var(--gray-600);
         color: #fff;
         -webkit-tap-highlight-color: transparent;
         -webkit-touch-callout: none;
@@ -262,7 +261,7 @@ const TableComponent = styled(Table)`
 
         & > tr {
             & > td {
-                border-bottom: 1px solid #323136;
+                border-bottom: 1px solid var(--gray-400);
             }
 
         }

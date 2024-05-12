@@ -29,7 +29,6 @@ export const Sidebar = memo(({
           sidebarOpenContent={sidebarOpenContent}
           setSidebarOpenContent={setSidebarOpenContent}
         />
-
         <SidebarFooter setSidebarOpenContent={setSidebarOpenContent} />
       </aside>
       {

@@ -20,7 +20,7 @@ import { axiosInstance } from '~shared/api/axios-instance'
 import { soket } from '~shared/api/socket'
 import { BasePreloader } from '~shared/ui/base-preloader'
 import { PageLayout } from '~shared/ui/page-layout'
-import { MonitoringMap } from '~widgets/monitoring-map'
+import { MonitoringMap } from '~widgets/map'
 import { Sidebar } from '~widgets/sidebar'
 
 const Monitoring = () => {
@@ -72,7 +72,7 @@ const Monitoring = () => {
     } else { //fixme костыль для срабатывания initialLoading только 1 раз
       setIsMounted(true)
     }
-  }, [isMounted])
+  }, [isMounted, setIsMounted, initialLoading])
 
   /**
    * Подключаем веб сокеты для оборудования

@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify'
 
-import { analyticService } from '../../api/analytic'
+import { cropRotationApi } from '~entities/crop-rotation/api'
+
 import type { RootState } from '../store'
 
 type CropRotationSliceInitialState = {
@@ -40,7 +41,10 @@ const cropRotationSlice = createSlice({
     pushArrOfLoadingCultures: (state: CropRotationSliceInitialState, action) => {
       state.arrOfLoadingCultures.push(action.payload)
     },
-    removeLoadingFromArrOfLoadingCultures: (state: CropRotationSliceInitialState, action: { type: string, payload: EditCropRotationGroupCulture }) => {
+    removeLoadingFromArrOfLoadingCultures: (state: CropRotationSliceInitialState, action: {
+      type: string,
+      payload: EditCropRotationGroupCulture
+    }) => {
       const {
         groupId,
         year,
@@ -137,7 +141,7 @@ const cropRotationSlice = createSlice({
 export const getCropRotationGroupsThunk = createAsyncThunk(
   'cropRotation/getCropRotationGroupsThunk',
   () => {
-    return toast.promise(analyticService.getCropRotationGroups(), {
+    return toast.promise(cropRotationApi.getCropRotationGroups(), {
       pending: 'Загрузка групп с сервера',
       success: 'Группы успешно загружены',
       error: 'Ошибка при загрузке групп'
@@ -147,7 +151,7 @@ export const getCropRotationGroupsThunk = createAsyncThunk(
 export const postCropRotationGroupThunk = createAsyncThunk(
   'cropRotation/postCropRotationGroupsThunk',
   (postData: PostCropRotationGroup) => {
-    return toast.promise(analyticService.postCropRotationGroup(postData), {
+    return toast.promise(cropRotationApi.postCropRotationGroup(postData), {
       pending: 'Формирование группы на сервере',
       success: 'Группа успешно сформирована',
       error: 'Ошибка при создании группы'
@@ -158,7 +162,7 @@ export const deleteCropRotationGroupThunk = createAsyncThunk(
   'cropRotation/deleteCropRotationGroupsThunk',
   async (groupId: number) => {
     const response = await toast.promise(
-      analyticService.deleteCropRotationGroup(groupId),
+      cropRotationApi.deleteCropRotationGroup(groupId),
       {
         pending: 'Удаляю данные о группе с сервера',
         success: 'Группа успешно удалена',
@@ -181,7 +185,7 @@ export const editCropRotationGroupCultureThunk = createAsyncThunk(
     let response
     try {
       dispatch(pushArrOfLoadingCultures(editCropRotationGroupCultureData))
-      response = await analyticService.editCropRotationGroupCulture(editCropRotationGroupCultureData)
+      response = await cropRotationApi.editCropRotationGroupCulture(editCropRotationGroupCultureData)
       dispatch(removeLoadingFromArrOfLoadingCultures(editCropRotationGroupCultureData))
     } catch (e) {
       dispatch(removeLoadingFromArrOfLoadingCultures(editCropRotationGroupCultureData))
@@ -199,7 +203,7 @@ export const setMainCropRotationGroupThunk = createAsyncThunk(
   'cropRotation/setMainCropRotationGroup',
   async (groupId: number) => {
     const response = await toast.promise(
-      analyticService.setMainCropRotationGroup(groupId),
+      cropRotationApi.setMainCropRotationGroup(groupId),
       {
         pending: 'Применение выбранных культур',
         success: 'Культуры полей успешно применены',

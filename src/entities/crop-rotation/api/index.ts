@@ -1,8 +1,7 @@
+import type { EditCropRotationGroupCulture, PostCropRotationGroup } from '~processes/redux/slices/cropRotationSlice'
 import { axiosInstance } from '~shared/api/axios-instance'
 
-import type { EditCropRotationGroupCulture, PostCropRotationGroup } from '../../redux/slices/cropRotationSlice'
-
-export const CropRotation = {
+export const cropRotationApi = {
   getCropRotationGroups: async () => {
     const response = await axiosInstance.get('/sevo/get_crop_rotation/')
     return response.data

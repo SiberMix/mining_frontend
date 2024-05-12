@@ -1,6 +1,6 @@
 import dayjs from 'dayjs'
 
-import type { EquipsAnalyticDiagramSeriesType } from '~entities/diagrams/ui/equips-analytic-diagram'
+import type { DiagramSeriesType } from '~entities/diagrams/types'
 import type { Equip } from '~processes/redux/slices/mapSlice'
 
 import type { ChartData, EquipDataForChart, PickedEquip } from '../../../types'
@@ -20,7 +20,7 @@ export const createDataForChart = ({
   chartData,
   allEquipList,
   chartKey
-}: CreateSpeedCategoriesAndSpeedSeriesType): [(string | number)[], EquipsAnalyticDiagramSeriesType[]] => {
+}: CreateSpeedCategoriesAndSpeedSeriesType): [(string | number)[], DiagramSeriesType[]] => {
   if (!chartData) return [[], []]
 
   const [dates, result] = Object.entries(chartData)
@@ -54,7 +54,7 @@ export const createDataForChart = ({
         //возвращаем измененные данные дней и данных
         return [datesAcc, resultAcc]
       },
-      [[], []] as [(string | number)[], EquipsAnalyticDiagramSeriesType[]]
+      [[], []] as [(string | number)[], DiagramSeriesType[]]
     )
 
   return [dates, result]
@@ -74,7 +74,7 @@ export const createTextCategories = (numCategories: (number | string)[]) => {
   })
 }
 
-export const createColorsForCharts = (chartData: EquipsAnalyticDiagramSeriesType[], equipColorsUsingInDiagrams: PickedEquip[]) => {
+export const createColorsForCharts = (chartData: DiagramSeriesType[], equipColorsUsingInDiagrams: PickedEquip[]) => {
   return chartData.map(chartDataObj => {
     const findUsingEquip = equipColorsUsingInDiagrams.find(usingEquip => usingEquip.equipId === chartDataObj.id)
 

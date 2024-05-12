@@ -1,6 +1,5 @@
+import type { CurrentPlaybackData, PlaybackPostData } from '~processes/redux/slices/playBackSlice'
 import { axiosInstance } from '~shared/api/axios-instance'
-
-import type { CurrentPlaybackData, PlaybackPostData } from '../../redux/slices/playBackSlice'
 
 export const playbackService = {
   /*

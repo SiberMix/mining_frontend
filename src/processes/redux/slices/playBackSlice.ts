@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify'
 
-import { mapService } from '../../api/map'
+import { mapService } from '~widgets/map/api'
 
 type PlayBackSliceInitialState = {
   playbacksData: CurrentPlaybackData[],

@@ -1,7 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { mapService } from '../../api/map'
-import { getAllPolygons } from './mapSlice'
 import { toast } from 'react-toastify'
+
+import { mapService } from '~widgets/map/api'
+
+import { getAllPolygons } from './mapSlice'
 
 type FieldsInitialState = {
   fieldList: FieldType[],
