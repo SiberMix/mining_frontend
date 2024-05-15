@@ -2,7 +2,7 @@ import './index.scss'
 
 import { DatePicker } from 'antd'
 import classNames from 'classnames'
-import type dayjs from 'dayjs'
+import dayjs from 'dayjs'
 import { memo } from 'react'
 
 import { StyledButton } from '~shared/ui/styled-button'
@@ -34,6 +34,14 @@ export const WeatherPreviewModalControls = memo(({
     }
   }
 
+  const onChange = (pickedDay: dayjs.Dayjs | undefined) => {
+    if (pickedDay) {
+      onClick(pickedDay)
+    } else {
+      onClick(dayjs())
+    }
+  }
+
   return (
     <div className={classNames(className, 'weather-preview-modal-controls')}>
       <StyledButton
@@ -45,7 +53,7 @@ export const WeatherPreviewModalControls = memo(({
       </StyledButton>
       <DatePicker
         value={date}
-        onChange={onClick}
+        onChange={onChange}
         disabled={disabled}
       />
       <StyledButton

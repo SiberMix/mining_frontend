@@ -23,7 +23,6 @@ export const tasksCalendarStore = create<TasksStoreInitialValue>()(immer((set, g
   },
   getEventsFromTo: async (from: Date, to: Date) => {
     set({ isLoading: true })
-    console.log('Зпрос на events')
     try {
       const events = await calendarApi.getEvents(from, to)
       set({

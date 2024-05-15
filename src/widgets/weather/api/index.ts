@@ -41,8 +41,6 @@ export const fetchWeatherInfo = async ({
       }
     }
 
-    console.log(responseHourly.variables(1)!.valuesArray())
-
     if (Array.isArray(hourly)) {
       hourly.forEach((key, index) => {
         result.hourly[key] = responseHourly.variables(index)!.valuesArray()!
