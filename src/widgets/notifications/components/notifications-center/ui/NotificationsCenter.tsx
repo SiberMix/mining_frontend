@@ -7,7 +7,7 @@ import { useState } from 'react'
 import { Icons, toast } from 'react-toastify'
 import { useNotificationCenter } from 'react-toastify/addons/use-notification-center'
 
-import { StyledButton } from '~shared/ui/button-styled'
+import { StyledButton } from '~shared/ui/styled-button'
 import { NotificationsTimeTracker } from '~widgets/notifications/components/notifications-time-tracker'
 
 import { NotificationActions } from '../../notification-actions'

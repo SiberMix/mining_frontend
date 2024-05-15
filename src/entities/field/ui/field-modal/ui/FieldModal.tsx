@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux'
 import { getEditedFieldSelector, getShowAddFieldModalSelector } from '~processes/redux/selectors/fieldsSelectors'
 import { addField, changeField, setVisibleAddFieldModal } from '~processes/redux/slices/fieldSlice'
 import { useAppDispatch } from '~processes/redux/store'
-import { ModalStyled } from '~shared/ui/modal-styled'
+import { StyledModal } from '~shared/ui/styled-modal'
 
 export const FieldModal = () => {
   const dispatch = useAppDispatch()
@@ -52,7 +52,7 @@ export const FieldModal = () => {
   }
 
   return (
-    <ModalStyled
+    <StyledModal
       title={
         EditedField ? 'Редактировать культуру' : 'Добавить культуру'
       }
@@ -75,6 +75,6 @@ export const FieldModal = () => {
           onChange={handleColorChange}
         />
       </div>
-    </ModalStyled>
+    </StyledModal>
   )
 }

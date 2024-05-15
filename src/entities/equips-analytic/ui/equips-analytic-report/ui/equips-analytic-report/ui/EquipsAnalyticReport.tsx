@@ -8,7 +8,7 @@ import { DefaultDiagram } from '~entities/diagrams'
 import { formatDate } from '~shared/lib/format-date'
 import { BasePreloader } from '~shared/ui/base-preloader'
 import { CustomEmpty } from '~shared/ui/custom-empty'
-import { TabsStyled } from '~shared/ui/tabs-styled'
+import { StyledTabs } from '~shared/ui/styled-tabs'
 
 import { equipsAnalytic } from '../../../../../api'
 import { useEquipAnalyticStore } from '../../../../../model'
@@ -95,7 +95,7 @@ export const EquipsAnalyticReport = () => {
       {/**
        Табы для разной техники из отчета
        */}
-      <TabsStyled
+      <StyledTabs
         rootClassName='EquipsAnalyticReport_tabs'
         style={{ width: tabsWidth }} //динамически считаем ширину для пагинации в antd
         activeKey={activeTabId}

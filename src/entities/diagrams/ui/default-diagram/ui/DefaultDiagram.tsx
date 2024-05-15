@@ -16,7 +16,8 @@ type DefaultDiagramProps = {
   colors?: string[],
   isEmpty?: boolean,
   withGrid?: boolean,
-  withDataLabels?: boolean
+  withDataLabels?: boolean,
+  withAnimation?: boolean
 }
 
 export const DefaultDiagram = memo(({
@@ -27,7 +28,8 @@ export const DefaultDiagram = memo(({
   colors,
   isEmpty,
   withGrid,
-  withDataLabels
+  withDataLabels,
+  withAnimation
 }: DefaultDiagramProps) => {
 
   const seriesWithoutNull = useMemo(() => {
@@ -45,9 +47,10 @@ export const DefaultDiagram = memo(({
       colors,
       categories,
       withGrid,
-      withDataLabels
+      withDataLabels,
+      withAnimation
     }),
-    [title, colors, categories, withGrid, withDataLabels]
+    [title, colors, categories, withGrid, withDataLabels, withAnimation]
   )
 
   return (

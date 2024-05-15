@@ -3,9 +3,9 @@ import './PreviewCalendarEventModal.scss'
 import React from 'react'
 
 import { tasksCalendarStore } from '~entities/calendar/model'
-import { StyledButton } from '~shared/ui/button-styled'
 import { DeleteOption } from '~shared/ui/delete-option'
-import { ModalStyled } from '~shared/ui/modal-styled'
+import { StyledButton } from '~shared/ui/styled-button'
+import { StyledModal } from '~shared/ui/styled-modal'
 
 import type { CalendarEventItem } from '../../../types'
 
@@ -37,7 +37,7 @@ export const PreviewCalendarEventModal = ({
   }
 
   return (
-    <ModalStyled
+    <StyledModal
       open={isOpen}
       onCancel={onCancel}
       footer={null}
@@ -61,7 +61,7 @@ export const PreviewCalendarEventModal = ({
           </DeleteOption>
         </div>
       </div>
-    </ModalStyled>
+    </StyledModal>
   )
 }
 

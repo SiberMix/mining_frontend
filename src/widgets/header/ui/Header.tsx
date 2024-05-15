@@ -11,8 +11,9 @@ import LogoutBtn from '~shared/assets/icons/logout.svg'
 import Setting from '~shared/assets/icons/settings.svg'
 import { RoutePath } from '~shared/config/route-config'
 import { DeleteOption } from '~shared/ui/delete-option'
-import { Svg } from '~shared/ui/svg-styled'
+import { StyledSvg } from '~shared/ui/styled-svg'
 import { NotificationsCenter } from '~widgets/notifications'
+import { WeatherBtn } from '~widgets/weather'
 
 export const Header = () => {
   const dispatch = useAppDispatch()
@@ -32,27 +33,30 @@ export const Header = () => {
         alt='sidebarLogo'
       />
       <div className='Header-content'>
-        <NotificationsCenter />
-        <Svg
-          $margin='0'
-          title='Настройки'
-          src={Setting}
-          onClick={() => {
-            dispatch(setMapClickForNewBaseCoord(false))
-            dispatch(setShowSettingsModal(true))
-          }}
-        />
-        <DeleteOption
-          title='Выйти из аккаунта?'
-          popConfirmDescription='Вы уверены, что хотите выйти из аккаунта?'
-          onDelete={logout}
-        >
-          <Svg
-            title='Выход'
-            color='#b53f42'
-            src={LogoutBtn}
+        <WeatherBtn />
+        <div className='Header-content-const'>
+          <NotificationsCenter />
+          <StyledSvg
+            $margin='0'
+            title='Настройки'
+            src={Setting}
+            onClick={() => {
+              dispatch(setMapClickForNewBaseCoord(false))
+              dispatch(setShowSettingsModal(true))
+            }}
           />
-        </DeleteOption>
+          <DeleteOption
+            title='Выйти из аккаунта?'
+            popConfirmDescription='Вы уверены, что хотите выйти из аккаунта?'
+            onDelete={logout}
+          >
+            <StyledSvg
+              title='Выход'
+              color='#b53f42'
+              src={LogoutBtn}
+            />
+          </DeleteOption>
+        </div>
       </div>
     </div>
   )

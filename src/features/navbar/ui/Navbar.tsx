@@ -4,7 +4,7 @@ import React, { memo } from 'react'
 
 import type { AnalyticConfigEnum, MonitoringConfigEnum } from '~features/navbar'
 import { type ConfigObjType } from '~features/navbar'
-import { Svg } from '~shared/ui/svg-styled'
+import { StyledSvg } from '~shared/ui/styled-svg'
 
 type NavbarProps = {
   navbarConfig: Record<MonitoringConfigEnum, ConfigObjType> | Record<AnalyticConfigEnum, ConfigObjType>,
@@ -36,7 +36,7 @@ export const Navbar = memo(({
               iconSrc
             } = navbarConfig[configKey as keyof typeof navbarConfig]
             return (
-              <Svg
+              <StyledSvg
                 key={configKey}
                 title={title}
                 src={iconSrc}

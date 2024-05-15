@@ -7,7 +7,7 @@ import { GithubPicker } from 'react-color'
 import type { TypeJobType } from '~entities/calendar/types'
 import { colors } from '~shared/const/colors'
 import { getRandomColor } from '~shared/lib/get-random-color'
-import { StyledButton } from '~shared/ui/button-styled'
+import { StyledButton } from '~shared/ui/styled-button'
 import { StyledInput } from '~shared/ui/styled-input'
 
 import { tasksCalendarStore } from '../../../../../model'

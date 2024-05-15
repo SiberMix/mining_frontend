@@ -1,67 +1,35 @@
-import './PickBaseCord.scss'
-
-import L from 'leaflet'
-import React, { memo, useCallback, useState } from 'react'
-import { Marker, useMapEvents } from 'react-leaflet'
+import { type LatLngLiteral } from 'leaflet'
+import React, { memo, useCallback } from 'react'
 import { useSelector } from 'react-redux'
 
-import { getMapClickForNewBaseCoordSelector } from '~processes/redux/selectors/settingsSelector'
+import { getMapClickForNewBaseCordSelector } from '~processes/redux/selectors/settingsSelector'
 import { setBaseCoord, setMapClickForNewBaseCoord, setShowSettingsModal } from '~processes/redux/slices/settingsSlice'
 import { useAppDispatch } from '~processes/redux/store'
+import { PickMapCord } from '~shared/ui/pick-map-cord'
 
 export const PickBaseCord = memo(() => {
   const dispatch = useAppDispatch()
-  const mapClickForNewBaseCoord = useSelector(getMapClickForNewBaseCoordSelector)
-  const [cursorPosition, setCursorPosition] = useState<any>(null)
-  /*
-  * функционал для настройки базовой точки координаты
-  * */
-  const handleClick = useCallback((e: any) => {
-    if (mapClickForNewBaseCoord) {
-      const {
-        lat,
-        lng
-      } = e.latlng
-      dispatch(setBaseCoord([lat, lng]))
-      dispatch(setMapClickForNewBaseCoord(false))
-      dispatch(setShowSettingsModal(true))
-      setCursorPosition(null)
-    }
-  }, [mapClickForNewBaseCoord])
+  const mapClickForNewBaseCord = useSelector(getMapClickForNewBaseCordSelector)
 
-  const handleMouseMove = useCallback((e: any) => {
-    if (mapClickForNewBaseCoord) {
-      const {
-        lat,
-        lng
-      } = e.latlng
-      setCursorPosition({
-        lat,
-        lng
-      })
-    }
-  }, [mapClickForNewBaseCoord])
+  const close = useCallback(() => {
+    dispatch(setMapClickForNewBaseCoord(false))
+    dispatch(setShowSettingsModal(true))
+  }, [dispatch])
 
-  useMapEvents({
-    click: handleClick,
-    mousemove: handleMouseMove
-  })
+  const clickHandler = useCallback(({ lat, lng }: LatLngLiteral) => {
+    dispatch(setBaseCoord([lat, lng]))
+    close()
+  }, [close, dispatch])
 
-  const CustomIcon = L.divIcon({
-    className: 'custom-marker',
-    iconAnchor: [12, 24],
-    html: '<div class="pick-cord-marker">Нажмите для выбора координат</div>'
-  })
+  const escapeHandler = () => {
+    close()
+  }
 
   return (
-    <>
-      {mapClickForNewBaseCoord && cursorPosition
-        ? <Marker
-          position={cursorPosition}
-          icon={CustomIcon}
-          interactive={false}
-        />
-        : null}
-    </>
+    <PickMapCord
+      shown={mapClickForNewBaseCord}
+      onClick={clickHandler}
+      onEscapeKey={escapeHandler}
+    />
   )
 })

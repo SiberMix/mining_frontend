@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { StyledButton } from '~shared/ui/button-styled'
+import { StyledButton } from '~shared/ui/styled-button'
 
 import { CalendarTypeJobsRightSide } from '../../calendar-type-jobs-right-side'
 

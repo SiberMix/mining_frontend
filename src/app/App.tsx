@@ -11,6 +11,7 @@ import { useAppDispatch } from '~processes/redux/store'
 import { routeConfig, RoutePath } from '~shared/config/route-config'
 import { AppVersion } from '~shared/ui/app-version'
 import { Header } from '~widgets/header'
+import { ModalsCenter } from '~widgets/modals-center'
 import { Notifications } from '~widgets/notifications'
 import { Settings } from '~widgets/settings'
 
@@ -57,6 +58,7 @@ const App: React.FC = () => {
       </Routes>
       <Settings />
       <Notifications />
+      <ModalsCenter />
       <AppVersion />
     </div>
   )

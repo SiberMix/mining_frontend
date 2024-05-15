@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux'
 import { editeNewPlayback, setEditedPlayback } from '~processes/redux/slices/playBackSlice'
 import type { RootState } from '~processes/redux/store'
 import { useAppDispatch } from '~processes/redux/store'
-import { ModalStyled } from '~shared/ui/modal-styled'
+import { StyledModal } from '~shared/ui/styled-modal'
 
 export const PlayBackEditModal = () => {
 
@@ -51,7 +51,7 @@ export const PlayBackEditModal = () => {
   }
 
   return (
-    <ModalStyled
+    <StyledModal
       title='Редактировать плэйбэк'
       open={!!editedPlayback}
       onCancel={closeHandler}
@@ -64,6 +64,6 @@ export const PlayBackEditModal = () => {
         style={{ marginBottom: '16px' }}
       />
       {contextHolder}
-    </ModalStyled>
+    </StyledModal>
   )
 }

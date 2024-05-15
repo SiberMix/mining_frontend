@@ -10,7 +10,7 @@ import {
 } from '~processes/redux/selectors/optionalEquipmentSelectors'
 import { addTrailer, editTrailer, setAddModalVisible } from '~processes/redux/slices/optionalEquipmentSlice'
 import { useAppDispatch } from '~processes/redux/store'
-import { ModalStyled } from '~shared/ui/modal-styled'
+import { StyledModal } from '~shared/ui/styled-modal'
 
 export const EquipTrailerListModal = () => {
   const dispatch = useAppDispatch()
@@ -48,7 +48,7 @@ export const EquipTrailerListModal = () => {
   }
 
   return (
-    <ModalStyled
+    <StyledModal
       className='EquipTrailerListModal'
       title='Добавить прицеп'
       open={addModalVisible}
@@ -67,6 +67,6 @@ export const EquipTrailerListModal = () => {
         onChange={(e) => setGosnomer(e.target.value)}
         style={{ marginBottom: '16px' }}
       />
-    </ModalStyled>
+    </StyledModal>
   )
 }

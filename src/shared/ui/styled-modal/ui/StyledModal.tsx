@@ -1,9 +1,7 @@
 import { Modal } from 'antd'
 import styled from 'styled-components'
 
-type ModalStyledProps = {}
-
-export const ModalStyled = styled(Modal)<ModalStyledProps>`
+export const StyledModal = styled(Modal)`
     .ant-modal {
         &-header {
             background-color: inherit;

@@ -10,7 +10,7 @@ import { memo, useCallback, useMemo, useState } from 'react'
 import { Views } from 'react-big-calendar'
 
 import { VIEW_OPTIONS } from '~entities/calendar/ui/calendar-control/const'
-import { StyledButton } from '~shared/ui/button-styled'
+import { StyledButton } from '~shared/ui/styled-button'
 
 import type { CalendarViewType } from '../../../types'
 import { CalendarTypeJobsControl } from '../../calendar-type-jobs/components'

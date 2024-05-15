@@ -10,7 +10,7 @@ import {
 } from '~processes/redux/selectors/optionalEquipmentSelectors'
 import { addType, editType, setAddModalVisible } from '~processes/redux/slices/optionalEquipmentSlice'
 import { useAppDispatch } from '~processes/redux/store'
-import { ModalStyled } from '~shared/ui/modal-styled'
+import { StyledModal } from '~shared/ui/styled-modal'
 
 export const EquipsTypesListModal = () => {
   const dispatch = useAppDispatch()
@@ -48,7 +48,7 @@ export const EquipsTypesListModal = () => {
   }
 
   return (
-    <ModalStyled
+    <StyledModal
       className='EquipsTypesListModal'
       title={editedType ? 'Редактировать тип' : 'Добавить тип'}
       open={addModalVisible}
@@ -67,6 +67,6 @@ export const EquipsTypesListModal = () => {
         checked={status}
         onChange={(e) => setStatus(e.valueOf())}
       />
-    </ModalStyled>
+    </StyledModal>
   )
 }

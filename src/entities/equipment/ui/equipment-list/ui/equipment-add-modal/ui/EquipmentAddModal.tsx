@@ -15,8 +15,8 @@ import type { Equip } from '~processes/redux/slices/mapSlice'
 import { postNewEquipment, putEditEquipment, setEditedEquipment } from '~processes/redux/slices/mapSlice'
 import { setAddModalVisible } from '~processes/redux/slices/optionalEquipmentSlice'
 import { useAppDispatch } from '~processes/redux/store'
-import { ModalStyled } from '~shared/ui/modal-styled'
-import { Svg } from '~shared/ui/svg-styled'
+import { StyledModal } from '~shared/ui/styled-modal'
+import { StyledSvg } from '~shared/ui/styled-svg'
 
 type EquipmentAddModalProps = {
   equips: any
@@ -131,7 +131,7 @@ export const EquipmentAddModal = memo(({ equips }: EquipmentAddModalProps) => {
     })
 
   return (
-    <ModalStyled
+    <StyledModal
       className='equipmentAddModal'
       title={editedEquipment ? 'Редактировать оборудование' : 'Добавить оборудование'}
       open={addVisibleModal}
@@ -238,7 +238,7 @@ export const EquipmentAddModal = memo(({ equips }: EquipmentAddModalProps) => {
               style={{ display: 'none' }}
             />
             <div className={`equipmentImageSVG ${imageStatus === index + 1 ? 'active' : ''}`}>
-              <Svg
+              <StyledSvg
                 src={item}
                 $height='60px'
                 $width='60px'
@@ -250,7 +250,7 @@ export const EquipmentAddModal = memo(({ equips }: EquipmentAddModalProps) => {
         ))}
       </div>
       {contextHolder}
-    </ModalStyled>
+    </StyledModal>
   )
 })
 

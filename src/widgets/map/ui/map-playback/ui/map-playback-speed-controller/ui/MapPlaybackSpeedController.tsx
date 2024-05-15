@@ -5,7 +5,7 @@ import { Radio } from 'antd'
 import { memo } from 'react'
 
 import { formatDate } from '~shared/lib/format-date'
-import { StyledButton } from '~shared/ui/button-styled'
+import { StyledButton } from '~shared/ui/styled-button'
 
 type MapPlaybackSpeedControllerProps = {
   playerSpeed: number,

@@ -11,7 +11,7 @@ type SvgProps = {
   $margin?: CSSProperties['margin']
 }
 
-export const Svg = styled(SVG)<SvgProps>`
+export const StyledSvg = styled(SVG)<SvgProps>`
     height: ${({ $height }) => $height ? $height : '20px'};
     width: ${({ $width }) => $width ? $width : '20px'};
     margin: ${({ $margin }) => $margin ? $margin : '0 0 25px'};

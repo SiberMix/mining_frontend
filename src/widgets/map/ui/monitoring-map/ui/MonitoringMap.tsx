@@ -12,6 +12,7 @@ import {
   getUsingBaseCoordSelector,
   getUsingZoomLevelOptionsSelector
 } from '~processes/redux/selectors/settingsSelector'
+import { PickWeatherCord } from '~widgets/weather'
 
 import { MapEquipments } from '../../map-equipments'
 import { MapPlayback } from '../../map-playback'
@@ -19,43 +20,32 @@ import { MapDrawingPolygon, MapPolygons } from '../../map-polygons'
 import { PickBaseCord } from '../../pick-base-cord'
 
 export const MonitoringMap = memo(() => {
-  const baseCoord = useSelector(getUsingBaseCoordSelector)
+  const baseCord = useSelector(getUsingBaseCoordSelector)
   const stateZoomLevelOptions = useSelector(getUsingZoomLevelOptionsSelector)
 
   return (
     <MapContainer
       className='MonitoringMap'
-      center={baseCoord}
+      center={baseCord}
       zoomControl={false}
       zoom={+stateZoomLevelOptions}
       minZoom={3}
     >
+      {/** Map controls */}
       <MapViewSelect />
+      <ZoomControl position='topright' />
+
+      {/** Polygons */}
       <MapPolygons />
       <MapDrawingPolygon />
+
+      {/** Equips */}
       <MapEquipments />
-      <ZoomControl position='topright' />
-      <PickBaseCord />
       <MapPlayback />
+
+      {/** Cord pickers */}
+      <PickBaseCord />
+      <PickWeatherCord />
     </MapContainer>
   )
 })
-
-/**
- todo тестовое оборудование потому что сокет любит отъебнуть
- <EquipCastomMarker
- key={54.925946}
- coordsData={{
- imei: '54.925946',
- lat: '54.925946',
- lon: '82.775931',
- datetime: '123'
- }}
- equip_name="equip_name"
- gosnomer={54.925946}
- image_status={2}
- imei={54.925946}
- speed={54.925946}
- fuel={54.925946}
- />
- * */

@@ -7,7 +7,7 @@ type TabsStyledProps = {
   color?: CSSProperties['color']
 }
 
-export const TabsStyled = styled(Tabs)<TabsStyledProps>`
+export const StyledTabs = styled(Tabs)<TabsStyledProps>`
     .ant-tabs-nav {
         &:before {
             border-color: ${({ color }) => color ? color : 'var(--gray-100)'};

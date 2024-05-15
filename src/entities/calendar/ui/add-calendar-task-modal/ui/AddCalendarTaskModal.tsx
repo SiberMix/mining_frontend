@@ -12,10 +12,10 @@ import { toast } from 'react-toastify'
 import { tasksCalendarStore } from '~entities/calendar/model'
 import type { CalendarEventItemForPost, TypeJobType } from '~entities/calendar/types'
 import { getAllEquipmentSelector, getAllPolygonsSelector } from '~processes/redux/selectors/mapSelectors'
-import { StyledButton } from '~shared/ui/button-styled'
-import { ModalStyled } from '~shared/ui/modal-styled'
 import { SimpleSelect } from '~shared/ui/simple-select'
+import { StyledButton } from '~shared/ui/styled-button'
 import { StyledInput } from '~shared/ui/styled-input'
+import { StyledModal } from '~shared/ui/styled-modal'
 
 type AddCalendarTaskModalProps = {
   isOpen: boolean,
@@ -127,7 +127,7 @@ export const AddCalendarTaskModal = ({
   }
 
   return (
-    <ModalStyled
+    <StyledModal
       open={isOpen}
       onCancel={closeHandler}
       title={eventForEdit ? 'Редактировать событие' : 'Добавить событие'}
@@ -178,6 +178,6 @@ export const AddCalendarTaskModal = ({
       <StyledButton onClick={() => formik.handleSubmit()}>
         {eventForEdit ? 'Сохранить' : 'Создать'}
       </StyledButton>
-    </ModalStyled>
+    </StyledModal>
   )
 }

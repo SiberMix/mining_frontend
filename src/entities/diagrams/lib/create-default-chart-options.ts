@@ -7,7 +7,8 @@ type CreateDefaultChartOptions = {
   categories?: (string | number)[],
   colors?: string[],
   withGrid?: boolean,
-  withDataLabels?: boolean
+  withDataLabels?: boolean,
+  withAnimation?: boolean
 }
 
 export function createDefaultChartOptions({
@@ -15,7 +16,8 @@ export function createDefaultChartOptions({
   categories,
   colors = COLORS,
   withGrid = true,
-  withDataLabels = true
+  withDataLabels = true,
+  withAnimation = true
 }: CreateDefaultChartOptions): ApexOptions {
   return {
     title: {
@@ -28,7 +30,7 @@ export function createDefaultChartOptions({
     },
     chart: {
       animations: {
-        enabled: true,
+        enabled: withAnimation,
         easing: 'easeinout',
         speed: 300, // Длительность анимации в миллисекундах
         animateGradually: {

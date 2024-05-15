@@ -6,7 +6,7 @@ import { useCallback, useState } from 'react'
 import { tasksCalendarStore } from '~entities/calendar/model'
 import type { TypeJobType } from '~entities/calendar/types'
 import { COLLAPSE_KEY } from '~entities/calendar/ui/calendar-type-jobs/components/calendar-type-jobs-right-side/const'
-import { StyledButton } from '~shared/ui/button-styled'
+import { StyledButton } from '~shared/ui/styled-button'
 
 import { CalendarTypeJobsForm } from '../../calendar-type-jobs-add-form'
 import { CalendarTypeJobsListItem } from '../../calendar-type-jobs-list-item'

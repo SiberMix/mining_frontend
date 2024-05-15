@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux'
 
 import { getAllFieldsSelector } from '~processes/redux/selectors/fieldsSelectors'
 import type { FieldType } from '~processes/redux/slices/fieldSlice'
-import { ModalStyled } from '~shared/ui/modal-styled'
+import { StyledModal } from '~shared/ui/styled-modal'
 
 import { ModalTypeEnum } from '../model/modal-type-enum'
 
@@ -30,7 +30,7 @@ export const PolygonEditModal: React.FC<{
   }, [initialValue])
 
   return (
-    <ModalStyled
+    <StyledModal
       className='PolygonEditModal'
       title='Редактировать культуру'
       open={!!visible}
@@ -70,6 +70,6 @@ export const PolygonEditModal: React.FC<{
             />
           )
       }
-    </ModalStyled>
+    </StyledModal>
   )
 }

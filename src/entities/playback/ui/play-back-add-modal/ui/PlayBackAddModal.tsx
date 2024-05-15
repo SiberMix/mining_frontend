@@ -12,7 +12,7 @@ import { postNewPlayback, setIsOpenPlayBackAddModal } from '~processes/redux/sli
 import type { RootState } from '~processes/redux/store'
 import { useAppDispatch } from '~processes/redux/store'
 import { colors } from '~shared/const/colors'
-import { ModalStyled } from '~shared/ui/modal-styled'
+import { StyledModal } from '~shared/ui/styled-modal'
 
 import { PlayBackEquipPicker } from '../../play-back-equip-picker'
 
@@ -93,7 +93,7 @@ export const PlayBackAddModal = () => {
   }
 
   return (
-    <ModalStyled
+    <StyledModal
       className='PlayBackAddModal'
       title='Создать воспроизведение'
       open={isOpenPlayBackAddModal}
@@ -153,6 +153,6 @@ export const PlayBackAddModal = () => {
         setColorForThisEquip={setColorForThisEquip}
       />
       {contextHolder}
-    </ModalStyled>
+    </StyledModal>
   )
 }

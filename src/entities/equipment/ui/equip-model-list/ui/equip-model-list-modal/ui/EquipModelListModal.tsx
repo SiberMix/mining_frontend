@@ -10,7 +10,7 @@ import {
 } from '~processes/redux/selectors/optionalEquipmentSelectors'
 import { addModel, editModel, setAddModalVisible } from '~processes/redux/slices/optionalEquipmentSlice'
 import { useAppDispatch } from '~processes/redux/store'
-import { ModalStyled } from '~shared/ui/modal-styled'
+import { StyledModal } from '~shared/ui/styled-modal'
 
 export const EquipModelListModal = memo(() => {
   const dispatch = useAppDispatch()
@@ -53,7 +53,7 @@ export const EquipModelListModal = memo(() => {
   }
 
   return (
-    <ModalStyled
+    <StyledModal
       className='modelAddModal'
       title={editedModel ? 'Редактировать модель' : 'Добавить модель'}
       open={addModalVisible}
@@ -78,6 +78,6 @@ export const EquipModelListModal = memo(() => {
         onChange={(e) => setLength(e.target.value)}
         style={{ marginBottom: '16px' }}
       />
-    </ModalStyled>
+    </StyledModal>
   )
 })

@@ -8,7 +8,7 @@ import type { AppDispatch } from '~processes/redux/store'
 import AnalyticSidebar from '~shared/assets/icons/analyс-sidebar.svg'
 import MonitoringSidebar from '~shared/assets/icons/monitoring-sidebar.svg'
 import { RoutePath } from '~shared/config/route-config'
-import { Svg } from '~shared/ui/svg-styled'
+import { StyledSvg } from '~shared/ui/styled-svg'
 
 type CreateNavigateBtnType = {
   pathname: string,
@@ -26,7 +26,7 @@ export const createNavigateBtn = ({
   switch (pathname) {
     case RoutePath.monitoring:
       return (
-        <Svg
+        <StyledSvg
           title='Аналитика'
           src={AnalyticSidebar}
           className='SidebarFooter-icon'
@@ -39,7 +39,7 @@ export const createNavigateBtn = ({
       )
     case RoutePath.analytics:
       return (
-        <Svg
+        <StyledSvg
           title='Мониторинг'
           className='SidebarFooter-icon'
           src={MonitoringSidebar}

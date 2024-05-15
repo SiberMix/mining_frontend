@@ -3,7 +3,7 @@ import './NotificationActions.scss'
 import { DeleteOutlined, EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons'
 import type { NotificationCenterItem, UseNotificationCenter } from 'react-toastify/addons/use-notification-center'
 
-import { StyledButton } from '~shared/ui/button-styled'
+import { StyledButton } from '~shared/ui/styled-button'
 
 interface Props
   extends Pick<UseNotificationCenter<{}>, 'markAsRead' | 'remove'> {

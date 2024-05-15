@@ -1,5 +1,6 @@
-import type { RootState } from '../store'
 import { createSelector } from '@reduxjs/toolkit'
+
+import type { RootState } from '../store'
 
 const getShowSettingsModal = (state: RootState) => {
   return state.settingsReducer.showSettingsModal
@@ -99,16 +100,9 @@ export const getUsingStartMenuOptionsSelector = createSelector(
     return usingStartMenuOptions
   }
 )
-const getMapClickForNewBaseCoord = (state: RootState) => {
+export const getMapClickForNewBaseCordSelector = (state: RootState) => {
   return state.settingsReducer.mapClickForNewBaseCoord
 }
-
-export const getMapClickForNewBaseCoordSelector = createSelector(
-  getMapClickForNewBaseCoord,
-  (mapClickForNewBaseCoord) => {
-    return mapClickForNewBaseCoord
-  }
-)
 const getUsingBaseMapOptions = (state: RootState) => {
   return state.settingsReducer.usingSettings.baseMapOptions
 }

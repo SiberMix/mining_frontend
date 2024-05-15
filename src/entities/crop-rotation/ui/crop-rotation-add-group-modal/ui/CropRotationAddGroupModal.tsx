@@ -19,7 +19,7 @@ import {
   setOpenCropRotationAddGroupModal
 } from '~processes/redux/slices/cropRotationSlice'
 import { useAppDispatch } from '~processes/redux/store'
-import { ModalStyled } from '~shared/ui/modal-styled'
+import { StyledModal } from '~shared/ui/styled-modal'
 
 export const CropRotationAddGroupModal = () => {
   const dispatch = useAppDispatch()
@@ -98,7 +98,7 @@ export const CropRotationAddGroupModal = () => {
   }
 
   return (
-    <ModalStyled
+    <StyledModal
       className={cn(
         'fieldPreviewModal',
         'CropRotationAddGroupModal'
@@ -174,6 +174,6 @@ export const CropRotationAddGroupModal = () => {
         </div>
         {contextHolder}
       </div>
-    </ModalStyled>
+    </StyledModal>
   )
 }

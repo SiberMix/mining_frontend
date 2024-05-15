@@ -13,7 +13,7 @@ import {
 import type { FieldType } from '~processes/redux/slices/fieldSlice'
 import { postNewPolygon, setShowAddNewPolygonModal } from '~processes/redux/slices/mapSlice'
 import { useAppDispatch } from '~processes/redux/store'
-import { ModalStyled } from '~shared/ui/modal-styled'
+import { StyledModal } from '~shared/ui/styled-modal'
 
 export const PolygonAddModal = () => {
   const dispatch = useAppDispatch()
@@ -55,7 +55,7 @@ export const PolygonAddModal = () => {
   }
 
   return (
-    <ModalStyled
+    <StyledModal
       className='polygonAddModal'
       title='Добавить поле'
       open={showAddNewPolygonModal}
@@ -92,6 +92,6 @@ export const PolygonAddModal = () => {
         </Select>
       </Input.Group>
       {contextHolder}
-    </ModalStyled>
+    </StyledModal>
   )
 }
