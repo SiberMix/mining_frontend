@@ -1,4 +1,4 @@
-import './styles/index.scss'
+import '../styles/index.scss'
 
 import React from 'react'
 
@@ -7,9 +7,9 @@ import { ModalsCenter } from '~widgets/modals-center'
 import { Notifications } from '~widgets/notifications'
 import { Settings } from '~widgets/settings'
 
-import { AppRouter } from './app-router'
+import { AppRouter } from '../app-router'
 
-const App: React.FC = () => {
+export const App: React.FC = () => {
   return (
     <div className='app'>
       <AppRouter />
@@ -20,5 +20,3 @@ const App: React.FC = () => {
     </div>
   )
 }
-
-export default App

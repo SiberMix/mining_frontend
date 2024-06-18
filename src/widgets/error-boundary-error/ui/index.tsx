@@ -9,10 +9,13 @@ const ErrorBoundaryError = () => {
 
   return (
     <div className='error-boundary-error'>
-      <h1>
+      <h1 className='error-boundary-error-title'>
         В приложении произошла ошибка
       </h1>
-      <StyledButton onClick={reloadPage} >
+      <StyledButton
+        width='auto'
+        height='auto'
+        onClick={reloadPage} >
         Перезагрузить страницу
       </StyledButton>
     </div>

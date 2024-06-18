@@ -6,4 +6,9 @@
   justify-content: center;
   align-items: center;
   gap: 0.5em;
+  background-color: var(--gray-700);
+
+  &-title {
+    color: white;
+  }
 }
