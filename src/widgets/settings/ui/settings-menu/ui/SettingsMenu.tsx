@@ -1,30 +1,31 @@
 import './SettingsMenu.scss'
 
-import type { MenuProps } from 'antd'
 import { Menu } from 'antd'
 import React, { memo } from 'react'
-import { useSelector } from 'react-redux'
 
-import { getSelectedSettingsWindowSelector } from '~processes/redux/selectors/settingsSelector'
-import { setSelectedSettingsWindow } from '~processes/redux/slices/settingsSlice'
-import { useAppDispatch } from '~processes/redux/store'
+import type { SettingsMenuKeys } from '../consts'
+import { settingsMenuItems } from '../consts'
 
-import { settingsMenuItems } from '../const/settings-menu-items'
+type SettingsMenuProps = {
+  selectedSettingsMenuSection: SettingsMenuKeys,
+  setSelectedSettingsMenuSection: (key: SettingsMenuKeys) => void
+}
 
-export type SettingsMenuItem = Required<MenuProps>['items'][number];
+export const SettingsMenu = memo((props: SettingsMenuProps) => {
+  const {
+    selectedSettingsMenuSection,
+    setSelectedSettingsMenuSection
+  } = props
 
-export const SettingsMenu = memo(() => {
-  const dispatch = useAppDispatch()
-  const selectedSettingsWindow = useSelector(getSelectedSettingsWindowSelector)
   return (
     <div className='settingsMenuWrapper'>
       <Menu
         className=''
-        defaultSelectedKeys={['' + selectedSettingsWindow]}
+        defaultSelectedKeys={[selectedSettingsMenuSection]}
         mode='inline'
         theme='dark'
         items={settingsMenuItems}
-        onClick={({ key }) => dispatch(setSelectedSettingsWindow(+key))}
+        onClick={({ key }) => setSelectedSettingsMenuSection(key as SettingsMenuKeys)}
       />
     </div>
   )

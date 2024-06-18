@@ -14,7 +14,7 @@ export const SideOutLayout = styled.div<SideOutLayoutProps>`
       return `
           top: 0;
           bottom: 0;
-          left: 49px; //1px bug
+          left: calc(var(--sidebar-width) - 1px); //1px bug
       `
     }
   }}
@@ -22,8 +22,8 @@ export const SideOutLayout = styled.div<SideOutLayoutProps>`
     overflow-y: scroll;
     z-index: 10;
 
-    width: ${({ $width }) => $width ? `calc(${$width} - 49px)` : '410px'};
-    //                                                                                  ^ убираем 49px сайдбара
+    width: ${({ $width }) => $width ? `calc(${$width} - var(--sidebar-width))` : '410px'};
+    height: calc(100vh - var(--header-height));
     padding: 1px;
     background-color: var(--gray-600);
     border-width: 0.5px;

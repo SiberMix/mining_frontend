@@ -11,10 +11,10 @@ import {
   getEquipStatusArrWebSocketSelector,
   getShowRightSideEquipInfoImeiSelector
 } from '~processes/redux/selectors/mapSelectors'
-import { getUsingEquipmentOptionsSelector } from '~processes/redux/selectors/settingsSelector'
 import { setShowRightSideEquipInfo } from '~processes/redux/slices/mapSlice'
 import { useAppDispatch } from '~processes/redux/store'
 import { formatEquipStatus } from '~shared/lib/format-equip-status'
+import { settingsStore } from '~widgets/settings'
 
 import { EquipPreviewRightSideInfoRow } from '../../equip-preview-right-side-row'
 
@@ -25,7 +25,12 @@ export const EquipPreviewRightSide = memo(() => {
   const allEquipment = useSelector(getAllEquipmentSelector)
   const equipmentCoordinates = useSelector(getEquipmentCoordinatesWebSocketSelector)
   const equipStatusArr = useSelector(getEquipStatusArrWebSocketSelector)
-  const stateEquipmentOptions = useSelector(getUsingEquipmentOptionsSelector)
+
+  // zustand
+  const equipmentOptionsObj = settingsStore(state => state.settings.equipmentOptions)
+    .reduce((acc, cur) => {
+      return { ...acc, [cur.title]: cur.value }
+    }, {} as any) // мне лень писать дополнительные 10 типов. На выходе получаем {Название: true}
 
   const showRightSideEquipInfo = allEquipment.find(equip => +equip.imei === showRightSideEquipInfoImei)
   const wsDataForEquip = equipmentCoordinates.find(equip => equip.imei === showRightSideEquipInfo?.imei)
@@ -103,7 +108,7 @@ export const EquipPreviewRightSide = memo(() => {
             className='EquipPreviewRightSide__info__img'
             src={`/src/shared/assets/icons_enum/equips_events/${showRightSideEquipInfo?.image_status}${equipStatus}.svg`}
             alt='EquipPreviewRightSide-icon'
-            />
+          />
           : null
       }
       <div className='EquipPreviewRightSide__info__grid-container'>
@@ -111,7 +116,7 @@ export const EquipPreviewRightSide = memo(() => {
           title='Статус:'
           value={formatEquipStatus(equipStatus)}
         />
-        {stateEquipmentOptions['Название']
+        {equipmentOptionsObj['Название']
           ? <EquipPreviewRightSideInfoRow
             title='Название:'
             value={showRightSideEquipInfo?.equip_name}
@@ -138,25 +143,25 @@ export const EquipPreviewRightSide = memo(() => {
           value={showRightSideEquipInfo?.gosnomer}
         />
         {
-          stateEquipmentOptions['IMEI']
+          equipmentOptionsObj['IMEI']
             ? <EquipPreviewRightSideInfoRow
               title='IMEI:'
               value={showRightSideEquipInfo?.imei}
             />
             : null}
-        {stateEquipmentOptions['Гос.номер']
+        {equipmentOptionsObj['Гос.номер']
           ? <EquipPreviewRightSideInfoRow
             title='Гос.номер:'
             value={showRightSideEquipInfo?.gosnomer.toUpperCase()}
           />
           : null}
-        {stateEquipmentOptions['Уровень топлива']
+        {equipmentOptionsObj['Уровень топлива']
           ? <EquipPreviewRightSideInfoRow
             title='Уровень топлива:'
             value={fuelFromFirstAndSec()}
           />
           : null}
-        {stateEquipmentOptions['Скорость']
+        {equipmentOptionsObj['Скорость']
           ? <EquipPreviewRightSideInfoRow
             title='Скорость:'
             value={`${wsDataForEquip?.speed || 0} км/ч`}
@@ -167,7 +172,7 @@ export const EquipPreviewRightSide = memo(() => {
           value={wsDataForEquip?.ignition ? 'Вкл.' : 'Выкл.'}
         />
         {
-          stateEquipmentOptions['Последняя активность'] &&
+          equipmentOptionsObj['Последняя активность'] &&
           (equipStatus === 'Offline' || equipStatus === 'Idle') &&
           !!showRightSideEquipInfoImei
             ? <EquipPreviewRightSideInfoRow

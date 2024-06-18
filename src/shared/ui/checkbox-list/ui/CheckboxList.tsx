@@ -1,47 +1,41 @@
 import './CheckboxList.scss'
 
 import type { ChangeEvent } from 'react'
-import React, { memo, useEffect, useState } from 'react'
+import React, { memo } from 'react'
 
 type CheckboxListProps = {
-  options: Record<string, boolean>,
-  onCheckedItemsChange: (items: Record<string, boolean>) => void
+  options: Array<{title: string, value: boolean}>,
+  onCheckedItemsChange: (items: Array<{title: string, value: boolean}>) => void
 }
 
 export const CheckboxList = memo(({
   options,
   onCheckedItemsChange
 }: CheckboxListProps) => {
-  const [checkedItems, setCheckedItems] = useState(options)
-
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setCheckedItems({
-      ...checkedItems,
-      [event.target.name]: event.target.checked
-    })
+    const newCheckedItems = options.map(item => item.title === event.target.name
+      ? { title: event.target.name, value: event.target.checked }
+      : item)
+    onCheckedItemsChange(newCheckedItems)
   }
-
-  useEffect(() => {
-    onCheckedItemsChange(checkedItems)
-  }, [checkedItems, onCheckedItemsChange])
 
   return (
     <div className='checkbox-list'>
-      {Object.keys(options)
+      {options
         .map((option) => (
           <label
-            key={option}
+            key={option.title}
             className='checkbox-label'
           >
             <input
               type='checkbox'
-              name={option}
+              name={option.title}
               className='checkbox-input'
-              checked={checkedItems[option] || false}
+              checked={option.value}
               onChange={handleChange}
             />
             <span className='checkbox-custom' />
-            {option}
+            {option.title}
           </label>
         ))}
     </div>
