@@ -4,7 +4,6 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { setToken } from '~processes/redux/slices/authSlice'
-import { setMapClickForNewBaseCoord, setShowSettingsModal } from '~processes/redux/slices/settingsSlice'
 import { useAppDispatch } from '~processes/redux/store'
 import miniLogo from '~shared/assets/hectareLogoOnly.png'
 import LogoutBtn from '~shared/assets/icons/logout.svg'
@@ -13,16 +12,24 @@ import { RoutePath } from '~shared/config/route-config'
 import { DeleteOption } from '~shared/ui/delete-option'
 import { StyledSvg } from '~shared/ui/styled-svg'
 import { NotificationsCenter } from '~widgets/notifications'
+import { settingsStore } from '~widgets/settings'
 import { WeatherBtn } from '~widgets/weather'
 
 export const Header = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
+  const setIsSettingsOpen = settingsStore(state => state.setIsSettingsOpen)
+  const setIsClickMapForNewBaseCord = settingsStore(state => state.setIsClickMapForNewBaseCord)
 
   const logout = () => {
     dispatch(setToken(null))
     localStorage.removeItem('token')
     navigate(RoutePath.auth)
+  }
+
+  const settingsButtonClick = () => {
+    setIsClickMapForNewBaseCord(false)
+    setIsSettingsOpen(true)
   }
 
   return (
@@ -40,10 +47,7 @@ export const Header = () => {
             $margin='0'
             title='Настройки'
             src={Setting}
-            onClick={() => {
-              dispatch(setMapClickForNewBaseCoord(false))
-              dispatch(setShowSettingsModal(true))
-            }}
+            onClick={settingsButtonClick}
           />
           <DeleteOption
             title='Выйти из аккаунта?'

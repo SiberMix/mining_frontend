@@ -204,10 +204,7 @@
     ],
     "react/jsx-key": "warn",
     "react/jsx-fragments": "warn",
-    "react/jsx-closing-bracket-location": [
-      "warn",
-      "tag-aligned"
-    ],
+    "react/jsx-closing-bracket-location": "off",
     "react/jsx-max-props-per-line": [
       "warn",
       {

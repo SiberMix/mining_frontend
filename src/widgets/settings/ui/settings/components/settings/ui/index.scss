@@ -1,0 +1,47 @@
+.customModal {
+  .ant-modal {
+    &-content {
+      background-color: var(--gray-500);
+      border-radius: 0;
+      border: 1px solid var(--gray-100);
+      padding: 0;
+      color: #ffffff;
+    }
+
+    //565656
+    &-close {
+      top: 5px;
+      right: 0;
+      color: #7c7c7c;
+
+      &:hover {
+        color: #ffffff;
+      }
+    }
+
+    &-header {
+      border-radius: 0;
+    }
+
+    &-title {
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 400;
+      font-size: 14px;
+      background-color: var(--gray-500);
+      color: #BABABA;
+    }
+
+    &-body {
+      height: 50vh;
+      display: flex;
+    }
+
+    &-footer {
+      margin: 0;
+      padding: 10px 5px 10px;
+    }
+  }
+}

@@ -7,12 +7,10 @@ import fieldsReducer from './slices/fieldSlice'
 import mapReducer from './slices/mapSlice'
 import optionalEquipmentReducer from './slices/optionalEquipmentSlice'
 import playBackReducer from './slices/playBackSlice'
-import settingsReducer from './slices/settingsSlice'
 
 const rootReducer = combineReducers({
   mapReducer,
   fieldsReducer,
-  settingsReducer,
   optionalEquipmentReducer,
   authReducer,
   playBackReducer,
