@@ -1,5 +1,5 @@
 .Header {
-  height: 46px;
+  height: var(--header-height);
   padding: 0 24px 0 6px;
   position: relative;
   display: flex;
