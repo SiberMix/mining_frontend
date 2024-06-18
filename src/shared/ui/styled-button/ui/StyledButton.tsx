@@ -17,6 +17,7 @@ type StyledButtonProps = {
 } & ButtonProps
 
 export const StyledButton = styled(Button)<StyledButtonProps>`
+    display: inline-block;
     margin: ${({ margin }) => margin ? margin : ''};
     padding: ${({ padding }) => padding ? padding : ''};
 
