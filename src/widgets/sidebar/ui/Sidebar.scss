@@ -1,7 +1,7 @@
 .Sidebar {
   height: 100%;
   padding: 13px 0 26px;
-  width: 50px;
+  width: var(--sidebar-width);
   display: flex;
   flex-direction: column;
   justify-content: space-between;

@@ -5,13 +5,9 @@ import './MonitoringMap.scss'
 
 import React, { memo } from 'react'
 import { MapContainer, ZoomControl } from 'react-leaflet'
-import { useSelector } from 'react-redux'
 
-import { MapViewSelect } from '~features/map-view-select'
-import {
-  getUsingBaseCoordSelector,
-  getUsingZoomLevelOptionsSelector
-} from '~processes/redux/selectors/settingsSelector'
+import { MapViewSelect } from '~widgets/map/ui/map-view-select'
+import { settingsStore } from '~widgets/settings'
 import { PickWeatherCord } from '~widgets/weather'
 
 import { MapEquipments } from '../../map-equipments'
@@ -20,15 +16,15 @@ import { MapDrawingPolygon, MapPolygons } from '../../map-polygons'
 import { PickBaseCord } from '../../pick-base-cord'
 
 export const MonitoringMap = memo(() => {
-  const baseCord = useSelector(getUsingBaseCoordSelector)
-  const stateZoomLevelOptions = useSelector(getUsingZoomLevelOptionsSelector)
+  const baseCord = settingsStore(state => state.settings.baseCord)
+  const baseZoomLevel = settingsStore(state => state.settings.baseZoomLevel)
 
   return (
     <MapContainer
       className='MonitoringMap'
       center={baseCord}
       zoomControl={false}
-      zoom={+stateZoomLevelOptions}
+      zoom={baseZoomLevel}
       minZoom={3}
     >
       {/** Map controls */}

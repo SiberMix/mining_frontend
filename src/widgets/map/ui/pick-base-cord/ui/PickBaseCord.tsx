@@ -1,25 +1,24 @@
 import { type LatLngLiteral } from 'leaflet'
 import React, { memo, useCallback } from 'react'
-import { useSelector } from 'react-redux'
 
-import { getMapClickForNewBaseCordSelector } from '~processes/redux/selectors/settingsSelector'
-import { setBaseCoord, setMapClickForNewBaseCoord, setShowSettingsModal } from '~processes/redux/slices/settingsSlice'
-import { useAppDispatch } from '~processes/redux/store'
 import { PickMapCord } from '~shared/ui/pick-map-cord'
+import { settingsStore } from '~widgets/settings'
 
 export const PickBaseCord = memo(() => {
-  const dispatch = useAppDispatch()
-  const mapClickForNewBaseCord = useSelector(getMapClickForNewBaseCordSelector)
+  const isClickMapForNewBaseCord = settingsStore(state => state.isClickMapForNewBaseCord)
+  const setIsSettingsOpen = settingsStore(state => state.setIsSettingsOpen)
+  const setIsClickMapForNewBaseCord = settingsStore(state => state.setIsClickMapForNewBaseCord)
+  const setNewBaseCord = settingsStore(state => state.setNewBaseCord)
 
   const close = useCallback(() => {
-    dispatch(setMapClickForNewBaseCoord(false))
-    dispatch(setShowSettingsModal(true))
-  }, [dispatch])
+    setIsClickMapForNewBaseCord(false)
+    setIsSettingsOpen(true)
+  }, [setIsSettingsOpen, setIsClickMapForNewBaseCord])
 
   const clickHandler = useCallback(({ lat, lng }: LatLngLiteral) => {
-    dispatch(setBaseCoord([lat, lng]))
+    setNewBaseCord([lat, lng])
     close()
-  }, [close, dispatch])
+  }, [close, setNewBaseCord])
 
   const escapeHandler = () => {
     close()
@@ -27,7 +26,7 @@ export const PickBaseCord = memo(() => {
 
   return (
     <PickMapCord
-      shown={mapClickForNewBaseCord}
+      shown={isClickMapForNewBaseCord}
       onClick={clickHandler}
       onEscapeKey={escapeHandler}
     />

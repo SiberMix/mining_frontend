@@ -1,1 +1,1 @@
-export { SettingsContentLayout } from './ui/settings-content-layout'
+export { SettingsContentLayout } from './components/settings-content-layout'

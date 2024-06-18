@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 
 import { EquipPreviewRightSide } from '~entities/equipment'
 import { monitoringConfig } from '~features/navbar'
-import { getUsingStartMenuOptionsSelector } from '~processes/redux/selectors/settingsSelector'
 import { getAllFields } from '~processes/redux/slices/fieldSlice'
 import type { EquipEventsSocket, EquipmentSocketData } from '~processes/redux/slices/mapSlice'
 import {
@@ -21,12 +19,13 @@ import { soket } from '~shared/api/socket'
 import { BasePreloader } from '~shared/ui/base-preloader'
 import { PageLayout } from '~shared/ui/page-layout'
 import { MonitoringMap } from '~widgets/map'
+import { settingsStore } from '~widgets/settings'
 import { Sidebar } from '~widgets/sidebar'
 
 const Monitoring = () => {
   const dispatch = useAppDispatch()
 
-  const startMenuOptions = useSelector(getUsingStartMenuOptionsSelector)
+  const monitoringStartMenuSection = settingsStore(state => state.settings.monitoringStartMenuSection)
   const [isLoading, setIsLoading] = useState(true)
   //fixme костыль для срабатывания initialLoading только 1 раз
   const [isMounted, setIsMounted] = useState(false)
@@ -121,7 +120,7 @@ const Monitoring = () => {
           <PageLayout>
             <Sidebar
               navbarConfig={monitoringConfig}
-              // defaultSidebarContent={startMenuOptions} //todo вернуть, + обнулить настройки под новые ключи
+              // defaultSidebarContent={monitoringStartMenuSection} //todo вернуть, + обнулить настройки под новые ключи
               withAnimation={true}
             />
             <MonitoringMap />
