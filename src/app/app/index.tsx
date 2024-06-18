@@ -1,4 +1,4 @@
-import './styles/index.scss'
+import '../styles/index.scss'
 
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
@@ -15,7 +15,7 @@ import { ModalsCenter } from '~widgets/modals-center'
 import { Notifications } from '~widgets/notifications'
 import { Settings } from '~widgets/settings'
 
-const App: React.FC = () => {
+export const App: React.FC = () => {
   const dispatch = useAppDispatch()
   const token = useSelector(getTokenSelector)
 
@@ -63,5 +63,3 @@ const App: React.FC = () => {
     </div>
   )
 }
-
-export default App

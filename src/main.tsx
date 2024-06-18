@@ -6,7 +6,7 @@ import { QueryClientProvider } from 'react-query'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 
-import App from '~app/App'
+import { App, ErrorBoundary } from '~app'
 import { queryClient } from '~app/model'
 import { store } from '~processes/redux/store'
 
@@ -16,7 +16,9 @@ root.render(<Provider store={store}>
   <QueryClientProvider client={queryClient}>
     <BrowserRouter>
       <ConfigProvider locale={locale}>
-        <App />
+        <ErrorBoundary>
+          <App />
+        </ErrorBoundary>
       </ConfigProvider>
     </BrowserRouter>
   </QueryClientProvider>
