@@ -36,6 +36,7 @@ const Monitoring = () => {
    * Подключаем веб сокеты для оборудования
    * */
   const equipCoordsSocketHandler = useCallback(({ type_event, message }: WebSocketMessage) => {
+    console.log('SOCKET MESSAGE', { type_event, message })
     switch (type_event) {
       case WebSocketMessageTypeEvent.POSITION:
         dispatch(setEquipmentCoordinatesWebSocket(message))
@@ -44,7 +45,7 @@ const Monitoring = () => {
         dispatch(setEquipStatusArrWebSocket(message))
         break
       case WebSocketMessageTypeEvent.NOTIFICATION:
-        console.log('socet message', message)
+        // console.log('socet message', message)
         break
       default:
         console.log('socet message', message)
