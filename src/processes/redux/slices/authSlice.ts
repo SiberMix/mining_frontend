@@ -33,11 +33,8 @@ const authSlice = createSlice({
 
 export const getToken = createAsyncThunk(
   'auth/getToken',
-  async ({
-    username,
-    password
-  }: AuthDataForLogin) => {
-    return toast.promise(authService.login(username, password), {
+  async (data: AuthDataForLogin) => {
+    return toast.promise(authService.login(data), {
       pending: 'Аутентификация...',
       success: 'Успешная аутентификация',
       error: 'Ошибка аутентификации'

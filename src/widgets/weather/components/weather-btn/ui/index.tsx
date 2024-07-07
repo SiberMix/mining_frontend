@@ -25,6 +25,7 @@ export const WeatherBtn = () => {
       width='47px'
       height='auto'
       onClick={clickHandler}
+      title='Погода'
     >
       <CloudDownloadOutlined
         width={20}

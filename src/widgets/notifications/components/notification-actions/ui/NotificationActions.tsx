@@ -5,16 +5,15 @@ import type { NotificationCenterItem, UseNotificationCenter } from 'react-toasti
 
 import { StyledButton } from '~shared/ui/styled-button'
 
-interface Props
-  extends Pick<UseNotificationCenter<{}>, 'markAsRead' | 'remove'> {
+type NotificationActionsProps = {
   notification: NotificationCenterItem
-}
+} & Pick<UseNotificationCenter<{}>, 'markAsRead' | 'remove'>
 
 export const NotificationActions = ({
   notification,
   markAsRead,
   remove
-}: Props) => {
+}: NotificationActionsProps) => {
   return (
     <div className='NotificationActions'>
       {notification.read

@@ -2,8 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 
 import { EquipPreviewRightSide } from '~entities/equipment'
 import { monitoringConfig } from '~features/navbar'
-import { useAuthStore } from '~pages/auth/model'
-import { monitoringInitialLoading } from '~pages/monitoring/lib'
+import { useAuthStore } from '~pages/auth'
 import { setEquipmentCoordinatesWebSocket, setEquipStatusArrWebSocket } from '~processes/redux/slices/mapSlice'
 import { useAppDispatch } from '~processes/redux/store'
 import type { WebSocketMessage } from '~shared/api/socket'
@@ -11,14 +10,19 @@ import { SocketManager, WebSocketMessageTypeEvent } from '~shared/api/socket'
 import { BasePreloader } from '~shared/ui/base-preloader'
 import { PageLayout } from '~shared/ui/page-layout'
 import { MonitoringMap } from '~widgets/map'
+import type { Notification } from '~widgets/notifications'
+import { useNotificationStore } from '~widgets/notifications'
 import { settingsStore } from '~widgets/settings'
 import { Sidebar } from '~widgets/sidebar'
+
+import { monitoringInitialLoading } from './lib'
 
 const Monitoring = () => {
   const dispatch = useAppDispatch()
 
   const token = useAuthStore(state => state.token)
   const monitoringStartMenuSection = settingsStore(state => state.settings.monitoringStartMenuSection)
+  const addNotification = useNotificationStore(state => state.addNotification)
   const [isLoading, setIsLoading] = useState(true)
   // костыль для срабатывания initialLoading только 1 раз
   const [isMounted, setIsMounted] = useState(false)
@@ -36,21 +40,22 @@ const Monitoring = () => {
    * Подключаем веб сокеты для оборудования
    * */
   const equipCoordsSocketHandler = useCallback(({ type_event, message }: WebSocketMessage) => {
-    console.log('SOCKET MESSAGE', { type_event, message })
+    const messageParsed = JSON.parse(message as any)
+
     switch (type_event) {
       case WebSocketMessageTypeEvent.POSITION:
-        dispatch(setEquipmentCoordinatesWebSocket(message))
+        dispatch(setEquipmentCoordinatesWebSocket(messageParsed))
         break
       case WebSocketMessageTypeEvent.ACTIVE_STATUS:
-        dispatch(setEquipStatusArrWebSocket(message))
+        dispatch(setEquipStatusArrWebSocket(messageParsed))
         break
       case WebSocketMessageTypeEvent.NOTIFICATION:
-        // console.log('socet message', message)
+        addNotification(messageParsed as Notification)
         break
       default:
-        console.log('socet message', message)
+        console.log('socet message', messageParsed)
     }
-  }, [dispatch])
+  }, [addNotification, dispatch])
 
   useEffect(() => {
     if (!socketRef.current) {

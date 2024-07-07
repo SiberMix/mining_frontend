@@ -1,3 +1,5 @@
+import type { Notification } from '~widgets/notifications'
+
 export enum WebSocketMessageTypeEvent {
   POSITION = 'position',
   NOTIFICATION = 'notification',
@@ -6,7 +8,7 @@ export enum WebSocketMessageTypeEvent {
 
 export type WebSocketMessage = {
   type_event: WebSocketMessageTypeEvent,
-  message: EquipmentSocketData
+  message: EquipmentSocketData | Notification
 }
 
 export type EquipmentSocketData = {

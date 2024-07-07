@@ -22,7 +22,7 @@ export const NotificationsCenter = () => {
     remove,
     unreadCount
   } = useNotificationCenter()
-  const [showUnreadOnly, toggleFilter] = useState(false)
+  const [showUnreadOnly] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
 
   return (
@@ -34,6 +34,7 @@ export const NotificationsCenter = () => {
         width='47px'
         className='NotificationsCenter-trigger'
         onClick={() => setIsOpen(prev => !prev)}
+        title='Уведомления'
       >
         <SoundOutlined
           width={20}

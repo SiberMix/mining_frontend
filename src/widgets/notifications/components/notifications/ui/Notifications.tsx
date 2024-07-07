@@ -2,7 +2,7 @@ import 'react-toastify/dist/ReactToastify.css'
 
 import { Slide, ToastContainer } from 'react-toastify'
 
-import { notificationStyle } from '../../../const/notification-style'
+import { notificationStyle } from '../../../const'
 
 export const Notifications = () => {
   return (
