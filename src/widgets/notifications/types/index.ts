@@ -1,4 +1,4 @@
-import type { NOTIFICATION_TYPES } from '../const'
+import type { TypeOptions } from 'react-toastify/dist/types'
 
 export type NotificationsStore = {
   notifications: Notification[],
@@ -11,7 +11,7 @@ export type NotificationsStore = {
 
 export type Notification = {
   id: number,
-  type: NOTIFICATION_TYPES,
+  type: TypeOptions,
   message: string,
   created_at: Date,
   isRead: boolean

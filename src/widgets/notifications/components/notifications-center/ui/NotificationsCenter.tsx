@@ -2,26 +2,23 @@ import './NotificationsCenter.scss'
 
 import { SoundOutlined } from '@ant-design/icons'
 import { AnimatePresence, motion } from 'framer-motion'
-import type { ReactNode } from 'react'
 import { useState } from 'react'
-import { Icons, toast } from 'react-toastify'
-import { useNotificationCenter } from 'react-toastify/addons/use-notification-center'
+import { Icons } from 'react-toastify'
 
 import { StyledButton } from '~shared/ui/styled-button'
+import { useNotificationStore } from '~widgets/notifications'
 import { NotificationsTimeTracker } from '~widgets/notifications/components/notifications-time-tracker'
 
 import { NotificationActions } from '../../notification-actions'
 import { variants } from '../const/framer-motion-variants'
 
 export const NotificationsCenter = () => {
-  const {
-    notifications,
-    clear,
-    markAllAsRead,
-    markAsRead,
-    remove,
-    unreadCount
-  } = useNotificationCenter()
+  const notifications = useNotificationStore(state => state.notifications)
+  const unreadNotifications = notifications.filter(n => !n.isRead)
+  const markAsRead = useNotificationStore(state => state.markAsRead)
+  const clearNotifications = useNotificationStore(state => state.clearNotifications)
+  const markAllAsRead = useNotificationStore(state => state.markAllAsRead)
+  const removeNotification = useNotificationStore(state => state.removeNotification)
   const [showUnreadOnly] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
 
@@ -43,7 +40,7 @@ export const NotificationsCenter = () => {
         <span className='NotificationsCenter-count'>
           {
             notifications
-              .filter(n => !n.read)
+              .filter(n => !n.isRead)
               .length
           }
         </span>
@@ -67,7 +64,7 @@ export const NotificationsCenter = () => {
             animate={isOpen ? 'open' : 'closed'}
           >
             {(!notifications.length ||
-              (unreadCount === 0 && showUnreadOnly))
+              (unreadNotifications.length === 0 && showUnreadOnly))
               ? <motion.h4
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -78,7 +75,7 @@ export const NotificationsCenter = () => {
               : null}
             <AnimatePresence>
               {(showUnreadOnly
-                ? notifications.filter((v) => !v.read)
+                ? notifications.filter((v) => !v.isRead)
                 : notifications
               ).map((notification) => {
                 return (
@@ -108,24 +105,23 @@ export const NotificationsCenter = () => {
                       variants={variants.item}
                     >
                       <div style={{ width: '24px' }}>
-                        {notification.icon as ReactNode ||
-                          Icons.info({
-                            theme: notification.theme || 'light',
-                            type: toast.TYPE.INFO
-                          })}
+                        {Icons.info({
+                          theme: 'light',
+                          type: notification.type
+                        })}
                       </div>
                       <div className='NotificationsCenter-container-content-item-info'>
                         <div className='NotificationsCenter-container-content-item-info-title'>
-                          {notification.content?.toString()}
+                          {notification.message?.toString()}
                         </div>
                         <div className='NotificationsCenter-container-content-item-info-subtitle'>
-                          <NotificationsTimeTracker createdAt={notification.createdAt} />
+                          <NotificationsTimeTracker createdAt={notification.created_at} />
                         </div>
                       </div>
                       <NotificationActions
                         notification={notification}
                         markAsRead={markAsRead}
-                        remove={remove}
+                        remove={removeNotification}
                       />
                     </motion.article>
                   </motion.div>
@@ -140,7 +136,7 @@ export const NotificationsCenter = () => {
         <div className='NotificationsCenter-footer'>
           <StyledButton
             width='auto'
-            onClick={clear}
+            onClick={clearNotifications}
           >
             Удалить все
           </StyledButton>

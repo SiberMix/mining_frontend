@@ -7,7 +7,7 @@ dayjs.locale('ru')
 dayjs.extend(duration)
 dayjs.extend(relativeTime)
 
-export const NotificationsTimeTracker = ({ createdAt }: { createdAt: number }) => {
+export const NotificationsTimeTracker = ({ createdAt }: { createdAt: Date }) => {
   const [, forceUpdate] = useReducer((x) => x + 1, 0)
   const intervalRef = useRef<number>()
 

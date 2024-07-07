@@ -1,13 +1,15 @@
 import './NotificationActions.scss'
 
 import { DeleteOutlined, EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons'
-import type { NotificationCenterItem, UseNotificationCenter } from 'react-toastify/addons/use-notification-center'
 
 import { StyledButton } from '~shared/ui/styled-button'
+import type { Notification } from '~widgets/notifications'
 
 type NotificationActionsProps = {
-  notification: NotificationCenterItem
-} & Pick<UseNotificationCenter<{}>, 'markAsRead' | 'remove'>
+  notification: Notification,
+  markAsRead: (id: number) => void,
+  remove: (id: number) => void
+}
 
 export const NotificationActions = ({
   notification,
@@ -16,7 +18,7 @@ export const NotificationActions = ({
 }: NotificationActionsProps) => {
   return (
     <div className='NotificationActions'>
-      {notification.read
+      {notification.isRead
         ? (
           <EyeOutlined />
         )
@@ -24,10 +26,8 @@ export const NotificationActions = ({
           <StyledButton
             padding='0 4px'
             title='Mark as read'
-            disabled={notification.read}
-            onClick={() => {
-              markAsRead(notification.id)
-            }}
+            disabled={notification.isRead}
+            onClick={markAsRead.bind(null, notification.id)}
           >
             <EyeInvisibleOutlined />
             <div className='ring' />
@@ -35,7 +35,7 @@ export const NotificationActions = ({
         )}
       <StyledButton
         padding='0 4px'
-        onClick={() => remove(notification.id)}
+        onClick={remove.bind(null, notification.id)}
         title='Archive'
       >
         <DeleteOutlined />

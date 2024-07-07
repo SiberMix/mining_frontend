@@ -41,6 +41,7 @@ const Monitoring = () => {
    * */
   const equipCoordsSocketHandler = useCallback(({ type_event, message }: WebSocketMessage) => {
     const messageParsed = JSON.parse(message as any)
+    console.log('messageParsed', messageParsed)
 
     switch (type_event) {
       case WebSocketMessageTypeEvent.POSITION:

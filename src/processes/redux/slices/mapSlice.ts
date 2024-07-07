@@ -101,7 +101,6 @@ const mapSlice = createSlice({
       ]
     },
     setEquipStatusArrWebSocket: (state: MapInitialState, action) => {
-      // console.log('новые данные по ивентам тракторов:', action.payload)
       action.payload.data.forEach((newData: EquipEventsSocketData) => {
         const dataIndex = state.equipStatusArrWebSocket.findIndex((item) => item.imei === newData.imei)
 
