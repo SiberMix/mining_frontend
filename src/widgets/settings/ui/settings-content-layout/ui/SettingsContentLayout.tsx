@@ -2,9 +2,9 @@ import './SettingsContentLayout.scss'
 
 import React, { memo } from 'react'
 
-import { switchSettingsMenuContent } from '~widgets/settings/ui/settings-content/lib'
+import { settingsMenuContentConfig } from '~widgets/settings/consts'
 
-import type { SettingsMenuKeys } from '../../../../settings-menu'
+import type { SettingsMenuKeys } from '../../settings-menu'
 
 type SettingsContentLayoutProps = {
   selectedSettingsMenuSection: SettingsMenuKeys
@@ -16,7 +16,7 @@ export const SettingsContentLayout = memo((props: SettingsContentLayoutProps) =>
   return (
     <div className='settingsContentWrapper'>
       <div className='settingsContent'>
-        {switchSettingsMenuContent(selectedSettingsMenuSection)}
+        {settingsMenuContentConfig[selectedSettingsMenuSection]}
       </div>
     </div>
   )

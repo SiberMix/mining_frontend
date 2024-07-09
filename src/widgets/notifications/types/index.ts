@@ -1,5 +1,7 @@
 import type { TypeOptions } from 'react-toastify/dist/types'
 
+import type { NotificationEventNames } from '../const'
+
 export type NotificationsStore = {
   notifications: Notification[],
   addNotification: (notification: Exclude<Notification, 'isRead'>) => void,
@@ -12,6 +14,7 @@ export type NotificationsStore = {
 export type Notification = {
   id: number,
   type: TypeOptions,
+  event_name: NotificationEventNames,
   message: string,
   created_at: Date,
   isRead: boolean

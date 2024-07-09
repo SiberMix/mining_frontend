@@ -1,16 +1,19 @@
 import './CheckboxList.scss'
 
+import classNames from 'classnames'
 import type { ChangeEvent } from 'react'
 import React, { memo } from 'react'
 
 type CheckboxListProps = {
   options: Array<{title: string, value: boolean}>,
-  onCheckedItemsChange: (items: Array<{title: string, value: boolean}>) => void
+  onCheckedItemsChange: (items: Array<{id?: string | number, title: string, value: boolean}>) => void,
+  className?: string
 }
 
 export const CheckboxList = memo(({
   options,
-  onCheckedItemsChange
+  onCheckedItemsChange,
+  className
 }: CheckboxListProps) => {
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newCheckedItems = options.map(item => item.title === event.target.name
@@ -20,7 +23,7 @@ export const CheckboxList = memo(({
   }
 
   return (
-    <div className='checkbox-list'>
+    <div className={classNames('checkbox-list', className)}>
       {options
         .map((option) => (
           <label

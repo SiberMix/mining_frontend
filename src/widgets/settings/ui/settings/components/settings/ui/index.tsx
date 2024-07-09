@@ -5,8 +5,8 @@ import { FormikContext, useFormik } from 'formik'
 import React, { memo, useCallback } from 'react'
 
 import { settingsStore } from '~widgets/settings'
-import { SettingsContent } from '~widgets/settings/ui/settings-content/components'
 
+import { SettingsContent } from '../../../../settings-content'
 import { SettingsModalFooter } from '../../settings-modal-footer'
 
 export const Settings = memo(() => {

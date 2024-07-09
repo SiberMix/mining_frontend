@@ -1,5 +1,6 @@
 import type { MonitoringConfigEnum } from '~features/navbar'
 import type { MapLayersEnum } from '~widgets/map'
+import type { NotificationEventNames } from '~widgets/notifications'
 
 export type SettingsStore = {
   isSettingsOpen: boolean,
@@ -25,5 +26,11 @@ export type Settings = {
     {title: 'Скорость', value: boolean},
     {title: 'Уровень топлива', value: boolean},
     {title: 'Последняя активность', value: boolean}
+  ],
+  notificationOptions: [
+    {id: NotificationEventNames.LOW_FUEL, title: 'Низкий уровень топлива', value: boolean},
+    {id: NotificationEventNames.SPEED_UP, title: 'Превышение скорости', value: boolean},
+    {id: NotificationEventNames.WORK_START, title: 'Начало работ', value: boolean},
+    {id: NotificationEventNames.NOT_ACTIVE, title: 'Длительное время не активен', value: boolean}
   ]
 }

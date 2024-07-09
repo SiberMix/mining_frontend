@@ -27,3 +27,18 @@ export type EquipmentSocketData = {
   reserve: string,
   created_at: number
 }
+
+const a = {
+  type_event: 'notification',
+  message: {
+    type: 'info',
+    event_name: 'low_fuel',
+    message: 'уровень топлива ТРАКТОРА №1 упал ниже 40%',
+    created_at: '01.01.2001', //только тут именно объект DATE
+    data: {
+      equip_id: 11,
+      coords: [1234.12, 1234.123]
+      // тут может идти любая хуйня, но об этом еще договоримся, чтоб не проебаться
+    }
+  }
+}

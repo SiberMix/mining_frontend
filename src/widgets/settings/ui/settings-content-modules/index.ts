@@ -1,0 +1,5 @@
+export { SettingsEquipment } from './components/settings-equipment'
+export { SettingsMap } from './components/settings-map'
+export { SettingsGeneral } from './components/settings-general'
+export { SettingsUser } from './components/settings-user'
+export { SettingsNotification } from './components/settings-notification'

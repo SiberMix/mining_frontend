@@ -6,12 +6,14 @@ export enum SettingsMenuKeys {
   main ='main',
   map ='map',
   equipment = 'equipment',
+  notification = 'notification',
   user = 'user'
 }
 
-export const settingsMenuItems: SettingsMenuItem[] = [
-  { label: 'Общее', key: 'main' },
-  { label: 'Карты', key: 'map' },
-  { label: 'Техника', key: 'equipment' },
-  { label: 'Пользователь', key: 'user' }
+export const settingsMenuItems: Array<{label: string, key: SettingsMenuKeys}> = [
+  { label: 'Общее', key: SettingsMenuKeys.main },
+  { label: 'Карты', key: SettingsMenuKeys.map },
+  { label: 'Техника', key: SettingsMenuKeys.equipment },
+  { label: 'Уведомления', key: SettingsMenuKeys.notification },
+  { label: 'Пользователь', key: SettingsMenuKeys.user }
 ]

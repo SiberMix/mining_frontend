@@ -1,7 +1,7 @@
 import { memo, useState } from 'react'
 
-import { SettingsMenu, SettingsMenuKeys } from '../../../../settings-menu'
 import { SettingsContentLayout } from '../../settings-content-layout'
+import { SettingsMenu, SettingsMenuKeys } from '../../settings-menu'
 
 export const SettingsContent = memo(() => {
   const [selectedSettingsMenuSection, setSelectedSettingsMenuSection] = useState(SettingsMenuKeys.main)
