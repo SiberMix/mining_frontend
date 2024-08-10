@@ -15,9 +15,9 @@ import { useNotificationStore } from '~widgets/notifications'
 import { settingsStore } from '~widgets/settings'
 import { Sidebar } from '~widgets/sidebar'
 
-import { monitoringInitialLoading } from './lib'
+import { monitoringInitialLoading } from '../lib'
 
-const Monitoring = () => {
+export const Monitoring = () => {
   const dispatch = useAppDispatch()
 
   const token = useAuthStore(state => state.token)
@@ -54,7 +54,7 @@ const Monitoring = () => {
         addNotification(messageParsed as Notification)
         break
       default:
-        console.log('socet message', messageParsed)
+        console.log('socet message without type', messageParsed)
     }
   }, [addNotification, dispatch])
 
@@ -96,5 +96,3 @@ const Monitoring = () => {
     </div>
   )
 }
-
-export default Monitoring

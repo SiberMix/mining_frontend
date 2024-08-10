@@ -1,2 +1,3 @@
-export { MonitoringMap } from './ui/monitoring-map'
-export { MapLayersEnum } from './ui/map-view-select'
+export { MonitoringMap } from './components/monitoring-map'
+export { MapLayersEnum } from './components/map-view-select'
+export { MapViewSelect } from './components/map-view-select'

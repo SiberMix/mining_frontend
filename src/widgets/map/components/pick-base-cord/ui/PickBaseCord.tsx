@@ -11,9 +11,11 @@ export const PickBaseCord = memo(() => {
   const setNewBaseCord = settingsStore(state => state.setNewBaseCord)
 
   const close = useCallback(() => {
-    setIsClickMapForNewBaseCord(false)
-    setIsSettingsOpen(true)
-  }, [setIsSettingsOpen, setIsClickMapForNewBaseCord])
+    if (isClickMapForNewBaseCord) {
+      setIsSettingsOpen(true)
+      setIsClickMapForNewBaseCord(false)
+    }
+  }, [isClickMapForNewBaseCord, setIsSettingsOpen, setIsClickMapForNewBaseCord])
 
   const clickHandler = useCallback(({ lat, lng }: LatLngLiteral) => {
     setNewBaseCord([lat, lng])

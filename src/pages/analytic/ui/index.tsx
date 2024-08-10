@@ -7,7 +7,7 @@ import { BasePreloader } from '~shared/ui/base-preloader'
 import { PageLayout } from '~shared/ui/page-layout'
 import { Sidebar } from '~widgets/sidebar'
 
-const Analytic = () => {
+export const Analytic = () => {
   const dispatch = useAppDispatch()
 
   const [load, setLoad] = useState(true)
@@ -47,5 +47,3 @@ const Analytic = () => {
     </div>
   )
 }
-
-export default Analytic

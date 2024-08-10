@@ -50,7 +50,7 @@ export const CalendarTypeJobsForm = ({
     } else {
       formik.resetForm()
     }
-  }, [initialValue])
+  }, [formik, initialValue])
 
   return (
     <form

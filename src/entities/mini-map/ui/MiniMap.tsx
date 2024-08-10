@@ -5,7 +5,7 @@ import React, { memo } from 'react'
 import { MapContainer, Polygon } from 'react-leaflet'
 
 import type { PolygonType } from '~processes/redux/slices/mapSlice'
-import { MapViewSelect } from '~widgets/map/ui/map-view-select'
+import { MapViewSelect } from '~widgets/map'
 
 import { polygonDefaultStyleSettings } from '../const/mini-map-polygon-default-style'
 

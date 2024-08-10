@@ -1,9 +1,9 @@
 import React from 'react'
 import type { RouteObject } from 'react-router-dom'
 
-import Analytic from '~pages/analytic/Analytic'
+import { Analytic } from '~pages/analytic'
 import { Auth } from '~pages/auth'
-import Monitoring from '~pages/monitoring/Monitoring'
+import { Monitoring } from '~pages/monitoring'
 import { Page404 } from '~pages/page404'
 
 export enum AppRoutes {

@@ -6,7 +6,9 @@ import './MonitoringMap.scss'
 import React, { memo } from 'react'
 import { MapContainer, ZoomControl } from 'react-leaflet'
 
-import { MapViewSelect } from '~widgets/map/ui/map-view-select'
+import { RealtyMapPicker } from '~entities/realty'
+import { MapViewSelect } from '~widgets/map'
+import { MapRealty } from '~widgets/map/components/map-realty'
 import { settingsStore } from '~widgets/settings'
 import { PickWeatherCord } from '~widgets/weather'
 
@@ -39,9 +41,13 @@ export const MonitoringMap = memo(() => {
       <MapEquipments />
       <MapPlayback />
 
+      {/** Realty */}
+      <MapRealty />
+
       {/** Cord pickers */}
       <PickBaseCord />
       <PickWeatherCord />
+      <RealtyMapPicker />
     </MapContainer>
   )
 })

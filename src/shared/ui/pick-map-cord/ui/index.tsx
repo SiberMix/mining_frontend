@@ -12,7 +12,8 @@ type PickMapCordProps = {
   shown: boolean,
   onClick: (cords: LatLngLiteral) => void,
   title?: string,
-  onEscapeKey?: () => void
+  onEscapeKey?: () => void,
+  onMouseMove?: (e: LeafletMouseEvent) => void
 }
 
 export const PickMapCord: FC<PickMapCordProps> = memo((props) => {
@@ -20,7 +21,8 @@ export const PickMapCord: FC<PickMapCordProps> = memo((props) => {
     shown,
     onClick,
     title = 'Нажмите для выбора координат',
-    onEscapeKey
+    onEscapeKey,
+    onMouseMove
   } = props
 
   const [cursorPosition, setCursorPosition] = useState<LatLngLiteral | null>(null)
@@ -59,8 +61,9 @@ export const PickMapCord: FC<PickMapCordProps> = memo((props) => {
         lat,
         lng
       })
+      onMouseMove?.(e)
     }
-  }, [shown])
+  }, [shown, onMouseMove])
 
   useMapEvents({
     click: handleClick,

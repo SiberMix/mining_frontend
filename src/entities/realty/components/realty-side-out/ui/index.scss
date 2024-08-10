@@ -1,0 +1,27 @@
+.RealtySideOut {
+
+  &-header {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 0.2px solid var(--gray-100);
+    padding-bottom: 0.3rem;
+    color: #FFFFFF;
+    font-size: 0.78rem;
+  }
+
+  .addButton {
+    margin-top: 1rem;
+    padding: 0.5rem 0;
+    width: 100%;
+    background-color: var(--green-200);
+    cursor: pointer;
+    border: none;
+    border-radius: 3px;
+    color: var(--green-100);
+
+    font-size: 0.9rem;
+  }
+}

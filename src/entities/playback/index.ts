@@ -1,1 +1,1 @@
-export { PlayBackSideOut } from './ui/playback-side-out'
+export { PlayBackSideOut } from './components/playback-side-out'
