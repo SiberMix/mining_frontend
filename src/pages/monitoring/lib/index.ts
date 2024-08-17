@@ -15,7 +15,6 @@ type MonitoringInitialLoading = {
 }
 
 export const monitoringInitialLoading = async ({ dispatch, setIsLoading }: MonitoringInitialLoading) => {
-
   try {
     await toast.promise(Promise.all([
       dispatch(getAllFields()),

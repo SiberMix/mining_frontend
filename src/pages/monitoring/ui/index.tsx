@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 
 import { EquipPreviewRightSide } from '~entities/equipment'
+import { useRealtyStore } from '~entities/realty'
 import { monitoringConfig } from '~features/navbar'
 import { useAuthStore } from '~pages/auth'
 import { setEquipmentCoordinatesWebSocket, setEquipStatusArrWebSocket } from '~processes/redux/slices/mapSlice'
@@ -27,14 +28,17 @@ export const Monitoring = () => {
   // костыль для срабатывания initialLoading только 1 раз
   const [isMounted, setIsMounted] = useState(false)
   const socketRef = useRef<SocketManager<WebSocketMessage> | null>(null)
+  // функции для инит загрузки
+  const getRealtyList = useRealtyStore(state => state.getRealtyList)
 
   useEffect(() => {
     if (isMounted) {
       monitoringInitialLoading({ dispatch, setIsLoading })
+      getRealtyList()
     } else { // костыль для срабатывания initialLoading только 1 раз
       setIsMounted(true)
     }
-  }, [dispatch, isMounted, setIsMounted])
+  }, [dispatch, getRealtyList, isMounted, setIsMounted])
 
   /**
    * Подключаем веб сокеты для оборудования

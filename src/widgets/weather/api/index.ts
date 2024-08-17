@@ -12,8 +12,8 @@ export const fetchWeatherInfo = async ({
   ...params
 }: FetchWeatherInfo): Promise<FetchWeatherInfoResult> => {
   const fetchParams = {
-    latitude: params.lat,
-    longitude: params.lng,
+    latitude: params?.lat,
+    longitude: params?.lng,
     start_date: start_date.format('YYYY-MM-DD'),
     end_date: end_date.format('YYYY-MM-DD'),
     hourly: hourly

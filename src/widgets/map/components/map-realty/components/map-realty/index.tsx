@@ -10,7 +10,7 @@ export const MapRealty = () => {
     <>
       {realtyList.map((item) => (
         <MapOneRealty
-          key={item.id + '' + item.color}
+          key={item.id}
           item={item}
         />
       ))}

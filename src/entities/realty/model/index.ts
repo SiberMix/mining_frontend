@@ -29,6 +29,7 @@ export const useRealtyStore = create<UseRealtyStore>()(immer((set, get) => ({
   getRealtyList: async () => {
     try {
       const response = await realtyService.getRealtyList()
+      console.log('response', response.data)
       set({ realtyList: response.data })
     } catch (err) {
       console.error(err)
@@ -41,7 +42,7 @@ export const useRealtyStore = create<UseRealtyStore>()(immer((set, get) => ({
         name: realty.name,
         type: realty.type,
         color: realty.color,
-        cord: { lat: circleToAdd?.lat ?? 0, lng: circleToAdd?.lng ?? 0 },
+        cords: { lat: circleToAdd?.lat ?? 0, lng: circleToAdd?.lng ?? 0 },
         radius: circleToAdd?.radius ?? 0
       }
       const response = await realtyService.addRealty(realtyToAdd)

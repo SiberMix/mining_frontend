@@ -28,6 +28,6 @@ export type RealtyType = {
   name: string,
   type: string,
   radius: number,
-  cord: LatLngExpression,
+  cords: LatLngExpression,
   color: CSSProperties['backgroundColor']
 }

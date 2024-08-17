@@ -17,12 +17,12 @@ export const MapOneRealty = ({ item }: MapOneRealtyProps) => {
   const polygonRef = useRef<any>(null)
   useEffect(() => {
     if (realtyFlyTo === item.id) {
-      map?.flyTo(item.cord, 13, { animate: false })
+      map?.flyTo(item.cords, 13, { animate: false })
       polygonRef.current?.openPopup()
       //обнуление id после того как перенесли карту или даже если не перенесли
       setRealtyFlyTo(undefined)
     }
-  }, [item.cord, item.id, map, realtyFlyTo, setRealtyFlyTo])
+  }, [item.cords, item.id, map, realtyFlyTo, setRealtyFlyTo])
 
   /*
   * выделение выбранной недвижимости в боковом меню
@@ -51,7 +51,7 @@ export const MapOneRealty = ({ item }: MapOneRealtyProps) => {
   return (
     <Circle
       key={item.id}
-      center={item.cord}
+      center={item.cords}
       radius={item.radius}
       color={item.color}
     >
