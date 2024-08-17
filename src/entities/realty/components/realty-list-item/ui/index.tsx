@@ -17,15 +17,19 @@ type RealtyListItemProps = {
 export const RealtyListItem = ({ item }: RealtyListItemProps) => {
   const realtyFlyTo = useRealtyStore(state => state.realtyFlyTo)
   const setRealtyFlyTo = useRealtyStore(state => state.setRealtyFlyTo)
+  const deleteRealty = useRealtyStore(state => state.deleteRealty)
+  const setIsOpenModal = useRealtyStore(state => state.setIsOpenModal)
+  const setRealtyForEdit = useRealtyStore(state => state.setRealtyForEdit)
 
-  const onDelete = () => {
-    /// TODO delete realty
+  const onEditHandler = () => {
+    setRealtyForEdit(item)
+    setIsOpenModal(true)
   }
 
   return (
     <div className='RealtyListItem'>
       <div
-        className={cn('content', { ['contentActive']: item.id === realtyFlyTo })}
+        className={cn('content', { ['contentActive']: (item.id === realtyFlyTo && !!realtyFlyTo) })}
       >
         <div className='canvasRef'>
           <div className='row'>
@@ -53,18 +57,8 @@ export const RealtyListItem = ({ item }: RealtyListItemProps) => {
                 {
                   key: '1',
                   label: 'Редактировать недвижимость',
-                  onClick: () => {}
-                },
-                {
-                  key: '2',
-                  label: 'Редактировать название',
-                  onClick: () => {}
+                  onClick: onEditHandler
                 }
-                // { todo сделать редактирование типа
-                //   key: '3',
-                //   label: 'Редактировать тип недвижимости',
-                //   onClick: () => setShowEditModal(ModalTypeEnum.EDIT_POLYGON_TYPE)
-                // }
               ]
             }}
           >
@@ -76,7 +70,7 @@ export const RealtyListItem = ({ item }: RealtyListItemProps) => {
             />
           </Dropdown>
           <DeleteOption
-            onDelete={onDelete}
+            onDelete={deleteRealty.bind(null, item.id)}
             className='trash'
             title='Удалить недвижимость'
             popConfirmTitle='Вы хотите удалить недвижимость?'

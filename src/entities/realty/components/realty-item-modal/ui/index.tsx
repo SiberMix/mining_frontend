@@ -2,7 +2,7 @@ import './index.scss'
 
 import { message } from 'antd'
 import { useFormik } from 'formik'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { GithubPicker } from 'react-color'
 
 import { useRealtyStore } from '~entities/realty'
@@ -17,6 +17,9 @@ export const RealtyItemModal = () => {
   const isOpenModal = useRealtyStore(state => state.isOpenModal)
   const setIsOpenModal = useRealtyStore(state => state.setIsOpenModal)
   const addRealty = useRealtyStore(state => state.addRealty)
+  const editRealty = useRealtyStore(state => state.editRealty)
+  const realtyForEdit = useRealtyStore(state => state.realtyForEdit)
+  const setRealtyForEdit = useRealtyStore(state => state.setRealtyForEdit)
   const [messageApi, contextHolder] = message.useMessage()
 
   const { values, resetForm, setFieldValue, handleSubmit } = useFormik({
@@ -30,14 +33,29 @@ export const RealtyItemModal = () => {
         messageApi.info('Все поля должны быть заполнены!')
         return
       }
-      addRealty(submitValues)
+      if (realtyForEdit !== null) {
+        editRealty({ ...realtyForEdit, ...submitValues })
+      } else {
+        addRealty(submitValues)
+      }
       handleCancel()
     }
   })
 
+  useEffect(() => {
+    if (realtyForEdit !== null) {
+      setFieldValue('name', realtyForEdit.name)
+      setFieldValue('color', realtyForEdit.color)
+      setFieldValue('type', realtyForEdit.type)
+    }
+  }, [realtyForEdit, setFieldValue])
+
   const handleCancel = () => {
     resetForm()
     setIsOpenModal(false)
+    if (realtyForEdit !== null) {
+      setRealtyForEdit(null)
+    }
   }
 
   return (
@@ -63,6 +81,12 @@ export const RealtyItemModal = () => {
           onChange={e => setFieldValue('color', e.hex)}
           colors={colors}
         />
+        <div style={{
+          width: '100%',
+          height: '8px',
+          borderRadius: '8px',
+          backgroundColor: values.color
+        }} />
         <SimpleSelect
           options={realtySelectTypes}
           initialValue={realtySelectTypes[0].value}

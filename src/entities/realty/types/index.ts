@@ -5,6 +5,7 @@ export type UseRealtyStore = {
   realtyList: RealtyType[],
   isOpenModal: boolean,
   isPickCenter: boolean,
+  realtyForEdit: RealtyType | null,
   setIsOpenModal: (value: boolean) => void,
   setIsPickCenter: (value: boolean) => void,
   realtyFlyTo: number | undefined,
@@ -14,8 +15,12 @@ export type UseRealtyStore = {
     radius: number
   } | null,
   setCircleToAdd: (circle: UseRealtyStore['circleToAdd']) => void,
+  setRealtyFlyTo: (value: UseRealtyStore['realtyFlyTo']) => void,
+  setRealtyForEdit: (value: RealtyType | null) => void,
+  getRealtyList: () => void,
   addRealty: (realty: {name: string, color: string, type: string}) => void,
-  setRealtyFlyTo: (value: UseRealtyStore['realtyFlyTo']) => void
+  editRealty: (realty: RealtyType) => void,
+  deleteRealty: (id: RealtyType['id']) => void
 }
 
 export type RealtyType = {

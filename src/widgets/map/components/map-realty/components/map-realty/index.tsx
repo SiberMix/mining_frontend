@@ -8,9 +8,11 @@ export const MapRealty = () => {
 
   return (
     <>
-      {realtyList.map((item) => (<MapOneRealty
-        key={item.id}
-        item={item} />
+      {realtyList.map((item) => (
+        <MapOneRealty
+          key={item.id + '' + item.color}
+          item={item}
+        />
       ))}
     </>
   )
