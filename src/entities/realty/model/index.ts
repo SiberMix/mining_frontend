@@ -29,7 +29,6 @@ export const useRealtyStore = create<UseRealtyStore>()(immer((set, get) => ({
   getRealtyList: async () => {
     try {
       const response = await realtyService.getRealtyList()
-      console.log('response', response.data)
       set({ realtyList: response.data })
     } catch (err) {
       console.error(err)

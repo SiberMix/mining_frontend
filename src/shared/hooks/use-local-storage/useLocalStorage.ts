@@ -1,7 +1,4 @@
-import {
-  useEffect,
-  useState
-} from "react"
+import { useEffect, useState } from 'react'
 
 export function useLocalStorage<T>(key: string, initialValue?: T): [T | undefined, (value: T | ((prevValue: T | undefined) => T)) => void] {
   const [storedValue, setStoredValue] = useState<T | undefined>(() => {
@@ -9,23 +6,23 @@ export function useLocalStorage<T>(key: string, initialValue?: T): [T | undefine
       const item = localStorage.getItem(key)
       return item ? (JSON.parse(item) as T) : initialValue
     } catch (error) {
-      console.error("Ошибка чтения из localStorage:", error)
+      console.error('Ошибка чтения из localStorage:', error)
       return initialValue
     }
   })
 
   const setValue = (value: T | ((prevValue: T | undefined) => T)) => {
     try {
-      const valueToStore = value instanceof Function ? (value as Function)(storedValue) : value
+      const valueToStore = value instanceof Function ? value(storedValue) : value
       setStoredValue(valueToStore)
       localStorage.setItem(key, JSON.stringify(valueToStore))
 
       /**
        * на это событие подписываемся по умолчанию при использовании useLocalStorageEvent
        * */
-      window.dispatchEvent(new Event("localStorageChange"))
+      window.dispatchEvent(new Event('localStorageChange'))
     } catch (error) {
-      console.error("Ошибка записи в localStorage:", error)
+      console.error('Ошибка записи в localStorage:', error)
     }
   }
 
@@ -37,10 +34,10 @@ export function useLocalStorage<T>(key: string, initialValue?: T): [T | undefine
       }
     }
 
-    window.addEventListener("storage", handleStorageChange)
+    window.addEventListener('storage', handleStorageChange)
 
     return () => {
-      window.removeEventListener("storage", handleStorageChange)
+      window.removeEventListener('storage', handleStorageChange)
     }
   }, [key, initialValue])
 
