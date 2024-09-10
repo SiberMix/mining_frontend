@@ -6,9 +6,21 @@ import type { NotificationsStore } from '~widgets/notifications/types'
 export const useNotificationStore = create<NotificationsStore>()(immer((set) => ({
   notifications: [],
   addNotification: (notification) => {
-    set((state) => ({
-      notifications: [...state.notifications, { ...notification, isRead: false }]
-    }))
+    set((state) => {
+      const updatedNotifications = [
+        ...state.notifications,
+        { ...notification, isRead: false }
+      ]
+
+      // Ограничение количества уведомлений до 80
+      if (updatedNotifications.length > 80) {
+        updatedNotifications.shift() // Удаляем самый старый элемент (первый)
+      }
+
+      return {
+        notifications: updatedNotifications
+      }
+    })
   },
   markAllAsRead: () => {
     set((state) => ({
