@@ -64,7 +64,7 @@ export const Monitoring = () => {
 
   useEffect(() => {
     if (!socketRef.current) {
-      socketRef.current = new SocketManager<WebSocketMessage>(`ws://myhectare.ru:8003/ws/frontend/?user_id=${token}`)
+      socketRef.current = new SocketManager<WebSocketMessage>(`ws://109.111.187.147:8003/ws/frontend/?user_id=${token}`)
     }
 
     if (!isLoading) {

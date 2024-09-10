@@ -15,5 +15,10 @@ export default defineConfig({
       '~shared': path.resolve('src/shared'),
       '~widgets': path.resolve('src/widgets')
     }
+  },
+  server: {
+    hmr: {
+      overlay: false
+    }
   }
 })
