@@ -7,12 +7,13 @@ import type { Settings } from '~widgets/settings/types'
 import { SettingsMenuKeys } from '~widgets/settings/ui/settings-menu'
 
 import {
+  SettingsAi,
   SettingsEquipment,
   SettingsGeneral,
   SettingsMap,
   SettingsNotification,
   SettingsUser
-} from '../ui/settings-content-modules'
+} from '../ui/settings-content-modules';
 
 export const initialSettings: Settings = {
   monitoringStartMenuSection: MonitoringConfigEnum.field_list,
@@ -42,5 +43,7 @@ export const settingsMenuContentConfig: Record<SettingsMenuKeys, ReactElement> =
   [SettingsMenuKeys.map]: <SettingsMap />,
   [SettingsMenuKeys.equipment]: <SettingsEquipment />,
   [SettingsMenuKeys.notification]: <SettingsNotification />,
-  [SettingsMenuKeys.user]: <SettingsUser />
+  [SettingsMenuKeys.user]: <SettingsUser />,
+  [SettingsMenuKeys.ai]: <SettingsAi />,
+  [SettingsMenuKeys.event]: <SettingsUser />
 }

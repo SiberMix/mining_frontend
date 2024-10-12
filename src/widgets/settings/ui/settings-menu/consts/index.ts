@@ -7,7 +7,9 @@ export enum SettingsMenuKeys {
   map ='map',
   equipment = 'equipment',
   notification = 'notification',
-  user = 'user'
+  user = 'user',
+  event = 'event',
+  ai = 'ai'
 }
 
 export const settingsMenuItems: Array<{label: string, key: SettingsMenuKeys}> = [
@@ -15,5 +17,7 @@ export const settingsMenuItems: Array<{label: string, key: SettingsMenuKeys}> = 
   { label: 'Карты', key: SettingsMenuKeys.map },
   { label: 'Техника', key: SettingsMenuKeys.equipment },
   { label: 'Уведомления', key: SettingsMenuKeys.notification },
-  { label: 'Пользователь', key: SettingsMenuKeys.user }
+  { label: 'Пользователь', key: SettingsMenuKeys.user },
+  { label: 'События', key: SettingsMenuKeys.event },
+  { label: 'AI', key: SettingsMenuKeys.ai }
 ]
