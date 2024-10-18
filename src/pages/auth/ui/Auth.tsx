@@ -10,6 +10,7 @@ import { getToken } from '~processes/redux/slices/authSlice'
 import { useAppDispatch } from '~processes/redux/store'
 import CompanyLogo from '~shared/assets/logo.png'
 import { RoutePath } from '~shared/config/route-config'
+import { useTranslation } from 'react-i18next';
 
 export const Auth = () => {
   const dispatch = useAppDispatch()
@@ -18,6 +19,8 @@ export const Auth = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+  const { t } = useTranslation();
+
 
   useEffect(() => {
     if (token) {
@@ -26,17 +29,15 @@ export const Auth = () => {
   }, [token])
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
+    event.preventDefault();
 
     try {
-      dispatch(getToken({
-        username,
-        password
-      }))
-    } catch {
-      setError('Ошибка сервера.')
+      await dispatch(getToken({ data: { username, password }, t })); // Используем await для обработки промиса
+      setError(null); // Сбрасываем ошибку при успешной аутентификации
+    } catch (error) {
+      setError(t('Ошибка сервера.')); // Устанавливаем сообщение об ошибке с переводом
     }
-  }
+  };
 
   return (
     <div className='root'>
@@ -55,14 +56,14 @@ export const Auth = () => {
           type='text'
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          placeholder='username'
+          placeholder={t('логин')}
         />
         <input
           className='input'
           type='password'
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          placeholder='password'
+          placeholder={t('пароль')}
         />
         <button
           className='button'

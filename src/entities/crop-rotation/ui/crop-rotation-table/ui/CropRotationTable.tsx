@@ -25,6 +25,7 @@ import { useAppDispatch } from '~processes/redux/store'
 import { BasePreloader } from '~shared/ui/base-preloader'
 
 import { customDropdownStyle } from '../const/custom-dropdown-style'
+import { useTranslation } from 'react-i18next';
 
 export const CropRotationTable = () => {
   const dispatch = useAppDispatch()
@@ -36,6 +37,7 @@ export const CropRotationTable = () => {
   const isLoadingCropRotation = useSelector(getIsLoadingCropRotation)
   const [tableData, setTableData] = useState(allPolygons)
   const [yearsUsingGroup, setYearsUsingGroup] = useState<CropRotationGroupYear[] | undefined>(undefined)
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (selectedCropRotationGroup === null) {
@@ -82,7 +84,7 @@ export const CropRotationTable = () => {
               scroll={{ y: '92vh' }}
             >
               <Table.Column
-                title='Список полей'
+                title={t('Список полей')}
                 dataIndex='name'
                 key='name'
                 render={(_, record: PolygonType) => {

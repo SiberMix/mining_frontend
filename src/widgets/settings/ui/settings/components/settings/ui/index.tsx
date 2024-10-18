@@ -8,6 +8,7 @@ import { settingsStore } from '~widgets/settings'
 
 import { SettingsContent } from '../../../../settings-content'
 import { SettingsModalFooter } from '../../settings-modal-footer'
+import { useTranslation } from 'react-i18next';
 
 export const Settings = memo(() => {
   // zustand
@@ -17,6 +18,7 @@ export const Settings = memo(() => {
   const setSettings = settingsStore(state => state.setSettings)
   // костыль
   const newBaseCord = settingsStore(state => state.newBaseCord)
+  const { t } = useTranslation();
 
   // formik
   const settingsFormik = useFormik({
@@ -48,7 +50,7 @@ export const Settings = memo(() => {
         open={isSettingsOpen}
         className='customModal'
         width='50%'
-        title='Настройки'
+        title={t('Настройки')}
         onCancel={handleCansel}
         footer={<SettingsModalFooter
           handleOk={handleOk}

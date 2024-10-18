@@ -17,6 +17,7 @@ import { settingsStore } from '~widgets/settings'
 import { Sidebar } from '~widgets/sidebar'
 
 import { monitoringInitialLoading } from '../lib'
+import { useTranslation } from 'react-i18next';
 
 export const Monitoring = () => {
   const dispatch = useAppDispatch()
@@ -30,10 +31,11 @@ export const Monitoring = () => {
   const socketRef = useRef<SocketManager<WebSocketMessage> | null>(null)
   // функции для инит загрузки
   const getRealtyList = useRealtyStore(state => state.getRealtyList)
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (isMounted) {
-      monitoringInitialLoading({ dispatch, setIsLoading })
+      monitoringInitialLoading({ dispatch, setIsLoading, t })
       getRealtyList()
     } else { // костыль для срабатывания initialLoading только 1 раз
       setIsMounted(true)

@@ -14,12 +14,14 @@ import { StyledSvg } from '~shared/ui/styled-svg'
 import { NotificationsCenter } from '~widgets/notifications'
 import { settingsStore } from '~widgets/settings'
 import { WeatherBtn } from '~widgets/weather'
+import { useTranslation } from 'react-i18next';
 
 export const Header = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const setIsSettingsOpen = settingsStore(state => state.setIsSettingsOpen)
   const setIsClickMapForNewBaseCord = settingsStore(state => state.setIsClickMapForNewBaseCord)
+  const { t } = useTranslation();
 
   const logout = () => {
     dispatch(setToken(null))
@@ -45,17 +47,17 @@ export const Header = () => {
           <NotificationsCenter />
           <StyledSvg
             $margin='0'
-            title='Настройки'
+            title={t('Настройки')}
             src={Setting}
             onClick={settingsButtonClick}
           />
           <DeleteOption
-            title='Выйти из аккаунта?'
-            popConfirmDescription='Вы уверены, что хотите выйти из аккаунта?'
+            title={t('Выйти из аккаунта?')} // Оборачиваем в t для перевода
+            popConfirmDescription={t('Вы уверены, что хотите выйти из аккаунта?')} // Оборачиваем в t для перевода
             onDelete={logout}
           >
             <StyledSvg
-              title='Выход'
+              title={t('Выход')}
               color='#b53f42'
               src={LogoutBtn}
             />

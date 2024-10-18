@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify'
 
 import { authService } from '~pages/auth/api/auth'
+import { TFunction } from 'i18next';
 
 type AuthInitialState = {
   token: string | null
@@ -33,14 +34,14 @@ const authSlice = createSlice({
 
 export const getToken = createAsyncThunk(
   'auth/getToken',
-  async (data: AuthDataForLogin) => {
+  async ({ data, t }: { data: AuthDataForLogin; t: TFunction }) => { // Обновляем сигнатуру
     return toast.promise(authService.login(data), {
-      pending: 'Аутентификация...',
-      success: 'Успешная аутентификация',
-      error: 'Ошибка аутентификации'
-    })
+      pending: t('Аутентификация...'),
+      success: t('Успешная аутентификация'),
+      error: t('Ошибка аутентификации')
+    });
   }
-)
+);
 
 const {
   reducer,

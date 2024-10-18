@@ -14,7 +14,7 @@ type MonitoringInitialLoading = {
   setIsLoading: (value: boolean) => void
 }
 
-export const monitoringInitialLoading = async ({ dispatch, setIsLoading }: MonitoringInitialLoading) => {
+export const monitoringInitialLoading = async ({ dispatch, setIsLoading, t }: MonitoringInitialLoading) => {
   try {
     await toast.promise(Promise.all([
       dispatch(getAllFields()),
@@ -25,9 +25,9 @@ export const monitoringInitialLoading = async ({ dispatch, setIsLoading }: Monit
       dispatch(getTrailerList()),
       dispatch(getAllPlaybacks())
     ]), {
-      pending: 'Загружаем информацию с сервера...',
-      success: 'Информация успешно загружена',
-      error: 'Произошла ошибка при загрузке информации'
+      pending: t('Загружаем информацию с сервера...'), // Переведенный текст для ожидания
+      success: t('Информация успешно загружена'), // Переведенный текст для успеха
+      error: t('Произошла ошибка при загрузке информации') // Переведенный текст для ошибки
     })
 
     setIsLoading(false)

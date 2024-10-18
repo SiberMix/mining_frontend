@@ -14,6 +14,7 @@ import { SideOutLayout } from '~shared/ui/side-out-layout'
 
 import { PolygonAddModal } from '../../polygon-add-modal'
 import { PolygonPreview } from '../../polygon-preview'
+import { useTranslation } from 'react-i18next';
 
 export const PolygonListSideOut: React.FC<{
   onPolygonOption?: (id: string | number) => void
@@ -25,6 +26,7 @@ export const PolygonListSideOut: React.FC<{
   const drawingPolygonMode = useSelector(getDrawingPolygonModeSelector)
 
   const toggleDrawing = () => dispatch(setDrawingPolygonMode(!drawingPolygonMode))
+  const { t } = useTranslation();
 
   const polygonsTotalCount = polygons.length
   const polygonsTotalSquare = polygons
@@ -41,11 +43,11 @@ export const PolygonListSideOut: React.FC<{
       : variant[cases[num % 10 < 5 ? num % 10 : 5]]
   }
 
-  const inclinedText = `Всего ${polygonsTotalCount} ${declination(polygonsTotalCount, [
-    'полигон',
-    'полигона',
-    'полигонов'
-  ])}`
+  const inclinedText = `${t('Всего')} ${polygonsTotalCount} ${declination(polygonsTotalCount, [
+    t('полигон'),
+    t('полигона'),
+    t('полигонов')
+  ])}`;
 
   const deleteHandler = async (id: string | number) => {
     try {
@@ -63,16 +65,16 @@ export const PolygonListSideOut: React.FC<{
           src={settingMap}
           alt=''
         />
-        <div className='headerCount'>
+        <div className="headerCount">
           <div>
-            Список полей
+            {t('Список полей')}
           </div>
           <div>
-            {`${inclinedText} | ${polygonsTotalSquare} Га`}
+            {`${inclinedText} | ${polygonsTotalSquare} ${t('Га')}`}
           </div>
         </div>
         <img
-          className='image'
+          className="image"
           src={DownloadMap}
           alt=''
         />
@@ -89,7 +91,7 @@ export const PolygonListSideOut: React.FC<{
             <span style={{ marginRight: '0.5rem' }}>
               +
             </span>
-            Добавить поле
+            {t("Добавить поле")}
           </>}
       </button>
       <TransitionGroup className='polygons'>

@@ -6,6 +6,7 @@ import type { CSSProperties, PropsWithChildren } from 'react'
 import React, { memo } from 'react'
 
 import TrashBox from '../assets/delete.svg'
+import { useTranslation } from 'react-i18next';
 
 type DeleteOptionProps = {
   style?: CSSProperties,
@@ -27,6 +28,7 @@ export const DeleteOption = memo(({
   placement = 'right',
   children
 }: DeleteOptionProps) => {
+  const { t } = useTranslation();
 
   return (
     <Popconfirm
@@ -35,8 +37,8 @@ export const DeleteOption = memo(({
       placement={placement}
       description={popConfirmDescription}
       onConfirm={onDelete}
-      okText='Да'
-      cancelText='Нет'
+      okText={t('Да')}
+      cancelText={t('Нет')}
     >
       {
         children

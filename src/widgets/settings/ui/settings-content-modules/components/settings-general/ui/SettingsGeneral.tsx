@@ -4,12 +4,39 @@ import { useField } from 'formik'
 import React, { memo } from 'react'
 
 import { SimpleSelect } from '~shared/ui/simple-select'
-
-import { startSidebarOptions } from '../const'
+import { MonitoringConfigEnum } from '~features/navbar';
+import { useTranslation } from 'react-i18next';
 
 export const SettingsGeneral = memo(() => {
   const [field, _, helpers] = useField('monitoringStartMenuSection')
-
+  // Создаем массив с использованием функции t
+  const { t } = useTranslation();
+  const startSidebarOptions: Array<{ value: MonitoringConfigEnum | null, label: string }> = [
+    {
+      value: null,
+      label: t('Не выбрано')
+    },
+    {
+      value: MonitoringConfigEnum.polygon_list,
+      label: t('Список полигонов')
+    },
+    {
+      value: MonitoringConfigEnum.tasks,
+      label: t('Задачи')
+    },
+    {
+      value: MonitoringConfigEnum.equipment_list,
+      label: t('Техника')
+    },
+    {
+      value: MonitoringConfigEnum.play_back,
+      label: t('Плэйбэки')
+    },
+    {
+      value: MonitoringConfigEnum.field_list,
+      label: t('Культуры')
+    }
+  ];
   const initialStartSidebarOptions = startSidebarOptions.find(option => option.value === field?.value)
 
   return (
@@ -17,7 +44,7 @@ export const SettingsGeneral = memo(() => {
       <div className='settingsGeneral'>
         <div className='settingsGeneralSidebar'>
           <span>
-            Стартовая страница меню
+            {t("Стартовая страница меню")}
           </span>
           <SimpleSelect
             options={startSidebarOptions}
