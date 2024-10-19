@@ -5,12 +5,12 @@ import { createRoot } from 'react-dom/client';
 import { QueryClientProvider } from 'react-query';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import { I18nextProvider } from 'react-i18next'; // Импортируем I18nextProvider
+import { I18nextProvider } from 'react-i18next';
 
 import { App, ErrorBoundary } from '~app';
 import { queryClient } from '~app/model';
 import { store } from '~processes/redux/store';
-import i18n from './i18n'; // Импортируем конфигурацию i18n
+import i18n from './i18n';
 
 const container = document.getElementById('root');
 const root = createRoot(container!);
