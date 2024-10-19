@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import { DeleteOption } from '~shared/ui/delete-option'
 
 import EditBox from '../../assets/icons/edit.svg'
+import { t } from 'i18next';
 
 export const useListing = <Type extends { id: number }>({
   headerData = null,
@@ -138,7 +139,7 @@ export const useListing = <Type extends { id: number }>({
     }))
 
     columns?.push({
-      title: 'Действия',
+      title: t('Действия'),
       dataIndex: '',
       key: 'x',
       render: (value, record, index) => (
@@ -147,13 +148,13 @@ export const useListing = <Type extends { id: number }>({
             onClick={() => editItemHandler?.(record.id)}
             src={EditBox}
             alt=''
-            title='Редактировать'
+            title={t('Редактировать')}
           />
           <DeleteOption
             onDelete={() => removeItem(record.id)}
-            title='Удалить'
-            popConfirmTitle='Вы уверены, что хотите удалить?'
-            popConfirmDescription='Удалить'
+            title={t('Удалить')}
+            popConfirmTitle={t('Вы уверены, что хотите удалить?')}
+            popConfirmDescription={t('Удалить')}
             style={{
               padding: '3px',
               width: '20px',

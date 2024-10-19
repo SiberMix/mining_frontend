@@ -17,6 +17,7 @@ import { setAddModalVisible } from '~processes/redux/slices/optionalEquipmentSli
 import { useAppDispatch } from '~processes/redux/store'
 import { StyledModal } from '~shared/ui/styled-modal'
 import { StyledSvg } from '~shared/ui/styled-svg'
+import { t } from 'i18next';
 
 type EquipmentAddModalProps = {
   equips: any
@@ -133,25 +134,25 @@ export const EquipmentAddModal = memo(({ equips }: EquipmentAddModalProps) => {
   return (
     <StyledModal
       className='equipmentAddModal'
-      title={editedEquipment ? 'Редактировать оборудование' : 'Добавить оборудование'}
+      title={editedEquipment ? t('Редактировать оборудование') : t('Добавить оборудование')}
       open={addVisibleModal}
       onOk={handleAdd}
       onCancel={onCancelHandler}
     >
       <Input
-        placeholder='Название оборудования'
+        placeholder={t('Название оборудования')}
         value={name}
         onChange={(e) => setName(e.target.value)}
         className='modalStyle'
       />
       <Input
-        placeholder='Госномер оборудования'
+        placeholder={t('Госномер оборудования')}
         value={gosnomer}
         onChange={(e) => setGosnomer(e.target.value)}
         className='modalStyle'
       />
       <Input
-        placeholder='IMEI (Не обязательно)'
+        placeholder={t('IMEI (Не обязательно)')}
         value={imei_number}
         onChange={(e) => setImei(e.target.value)}
         className='modalStyle'
@@ -159,7 +160,7 @@ export const EquipmentAddModal = memo(({ equips }: EquipmentAddModalProps) => {
       <Select
         value={type}
         onChange={setType}
-        placeholder='Тип оборудования'
+        placeholder={t('Тип оборудования')}
         popupClassName='equipmentAddModalSelect'
       >
         {equipmentTypes
@@ -181,7 +182,7 @@ export const EquipmentAddModal = memo(({ equips }: EquipmentAddModalProps) => {
       <Select
         value={model}
         onChange={setModel}
-        placeholder='Модель оборудования'
+        placeholder={t('Модель оборудования')}
         popupClassName='equipmentAddModalSelect'
       >
         {equipmentModels.map((item) => (
@@ -199,7 +200,7 @@ export const EquipmentAddModal = memo(({ equips }: EquipmentAddModalProps) => {
         ))}
       </Select>
       <div>
-        Радиус
+        {t("Радиус")}
         <Switch
           size='small'
           checked={radius !== null}
@@ -211,7 +212,7 @@ export const EquipmentAddModal = memo(({ equips }: EquipmentAddModalProps) => {
             }
           }}
         />
-        {radius !== null ? `${radius}м` : 'выкл'}
+        {radius !== null ? `${radius}м` : t('выкл')}
       </div>
       {
         radius

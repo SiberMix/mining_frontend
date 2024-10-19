@@ -17,6 +17,7 @@ import { DeleteOption } from '~shared/ui/delete-option'
 import { PolygonEditModal } from '../../polygon-edit-modal'
 import { ModalTypeEnum } from '../../polygon-edit-modal/model/modal-type-enum'
 import { createEditModalInitialValue } from '../helpers'
+import { t } from 'i18next';
 
 export const PolygonPreview: React.FC<{
   polygon: PolygonType,
@@ -68,7 +69,7 @@ export const PolygonPreview: React.FC<{
                 src={GeoBox}
                 onClick={() => dispatch(setPolygonFlyTo(+polygon.id))}
                 alt=''
-                title='Перейти к полигону на карте'
+                title={t('Перейти к полигону на карте')}
               />
             </div>
             <p className='culture'>
@@ -82,12 +83,12 @@ export const PolygonPreview: React.FC<{
               items: [
                 {
                   key: '1',
-                  label: 'Редактировать полигон',
+                  label: t("Редактировать полигон"),
                   onClick: () => dispatch(setEditedPolygon(+polygon.id))
                 },
                 {
                   key: '2',
-                  label: 'Редактировать название',
+                  label: t('Редактировать название'),
                   onClick: () => setShowEditModal(ModalTypeEnum.EDIT_POLYGON_NAME)
                 }
                 // { todo вернуть редактирование полигона
@@ -102,15 +103,15 @@ export const PolygonPreview: React.FC<{
               className='edit'
               src={EditBox}
               alt=''
-              title='Редактировать полигон'
+              title={t('Редактировать полигон')}
             />
           </Dropdown>
           <DeleteOption
             onDelete={onDelete}
             className='trash'
-            title='Удалить полигон'
+            title={t('Удалить полигон')}
             popConfirmTitle='Вы хотите удалить полигон?'
-            popConfirmDescription='Удалить полигон'
+            popConfirmDescription={t('Удалить полигон')}
           />
         </div>
       </div>

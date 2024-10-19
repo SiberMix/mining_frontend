@@ -1,6 +1,7 @@
 import './index.scss'
 
 import { memo } from 'react'
+import { t } from 'i18next';
 
 type SettingsModalFooterProps = {
   handleOk: () => void,
@@ -29,14 +30,14 @@ export const SettingsModalFooter = memo((props: SettingsModalFooterProps) => {
         className='settingsButton settingsButtonCancel'
         onClick={handleCansel}
       >
-        Отмена
+        {t("Отмена")}
       </button>,
       <button
         key={3}
         className='settingsButton settingsButtonApply'
         onClick={handleApply}
       >
-        Применить
+        {t("Применить")}
       </button>
     ]
   )

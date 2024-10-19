@@ -14,6 +14,7 @@ import { StyledButton } from '~shared/ui/styled-button'
 
 import type { CalendarViewType } from '../../../types'
 import { CalendarTypeJobsControl } from '../../calendar-type-jobs/components'
+import { t } from 'i18next';
 
 type CalendarControlProps = {
   isLoading: boolean,
@@ -103,7 +104,7 @@ export const CalendarControl = memo(({
         onClick={setIsOpenModal.bind(null, true)}
         disabled={isLoading}
       >
-        Создать задачу
+        {t("Создать задачу")}
       </StyledButton>
       <StyledButton
         width='auto'
@@ -111,7 +112,7 @@ export const CalendarControl = memo(({
         onClick={() => setDate(new Date())}
         disabled={isLoading}
       >
-        Сегодня
+        {t("Сегодня")}
       </StyledButton>
       <DatePicker
         value={datePicker}

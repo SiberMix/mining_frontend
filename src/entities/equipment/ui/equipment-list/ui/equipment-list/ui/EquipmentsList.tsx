@@ -21,6 +21,7 @@ import { DeleteOption } from '~shared/ui/delete-option'
 import { MoreInfo } from '~shared/ui/more-info'
 
 import { EquipmentAddModal } from '../../equipment-add-modal'
+import { t } from 'i18next';
 
 export const EquipmentList = memo(() => {
   const dispatch = useAppDispatch()
@@ -50,7 +51,7 @@ export const EquipmentList = memo(() => {
         className='addButton'
         onClick={addModalHandler}
       >
-        + Добавить оборудование
+        + {t("Добавить оборудование")}
       </button>
       {equips.map((equip) => (
         <div
@@ -76,7 +77,7 @@ export const EquipmentList = memo(() => {
                   src={GeoBox}
                   onClick={() => dispatch(setEquipmentFlyTo(+equip.imei))}
                   alt=''
-                  title='Перейти к оборудованию на карте'
+                  title={t('Перейти к оборудованию на карте')}
                 />
               </div>
               <p className='culture'>
@@ -97,14 +98,14 @@ export const EquipmentList = memo(() => {
                 onClick={() => editItemHandler(equip.id)}
                 src={EditBox}
                 alt=''
-                title='Редактировать оборудование'
+                title={t('Редактировать оборудование')}
               />
               <DeleteOption
                 onDelete={() => deleteEquipmentHandler(equip.id)}
                 className='trash'
-                popConfirmDescription='Удалить оборудование'
-                popConfirmTitle='Вы хотите удалить оборудование?'
-                title='Удалить оборудование'
+                popConfirmDescription={t('Удалить оборудование')}
+                popConfirmTitle={t('Вы хотите удалить оборудование?')}
+                title={t('Удалить оборудование')}
               />
             </div>
           </div>

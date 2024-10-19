@@ -16,6 +16,7 @@ import { SimpleSelect } from '~shared/ui/simple-select'
 import { StyledButton } from '~shared/ui/styled-button'
 import { StyledInput } from '~shared/ui/styled-input'
 import { StyledModal } from '~shared/ui/styled-modal'
+import { t } from 'i18next';
 
 type AddCalendarTaskModalProps = {
   isOpen: boolean,
@@ -130,12 +131,12 @@ export const AddCalendarTaskModal = ({
     <StyledModal
       open={isOpen}
       onCancel={closeHandler}
-      title={eventForEdit ? 'Редактировать событие' : 'Добавить событие'}
+      title={eventForEdit ? t('Редактировать событие') : t('Добавить событие')}
       footer={null}
     >
       <form className='AddCalendarTaskModal'>
         <StyledInput
-          placeholder='Название'
+          placeholder={t('Название')}
           value={formik.values.name}
           onChange={(value) => formik.setFieldValue('name', value.target.value)}
         />
@@ -147,26 +148,26 @@ export const AddCalendarTaskModal = ({
         />
         <div className='AddCalendarTaskModal_selectors'>
           <SimpleSelect
-            label='Техника'
+            label={t('Техника')}
             options={allEquipmentsMapped}
             initialValue={allEquipmentsMapped[0].label}
             handleOnChange={(value) => formik.setFieldValue('equip', Number(value))}
           />
           <SimpleSelect
-            label='Поле'
+            label={t('Поле')}
             options={allPolygonsMapped}
             initialValue={allPolygonsMapped[0]?.label}
             handleOnChange={(value) => formik.setFieldValue('polygon', Number(value))}
           />
           <SimpleSelect
-            label='Вид работ'
+            label={t('Вид работ')}
             options={typeJobsMapped}
             initialValue={typeJobsMapped[0]?.label}
             handleOnChange={(value) => formik.setFieldValue('type_jobs', Number(value))}
           />
         </div>
         <TextArea
-          placeholder='описание'
+          placeholder={t('Описание')}
           autoSize={{
             minRows: 4,
             maxRows: 6
@@ -176,7 +177,7 @@ export const AddCalendarTaskModal = ({
         />
       </form>
       <StyledButton onClick={() => formik.handleSubmit()}>
-        {eventForEdit ? 'Сохранить' : 'Создать'}
+        {eventForEdit ? t('Сохранить') : t('Создать')}
       </StyledButton>
     </StyledModal>
   )

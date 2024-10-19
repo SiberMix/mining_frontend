@@ -10,6 +10,7 @@ import { useAppDispatch } from '~processes/redux/store'
 import { useListing } from '~shared/hooks/use-listing/use-listing'
 
 import { EquipModelListModal } from '../../equip-model-list-modal'
+import { t } from 'i18next';
 
 export const EquipModelList = memo(() => {
   const dispatch = useAppDispatch()
@@ -32,22 +33,23 @@ export const EquipModelList = memo(() => {
     tableBlock,
     refreshData
   } = useListing<EquipModal>({
-    columnNames: ['Название', 'Длина', 'Ширина'],
+    columnNames: [t('Название'), t('Длина'), t('Ширина')], // Перевод названий столбцов
     mapTableData: (data: any) => {
       return data.map((item: any) => {
         return {
           id: item.id,
           key: item.id,
-          Название: item.description,
-          Длина: item.length,
-          Ширина: item.width
+          [t('Название')]: item.description, // Динамический ключ для перевода
+          [t('Длина')]: item.length, // Динамический ключ для перевода
+          [t('Ширина')]: item.width // Динамический ключ для перевода
         }
       })
     },
     fetchListHandler: () => modelsList,
     deleteItemHandler,
     editItemHandler
-  })
+  });
+
 
   useEffect(() => {
     refreshData()
@@ -59,7 +61,7 @@ export const EquipModelList = memo(() => {
         className='EquipModelList__addButton'
         onClick={addModalHandler}
       >
-        + Добавить модель
+        + {t("Добавить модель")}
       </button>
       {tableBlock()}
       <EquipModelListModal />

@@ -20,6 +20,6 @@ export const equipmentSideOutTabs: { id: EquipmentSideOutTabsEnum, title: string
   },
   {
     id: EquipmentSideOutTabsEnum.EQUIPMENT_TRAILER_LIST,
-    title: 'Навесное'
+    title: 'Навесное' // Оставляем строку здесь, а переводим ниже
   }
-]
+];

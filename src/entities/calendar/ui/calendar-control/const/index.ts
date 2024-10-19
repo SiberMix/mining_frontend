@@ -1,16 +1,17 @@
 import { Views } from 'react-big-calendar'
+import { t } from 'i18next';
 
 export const VIEW_OPTIONS = [
   {
     id: Views.DAY,
-    label: 'День'
+    label: t('День')
   },
   {
     id: Views.WEEK,
-    label: 'Неделя'
+    label: t('Неделя')
   },
   {
     id: Views.MONTH,
-    label: 'Месяц'
+    label: t('Месяц')
   }
 ]

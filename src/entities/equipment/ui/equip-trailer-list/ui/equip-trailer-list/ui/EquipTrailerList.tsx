@@ -10,6 +10,7 @@ import { useAppDispatch } from '~processes/redux/store'
 import { useListing } from '~shared/hooks/use-listing/use-listing'
 
 import { EquipTrailerListModal } from '../../equip-trailer-list-modal'
+import { t } from 'i18next';
 
 export const EquipTrailerList = memo(() => {
   const dispatch = useAppDispatch()
@@ -32,21 +33,22 @@ export const EquipTrailerList = memo(() => {
     tableBlock,
     refreshData
   } = useListing<EquipTrailer>({
-    columnNames: ['Название прицепа', 'Госномер'],
+    columnNames: [t('Название прицепа'), t('Госномер')], // Перевод названий столбцов
     mapTableData: (trailerList: any) => {
       return trailerList.map((item: any) => {
         return {
           id: item.id,
           key: item.id,
-          'Название прицепа': item.trailer_name,
-          Госномер: item.gosnomer
+          [t('Название прицепа')]: item.trailer_name, // Динамический ключ для перевода
+          [t('Госномер')]: item.gosnomer // Динамический ключ для перевода
         }
       })
     },
     fetchListHandler: () => trailerList,
     deleteItemHandler,
     editItemHandler
-  })
+  });
+
 
   useEffect(() => {
     refreshData()
@@ -58,7 +60,7 @@ export const EquipTrailerList = memo(() => {
         className='EquipTrailerList__addButton'
         onClick={addModalHandler}
       >
-        + Добавить прицеп
+        + {t("Добавить прицеп")}
       </button>
       {tableBlock()}
       <EquipTrailerListModal />

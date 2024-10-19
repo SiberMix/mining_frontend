@@ -10,6 +10,7 @@ import { useAppDispatch } from '~processes/redux/store'
 import { useListing } from '~shared/hooks/use-listing/use-listing'
 
 import { EquipsTypesListModal } from '../../equips-types-list-modal'
+import { t } from 'i18next';
 
 export const EquipsTypesList = memo(() => {
   const dispatch = useAppDispatch()
@@ -32,19 +33,20 @@ export const EquipsTypesList = memo(() => {
     tableBlock,
     refreshData
   } = useListing<EquipType>({
-    columnNames: ['Название', 'Статус'],
+    columnNames: [t('Название'), t('Статус')],
     mapTableData: (typesList: any) => {
       return typesList.map((item: any) => ({
         id: item.id,
         key: item.id,
-        Название: item.description,
-        Статус: item.status ? 'Активен' : 'Неактивен'
-      }))
+        [t('Название')]: item.description, // Используем динамический ключ с квадратными скобками
+        [t('Статус')]: item.status ? t('Активен') : t('Неактивен') // Используем динамический ключ
+      }));
     },
     fetchListHandler: () => typesList,
     editItemHandler,
     deleteItemHandler
-  })
+  });
+
 
   useEffect(() => {
     refreshData()
@@ -56,7 +58,7 @@ export const EquipsTypesList = memo(() => {
         className='EquipsTypesList__addButton'
         onClick={addModalHandler}
       >
-        + Добавить тип
+        + {t("Добавить тип")}
       </button>
       {tableBlock()}
       <EquipsTypesListModal />

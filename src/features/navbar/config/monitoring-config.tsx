@@ -14,6 +14,7 @@ import Equip from '~shared/assets/icons/harvester2.svg'
 import HouseIcon from '~shared/assets/icons/house.svg'
 import Job from '~shared/assets/icons/job.svg'
 import PlayBack from '~shared/assets/icons/playback.svg'
+import { t } from 'i18next';
 
 export const monitoringConfig: Record<MonitoringConfigEnum, ConfigObjType> = {
   [MonitoringConfigEnum.polygon_list]: {
@@ -27,7 +28,7 @@ export const monitoringConfig: Record<MonitoringConfigEnum, ConfigObjType> = {
     component: <CalendarSideOut />
   },
   [MonitoringConfigEnum.equipment_list]: {
-    title: 'Оборудование',
+    title: t('Оборудование'),
     iconSrc: Equip,
     component: <EquipmentSideOut />
   },

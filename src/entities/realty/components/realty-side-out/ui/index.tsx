@@ -5,6 +5,7 @@ import { RealtyItemModal } from '~entities/realty/components/realty-item-modal'
 import { SideOutLayout } from '~shared/ui/side-out-layout'
 
 import { RealtyList } from '../../realty-list'
+import { t } from 'i18next';
 
 export const RealtySideOut = () => {
   const realtyList = useRealtyStore(state => state.realtyList)
@@ -33,7 +34,7 @@ export const RealtySideOut = () => {
         className='addButton'
         onClick={onAddButtonClick}
       >
-        {isPickCenterModeActive ? 'Отменить' : '+ Добавить недвижимость'}
+        {isPickCenterModeActive ? t('Отменить') : t('+ Добавить недвижимость')}
       </button>
       <RealtyList />
       <RealtyItemModal />
