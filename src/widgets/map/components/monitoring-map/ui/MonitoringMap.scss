@@ -1,8 +1,7 @@
 .MonitoringMap {
-  position: relative;
   display: block;
-  height: 100vh;
   width: 100%;
-  z-index: 0;
+  height: calc(100vh - var(--header-height)); /* Учитываем высоту хедера */
+  position: relative;  /* Для правильного позиционирования */
+  z-index: 0; /* Убедитесь, что карта не перекрывает другие элементы */
 }
-
