@@ -31,7 +31,7 @@ export const MonitoringMap = memo(() => {
     >
       {/** Map controls */}
       <MapViewSelect />
-      <ZoomControl position='topright' />
+
 
       {/** Polygons */}
       <MapPolygons />
