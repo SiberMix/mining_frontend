@@ -26,8 +26,10 @@ export const Monitoring = () => {
   const monitoringStartMenuSection = settingsStore(state => state.settings.monitoringStartMenuSection)
   const addNotification = useNotificationStore(state => state.addNotification)
   const [isLoading, setIsLoading] = useState(true)
+  // костыль для срабатывания initialLoading только 1 раз
   const [isMounted, setIsMounted] = useState(false)
   const socketRef = useRef<SocketManager<WebSocketMessage> | null>(null)
+  // функции для инит загрузки
   const getRealtyList = useRealtyStore(state => state.getRealtyList)
   const { t } = useTranslation();
 
@@ -35,11 +37,14 @@ export const Monitoring = () => {
     if (isMounted) {
       monitoringInitialLoading({ dispatch, setIsLoading, t })
       getRealtyList()
-    } else {
+    } else { // костыль для срабатывания initialLoading только 1 раз
       setIsMounted(true)
     }
   }, [dispatch, getRealtyList, isMounted, setIsMounted])
 
+  /**
+   * Подключаем веб сокеты для оборудования
+   * */
   const equipCoordsSocketHandler = useCallback(({ type_event, message }: WebSocketMessage) => {
     const messageParsed = JSON.parse(message as any)
     console.log('messageParsed', messageParsed)
@@ -77,14 +82,16 @@ export const Monitoring = () => {
   return (
     <div style={{
       position: 'relative',
-      height: '100vh',
-    }}>
+      height: '100vh'
+    }}
+    >
       {isLoading
         ? <BasePreloader />
         : (
           <PageLayout>
             <Sidebar
               navbarConfig={monitoringConfig}
+              // defaultSidebarContent={monitoringStartMenuSection} //todo вернуть, + обнулить настройки под новые ключи
               withAnimation={true}
             />
             <MonitoringMap />
