@@ -15,6 +15,7 @@ import { NotificationsCenter } from '~widgets/notifications'
 import { settingsStore } from '~widgets/settings'
 import { WeatherBtn } from '~widgets/weather'
 import { useTranslation } from 'react-i18next';
+import { TelegramCenter } from '~widgets/telegram/components/notifications-center';
 
 export const Header = () => {
   const dispatch = useAppDispatch()
@@ -44,6 +45,7 @@ export const Header = () => {
       <div className='Header-content'>
         <WeatherBtn />
         <div className='Header-content-const'>
+          <TelegramCenter />
           <NotificationsCenter />
           <StyledSvg
             $margin='0'
