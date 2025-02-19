@@ -104,6 +104,9 @@ export const TelegramCenter = () => {
         onClick={() => setIsOpen((prev) => !prev)}
         title='Отправить сообщение водителю'
       >
+        <SendOutlined
+          width={20}
+          height={20} />
       </StyledButton>
 
       <motion.div
