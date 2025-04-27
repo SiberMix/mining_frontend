@@ -3,10 +3,11 @@
 .root {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   height: 100vh;
   background: var(--gray-400);
-  color: #FFFFFF;
+  text-align: center;
 }
 
 .error {
@@ -21,8 +22,9 @@
 }
 
 .logo {
-  width: 43vh;
-  padding-bottom: 170px;
+  width: 150px; /* Уменьшаем размер логотипа */
+  height: auto;
+  margin-bottom: 30px; /* Добавляем отступ снизу, чтобы не слипался с формой */
 }
 
 .input {
@@ -65,9 +67,8 @@
   top: 19px;
   right: -24px;
   border: 4px solid var(--gray-400);
-  font-size: 27px;
+  font-size: 20px;
   text-indent: 0;
-  padding-bottom: 3px;
   color: #FFFFFF;
 
   &:hover {
@@ -76,3 +77,38 @@
     transition: color .2s;
   }
 }
+
+.info-banner {
+  position: fixed;
+  top: 20px;
+  right: 20px; /* Установим уведомление справа */
+  background-color: var(--blue-200);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  z-index: 1000; /* Чтобы плашка была поверх других элементов */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.info-banner p {
+  margin: 5px 0;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  position: absolute;
+  top: 5px;
+  right: 10px; /* Разместим кнопку закрытия в правом верхнем углу */
+  cursor: pointer;
+}
+
+.close-button:hover {
+  color: var(--blue-100); /* Цвет при наведении */
+}
+
+

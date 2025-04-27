@@ -9,7 +9,7 @@ export const polygonsService = {
     return axiosInstance.get('/polygons/')
   },
   /*
-  * Получение полигона по айди
+  * Получение блока по айди
   * */
   getPolygonById: (id: string | number) => {
     return axiosInstance.get(`/polygons/${id}/`)
@@ -24,13 +24,13 @@ export const polygonsService = {
     return axiosInstance.put(`/polygons/${polygonId}/`, newOption)
   },
   /*
-  * добавление нового полигона
+  * добавление нового блока
   * */
   addNewPolygon: (updatedPolygonData: any) => {
     return axiosInstance.post('/polygons/', updatedPolygonData)
   },
   /*
-  * Удаление полигона по Id
+  * Удаление блока по Id
   * */
   removePolygonById: (id: string | number) => {
     return axiosInstance.delete(`/polygons/${id}/`)

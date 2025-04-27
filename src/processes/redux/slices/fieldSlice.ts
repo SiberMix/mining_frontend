@@ -75,8 +75,8 @@ export const addField = createAsyncThunk(
       color
     }), {
       pending: 'Отправка культуры на сервер...',
-      success: 'Культура успешно загружено',
-      error: 'Произошла ошибка при загрузке поля'
+      success: 'Материал успешно загружено',
+      error: 'Произошла ошибка при загрузке материала'
     })
   }
 )
@@ -92,8 +92,8 @@ export const changeField = createAsyncThunk(
       name,
       color
     }), {
-      pending: 'Мняем культуру на сервере...',
-      success: 'Культура успешно загружена',
+      pending: 'Мняем материал на сервере...',
+      success: 'Материал успешно загружена',
       error: 'Произошла ошибка при загрузке культуры'
     })
 
@@ -111,8 +111,8 @@ export const deleteField = createAsyncThunk(
   'fields/deleteFieldThunk',
   async (id: number) => {
     const response = await toast.promise(mapService.deleteField(id), {
-      pending: 'Удаляем культуру на сервере...',
-      success: 'Культура успешно удалена',
+      pending: 'Удаляем материал на сервере...',
+      success: 'Материал успешно удалена',
       error: 'Произошла ошибка при удалении культуры'
     })
     return {

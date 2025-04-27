@@ -17,7 +17,7 @@ export const MapPolygons = memo(() => {
   return (
     <>
       {polygons.map((polygon: PolygonType, index: number) => {
-        //фильтр для редактируемого полигона
+        //фильтр для редактируемого блока
         if (polygon.id === editedPolygon?.id) return null
         return (
           <OnePolygon
