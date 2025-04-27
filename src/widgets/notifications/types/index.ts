@@ -3,13 +3,13 @@ import type { TypeOptions } from 'react-toastify/dist/types'
 import type { NotificationEventNames } from '../const'
 
 export type NotificationsStore = {
-  notifications: Notification[],
-  addNotification: (notification: Exclude<Notification, 'isRead'>) => void,
-  clearNotifications: () => void,
-  markAllAsRead: () => void,
-  markAsRead: (id: number) => void,
-  removeNotification: (id: number) => void
-}
+  notifications: Notification[];
+  addNotification: (notification: { type: string; message: string }) => void;
+  clearNotifications: () => void;
+  markAllAsRead: () => void;
+  markAsRead: (id: number) => void;
+  removeNotification: (id: number) => void;
+};
 
 export type Notification = {
   id: number,

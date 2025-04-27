@@ -19,7 +19,7 @@ export const initialSettings: Settings = {
   monitoringStartMenuSection: MonitoringConfigEnum.field_list,
   baseMapType: MapLayersEnum.GOOGLE_MAP,
   baseZoomLevel: 13,
-  baseCord: [55.030204, 82.920430],
+  baseCord: [55.791987166800126, 37.760676348484395],
   equipmentOptions: [
     { title: 'Название', value: true },
     { title: 'IMEI', value: true },

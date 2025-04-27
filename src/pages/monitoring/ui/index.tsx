@@ -65,6 +65,14 @@ export const Monitoring = () => {
   }, [addNotification, dispatch])
 
   useEffect(() => {
+    // Добавим уведомление о поступлении новых данных при ожидании
+    if (isLoading) {
+      addNotification({
+        type: 'info',
+        message: 'Ожидается поступление новых данных. Пожалуйста, подождите.',
+      });
+    }
+
     if (!socketRef.current) {
       socketRef.current = new SocketManager<WebSocketMessage>(`ws://109.111.187.147:8003/ws/frontend/?user_id=${token}`)
     }
@@ -77,7 +85,7 @@ export const Monitoring = () => {
       socketRef.current?.disconnect()
       socketRef.current = null
     }
-  }, [equipCoordsSocketHandler, isLoading, token])
+  }, [equipCoordsSocketHandler, isLoading, token, addNotification])
 
   return (
     <div style={{
