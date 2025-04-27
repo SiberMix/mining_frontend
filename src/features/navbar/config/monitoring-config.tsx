@@ -18,7 +18,7 @@ import { t } from 'i18next';
 
 export const monitoringConfig: Record<MonitoringConfigEnum, ConfigObjType> = {
   [MonitoringConfigEnum.polygon_list]: {
-    title: 'Список полей',
+    title: 'Список Блоков',
     iconSrc: Field,
     component: <PolygonListSideOut />
   },
@@ -43,7 +43,7 @@ export const monitoringConfig: Record<MonitoringConfigEnum, ConfigObjType> = {
     component: <PlayBackSideOut />
   },
   [MonitoringConfigEnum.field_list]: {
-    title: 'Культура',
+    title: 'Материал',
     iconSrc: Trava,
     component: <FieldListSideOut />
   }

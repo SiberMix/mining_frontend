@@ -30,7 +30,7 @@ export const RealtyItemModal = () => {
     },
     onSubmit: (submitValues) => {
       if (!submitValues.name || !submitValues.color || !submitValues.type) {
-        messageApi.info('Все поля должны быть заполнены!')
+        messageApi.info('Все материала должны быть заполнены!')
         return
       }
       if (realtyForEdit !== null) {
@@ -61,7 +61,7 @@ export const RealtyItemModal = () => {
   return (
     <StyledModal
       className='polygonAddModal'
-      title='Добавить поле'
+      title='Добавить блок'
       open={isOpenModal}
       onCancel={handleCancel}
       onOk={() => handleSubmit()}

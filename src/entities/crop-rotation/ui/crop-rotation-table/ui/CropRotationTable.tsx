@@ -84,7 +84,7 @@ export const CropRotationTable = () => {
               scroll={{ y: '92vh' }}
             >
               <Table.Column
-                title={t('Список полей')}
+                title={t('Список блоков')}
                 dataIndex='name'
                 key='name'
                 render={(_, record: PolygonType) => {

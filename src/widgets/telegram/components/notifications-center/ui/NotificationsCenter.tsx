@@ -92,7 +92,7 @@ export const TelegramCenter = () => {
     } finally {
       setSending(false)
       setIsModalOpen(false)
-      setMessage('') // Очищаем поле ввода
+      setMessage('') // Очищаем блок ввода
     }
   }
 

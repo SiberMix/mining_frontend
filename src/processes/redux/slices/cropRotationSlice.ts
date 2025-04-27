@@ -206,7 +206,7 @@ export const setMainCropRotationGroupThunk = createAsyncThunk(
       cropRotationApi.setMainCropRotationGroup(groupId),
       {
         pending: 'Применение выбранных культур',
-        success: 'Культуры полей успешно применены',
+        success: 'Культуры блокй успешно применены',
         error: 'Произошла ошибка при применении культур'
       }
     )
