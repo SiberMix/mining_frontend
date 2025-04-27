@@ -5,12 +5,12 @@ services:
   web-server:
     env_file:
       - .env
-    container_name: hectare_frontend
+    container_name: mining_frontend
     build:
       context: .
       dockerfile: Dockerfile
     volumes:
       - .:/usr/app
     ports:
-      - "5173:5173"
+      - "5175:5173"
     command: yarn run dev --host 0.0.0.0
