@@ -92,7 +92,7 @@ export const CropRotationListItem = ({
                     onClick={chooseMainCropGroup}
                   />
                 )
-              : null //ничего не показываем, если у группы не все материала
+              : null //ничего не показываем, если у группы не все поля
           }
           <img
             className='cropRotation-list-item__icons-item'
