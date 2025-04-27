@@ -18,10 +18,16 @@ export const BasePreloader = memo((props: BasePreloaderProps) => {
     >
       <div className='loading-text'>
         <span className='loading-text-words'>
-          S
+          H
         </span>
         <span className='loading-text-words'>
-          M
+          E
+        </span>
+        <span className='loading-text-words'>
+          C
+        </span>
+        <span className='loading-text-words'>
+          T
         </span>
         <span className='loading-text-words'>
           A
@@ -30,16 +36,7 @@ export const BasePreloader = memo((props: BasePreloaderProps) => {
           R
         </span>
         <span className='loading-text-words'>
-          T
-        </span>
-        <span className='loading-text-words'>
-          O
-        </span>
-        <span className='loading-text-words'>
-          P
-        </span>
-        <span className='loading-text-words'>
-          S
+          E
         </span>
       </div>
     </div>

@@ -154,7 +154,7 @@ export const AddCalendarTaskModal = ({
             handleOnChange={(value) => formik.setFieldValue('equip', Number(value))}
           />
           <SimpleSelect
-            label={t('блок')}
+            label={t('Поле')}
             options={allPolygonsMapped}
             initialValue={allPolygonsMapped[0]?.label}
             handleOnChange={(value) => formik.setFieldValue('polygon', Number(value))}

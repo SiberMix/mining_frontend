@@ -19,7 +19,7 @@ export const FieldPreview = () => {
   }
 
   const deleteItemHandler = (id: number) => {
-    if (confirm('Вы уверены, что хотите удалить эту материал?')) {
+    if (confirm('Вы уверены, что хотите удалить эту культуру?')) {
       dispatch(deleteField(id))
     }
   }
@@ -28,14 +28,14 @@ export const FieldPreview = () => {
     tableBlock,
     refreshData
   } = useListing({
-    columnNames: ['Название материала', 'Цвет материала'],
+    columnNames: ['Название поля', 'Цвет поля'],
     mapTableData: (fieldsList: any) => {
       return fieldsList.map((item: any) => {
         return {
           id: item.id,
           key: item.id,
-          'Название материала': item.name,
-          'Цвет материала': (
+          'Название поля': item.name,
+          'Цвет поля': (
             <div
               style={{
                 backgroundColor: item.color,
@@ -62,7 +62,7 @@ export const FieldPreview = () => {
         className='addButton'
         onClick={() => dispatch(setVisibleAddFieldModal(true))}
       >
-        + Добавить материал
+        + Добавить культуру
       </button>
       <div>
         {tableBlock()}

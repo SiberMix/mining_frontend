@@ -43,7 +43,7 @@ export const PolygonAddModal = () => {
       messageApi.info('Полигон с таким названием уже находится в базе, пожалуйста выберете другое')
 
     } else {
-      // Отправляем POST-запрос с обновленными данными блока
+      // Отправляем POST-запрос с обновленными данными полигона
       dispatch(postNewPolygon({
         name: polygonName,
         coords: newPolygonCoords,
@@ -57,7 +57,7 @@ export const PolygonAddModal = () => {
   return (
     <StyledModal
       className='polygonAddModal'
-      title='Добавить блок'
+      title='Добавить поле'
       open={showAddNewPolygonModal}
       onCancel={handleCancel}
       onOk={handleOk}

@@ -31,8 +31,8 @@ export const useFieldStore = create<FieldsStore>()(immer((set, get) => ({
     try {
       const response = await toast.promise(fieldsService.addField(data), {
         pending: 'Отправка культуры на сервер...',
-        success: 'Материал успешно загружено',
-        error: 'Произошла ошибка при загрузке материала'
+        success: 'Культура успешно загружено',
+        error: 'Произошла ошибка при загрузке поля'
       })
       set((state) => ({
         fieldList: [...state.fieldList, response.data]
@@ -44,8 +44,8 @@ export const useFieldStore = create<FieldsStore>()(immer((set, get) => ({
   changeField: async (data) => {
     try {
       await toast.promise(fieldsService.editField(data), {
-        pending: 'Мняем материал на сервере...',
-        success: 'Материал успешно загружена',
+        pending: 'Мняем культуру на сервере...',
+        success: 'Культура успешно загружена',
         error: 'Произошла ошибка при загрузке культуры'
       })
       set((state) => ({
@@ -58,8 +58,8 @@ export const useFieldStore = create<FieldsStore>()(immer((set, get) => ({
   deleteField: async (id) => {
     try {
       await toast.promise(fieldsService.deleteField(id), {
-        pending: 'Удаляем материал на сервере...',
-        success: 'Материал успешно удалена',
+        pending: 'Удаляем культуру на сервере...',
+        success: 'Культура успешно удалена',
         error: 'Произошла ошибка при удалении культуры'
       })
       set((state) => ({

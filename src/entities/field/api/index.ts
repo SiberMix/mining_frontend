@@ -2,19 +2,19 @@ import { axiosInstance } from '~shared/api/axios-instance'
 
 export const fieldsService = {
   /*
-  * Получаем Список Блоков
+  * Получаем Список полей
   */
   getFieldList: () => {
     return axiosInstance.get('/fieldtype/')
   },
   /*
-  * Добавление нового материала
+  * Добавление нового поля
   * */
   addField: async (params: any) => {
     return axiosInstance.post('/fieldtype/', params)
   },
   /*
-  * Редактирование материала
+  * Редактирование поля
   * */
   editField: ({
     id,
@@ -23,7 +23,7 @@ export const fieldsService = {
     return axiosInstance.put(`/fieldtype/${id}/`, params)
   },
   /*
-  * удаление материала
+  * удаление поля
   * */
   deleteField: (id: number) => {
     return axiosInstance.delete(`/fieldtype/${id}/`)

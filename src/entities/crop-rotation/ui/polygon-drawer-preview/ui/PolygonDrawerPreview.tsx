@@ -63,7 +63,7 @@ export const PolygonDrawerPreview = ({
       </p>
       <p>
         <span className='polygonDrawerPreview-info_name'>
-          Материал:
+          Культура:
           {' '}
         </span>
         <span className='polygonDrawerPreview-info'>

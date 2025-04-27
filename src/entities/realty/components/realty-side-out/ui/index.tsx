@@ -20,7 +20,7 @@ export const RealtySideOut = () => {
     <SideOutLayout className='RealtySideOut'>
       <div className='RealtySideOut-header'>
         <p>
-          Места разгрузки
+          Список недвижимости
         </p>
         <p>
           Всего
@@ -34,7 +34,7 @@ export const RealtySideOut = () => {
         className='addButton'
         onClick={onAddButtonClick}
       >
-        {isPickCenterModeActive ? t('Отменить') : t('+ Добавить место разгрузки')}
+        {isPickCenterModeActive ? t('Отменить') : t('+ Добавить недвижимость')}
       </button>
       <RealtyList />
       <RealtyItemModal />

@@ -11,7 +11,7 @@ export const FieldListSideOut = () => {
       <div className='libraries'>
         <p style={{ textAlign: 'center' }}>
           <b>
-            Материал
+            Культура
           </b>
         </p>
       </div>

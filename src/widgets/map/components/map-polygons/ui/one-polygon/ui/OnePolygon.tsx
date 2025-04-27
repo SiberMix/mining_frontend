@@ -30,7 +30,7 @@ export const OnePolygon = memo(({ polygon }: OnePolygonProps) => {
   }, [polygonFlyTo])
 
   /*
-  * выделение выбранного блока в боковом меню
+  * выделение выбранного полигона в боковом меню
   * */
   useEffect(() => {
     map.on('popupopen', (e) => {
@@ -67,10 +67,10 @@ export const OnePolygon = memo(({ polygon }: OnePolygonProps) => {
           {polygon.name}
         </div>
         <div>
-          {`Материал: ${polygon.sequence === null ? 'Материал не выбрана' : polygon.sequence.name}`}
+          {`Культура: ${polygon.sequence === null ? 'культура не выбрана' : polygon.sequence.name}`}
         </div>
         <div>
-          {`Площадь блока: ${(+polygon.square).toFixed(2)} Га`}
+          {`Площадь полигона: ${(+polygon.square).toFixed(2)} Га`}
         </div>
       </Popup>
     </Polygon>

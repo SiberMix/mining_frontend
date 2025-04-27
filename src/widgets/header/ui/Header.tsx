@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { setToken } from '~processes/redux/slices/authSlice'
 import { useAppDispatch } from '~processes/redux/store'
-import miniLogo from '~shared/assets/smartops.jpeg'
+import miniLogo from '~shared/assets/hectareLogoOnly.png'
 import LogoutBtn from '~shared/assets/icons/logout.svg'
 import Setting from '~shared/assets/icons/settings.svg'
 import { RoutePath } from '~shared/config/route-config'

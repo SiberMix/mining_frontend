@@ -45,7 +45,7 @@ export const PolygonListSideOut: React.FC<{
 
   const inclinedText = `${t('Всего')} ${polygonsTotalCount} ${declination(polygonsTotalCount, [
     t('полигон'),
-    t('блока'),
+    t('полигона'),
     t('полигонов')
   ])}`;
 
@@ -67,7 +67,7 @@ export const PolygonListSideOut: React.FC<{
         />
         <div className="headerCount">
           <div>
-            {t('Список Блоков')}
+            {t('Список полей')}
           </div>
           <div>
             {`${inclinedText} | ${polygonsTotalSquare} ${t('Га')}`}
@@ -91,7 +91,7 @@ export const PolygonListSideOut: React.FC<{
             <span style={{ marginRight: '0.5rem' }}>
               +
             </span>
-            {t("Добавить блок")}
+            {t("Добавить поле")}
           </>}
       </button>
       <TransitionGroup className='polygons'>

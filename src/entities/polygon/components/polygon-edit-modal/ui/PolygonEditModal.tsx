@@ -32,7 +32,7 @@ export const PolygonEditModal: React.FC<{
   return (
     <StyledModal
       className='PolygonEditModal'
-      title='Редактировать материал'
+      title='Редактировать культуру'
       open={!!visible}
       onOk={() => onOk(value)}
       onCancel={onCancel}

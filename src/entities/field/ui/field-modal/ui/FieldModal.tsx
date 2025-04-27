@@ -54,7 +54,7 @@ export const FieldModal = () => {
   return (
     <StyledModal
       title={
-        EditedField ? 'Редактировать материал' : 'Добавить материал'
+        EditedField ? 'Редактировать культуру' : 'Добавить культуру'
       }
       open={showAddFieldModal}
       onCancel={() => dispatch(setVisibleAddFieldModal(false))}
@@ -68,7 +68,7 @@ export const FieldModal = () => {
       />
       <div style={{ marginBottom: '16px' }}>
         <div style={{ marginBottom: '8px' }}>
-          Выберите цвет материала:
+          Выберите цвет поля:
         </div>
         <CompactPicker
           color={color}

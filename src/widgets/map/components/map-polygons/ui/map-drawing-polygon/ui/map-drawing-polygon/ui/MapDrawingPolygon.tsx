@@ -27,7 +27,7 @@ export const MapDrawingPolygon = memo(() => {
 
   const map = useMap()
   /*
-  * проверка на режим редактирования у блока
+  * проверка на режим редактирования у полигона
   * */
   useEffect(() => {
     if (editedPolygon) {
@@ -48,7 +48,7 @@ export const MapDrawingPolygon = memo(() => {
   }, [addInternalPolygonMode])
 
   /*
-  * добавление новой точки блока по клику
+  * добавление новой точки полигона по клику
   * */
   const handleMapClick = useCallback((e: any) => {
     const {
@@ -84,7 +84,7 @@ export const MapDrawingPolygon = memo(() => {
             return arr
           }) as EditPolygonCoords
         }
-        // добавление точек у редактируемого блока
+        // добавление точек у редактируемого полигона
         return prevCoords.map((arr, i) => {
           if (i === 0) {
             return [...arr, [lat, lng]]
@@ -94,7 +94,7 @@ export const MapDrawingPolygon = memo(() => {
 
       })
     } else {
-      //добавление точек у блока
+      //добавление точек у полигона
       setPolygonCoords((prevCoords) => [...prevCoords, [lat, lng]] as AddPolygonCoords)
     }
   }, [addInternalPolygonMode, editedPolygon, futureStart, polygonCoords])
@@ -113,7 +113,7 @@ export const MapDrawingPolygon = memo(() => {
 
   /*
   * Навешиваем обработчки событий
-  * click - добавление новой точки блока
+  * click - добавление новой точки полигона
   * mousemove - отрисовка вспомогательных линий
   * */
   useEffect(() => {
@@ -139,7 +139,7 @@ export const MapDrawingPolygon = memo(() => {
   const currentCoords = editedPolygon ? polygonCoords as EditPolygonCoords : [polygonCoords] as EditPolygonCoords
 
   /*
-  * Редактирование блока
+  * Редактирование полигона
   * */
   const editEventHandlers = (id: number, arrIndex: number) => ({
     //HACK: dragend используется библиотекой! не удалять! это особенность библиотеки

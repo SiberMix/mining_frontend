@@ -73,7 +73,7 @@ export const PolygonPreview: React.FC<{
               />
             </div>
             <p className='culture'>
-              {polygon.sequence === null ? 'Материал не выбрана' : polygon.sequence.name}
+              {polygon.sequence === null ? 'культура не выбрана' : polygon.sequence.name}
             </p>
           </div>
         </div>
@@ -91,9 +91,9 @@ export const PolygonPreview: React.FC<{
                   label: t('Редактировать название'),
                   onClick: () => setShowEditModal(ModalTypeEnum.EDIT_POLYGON_NAME)
                 }
-                // { todo вернуть редактирование блока
+                // { todo вернуть редактирование полигона
                 //   key: '3',
-                //   label: 'Редактировать материал',
+                //   label: 'Редактировать культуру',
                 //   onClick: () => setShowEditModal(ModalTypeEnum.EDIT_POLYGON_TYPE)
                 // }
               ]
