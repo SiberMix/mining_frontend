@@ -18,7 +18,7 @@ export const SettingsGeneral = memo(() => {
     },
     {
       value: MonitoringConfigEnum.polygon_list,
-      label: t('Список полигонов')
+      label: t('Список блоков')
     },
     {
       value: MonitoringConfigEnum.tasks,
@@ -34,7 +34,7 @@ export const SettingsGeneral = memo(() => {
     },
     {
       value: MonitoringConfigEnum.field_list,
-      label: t('Культуры')
+      label: t('Материалы')
     }
   ];
   const initialStartSidebarOptions = startSidebarOptions.find(option => option.value === field?.value)

@@ -79,14 +79,13 @@ export const CalendarControl = memo(
       }
     }, [view, date]);
 
-    // @ts-expect-error
     return (
       <div className='CalendarControl'>
         <StyledButton
           width='auto'
           height='auto'
           bgc='var(--green-200)'
-          color='var(--green-100)'
+          style={{ color: 'var(--green-100)' }}
           hoverbgc='var(--gray-400)'
           hovercolor='var(--green-100)'
           onClick={setIsOpenModal.bind(null, true)}

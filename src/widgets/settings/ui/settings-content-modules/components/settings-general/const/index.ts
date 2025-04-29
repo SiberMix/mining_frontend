@@ -8,7 +8,7 @@
 //   },
 //   {
 //     value: MonitoringConfigEnum.polygon_list,
-//     label: t('Список полигонов') // Оборачиваем в t
+//     label: t('Список блоков') // Оборачиваем в t
 //   },
 //   {
 //     value: MonitoringConfigEnum.tasks,
@@ -24,6 +24,6 @@
 //   },
 //   {
 //     value: MonitoringConfigEnum.field_list,
-//     label: t('Культуры') // Оборачиваем в t
+//     label: t('материалы') // Оборачиваем в t
 //   }
 // ]

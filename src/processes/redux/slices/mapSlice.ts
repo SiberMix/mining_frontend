@@ -246,7 +246,7 @@ export const postNewPolygon = createAsyncThunk(
       }),
       {
         pending: 'Добавление нового блока...',
-        success: 'Новый полигон успешно добавлен',
+        success: 'Новый блок успешно добавлен',
         error: 'Ошибка при добавлении нового блока'
       }
     )
@@ -265,7 +265,7 @@ export const putEditPolygon = createAsyncThunk(
       }),
       {
         pending: 'Редактирование блока...',
-        success: 'Полигон успешно отредактирован',
+        success: 'блок успешно отредактирован',
         error: 'Ошибка при редактировании блока'
       }
     )
@@ -283,7 +283,7 @@ export const deletePolygon = createAsyncThunk(
       mapService.removePolygonById(id),
       {
         pending: 'Удаление блока...',
-        success: 'Полигон успешно удален',
+        success: 'блок успешно удален',
         error: 'Ошибка при удалении блока'
       }
     )

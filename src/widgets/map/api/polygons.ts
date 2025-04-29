@@ -3,7 +3,7 @@ import { axiosInstance } from '~shared/api/axios-instance'
 
 export const polygonsService = {
   /*
-  * Получаем полигоны
+  * Получаем блокы
   * */
   getPolygons: () => {
     return axiosInstance.get('/polygons/')
@@ -15,7 +15,7 @@ export const polygonsService = {
     return axiosInstance.get(`/polygons/${id}/`)
   },
   /*
-  * Редактируем данные о полигоне по айди
+  * Редактируем данные о блоке по айди
   * */
   updatePolygonById: ({
     polygonId,

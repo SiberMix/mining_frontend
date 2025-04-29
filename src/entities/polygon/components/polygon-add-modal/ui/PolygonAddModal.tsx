@@ -40,7 +40,7 @@ export const PolygonAddModal = () => {
     const isSameNameInPolygons = !!allPolygons.find(p => p.name === polygonName)
 
     if (isSameNameInPolygons) {
-      messageApi.info('Полигон с таким названием уже находится в базе, пожалуйста выберете другое')
+      messageApi.info('блок с таким названием уже находится в базе, пожалуйста выберете другое')
 
     } else {
       // Отправляем POST-запрос с обновленными данными блока

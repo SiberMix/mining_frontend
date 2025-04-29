@@ -44,7 +44,7 @@ export const PreviewCalendarEventModal = ({
     >
       <div className='PreviewCalendarTaskModal'>
         <TaskModalRow arr={['Название задачи:', event?.name]} />
-        <TaskModalRow arr={['Полигон:', event?.polygon.name]} />
+        <TaskModalRow arr={['блок:', event?.polygon.name]} />
         <TaskModalRow arr={['Название техники:', event?.equip.equip_name]} />
         <TaskModalRow arr={['Описание:', event?.description]} />
         <TaskModalRow arr={['Задача:', event?.type_jobs?.name]} />

@@ -1,12 +1,12 @@
 import { Table } from 'antd'
 import type { ColumnsType } from 'antd/es/table'
+import { t } from 'i18next';
 import React, { useEffect, useMemo, useState } from 'react'
 import styled from 'styled-components'
 
 import { DeleteOption } from '~shared/ui/delete-option'
 
 import EditBox from '../../assets/icons/edit.svg'
-import { t } from 'i18next';
 
 export const useListing = <Type extends { id: number }>({
   headerData = null,
@@ -133,16 +133,17 @@ export const useListing = <Type extends { id: number }>({
    * Блок таблицы с действиями
    */
   const tableBlock = (tableClass?: string) => {
-    const columns: ColumnsType<Type> = columnNames?.map((item: any) => ({
+    const columns: any = columnNames?.map((item: any) => ({
       title: item,
       dataIndex: item
-    }))
+    }));
+
 
     columns?.push({
       title: t('Действия'),
       dataIndex: '',
       key: 'x',
-      render: (value, record, index) => (
+      render: (value: any, record: { id: number | undefined }, index: any) => (
         <div>
           <Edit
             onClick={() => editItemHandler?.(record.id)}
@@ -160,12 +161,12 @@ export const useListing = <Type extends { id: number }>({
               width: '20px',
               height: '20px',
               cursor: 'pointer',
-              alignItems: 'flex-end'
+              alignItems: 'flex-end',
             }}
           />
         </div>
-      )
-    })
+      ),
+    });
 
     return (isMainDataFetched || !fetchListHandler) && !tableData.length
       ? (

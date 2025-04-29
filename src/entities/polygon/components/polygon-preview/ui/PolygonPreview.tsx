@@ -69,7 +69,7 @@ export const PolygonPreview: React.FC<{
                 src={GeoBox}
                 onClick={() => dispatch(setPolygonFlyTo(+polygon.id))}
                 alt=''
-                title={t('Перейти к полигону на карте')}
+                title={t('Перейти к блоку на карте')}
               />
             </div>
             <p className='culture'>
@@ -83,7 +83,7 @@ export const PolygonPreview: React.FC<{
               items: [
                 {
                   key: '1',
-                  label: t("Редактировать полигон"),
+                  label: t("Редактировать блок"),
                   onClick: () => dispatch(setEditedPolygon(+polygon.id))
                 },
                 {
@@ -103,15 +103,15 @@ export const PolygonPreview: React.FC<{
               className='edit'
               src={EditBox}
               alt=''
-              title={t('Редактировать полигон')}
+              title={t('Редактировать блок')}
             />
           </Dropdown>
           <DeleteOption
             onDelete={onDelete}
             className='trash'
-            title={t('Удалить полигон')}
-            popConfirmTitle='Вы хотите удалить полигон?'
-            popConfirmDescription={t('Удалить полигон')}
+            title={t('Удалить блок')}
+            popConfirmTitle='Вы хотите удалить блок?'
+            popConfirmDescription={t('Удалить блок')}
           />
         </div>
       </div>

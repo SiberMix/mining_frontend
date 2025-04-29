@@ -1,6 +1,5 @@
 export enum AnalyticConfigEnum {
   analytics_equipments = 'analytics_equipments',
-  analytics_crop_rotation = 'analytics_crop_rotation'
 }
 
 export enum MonitoringConfigEnum {

@@ -34,7 +34,7 @@ export const PolygonDrawerPreview = ({
   return (
     <Drawer
       className='polygonDrawerPreview'
-      title='Статичная информация по полигону'
+      title='Статичная информация по блоку'
       placement='right'
       onClose={onClose}
       open={isOpen}
@@ -83,7 +83,7 @@ export const PolygonDrawerPreview = ({
       </p>
       <div className='polygonDrawerPreview-info_chart'>
         <span className='polygonDrawerPreview-info_name'>
-          Процент от всей культуры:
+          Процент от всей материалы:
           {' '}
         </span>
         <Chart

@@ -61,7 +61,7 @@ export const FieldModal = () => {
       onOk={handleAdd}
     >
       <Input
-        placeholder='Название культуры'
+        placeholder='Название материалы'
         value={name}
         onChange={(e) => setName(e.target.value)}
         style={{ marginBottom: '16px' }}

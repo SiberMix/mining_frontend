@@ -74,7 +74,7 @@ export const addField = createAsyncThunk(
       name,
       color
     }), {
-      pending: 'Отправка культуры на сервер...',
+      pending: 'Отправка материалы на сервер...',
       success: 'Материал успешно загружено',
       error: 'Произошла ошибка при загрузке материала'
     })
@@ -94,7 +94,7 @@ export const changeField = createAsyncThunk(
     }), {
       pending: 'Мняем материал на сервере...',
       success: 'Материал успешно загружена',
-      error: 'Произошла ошибка при загрузке культуры'
+      error: 'Произошла ошибка при загрузке материалы'
     })
 
     thunkAPI.dispatch(getAllPolygons())
@@ -113,7 +113,7 @@ export const deleteField = createAsyncThunk(
     const response = await toast.promise(mapService.deleteField(id), {
       pending: 'Удаляем материал на сервере...',
       success: 'Материал успешно удалена',
-      error: 'Произошла ошибка при удалении культуры'
+      error: 'Произошла ошибка при удалении материалы'
     })
     return {
       id,

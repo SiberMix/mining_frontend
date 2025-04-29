@@ -42,7 +42,7 @@ export const PolygonSpotMenu = memo(({
         messageApi.info(`Необходимо указать не менее 4 точек полингона на карте! Вы указали: ${p.length}`)
       } else if (i !== 0 && p.length < 5) {
         isErrorInPolygonData = true
-        messageApi.info(`В одном из вашех полигонов указано неправильное число точек, минимальное число: ${p.length}. Пожалуйста проверьте введенные данные`)
+        messageApi.info(`В одном из вашех блоков указано неправильное число точек, минимальное число: ${p.length}. Пожалуйста проверьте введенные данные`)
       }
     })
     // прерывание функции если допущена ошибка в количестве координат
@@ -67,7 +67,7 @@ export const PolygonSpotMenu = memo(({
           className='PolygonSpotMenuBTN'
 
         >
-          Сохранить полигон
+          Сохранить блок
         </Button>
         <Button
           className='PolygonSpotMenuBTN'

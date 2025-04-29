@@ -5,7 +5,7 @@ import { mapService } from '~widgets/map/api'
 
 import type { EquipModal, EquipTrailer, EquipType } from './mapSlice'
 
-type Type = { id: number, description: string, status: boolean };
+type Type = { id: number; description: string; status: boolean };
 type Model = { id: number, description: string, length: string, width: string };
 type Trailer = { id: number, trailer_name: string, gosnomer: string };
 

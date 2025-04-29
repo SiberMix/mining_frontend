@@ -143,8 +143,9 @@ export const NotificationsCenter = () => {
           <StyledButton
             width='auto'
             onClick={markAllAsRead}
+            style={{ margin: '2px' }}
           >
-            Пометить прочитанными все
+            Прочитать все
           </StyledButton>
         </div>
 
