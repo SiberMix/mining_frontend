@@ -1,16 +1,11 @@
 version: "3.8"
 
 services:
-
   web-server:
-    env_file:
-      - .env
     container_name: mining_frontend
     build:
       context: .
       dockerfile: Dockerfile
-    volumes:
-      - .:/usr/app
     ports:
-      - "5175:5173"
-    command: yarn run dev --host 0.0.0.0
+      - "5175:80"
+    restart: unless-stopped
