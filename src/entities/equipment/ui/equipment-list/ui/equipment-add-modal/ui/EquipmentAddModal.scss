@@ -144,7 +144,9 @@
 
 .imageField {
   position: relative;
-
+  background-color: #323232;
+  border-radius: 15px;
+  margin: 5px;
   .equipmentImageSVG {
     position: relative;
     display: flex;
@@ -155,6 +157,7 @@
     cursor: pointer;
     border-radius: 7px;
     transition: all 0.2s ease;
+
 
     &::before {
       content: "";
@@ -173,7 +176,7 @@
     }
 
     &:hover {
-      background-color: var(--gray-100);
+      background-color: var(--green-100);
     }
   }
 }

@@ -33,7 +33,7 @@ export const monitoringConfig: Record<MonitoringConfigEnum, ConfigObjType> = {
     component: <EquipmentSideOut />
   },
   [MonitoringConfigEnum.realty]: {
-    title: 'Недвижимость',
+    title: 'Место разгрузки',
     iconSrc: HouseIcon,
     component: <RealtySideOut />
   },
