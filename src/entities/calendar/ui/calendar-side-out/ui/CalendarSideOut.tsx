@@ -59,6 +59,8 @@ export const CalendarSideOut = () => {
       <EventsCalendar
         view={view}
         date={date}
+        onView={setView}
+        onNavigate={setDate}
         setSelectedTask={setSelectedTask}
         events={events}
         isLoading={isLoading}

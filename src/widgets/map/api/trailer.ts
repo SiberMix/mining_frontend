@@ -6,13 +6,13 @@ export const trailerService = {
   * Получение списка видов растений
   * */
   getTrailerList: () => {
-    return axiosInstance.get('/trailer/')
+    return axiosInstance.get('/equips/trailer/')
   },
   /*
   * Добавление видов растений
   * */
   addTrailer: (params: any) => {
-    return axiosInstance.post('/trailer/', params)
+    return axiosInstance.post('/equips/trailer/', params)
   },
   /*
   * Редактирование одного типа растений
@@ -21,12 +21,12 @@ export const trailerService = {
     id,
     ...params
   }: EquipTrailer) => {
-    return axiosInstance.put(`/trailer/${id}/`, params)
+    return axiosInstance.put(`/equips/trailer/${id}/`, params)
   },
   /*
   * Получение одного типа растений
   * */
   deleteTrailer: (id: number) => {
-    return axiosInstance.delete(`/trailer/${id}/`)
+    return axiosInstance.delete(`/equips/trailer/${id}/`)
   }
 }

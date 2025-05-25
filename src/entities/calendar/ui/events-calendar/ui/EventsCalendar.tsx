@@ -4,7 +4,10 @@ import 'react-big-calendar/lib/css/react-big-calendar.css'
 
 import type { EventProps } from 'react-big-calendar'
 import { Calendar } from 'react-big-calendar'
-import type { EventInteractionArgs, withDragAndDropProps } from 'react-big-calendar/lib/addons/dragAndDrop'
+import type {
+  EventInteractionArgs,
+  withDragAndDropProps
+} from 'react-big-calendar/lib/addons/dragAndDrop'
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
 
 import { tasksCalendarStore } from '../../../model'
@@ -14,27 +17,27 @@ import { localizer } from '../model/localizer'
 
 type TasksCalendarProps = {
   view: CalendarViewType,
+  onView: (view: CalendarViewType) => void,
   date: Date,
+  onNavigate: (date: Date) => void,
   setSelectedTask: (task: CalendarEventItem) => void,
   events: CalendarEventItem[],
   isLoading: boolean
-}
+};
 
 export const EventsCalendar = ({
   view,
+  onView,
   date,
+  onNavigate,
   setSelectedTask,
   events,
   isLoading
 }: TasksCalendarProps) => {
-  const editEvent = tasksCalendarStore(state => state.editEventTime)
+  const editEvent = tasksCalendarStore((state) => state.editEventTime)
 
   const onEventEdite = (data: EventInteractionArgs<CalendarEventItem>) => {
-    const {
-      start,
-      end,
-      event
-    } = data
+    const { start, end, event } = data
 
     editEvent({
       id: event.id,
@@ -49,7 +52,7 @@ export const EventsCalendar = ({
 
   const components: any = {
     event: ({ event }: EventProps<CalendarEventItem>) => {
-      return (<CalendarEvent event={event} />)
+      return <CalendarEvent event={event} />
     }
   }
 
@@ -61,7 +64,9 @@ export const EventsCalendar = ({
       className='TasksCalendar'
       defaultView='week'
       view={view}
+      onView={onView}
       date={date}
+      onNavigate={onNavigate}
       events={events}
       components={components}
       // culture='ru' todo исправить ошибку, и начинать неделю с понедельника

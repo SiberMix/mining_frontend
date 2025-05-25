@@ -15,20 +15,20 @@ import { tasksCalendarStore } from '../../../../../model'
 type tasksCalendarStoreProps = {
   initialValue: TypeJobType | null,
   onSubmit: () => void
-}
+};
 
 export const CalendarTypeJobsForm = ({
   initialValue,
   onSubmit
 }: tasksCalendarStoreProps) => {
-  const addTypeJob = tasksCalendarStore(state => state.addTypeJob)
-  const editTypeJob = tasksCalendarStore(state => state.editTypeJob)
+  const addTypeJob = tasksCalendarStore((state) => state.addTypeJob)
+  const editTypeJob = tasksCalendarStore((state) => state.editTypeJob)
   const formik = useFormik({
     initialValues: {
       name: '',
       color: getRandomColor()
     },
-    onSubmit: values => {
+    onSubmit: (values) => {
       if (initialValue !== null) {
         editTypeJob({
           id: initialValue.id,
@@ -50,22 +50,22 @@ export const CalendarTypeJobsForm = ({
     } else {
       formik.resetForm()
     }
-  }, [formik, initialValue])
+  }, [initialValue])
 
   return (
     <form
       className='CalendarTypeJobsForm'
-      onSubmit={formik.handleSubmit}
-    >
+      onSubmit={formik.handleSubmit}>
       <StyledInput
         placeholder='Название'
         value={formik.values.name}
-        onChange={(e) => formik.setFieldValue('name', e.target.value)}
+        onChange={formik.handleChange}
+        name='name'
       />
       <GithubPicker
         width='95%'
         triangle='hide'
-        onChange={e => formik.setFieldValue('color', e.hex)}
+        onChange={(e) => formik.setFieldValue('color', e.hex)}
         colors={colors}
       />
       <StyledButton onClick={() => formik.handleSubmit()}>

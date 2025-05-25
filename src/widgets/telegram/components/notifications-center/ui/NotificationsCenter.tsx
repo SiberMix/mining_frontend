@@ -43,7 +43,7 @@ export const TelegramCenter = () => {
   useEffect(() => {
     const fetchDrivers = async () => {
       try {
-        const response = await axios.get('http://myhectare.ru:8000/api/v1/telegram/get_online_driver/')
+        const response = await axios.get('http://localhost:8000/api/v1/drivers/')
         setDrivers(response.data) // Установка списка водителей
       } catch (err) {
         setError('Не удалось загрузить водителей') // Обработка ошибок

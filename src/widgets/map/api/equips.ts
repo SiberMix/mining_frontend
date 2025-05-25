@@ -20,34 +20,34 @@ export const equipsService = {
     return axiosInstance.delete(`/equips/${id}/`)
   },
   getEquipTypes: () => {
-    return axiosInstance.get<EquipType[]>('/equipstype/')
+    return axiosInstance.get<EquipType[]>('/equips/type/')
   },
   deleteEquipType: (id: number) => {
-    return axiosInstance.delete(`/equipstype/${id}/`)
+    return axiosInstance.delete(`/equips/type/${id}/`)
   },
   addNewEquipType: (newEquipType: any) => {
-    return axiosInstance.post('/equipstype/', newEquipType)
+    return axiosInstance.post('/equips/type/', newEquipType)
   },
   editEquipType: async (id: number, newData: any) => {
-    return axiosInstance.put(`/equipstype/${id}/`, newData)
+    return axiosInstance.put(`/equips/type/${id}/`, newData)
   },
   getEquipsModelsList: () => {
-    return axiosInstance.get('/equipsmodel/')
+    return axiosInstance.get('/equips/model/')
   },
   addNewEquipsModel: (params: {
     description: string,
     length: string,
     width: string
   }) => {
-    return axiosInstance.post('/equipsmodel/', params)
+    return axiosInstance.post('/equips/model/', params)
   },
   deleteEquipsModel: (id: number) => {
-    return axiosInstance.delete(`/equipsmodel/${id}/`)
+    return axiosInstance.delete(`/equips/model/${id}/`)
   },
   editEquipsModel: ({
     id,
     ...newParams
   }: EquipModal) => {
-    return axiosInstance.put(`/equipsmodel/${id}/`, newParams)
+    return axiosInstance.put(`/equips/model/${id}/`, newParams)
   }
 }

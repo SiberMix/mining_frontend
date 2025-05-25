@@ -1,7 +1,7 @@
 import type { RealtyType } from '~entities/realty/types'
 import { axiosInstance } from '~shared/api/axios-instance'
 
-const realtyBaseUrl = '/realty/'
+const realtyBaseUrl = '/property_manager/aparts/'
 
 export const realtyService = {
   getRealtyList: () => {
@@ -18,7 +18,7 @@ export const realtyService = {
   }
 }
 
-const realtyTypeBaseUrl = '/realtytype/'
+const realtyTypeBaseUrl = '/property_manager/type/'
 
 export const realtyTypeService = {
   getRealtyList: () => {
