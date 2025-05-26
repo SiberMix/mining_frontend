@@ -58,7 +58,7 @@ export const PolygonDrawerPreview = ({
           {' '}
         </span>
         <span className='polygonDrawerPreview-info'>
-          {polygon.activeStatus ? 'Активно' : 'Не активно'}
+          {polygon.is_active ? 'Активно' : 'Не активно'}
         </span>
       </p>
       <p>

@@ -67,7 +67,7 @@ export const OnePolygon = memo(({ polygon }: OnePolygonProps) => {
           {polygon.name}
         </div>
         <div>
-          {`Материал: ${polygon.sequence === null ? 'Материал не выбрана' : polygon.sequence.name}`}
+          {`Материал: ${polygon.sequence === null ? 'Материал не выбрана' : polygon.sequence_details.name}`}
         </div>
         <div>
           {`Площадь блока: ${(+polygon.square).toFixed(2)} Га`}

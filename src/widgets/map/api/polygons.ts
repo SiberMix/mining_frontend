@@ -6,13 +6,13 @@ export const polygonsService = {
   * Получаем блокы
   * */
   getPolygons: () => {
-    return axiosInstance.get('/polygons/')
+    return axiosInstance.get('/property_manager/polygons/')
   },
   /*
   * Получение блока по айди
   * */
   getPolygonById: (id: string | number) => {
-    return axiosInstance.get(`/polygons/${id}/`)
+    return axiosInstance.get(`/property_manager/polygons/${id}/`)
   },
   /*
   * Редактируем данные о блоке по айди
@@ -21,18 +21,18 @@ export const polygonsService = {
     polygonId,
     newOption
   }: EditPolygonData) => {
-    return axiosInstance.put(`/polygons/${polygonId}/`, newOption)
+    return axiosInstance.put(`/property_manager/polygons/${polygonId}/`, newOption)
   },
   /*
   * добавление нового блока
   * */
   addNewPolygon: (updatedPolygonData: any) => {
-    return axiosInstance.post('/polygons/', updatedPolygonData)
+    return axiosInstance.post('/property_manager/polygons/', updatedPolygonData)
   },
   /*
   * Удаление блока по Id
   * */
   removePolygonById: (id: string | number) => {
-    return axiosInstance.delete(`/polygons/${id}/`)
+    return axiosInstance.delete(`/property_manager/polygons/${id}/`)
   }
 }

@@ -234,14 +234,14 @@ export const postNewPolygon = createAsyncThunk(
   ({
     coords,
     name,
-    activeStatus = 1,
+    is_active = 1,
     sequence
   }: PostNewPolygonData) => {
     return toast.promise(
       mapService.addNewPolygon({
         coords,
         name,
-        activeStatus,
+        is_active,
         sequence
       }),
       {
@@ -342,7 +342,7 @@ export type PostNewPolygonData = {
   coords: [number, number][][],
   name: string,
   sequence: string,
-  activeStatus?: number
+  is_active?: number
 }
 export type EditPolygonData = {
   polygonId: number,
@@ -381,17 +381,16 @@ export type EquipEventsSocketData = {
 export type EquipStatus = 'Idle' | 'Active' | 'Offline'
 
 export type PolygonType = {
-  id: number | string,
-  coords: [number, number][][],
-  name: string,
-  middle_coord: [number, number],
-  activeStatus: number,
-  sequence: {
-    id: string,
-    name: string,
-    color: string
-  },
-  square: string
+  id: number | string;
+  coords: [number, number][][];
+  name: string;
+  middle_coord: [number, number];
+  is_active: number;
+  sequence: string;
+  sequence_details: {
+    name: string
+  };
+  square: string;
 };
 
 export type Equip = {
