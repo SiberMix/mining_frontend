@@ -2,15 +2,15 @@ import './SettingsGeneral.scss'
 
 import { useField } from 'formik'
 import React, { memo } from 'react'
+import { useTranslation } from 'react-i18next'
 
+import { MonitoringConfigEnum } from '~features/navbar'
 import { SimpleSelect } from '~shared/ui/simple-select'
-import { MonitoringConfigEnum } from '~features/navbar';
-import { useTranslation } from 'react-i18next';
 
 export const SettingsGeneral = memo(() => {
   const [field, _, helpers] = useField('monitoringStartMenuSection')
   // Создаем массив с использованием функции t
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   const startSidebarOptions: Array<{ value: MonitoringConfigEnum | null, label: string }> = [
     {
       value: null,
@@ -36,7 +36,7 @@ export const SettingsGeneral = memo(() => {
       value: MonitoringConfigEnum.field_list,
       label: t('Материалы')
     }
-  ];
+  ]
   const initialStartSidebarOptions = startSidebarOptions.find(option => option.value === field?.value)
 
   return (
@@ -44,7 +44,7 @@ export const SettingsGeneral = memo(() => {
       <div className='settingsGeneral'>
         <div className='settingsGeneralSidebar'>
           <span>
-            {t("Стартовая страница меню")}
+            {t('Стартовая страница меню')}
           </span>
           <SimpleSelect
             options={startSidebarOptions}

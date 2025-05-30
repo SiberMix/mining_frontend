@@ -1,18 +1,57 @@
 .settingsGeneral {
-
   &Wrapper {
     display: flex;
-    justify-content: left;
-    align-items: center;
+    gap: 40px;
+    align-items: flex-start;
     color: #B8B8B8;
+    padding: 20px 0;
   }
 
   &Sidebar {
     display: flex;
     align-items: center;
-
     span {
       margin-right: 10px;
+      min-width: 150px;
+      font-weight: 600;
+      color: #444;
+    }
+  }
+
+  &Company {
+    flex-grow: 1;
+    max-width: 600px;
+
+    h3 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    &__field {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 15px;
+    }
+
+    &__label {
+      margin-bottom: 5px;
+      font-weight: 600;
+      color: #555;
+    }
+
+    &__input {
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+      color: #222;
+      resize: vertical;
+
+      &:focus {
+        outline: none;
+        border-color: #4a90e2;
+        box-shadow: 0 0 3px rgba(74, 144, 226, 0.5);
+      }
     }
   }
 }
