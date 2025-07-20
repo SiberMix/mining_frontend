@@ -56,7 +56,7 @@ export const MapViewSelect = () => {
 
   async function fetchNdviImages(lat: number, lng: number): Promise<string[]> {
     const response = await fetch(
-      'http://localhost:8000/api/v1/playbacks/ndvi/',
+      'http://myhectare.ru:8000/api/v1/playbacks/ndvi/',
       {
         method: 'POST',
         headers: {

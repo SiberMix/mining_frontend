@@ -17,7 +17,7 @@ export const usePermissions = () => {
   useEffect(() => {
     const fetchPermissions = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/v1/users/permissions/');
+        const response = await axios.get('http://myhectare.ru:8000/api/v1/users/permissions/');
         setPermissions(response.data as Permissions)
       } catch (err) {
         setError('Не удалось загрузить права доступа');
